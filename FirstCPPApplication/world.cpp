@@ -19,7 +19,7 @@ Map::~Map()
 
 int Map::build(Person *thePerson)
 {
-	width = 5;
+	width = 10;
 	height = 5;
 
 	tileArray = new Tile[width*height];
@@ -50,8 +50,8 @@ int Map::build(Person *thePerson)
 		}
 	}
 
-	tempchar = tileArray[thePerson->x+(thePerson->y*height)].representation;
-	tileArray[thePerson->x+(thePerson->y*height)].representation = 'O';
+	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
+	tileArray[thePerson->x+(thePerson->y*width)].representation = 'O';
 
 	return 1;
 }
@@ -64,9 +64,11 @@ int Map::draw(Person *thePerson)
 	{
 		cout << endl;
 		for(j=0; j<width;j++)
-			cout << tileArray[(i*height)+j].representation;
+		{
+			cout << tileArray[(i*width)+j].representation;
+		}
 	}
-	cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*height)].description;
+	cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
 	cout << endl << endl;
 	return 1;
 }
@@ -74,11 +76,11 @@ int Map::draw(Person *thePerson)
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
 {
 	if(thePerson->x+x2 < width && thePerson->x+x2 > -1 &&
-		thePerson->y+y2 < height && thePerson->y+y2 > -1 && tileArray[thePerson->x+x2+((thePerson->y+y2)*height)].collidable == false)
+		thePerson->y+y2 < height && thePerson->y+y2 > -1 && tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable == false)
 	{
-		tileArray[thePerson->x+(thePerson->y*height)].representation = tempchar;
-		tempchar = tileArray[thePerson->x+x2+((thePerson->y+y2)*height)].representation;
-		tileArray[thePerson->x+x2+((thePerson->y+y2)*height)].representation = 'O';
+		tileArray[thePerson->x+(thePerson->y*width)].representation = tempchar;
+		tempchar = tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation;
+		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation = 'O';
 		return true;
 	}
 	else
