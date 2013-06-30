@@ -9,8 +9,11 @@
 #include "Person.h"
 #include "Pet.h"
 #include "FirstCPPApplication.h"
+#include "world.h"
 
+using namespace std;
 
+Map newmap;
 
 void WelcomeMessage(){
 
@@ -21,6 +24,69 @@ void WelcomeMessage(){
 
 };
 
+void process_request(string request, Person *player)
+{
+	if(request == "test")
+	{
+		cout << "I see you testin'" << endl;
+	}
+
+	// Movement || N, S, E, W ||
+
+	else if(request == "north" || request == "n")
+	{
+		if(newmap.movePlayer(player, 0, -1))
+			player->y--;
+	}
+
+	else if(request == "south" || request == "s")
+	{
+		if(newmap.movePlayer(player, 0, 1))
+			player->y++;
+	}
+
+	else if(request == "east" || request == "e")
+	{
+		if(newmap.movePlayer(player, 1, 0))
+			player->x++;
+	}
+
+	else if(request == "west" || request == "w")
+	{
+		if(newmap.movePlayer(player, -1, 0))
+			player->x--;
+	}
+
+	else if(request == "warp" || request == "r")
+	{
+		// currentmap = MAP_ARRAY[tileArray[thePerson->x+(thePerson->y*height)].warpMap]
+		// player->x = currentmap->startx;
+		// player->y = currentmap->starty;
+	}
+
+	else if(request == "help" || request == "h")
+	{
+		cout << "-------------------" << endl;
+		cout << "Available Commands:" << endl;
+		cout << "[H]elp	-	See Help" <<endl;
+		cout << "[N]orth	-	Move North" <<endl;
+		cout << "[S]outh	-	Move South" <<endl;
+		cout << "[E]ast	-	Move East" <<endl;
+		cout << "[W]est	-	Move West" <<endl;
+		cout << "[Q]uit	-	Quit" <<endl;
+		cout << "-------------------" << endl;
+	}
+
+	else if(request == "quit" || request == "q")
+	{
+		exit(1);
+	}
+	else
+	{
+		cout << endl << "command not found" << endl << "Try 'help' for list of commands" << endl;
+	}
+}
+
 int main ()
 {
     WelcomeMessage();
@@ -29,6 +95,10 @@ int main ()
     Person player1;
     player1.name = "Josh";
     player1.age = 23;
+	player1.x = 3;
+	player1.y = 3;
+
+	newmap.build(&player1);
 
     Pet p1_pet;
     p1_pet.master = &player1;
@@ -46,10 +116,15 @@ int main ()
     bool battle_done = false;
     while (!battle_done){
 
-        std::string answer = ask_for_str("Fight?\n");
+		newmap.draw(&player1);
+        std::string answer = ask_for_str("What would you like to do?\n");
+		system("cls");
+		WelcomeMessage();
         answer = ToLower(answer);
 
-        if (answer == "n" || answer == "no"){
+		process_request(answer, &player1);
+
+       /* if (answer == "n" || answer == "no"){
             battle_done = true;
             printf("Fine be that way\n");
             break;
@@ -57,7 +132,7 @@ int main ()
 
         int damage  = ask_for_int("how much damage do you deal?\n");
         p1_pet.Attack(&enemy_pet, damage);
-
+	  */
     }
 
     //attack player
