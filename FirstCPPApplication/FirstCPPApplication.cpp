@@ -58,8 +58,6 @@ void Pet::Attack(Pet* ptr_target, int dmg){
     cout << "About to attack " << (*ptr_target).name << endl;
     ptr_target->TakeDamage(dmg);
 
-
-
 };
 
 void Pet::TakeDamage(int dmg){
@@ -67,6 +65,10 @@ void Pet::TakeDamage(int dmg){
     printf("%d\n", cur_hp);
     cur_hp-=dmg;
     cout << name << " at " << cur_hp << " health left!" << endl;
+
+    if (cur_hp <= 0){
+        printf("OH NO I\"M DEAD\n");
+    }
 }
 
 void print_str_array(string msg_list[], int len){
@@ -126,6 +128,8 @@ int main ()
     //attack enemy
     cout << &enemy_pet << endl;
     p1_pet.Attack(&enemy_pet, 10);
+
+    //do BATTLE one way
 
     //attack player
 
