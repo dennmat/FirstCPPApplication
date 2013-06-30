@@ -4,8 +4,10 @@
 #include <typeinfo>
 #include <cstdlib>
 #include <algorithm>
+
 #include "Person.h"
 #include "Pet.h"
+#include "FirstCPPApplication.h"
 
 
 
@@ -37,7 +39,7 @@ void print_str_array(std::string msg_list[], int len){
     };
 };
 
-int ask_for_int(std::string msg, int default_int=0){
+int ask_for_int(std::string msg, int default_int){
 
     // std::cout << msg << std::endl;
     std::cout << msg << std::endl << ">>> ";
@@ -52,7 +54,7 @@ int ask_for_int(std::string msg, int default_int=0){
     }
 };
 
-std::string ask_for_str(std::string msg, std::string default_str="STRING"){
+std::string ask_for_str(std::string msg, std::string default_str){
 
     std::cout << msg << std::endl << ">>> ";
     std::string str_answer;
