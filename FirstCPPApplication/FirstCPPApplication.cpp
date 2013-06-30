@@ -3,6 +3,7 @@
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
+#include <algorithm>
 
 using namespace std;
 
@@ -19,11 +20,15 @@ class Pet{
     int cur_hp;
     Person* master;
 
+    bool is_dead;
+
     Pet (string name, int max_hp);
     Pet::Pet();
+    // Pet::Init();
     void Pet::Attack(Pet* target, int dmg);
     void Pet::TakeDamage(int dmg);
     void printout();
+    bool Pet::CheckDeath();
 };
 
 void Pet::printout(){
@@ -34,12 +39,32 @@ void Pet::printout(){
 
 };
 
+void WelcomeMessage(){
+
+    printf("\t\tWELCOME TO THE GAME!\n");
+    printf("\t\t********************\n");
+    // printf("\n\n");
+    printf("\n\t\t   Prepare to die!\n\n");
+
+};
+
+string ToLower(string data){
+	std::transform(data.begin(), data.end(), data.begin(), ::tolower);
+    return data;
+};
+
+string ToUpper(string data){
+	std::transform(data.begin(), data.end(), data.begin(), ::toupper);
+    return data;
+};
+
 Pet::Pet(){
-    name = "Unamed Pet";
+    name = "Nameless Pet";
     max_hp = 100;
     cur_hp = max_hp;
 
     master = NULL;
+    is_dead = false;
 };
 
 Pet::Pet(string name, int max_hp){
@@ -48,6 +73,8 @@ Pet::Pet(string name, int max_hp){
     max_hp = max_hp;
 
     master = NULL;
+    is_dead = false;
+
 
 };
 
@@ -58,30 +85,44 @@ void Pet::Attack(Pet* ptr_target, int dmg){
     cout << "About to attack " << (*ptr_target).name << endl;
     ptr_target->TakeDamage(dmg);
 
+    bool boo = ptr_target->CheckDeath();
+    if (boo){
+        printf("AHAAHAHA, you're dead bro, that's got to feel bad.\n");
+    };
+
 };
 
 void Pet::TakeDamage(int dmg){
-    printf("%d\n", dmg);
-    printf("%d\n", cur_hp);
+    printf("About to take %d damage! ", dmg);
+    printf("With %d hp.\n", cur_hp);
     cur_hp-=dmg;
     cout << name << " at " << cur_hp << " health left!" << endl;
 
-    if (cur_hp <= 0){
-        printf("OH NO I\"M DEAD\n");
+    CheckDeath();
+
+};
+
+bool Pet::CheckDeath(){
+    if (cur_hp <= 0  && !is_dead){
+	printf("OH NO I\"M DEAD\n");
+	is_dead = true;
     }
-}
+    return is_dead;
+
+};
 
 void print_str_array(string msg_list[], int len){
 
     cout << len << endl;
     for (int i = 0; i < len; i++){
     cout << msg_list[i] << endl;
-    }
+    };
 };
 
 int ask_for_int(string msg, int default_int=0){
 
-    cout << msg << endl;
+    // cout << msg << endl;
+    cout << msg << endl << ">>> ";
     string str_answer;
     getline(cin, str_answer);
     if (str_answer == ""){
@@ -95,7 +136,7 @@ int ask_for_int(string msg, int default_int=0){
 
 string ask_for_str(string msg, string default_str="STRING"){
 
-    cout << msg << endl;
+    cout << msg << endl << ">>> ";
     string str_answer;
     getline(cin, str_answer);
 
@@ -109,6 +150,7 @@ string ask_for_str(string msg, string default_str="STRING"){
 
 int main ()
 {
+    WelcomeMessage();
 
     //init player
     Person player1;
@@ -125,9 +167,6 @@ int main ()
     enemy_player.name = "Max";
     enemy_player.age = 50;
 
-    //attack enemy
-    cout << &enemy_pet << endl;
-    p1_pet.Attack(&enemy_pet, 10);
 
     //do BATTLE one way
 
@@ -135,6 +174,7 @@ int main ()
     while (!battle_done){
 
         string answer = ask_for_str("Fight?\n");
+        answer = ToLower(answer);
 
         if (answer == "n" || answer == "no"){
             battle_done = true;
