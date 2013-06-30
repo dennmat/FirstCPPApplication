@@ -131,6 +131,22 @@ int main ()
 
     //do BATTLE one way
 
+    bool battle_done = false;
+    while (!battle_done){
+
+        string answer = ask_for_str("Fight?\n");
+
+        if (answer == "n" || answer == "no"){
+            battle_done = true;
+            printf("Fine be that way\n");
+            break;
+        }
+
+        int damage  = ask_for_int("how much damage do you deal?\n");
+        p1_pet.Attack(&enemy_pet, damage);
+
+    }
+
     //attack player
 
 
