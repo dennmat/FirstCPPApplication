@@ -46,8 +46,8 @@ int Map::build(Person *thePerson)
 		{
 			getline (myfile,line);
 			test = (char*)line.c_str();
-			tileArray[i].representation = *test;	// this makes a copy of test and stores it in tilearray. otherwise once we
-													// go out of scope, the pointer would point to garbage.
+			tileArray[i].representation = test[0];
+													
 			getline (myfile,line);
 			tileArray[i].collidable = atoi(line.c_str());
 			getline (myfile,line);
