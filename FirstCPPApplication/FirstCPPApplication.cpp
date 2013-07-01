@@ -113,6 +113,7 @@ int main ()
 
     //do BATTLE one way
 
+
     bool battle_done = false;
     while (!battle_done){
 

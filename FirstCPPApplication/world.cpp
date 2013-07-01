@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
@@ -19,35 +20,43 @@ Map::~Map()
 
 int Map::build(Person *thePerson)
 {
-	width = 10;
-	height = 5;
-
-	tileArray = new Tile[width*height];
-
-	int i;
-	for(i=0; i<width*height; i++)
+	string line;
+	ifstream myfile ("office.txt");
+	if (myfile.is_open())
 	{
-		if(i==4)
+		// get width
+		getline (myfile,line);
+		width = atoi(line.c_str());
+		
+		// get height
+		getline (myfile,line);
+		height = atoi(line.c_str());
+		
+		// get default tile description
+		getline (myfile,line);
+		description = new char[255];
+		strcpy(description, line.c_str());
+		
+
+		tileArray = new Tile[width*height];
+
+		int i=0;
+		char *test;
+		while ( myfile.good() )
 		{
-			tileArray[i].collidable=true;
-			tileArray[i].representation='X';
-			tileArray[i].type=0;
-			tileArray[i].description="A large bookshelf blocks your path.";
+			getline (myfile,line);
+			test = (char*)line.c_str();
+			tileArray[i].representation = *test;	// this makes a copy of test and stores it in tilearray. otherwise once we
+													// go out of scope, the pointer would point to garbage.
+			getline (myfile,line);
+			tileArray[i].collidable = atoi(line.c_str());
+			getline (myfile,line);
+
+			tileArray[i].description = new char[line.length()];
+			strcpy(tileArray[i].description, line.c_str());
+			i++;
 		}
-		else if(i==6) 
-		{
-			tileArray[i].collidable=false;
-			tileArray[i].representation='P';
-			tileArray[i].type=1;
-			tileArray[i].description="This is a warp tile. Type Wa[R]p to warp";
-		}
-		else
-		{
-			tileArray[i].collidable=false;
-			tileArray[i].representation='#';
-			tileArray[i].type=0;
-			tileArray[i].description="You are standing in Empty Space";
-		}
+		myfile.close();
 	}
 
 	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
@@ -68,7 +77,12 @@ int Map::draw(Person *thePerson)
 			cout << tileArray[(i*width)+j].representation;
 		}
 	}
-	cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
+
+	if(strcmp(tileArray[thePerson->x+(thePerson->y*width)].description, "none") == 1)
+		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
+	else
+		cout << endl << endl << "Tile Description:" << endl << description;
+
 	cout << endl << endl;
 	return 1;
 }

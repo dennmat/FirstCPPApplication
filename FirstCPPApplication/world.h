@@ -49,6 +49,7 @@ class Map
 		// allocated in the life of the instance.
 		Map();
 		~Map();
+		char *description; // default description if tile does not have one
 		int build(Person *thePerson);
 		int draw(Person *thePerson);
 		int width, height;
