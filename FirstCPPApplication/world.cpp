@@ -17,7 +17,7 @@ Map::~Map()
 	free(tileArray);
 }
 
-int Map::build(Person *thePerson)
+int Map::build(Person *thePerson, Person *theEnemy)
 {
 	width = 10;
 	height = 5;
@@ -53,6 +53,9 @@ int Map::build(Person *thePerson)
 	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
 	tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
 
+	tileArray[theEnemy->x+(theEnemy->y*width)].representation = theEnemy->representation;
+
+
 	return 1;
 }
 
@@ -79,8 +82,13 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 		thePerson->y+y2 < height && thePerson->y+y2 > -1 &&
         tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable == false)
 	{
+        //reset tile to what it was before
 		tileArray[thePerson->x+(thePerson->y*width)].representation = tempchar;
+		tileArray[thePerson->x+(thePerson->y*width)].collidable = false;
+
+        //make the player's tile collidable and make it look like him
 		tempchar = tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation;
+		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable = true;
 		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation = thePerson->representation;
 
         //the blank space for the command output

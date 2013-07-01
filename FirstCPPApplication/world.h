@@ -49,7 +49,7 @@ class Map
 		// allocated in the life of the instance.
 		Map();
 		~Map();
-		int build(Person *thePerson);
+		int build(Person *thePerson, Person *theEnemy);
 		int draw(Person *thePerson);
 		int width, height;
 		bool movePlayer(Person *thePerson, int x2, int y2);
