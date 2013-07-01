@@ -131,14 +131,6 @@ void process_request(string request, Person *player)
 int main ()
 {
 
-    std::string arr[] = {"first", "Second", "third", "fourth"};
-
-    // std::string* res;
-    // res = find(arr, arr+3, "first");
-
-    cout << sizeof(arr)/sizeof(string) << endl;
-
-
     WelcomeMessage();
 
     //init player
