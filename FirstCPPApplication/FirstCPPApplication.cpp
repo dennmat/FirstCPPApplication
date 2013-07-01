@@ -139,6 +139,7 @@ int main ()
     player1.age = 23;
 	player1.x = 3;
 	player1.y = 3;
+    player1.representation = '@';
 
 	newmap.build(&player1);
 

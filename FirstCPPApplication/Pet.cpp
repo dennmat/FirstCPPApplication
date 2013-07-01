@@ -24,14 +24,18 @@ Pet::Pet(){
     max_hp = 100;
     cur_hp = max_hp;
 
+    representation = 'p';
+
     master = NULL;
     is_dead = false;
 };
 
-Pet::Pet(string name, int max_hp){
+Pet::Pet(string name, int max_hp, char representation ){
     name = name;
     cur_hp = max_hp;
     max_hp = max_hp;
+
+    representation = representation;
 
     master = NULL;
     is_dead = false;

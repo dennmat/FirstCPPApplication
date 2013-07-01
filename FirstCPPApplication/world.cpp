@@ -37,21 +37,21 @@ int Map::build(Person *thePerson)
 		else if(i==6) 
 		{
 			tileArray[i].collidable=false;
-			tileArray[i].representation='P';
+			tileArray[i].representation='W';
 			tileArray[i].type=1;
 			tileArray[i].description="This is a warp tile. Type Wa[R]p to warp";
 		}
 		else
 		{
 			tileArray[i].collidable=false;
-			tileArray[i].representation='#';
+			tileArray[i].representation='.';
 			tileArray[i].type=0;
 			tileArray[i].description="You are standing in Empty Space";
 		}
 	}
 
 	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
-	tileArray[thePerson->x+(thePerson->y*width)].representation = 'O';
+	tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
 
 	return 1;
 }
@@ -76,11 +76,12 @@ int Map::draw(Person *thePerson)
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
 {
 	if(thePerson->x+x2 < width && thePerson->x+x2 > -1 &&
-		thePerson->y+y2 < height && thePerson->y+y2 > -1 && tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable == false)
+		thePerson->y+y2 < height && thePerson->y+y2 > -1 &&
+        tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable == false)
 	{
 		tileArray[thePerson->x+(thePerson->y*width)].representation = tempchar;
 		tempchar = tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation;
-		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation = 'O';
+		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation = thePerson->representation;
 
         //the blank space for the command output
         cout << endl << endl << endl;

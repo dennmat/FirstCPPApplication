@@ -7,10 +7,11 @@ class Pet{
     int max_hp;
     int cur_hp;
     Person* master;
+    char representation;
 
     bool is_dead;
 
-    Pet (std::string name, int max_hp);
+    Pet (std::string name, int max_hp, char representation = 'p');
     Pet::Pet();
     // Pet::Init();
     void Pet::Attack(Pet* target, int dmg);
