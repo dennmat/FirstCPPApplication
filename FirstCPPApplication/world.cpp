@@ -95,6 +95,10 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 		tileArray[thePerson->x+(thePerson->y*width)].representation = tempchar;
 		tempchar = tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation;
 		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation = 'O';
+
+        //the blank space for the command output
+        cout << endl << endl << endl;
+
 		return true;
 	}
 	else
@@ -104,6 +108,10 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 		{
 			cout << tileArray[thePerson->x+x2+((thePerson->y+y2)*height)].description << endl;
 		}
+        else
+        {  // more blank space
+            cout << endl;
+        }
 		return false;
 	}
 }

@@ -4,14 +4,47 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-GetArea	FirstCPPApplication.cpp	/^int Rect::GetArea(){$/;"	f	class:Rect
-HELLO	FirstCPPApplication.cpp	6;"	d	file:
-Person	FirstCPPApplication.cpp	/^class Person{$/;"	c	file:
-Rect	FirstCPPApplication.cpp	/^Rect::Rect(int a, int b){$/;"	f	class:Rect
-Rect	FirstCPPApplication.cpp	/^class Rect{$/;"	c	file:
-age	FirstCPPApplication.cpp	/^        int age;$/;"	m	class:Person	file:
-ask_for_int	FirstCPPApplication.cpp	/^int ask_for_int(string msg){$/;"	f
-height	FirstCPPApplication.cpp	/^    int height;$/;"	m	class:Rect	file:
+Attack	Pet.cpp	/^void Pet::Attack(Pet* ptr_target, int dmg){$/;"	f	class:Pet
+CheckDeath	Pet.cpp	/^bool Pet::CheckDeath(){$/;"	f	class:Pet
+Map	world.cpp	/^Map::Map()$/;"	f	class:Map
+Map	world.h	/^class Map$/;"	c
+Person	Person.h	/^class Person{$/;"	c
+Pet	Pet.cpp	/^Pet::Pet(){$/;"	f	class:Pet
+Pet	Pet.cpp	/^Pet::Pet(string name, int max_hp){$/;"	f	class:Pet
+Pet	Pet.h	/^class Pet{$/;"	c
+TILE_NORMAL	world.h	27;"	d
+TILE_WALL	world.h	28;"	d
+TakeDamage	Pet.cpp	/^void Pet::TakeDamage(int dmg){$/;"	f	class:Pet
+Tile	world.h	/^class Tile$/;"	c
+ToLower	utils.cpp	/^std::string ToLower(std::string data){$/;"	f
+ToUpper	utils.cpp	/^std::string ToUpper(std::string data){$/;"	f
+WORLD_H	world.h	2;"	d
+WelcomeMessage	FirstCPPApplication.cpp	/^void WelcomeMessage(){$/;"	f
+age	Person.h	/^    int age;$/;"	m	class:Person
+ask_for_int	utils.cpp	/^int ask_for_int(std::string msg, int default_int){$/;"	f
+ask_for_str	utils.cpp	/^std::string ask_for_str(std::string msg, std::string default_str){$/;"	f
+build	world.cpp	/^int Map::build(Person *thePerson)$/;"	f	class:Map
+collidable	world.h	/^		bool collidable;		\/\/ whether or not this tile cannot be walked on$/;"	m	class:Tile
+cur_hp	Pet.h	/^    int cur_hp;$/;"	m	class:Pet
+description	world.h	/^		char *description;$/;"	m	class:Tile
+draw	world.cpp	/^int Map::draw(Person *thePerson)$/;"	f	class:Map
+height	world.h	/^		int width, height;$/;"	m	class:Map
+is_dead	Pet.h	/^    bool is_dead;$/;"	m	class:Pet
 main	FirstCPPApplication.cpp	/^int main ()$/;"	f
-name	FirstCPPApplication.cpp	/^        string name;$/;"	m	class:Person	file:
-width	FirstCPPApplication.cpp	/^    int width;$/;"	m	class:Rect	file:
+master	Pet.h	/^    Person* master;$/;"	m	class:Pet
+max_hp	Pet.h	/^    int max_hp;$/;"	m	class:Pet
+movePlayer	world.cpp	/^bool Map::movePlayer(Person *thePerson, int x2, int y2)$/;"	f	class:Map
+name	Person.h	/^    std::string name;$/;"	m	class:Person
+name	Pet.h	/^    std::string name;$/;"	m	class:Pet
+print_str_array	utils.cpp	/^void print_str_array(std::string msg_list[], int len){$/;"	f
+printout	Pet.cpp	/^void Pet::printout(){$/;"	f	class:Pet
+process_request	FirstCPPApplication.cpp	/^void process_request(string request, Person *player)$/;"	f
+representation	world.h	/^		char representation;	\/\/ the character that represents this tile$/;"	m	class:Tile
+tempchar	world.h	/^		char tempchar;$/;"	m	class:Map
+tileArray	world.h	/^		Tile *tileArray;$/;"	m	class:Map
+type	world.h	/^		int type;				\/\/ type of tile$/;"	m	class:Tile
+warpMap	world.h	/^		int warpMap;			\/\/ if this is a warp tile, index of the map to warp to$/;"	m	class:Tile
+width	world.h	/^		int width, height;$/;"	m	class:Map
+x	Person.h	/^	int x,y;$/;"	m	class:Person
+y	Person.h	/^	int x,y;$/;"	m	class:Person
+~Map	world.cpp	/^Map::~Map()$/;"	f	class:Map

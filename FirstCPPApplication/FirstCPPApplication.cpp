@@ -24,16 +24,12 @@ void WelcomeMessage(){
 
 };
 
-void process_request(string request, Person *player)
+void process_movement(string request, Person *player)
 {
-	if(request == "test")
-	{
-		cout << "I see you testin'" << endl;
-	}
 
 	// Movement || N, S, E, W ||
 
-	else if(request == "north" || request == "n")
+    if(request == "north" || request == "n")
 	{
 		if(newmap.movePlayer(player, 0, -1))
 			player->y--;
@@ -56,6 +52,50 @@ void process_request(string request, Person *player)
 		if(newmap.movePlayer(player, -1, 0))
 			player->x--;
 	}
+
+};
+
+bool is_request_move_cmd(string request){
+
+    bool is_move_cmd;
+    is_move_cmd = false;
+
+    string move_cmds[] = { "north", "n",
+                            "south", "s",
+                            "east", "e",
+                            "west", "w",
+                            "noop"
+                        };
+    int move_cmds_size = sizeof(move_cmds)/sizeof(string);
+
+    string* result;
+    result = find(move_cmds, move_cmds+(move_cmds_size-1), request);
+
+    if (*result != "noop")
+    {
+        is_move_cmd = true;
+    }
+
+    return is_move_cmd;
+
+};
+
+void process_request(string request, Person *player)
+{
+
+    //determine if movement command
+    bool is_move_cmd;
+    is_move_cmd = is_request_move_cmd(request);
+
+	if(request == "test")
+	{
+		cout << "I see you testin'" << endl;
+	}
+
+
+    if(is_move_cmd){
+        process_movement(request, player);
+    }
 
 	else if(request == "warp" || request == "r")
 	{
@@ -83,12 +123,22 @@ void process_request(string request, Person *player)
 	}
 	else
 	{
-		cout << endl << "command not found" << endl << "Try 'help' for list of commands" << endl;
+		cout << endl << "command not found" << endl;
+        cout << "Try 'help' for list of commands" << endl;
 	}
 }
 
 int main ()
 {
+
+    std::string arr[] = {"first", "Second", "third", "fourth"};
+
+    // std::string* res;
+    // res = find(arr, arr+3, "first");
+
+    cout << sizeof(arr)/sizeof(string) << endl;
+
+
     WelcomeMessage();
 
     //init player
@@ -110,11 +160,14 @@ int main ()
     enemy_player.name = "Max";
     enemy_player.age = 50;
 
-
-    //do BATTLE one way
+    // save space for the command output
+    cout << endl;
+    cout << endl;
+    cout << endl;
 
 
     bool battle_done = false;
+
     while (!battle_done){
 
 		newmap.draw(&player1);
