@@ -83,7 +83,8 @@ void process_request(string request, Person *player)
 	}
 	else
 	{
-		cout << endl << "command not found" << endl << "Try 'help' for list of commands" << endl;
+		cout << endl << "command not found" << endl;
+        cout << "Try 'help' for list of commands" << endl;
 	}
 }
 
@@ -110,10 +111,13 @@ int main ()
     enemy_player.name = "Max";
     enemy_player.age = 50;
 
-
-    //do BATTLE one way
+    // save space for the command output
+    cout << endl;
+    cout << endl;
+    cout << endl;
 
     bool battle_done = false;
+
     while (!battle_done){
 
 		newmap.draw(&player1);
