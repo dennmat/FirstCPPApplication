@@ -78,35 +78,45 @@ int Map::draw(Person *thePerson)
 
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
 {
-	if(thePerson->x+x2 < width && thePerson->x+x2 > -1 &&
-		thePerson->y+y2 < height && thePerson->y+y2 > -1 &&
-        tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable == false)
-	{
+    int new_x, new_y; // where the player is intending to go
+    new_x = thePerson->x+x2;
+    new_y = thePerson->y+y2;
+
+    Tile *target_tile; // the tile of the new position
+    target_tile = &tileArray[new_x+((new_y)*width)];
+
+    Tile *player_tile; // the current player position
+    player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
+
+    if(new_x < width && new_x > -1 &&
+            new_y < height && new_y > -1 &&
+            target_tile->collidable == false)
+    {
         //reset tile to what it was before
-		tileArray[thePerson->x+(thePerson->y*width)].representation = tempchar;
-		tileArray[thePerson->x+(thePerson->y*width)].collidable = false;
+        player_tile->representation = tempchar;
+        player_tile->collidable = false;
 
         //make the player's tile collidable and make it look like him
-		tempchar = tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation;
-		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].collidable = true;
-		tileArray[thePerson->x+x2+((thePerson->y+y2)*width)].representation = thePerson->representation;
+        tempchar = target_tile->representation;
+        target_tile->collidable = true;
+        target_tile->representation = thePerson->representation;
 
         //the blank space for the command output
         cout << endl << endl << endl;
 
-		return true;
-	}
-	else
-	{
-		cout << endl << "invalid move" << endl;
-		if(thePerson->x+x2 < width && thePerson->x+x2 > -1 && thePerson->y+y2 < height && thePerson->y+y2 > -1)
-		{
-			cout << tileArray[thePerson->x+x2+((thePerson->y+y2)*height)].description << endl;
-		}
+        return true;
+    }
+    else
+    {
+        cout << endl << "invalid move" << endl;
+        if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
+        {
+            cout << target_tile->description << endl;
+        }
         else
         {  // more blank space
             cout << endl;
         }
-		return false;
-	}
+        return false;
+    }
 }
