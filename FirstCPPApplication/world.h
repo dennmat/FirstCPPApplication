@@ -34,7 +34,9 @@ class Tile
 		char representation;	// the character that represents this tile
 		int warpMap;			// if this is a warp tile, index of the map to warp to
 		int type;				// type of tile
-		char *description;
+		char *description;      // the description of the tile
+        Person *occupant;       // the dude sitting on the tile
+        bool fighter;
 };
 
 

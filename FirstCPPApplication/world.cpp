@@ -14,66 +14,66 @@ Map::Map()
 
 Map::~Map()
 {
-	free(tileArray);
+    free(tileArray);
 }
 
 int Map::build(Person *thePerson, Person *theEnemy)
 {
-	width = 10;
-	height = 5;
+    width = 10;
+    height = 5;
 
-	tileArray = new Tile[width*height];
+    tileArray = new Tile[width*height];
 
-	int i;
-	for(i=0; i<width*height; i++)
-	{
-		if(i==4)
-		{
-			tileArray[i].collidable=true;
-			tileArray[i].representation='X';
-			tileArray[i].type=0;
-			tileArray[i].description="A large bookshelf blocks your path.";
-		}
-		else if(i==6) 
-		{
-			tileArray[i].collidable=false;
-			tileArray[i].representation='W';
-			tileArray[i].type=1;
-			tileArray[i].description="This is a warp tile. Type Wa[R]p to warp";
-		}
-		else
-		{
-			tileArray[i].collidable=false;
-			tileArray[i].representation='.';
-			tileArray[i].type=0;
-			tileArray[i].description="You are standing in Empty Space";
-		}
-	}
+    int i;
+    for(i=0; i<width*height; i++)
+    {
+        if(i==4)
+        {
+            tileArray[i].collidable=true;
+            tileArray[i].representation='X';
+            tileArray[i].type=0;
+            tileArray[i].description="A large bookshelf blocks your path.";
+        }
+        else if(i==6) 
+        {
+            tileArray[i].collidable=false;
+            tileArray[i].representation='W';
+            tileArray[i].type=1;
+            tileArray[i].description="This is a warp tile. Type Wa[R]p to warp";
+        }
+        else
+        {
+            tileArray[i].collidable=false;
+            tileArray[i].representation='.';
+            tileArray[i].type=0;
+            tileArray[i].description="You are standing in Empty Space";
+        }
+    }
 
-	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
-	tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
+    tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
+    tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
 
-	tileArray[theEnemy->x+(theEnemy->y*width)].representation = theEnemy->representation;
+    tileArray[theEnemy->x+(theEnemy->y*width)].representation = theEnemy->representation;
 
 
-	return 1;
+    return 1;
 }
 
 int Map::draw(Person *thePerson)
 {
-	int i,j;
+    int i,j;
 
-	for(i=0; i<height; i++)
-	{
-		cout << endl;
-		for(j=0; j<width;j++)
-		{
-			cout << tileArray[(i*width)+j].representation;
-		}
-	}
-	cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
-	cout << endl << endl;
-	return 1;
+    for(i=0; i<height; i++)
+    {
+        cout << endl;
+        for(j=0; j<width;j++)
+        {
+            cout << tileArray[(i*width)+j].representation;
+        }
+    }
+    cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
+    cout << endl << endl;
+    return 1;
 }
 
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
@@ -95,17 +95,25 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
         //reset tile to what it was before
         player_tile->representation = tempchar;
         player_tile->collidable = false;
+        player_tile->occupant = 0;
+
 
         //make the player's tile collidable and make it look like him
         tempchar = target_tile->representation;
         target_tile->collidable = true;
         target_tile->representation = thePerson->representation;
+        target_tile->occupant = thePerson;
 
         //the blank space for the command output
         cout << endl << endl << endl;
 
         return true;
     }
+    // else if (target_tile->fighter == true)
+    // {
+    //     //there's someone here we want to fight
+
+    // }
     else
     {
         cout << endl << "invalid move" << endl;
