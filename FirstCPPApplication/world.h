@@ -37,6 +37,7 @@ class Tile
 		char *description;      // the description of the tile
         Person *occupant;       // the dude sitting on the tile
         bool fighter;
+        
 };
 
 

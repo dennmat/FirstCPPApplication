@@ -15,7 +15,8 @@ Map::Map()
 
 Map::~Map()
 {
-    free(tileArray);
+    // free(tileArray);
+    cout << "Deleting map" << endl;
 }
 
 int Map::build(Person *thePerson, Person *theEnemy)
@@ -60,7 +61,7 @@ int Map::build(Person *thePerson, Person *theEnemy)
 	}
 
 	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
-	tileArray[thePerson->x+(thePerson->y*width)].representation = 'O';
+	tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
 
 	return 1;
 }
