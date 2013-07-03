@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
@@ -19,61 +20,71 @@ Map::~Map()
 
 int Map::build(Person *thePerson, Person *theEnemy)
 {
-    width = 10;
-    height = 5;
+	string line;
+	ifstream myfile ("office.txt");
+	if (myfile.is_open())
+	{
+		// get width
+		getline (myfile,line);
+		width = atoi(line.c_str());
+		
+		// get height
+		getline (myfile,line);
+		height = atoi(line.c_str());
+		
+		// get default tile description
+		getline (myfile,line);
+		description = new char[255];
+		strcpy(description, line.c_str());
+		
 
-    tileArray = new Tile[width*height];
+		tileArray = new Tile[width*height];
 
-    int i;
-    for(i=0; i<width*height; i++)
-    {
-        if(i==4)
-        {
-            tileArray[i].collidable=true;
-            tileArray[i].representation='X';
-            tileArray[i].type=0;
-            tileArray[i].description="A large bookshelf blocks your path.";
-        }
-        else if(i==6) 
-        {
-            tileArray[i].collidable=false;
-            tileArray[i].representation='W';
-            tileArray[i].type=1;
-            tileArray[i].description="This is a warp tile. Type Wa[R]p to warp";
-        }
-        else
-        {
-            tileArray[i].collidable=false;
-            tileArray[i].representation='.';
-            tileArray[i].type=0;
-            tileArray[i].description="You are standing in Empty Space";
-        }
-    }
+		int i=0;
+		char *test;
+		while ( myfile.good() )
+		{
+			getline (myfile,line);
+			test = (char*)line.c_str();
+			tileArray[i].representation = test[0];
+													
+			getline (myfile,line);
+			tileArray[i].collidable = atoi(line.c_str());
+			getline (myfile,line);
 
-    tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
-    tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
+			tileArray[i].description = new char[line.length()];
+			strcpy(tileArray[i].description, line.c_str());
+			i++;
+		}
+		myfile.close();
+	}
 
-    tileArray[theEnemy->x+(theEnemy->y*width)].representation = theEnemy->representation;
+	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
+	tileArray[thePerson->x+(thePerson->y*width)].representation = 'O';
 
-
-    return 1;
+	return 1;
 }
 
 int Map::draw(Person *thePerson)
 {
-    int i,j;
+	int i,j;
 
-    for(i=0; i<height; i++)
-    {
-        cout << endl;
-        for(j=0; j<width;j++)
-        {
-            cout << tileArray[(i*width)+j].representation;
-        }
-    }
-    cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
-    cout << endl << endl;
-    return 1;
+	for(i=0; i<height; i++)
+	{
+		cout << endl;
+		for(j=0; j<width;j++)
+		{
+			cout << tileArray[(i*width)+j].representation;
+		}
+	}
+
+	if(strcmp(tileArray[thePerson->x+(thePerson->y*width)].description, "none") == 1)
+		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
+	else
+		cout << endl << endl << "Tile Description:" << endl << description;
+
+	cout << endl << endl;
+	return 1;
 }
 
 bool Map::movePlayer(Person *thePerson, int x2, int y2)

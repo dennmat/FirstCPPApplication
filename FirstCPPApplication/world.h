@@ -52,6 +52,7 @@ class Map
 		Map();
 		~Map();
 		int build(Person *thePerson, Person *theEnemy);
+		char *description; // default description if tile does not have one
 		int draw(Person *thePerson);
 		int width, height;
 		bool movePlayer(Person *thePerson, int x2, int y2);
