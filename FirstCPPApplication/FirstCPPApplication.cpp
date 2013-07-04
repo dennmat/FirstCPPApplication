@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <typeinfo>
 #include <cstdlib>
 #include <algorithm>
@@ -13,7 +14,9 @@
 
 using namespace std;
 
+Map *world;
 Map newmap;
+int current_map;
 
 void WelcomeMessage(){
 
@@ -24,6 +27,32 @@ void WelcomeMessage(){
 
 };
 
+void buildworld(Person person1, Person person2)
+{
+	string line;
+	ifstream myfile ("world.txt");
+	int num_of_worlds;
+	int i;
+
+	if (myfile.is_open())
+	{
+		// get width
+		getline (myfile,line);
+		num_of_worlds = atoi(line.c_str());
+
+		world = new Map[num_of_worlds];
+
+		for(i=0;i<num_of_worlds;i++)
+		{
+			// get height
+			getline (myfile,line);
+			world[i].build(&person1, &person2, line);
+		}
+		
+		
+	}
+}
+
 void process_movement(string request, Person *player)
 {
 
@@ -31,25 +60,25 @@ void process_movement(string request, Person *player)
 
     if(request == "north" || request == "n")
     {
-        if(newmap.movePlayer(player, 0, -1))
+        if(world[current_map].movePlayer(player, 0, -1))
             player->y--;
     }
 
     else if(request == "south" || request == "s")
     {
-        if(newmap.movePlayer(player, 0, 1))
+        if(world[current_map].movePlayer(player, 0, 1))
             player->y++;
     }
 
     else if(request == "east" || request == "e")
     {
-        if(newmap.movePlayer(player, 1, 0))
+        if(world[current_map].movePlayer(player, 1, 0))
             player->x++;
     }
 
     else if(request == "west" || request == "w")
     {
-        if(newmap.movePlayer(player, -1, 0))
+        if(world[current_map].movePlayer(player, -1, 0))
             player->x--;
     }
 
@@ -97,12 +126,20 @@ void process_request(string request, Person *player)
         process_movement(request, player);
     }
 
-    // else if(request == "warp" || request == "r")
-    // {
-        // currentmap = MAP_ARRAY[tileArray[thePerson->x+(thePerson->y*height)].warpMap]
-        // player->x = currentmap->startx;
-        // player->y = currentmap->starty;
-    // }
+    else if(request == "warp" || request == "r")
+    {
+		int current_tile = player->x+(player->y*world[current_map].width);
+		
+		if(world[current_map].tileArray[current_tile].tiletype == 2)
+		{
+			current_map = world[current_map].tileArray[current_tile].warpMap;
+		
+			player->x = world[current_map].tileArray[current_tile].warpX;
+			player->y = world[current_map].tileArray[current_tile].warpY;
+			// player->x = currentmap->startx;
+			// player->y = currentmap->starty;
+		}
+    }
 
     else if(request == "help" || request == "h")
     {
@@ -156,7 +193,9 @@ int main ()
     enemy_player.name = "Max";
     enemy_player.age = 50;
 
-    newmap.build(&player1, &enemy_player);
+
+	buildworld(player1, enemy_player);
+    
 
     // save space for the command output
     cout << endl;
@@ -168,7 +207,7 @@ int main ()
 
     while (!battle_done){
 
-        newmap.draw(&player1);
+        world[current_map].draw(&player1);
         std::string answer = ask_for_str("What would you like to do?\n");
         system("cls");
         WelcomeMessage();
