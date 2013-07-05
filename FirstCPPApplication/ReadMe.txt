@@ -1,40 +1,15 @@
-========================================================================
-    CONSOLE APPLICATION : FirstCPPApplication Project Overview
-========================================================================
+========================
+======Build Mode========
+========================
+========================
 
-AppWizard has created this FirstCPPApplication application for you.
+The basic idea behind build mode is to be able to create maps
+using the client instead of writing them out by hand. In order
+to make this easy, I'm just going to modify the existing client and
+add commands that let you change tiles then write the new version
+of the current map out to a file. So i'll need:
+-some sort of buildmode boolean that lets me through walls
+-a "[C]hange tile" command that will let me give all new information to a tile
+-a "Wr[i]te tile" command that writes the map out to a new file
+-a "C[o]py and [P]aste" for tiles
 
-This file contains a summary of what you will find in each of the files that
-make up your FirstCPPApplication application.
-
-
-FirstCPPApplication.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
-
-FirstCPPApplication.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
-
-FirstCPPApplication.cpp
-    This is the main application source file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named FirstCPPApplication.pch and a precompiled types file named StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////
