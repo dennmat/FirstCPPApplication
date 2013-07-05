@@ -36,9 +36,8 @@ int Map::build(Person *thePerson, Person *theEnemy, string filename)
 		
 		// get default tile description
 		getline (myfile,line);
-		description = new char[255];
-		strcpy(description, line.c_str());
-
+		description = line;
+	
 		tileArray = new Tile[width*height];
 
 		int i=0;
@@ -62,14 +61,12 @@ int Map::build(Person *thePerson, Person *theEnemy, string filename)
 				tileArray[i].warpY = atoi(line.c_str());
 
 				getline (myfile,line);
-				tileArray[i].description = new char[line.length()];
-				strcpy(tileArray[i].description, line.c_str());
+				tileArray[i].description = line;
 			}
 			else
 			{
 				getline (myfile,line);
-				tileArray[i].description = new char[line.length()];
-				strcpy(tileArray[i].description, line.c_str());
+				tileArray[i].description = line;
 			}
 
 			i++;
@@ -98,15 +95,8 @@ int Map::draw(Game *theGame)
 				cout << tileArray[(i*width)+j].representation;
 		}
 	}
-	
-	// had to debug an issue involving using strcmp and evaluating by == 1.
-	// turns out it doens't return true or false, it returns 0 if false, and either ><1 based on
-	// the first character that does not match in the first string having a greater or smaller
-	// value than the first character that does not match on the second string.
-	// ~~~~~themoreyouknow~~~~~
-    // very weird
 
-	if(strcmp(tileArray[thePerson->x+(thePerson->y*width)].description, "none") != 0)
+	if(tileArray[thePerson->x+(thePerson->y*width)].description != "none")
 	{
 		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
 	}

@@ -18,6 +18,8 @@ using namespace std;
 Map *world;
 Map newmap;
 int current_map;
+bool buildmode=false;
+Tile clipboard;
 
 void WelcomeMessage(){
 
@@ -61,25 +63,25 @@ void process_movement(string request, Person *player)
 
     if(request == "north" || request == "n")
     {
-	if(world[current_map].movePlayer(player, 0, -1))
+	if(world[current_map].movePlayer(player, 0, -1) || buildmode)
 	    player->y--;
     }
 
     else if(request == "south" || request == "s")
     {
-	if(world[current_map].movePlayer(player, 0, 1))
+	if(world[current_map].movePlayer(player, 0, 1) || buildmode)
 	    player->y++;
     }
 
     else if(request == "east" || request == "e")
     {
-	if(world[current_map].movePlayer(player, 1, 0))
+	if(world[current_map].movePlayer(player, 1, 0) || buildmode)
 	    player->x++;
     }
 
     else if(request == "west" || request == "w")
     {
-	if(world[current_map].movePlayer(player, -1, 0))
+	if(world[current_map].movePlayer(player, -1, 0) || buildmode)
 	    player->x--;
     }
 
@@ -90,12 +92,13 @@ bool is_request_move_cmd(string request){
     bool is_move_cmd;
     is_move_cmd = false;
 
-    string move_cmds[] = { "north", "n",
+	string move_cmds[] = { "north", "n",
 			    "south", "s",
 			    "east", "e",
 			    "west", "w",
 			    "noop"
 			};
+
     int move_cmds_size = sizeof(move_cmds)/sizeof(string);
 
     string* result;
@@ -110,11 +113,78 @@ bool is_request_move_cmd(string request){
 
 };
 
+void process_buildmode(string request, int current_tile)
+{
+	if(request == "change" || request == "c")
+    {
+		// do the stuff to make a new tile
+		cout << "tiletype: ";
+		cin >> world[current_map].tileArray[current_tile].tiletype;
+		if(world[current_map].tileArray[current_tile].tiletype == 2)
+		{
+			cout << "Warp Map: ";
+			cin >> world[current_map].tileArray[current_tile].warpMap;
+			cout << "WarpX: ";
+			cin >> world[current_map].tileArray[current_tile].warpX;
+			cout << "WarpY: ";
+			cin >> world[current_map].tileArray[current_tile].warpY;
+		}
+		cout << endl << "Description: ";
+		getline(cin, world[current_map].tileArray[current_tile].description);	// do this twice because hitting enter... whatever
+		getline(cin, world[current_map].tileArray[current_tile].description);
+		cout << endl << "Representation: ";
+		cin >> world[current_map].tileArray[current_tile].representation;
+	}
+	else if(request == "write" || request == "i")
+    {
+		// Write the map to a file
+		ofstream myfile;
+		string filename;
+		cout << "Filename: ";
+		getline(cin, filename);	// do this twice because hitting enter... whatever
+		myfile.open (filename);
+		int i,j;
+
+		myfile << world[current_map].width << endl;
+		myfile << world[current_map].height << endl;  
+		myfile << world[current_map].description << endl;  
+
+		for(i=0; i<world[current_map].height; i++)
+			for(j=0; j<world[current_map].width; j++)
+			{
+				myfile << world[current_map].tileArray[(i*world[current_map].width)+j].representation << endl;
+				myfile << world[current_map].tileArray[(i*world[current_map].width)+j].tiletype << endl;
+				if(world[current_map].tileArray[(i*world[current_map].width)+j].tiletype == 2)
+				{
+					myfile << world[current_map].tileArray[(i*world[current_map].width)+j].warpMap << endl;
+					myfile << world[current_map].tileArray[(i*world[current_map].width)+j].warpX << endl;
+					myfile << world[current_map].tileArray[(i*world[current_map].width)+j].warpY << endl;
+				}
+				myfile << world[current_map].tileArray[(i*world[current_map].width)+j].description << endl;  
+			}
+		myfile.close();
+	}
+
+	else if(request == "copy" || request == "o")
+    {
+		// Copy a tile
+		clipboard = world[current_map].tileArray[current_tile];
+	}
+
+	else if(request == "paste" || request == "p")
+    {
+		// paste a tile
+		world[current_map].tileArray[current_tile] = clipboard;
+	}
+
+}
+
 void process_request(string request, Person *player)
 {
 
     //determine if movement command
     bool is_move_cmd;
+	int current_tile = player->x+(player->y*world[current_map].width);
     is_move_cmd = is_request_move_cmd(request);
 
     if(request == "test")
@@ -122,14 +192,18 @@ void process_request(string request, Person *player)
 	cout << "I see you testin'" << endl;
     }
 
+	process_buildmode(request, current_tile);
 
-    if(is_move_cmd){
-	process_movement(request, player);
+	if(is_move_cmd){
+		process_movement(request, player);
     }
+	else if(request == "buildmode" || request == "b")
+    {
+		buildmode=!buildmode;
+	}
 
     else if(request == "warp" || request == "r")
     {
-	int current_tile = player->x+(player->y*world[current_map].width);
 	
 	if(world[current_map].tileArray[current_tile].tiletype == 2)
 	{
@@ -144,15 +218,37 @@ void process_request(string request, Person *player)
 
     else if(request == "help" || request == "h")
     {
-	cout << "-------------------" << endl;
-	cout << "Available Commands:" << endl;
-	cout << "[H]elp -   See Help" <<endl;
-	cout << "[N]orth    -   Move North" <<endl;
-	cout << "[S]outh    -   Move South" <<endl;
-	cout << "[E]ast -   Move East" <<endl;
-	cout << "[W]est -   Move West" <<endl;
-	cout << "[Q]uit -   Quit" <<endl;
-	cout << "-------------------" << endl;
+		system("cls");
+		if(buildmode)
+		{
+			cout << "-------------------" << endl;
+			cout << "Available Commands:" << endl;
+			cout << "[H]elp -   See Help" <<endl;
+			cout << "[N]orth    -   Move North" <<endl;
+			cout << "[S]outh    -   Move South" <<endl;
+			cout << "[E]ast -   Move East" <<endl;
+			cout << "[W]est -   Move West" <<endl;
+			cout << "[C]hange - Alter a Tile" <<endl;
+			cout << "Wr[i]te -  Write map to file" <<endl;
+			cout << "C[O]py -	Copy a Tile" <<endl;
+			cout << "[P]aste -	Paste a Tile" <<endl;
+			cout << "[Q]uit -   Quit" <<endl;
+			cout << "-------------------" << endl;
+		}
+		else
+		{
+			cout << "-------------------" << endl;
+			cout << "Available Commands:" << endl;
+			cout << "[H]elp -   See Help" <<endl;
+			cout << "[N]orth    -   Move North" <<endl;
+			cout << "[S]outh    -   Move South" <<endl;
+			cout << "[E]ast -   Move East" <<endl;
+			cout << "[W]est -   Move West" <<endl;
+			cout << "[Q]uit -   Quit" <<endl;
+			cout << "-------------------" << endl;
+		}
+		cin.get();
+		system("cls");
     }
 
     else if(request == "quit" || request == "q")

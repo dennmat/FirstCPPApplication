@@ -39,7 +39,7 @@ class Tile
 		int warpMap;			// if this is a warp tile, index of the map to warp to
 		int warpX, warpY;		// where you warp to in the destination map
 		int type;				// type of tile
-		char *description;      // the description of the tile
+		string description;      // the description of the tile
         Person *occupant;       // the dude sitting on the tile
         bool fighter;
 };
@@ -57,7 +57,7 @@ class Map
 		Map();
 		~Map();
 		int build(Person *thePerson, Person *theEnemy, string filename);
-		char *description; // default description if tile does not have one
+		string description; // default description if tile does not have one
 		int draw(Game *the_game);
 		int width, height;
 		bool movePlayer(Person *thePerson, int x2, int y2);
