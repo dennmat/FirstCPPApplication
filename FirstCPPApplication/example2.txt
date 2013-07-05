@@ -1,6 +1,6 @@
 20
 10
-You are inside an office.
+this is an example file
 #
 1
 This is a wall!
@@ -68,7 +68,7 @@ This is a wall!
 0
 none
 W
-0
+2
 2
 2
 2
@@ -193,9 +193,9 @@ none
 .
 0
 none
-.
-0
-none
+V
+1
+this is a new tile
 .
 0
 none
