@@ -4,7 +4,7 @@
 // if this file is included in more than one file the
 // linker only tried to read it once, and won't show
 // duplicate function definition errors
-
+#include <string>
 #include "Person.h"
 
 /***************************** world.h ******************************
@@ -23,6 +23,7 @@ So the idea here is to have a world, which is a navigatable set of
 dimensional) array of maps would be created, and special "warp" tiles
 on these maps would be used to send the player from one map to another.
 ********************************************************************/
+using namespace std;
 
 #define		TILE_NORMAL		0
 #define		TILE_WALL		1
@@ -30,14 +31,14 @@ on these maps would be used to send the player from one map to another.
 class Tile
 {
 	public:
-		bool collidable;		// whether or not this tile cannot be walked on
+		int tiletype;		// whether or not this tile cannot be walked on
 		char representation;	// the character that represents this tile
 		int warpMap;			// if this is a warp tile, index of the map to warp to
+		int warpX, warpY;		// where you warp to in the destination map
 		int type;				// type of tile
 		char *description;      // the description of the tile
         Person *occupant;       // the dude sitting on the tile
         bool fighter;
-        
 };
 
 
@@ -52,7 +53,7 @@ class Map
 		// allocated in the life of the instance.
 		Map();
 		~Map();
-		int build(Person *thePerson, Person *theEnemy);
+		int build(Person *thePerson, Person *theEnemy, string filename);
 		char *description; // default description if tile does not have one
 		int draw(Person *thePerson);
 		int width, height;

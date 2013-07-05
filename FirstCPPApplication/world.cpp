@@ -19,10 +19,11 @@ Map::~Map()
     cout << "Deleting map" << endl;
 }
 
-int Map::build(Person *thePerson, Person *theEnemy)
+int Map::build(Person *thePerson, Person *theEnemy, string filename)
 {
 	string line;
-	ifstream myfile ("office.txt");
+	ifstream myfile (filename);
+
 	if (myfile.is_open())
 	{
 		// get width
@@ -37,7 +38,6 @@ int Map::build(Person *thePerson, Person *theEnemy)
 		getline (myfile,line);
 		description = new char[255];
 		strcpy(description, line.c_str());
-		
 
 		tileArray = new Tile[width*height];
 
@@ -50,18 +50,33 @@ int Map::build(Person *thePerson, Person *theEnemy)
 			tileArray[i].representation = test[0];
 													
 			getline (myfile,line);
-			tileArray[i].collidable = atoi(line.c_str());
-			getline (myfile,line);
+			tileArray[i].tiletype = atoi(line.c_str());
 
-			tileArray[i].description = new char[line.length()];
-			strcpy(tileArray[i].description, line.c_str());
+			if(tileArray[i].tiletype == 2)
+			{
+				getline (myfile,line);
+				tileArray[i].warpMap = atoi(line.c_str());
+				getline (myfile,line);
+				tileArray[i].warpX = atoi(line.c_str());
+				getline (myfile,line);
+				tileArray[i].warpY = atoi(line.c_str());
+
+				getline (myfile,line);
+				tileArray[i].description = new char[line.length()];
+				strcpy(tileArray[i].description, line.c_str());
+			}
+			else
+			{
+				getline (myfile,line);
+				tileArray[i].description = new char[line.length()];
+				strcpy(tileArray[i].description, line.c_str());
+			}
+
 			i++;
 		}
+
 		myfile.close();
 	}
-
-	tempchar = tileArray[thePerson->x+(thePerson->y*width)].representation;
-	tileArray[thePerson->x+(thePerson->y*width)].representation = thePerson->representation;
 
 	return 1;
 }
@@ -75,12 +90,23 @@ int Map::draw(Person *thePerson)
 		cout << endl;
 		for(j=0; j<width;j++)
 		{
-			cout << tileArray[(i*width)+j].representation;
+			if(j==thePerson->x && i == thePerson->y)
+				cout << '@';
+			else
+				cout << tileArray[(i*width)+j].representation;
 		}
 	}
+	
+	// had to debug an issue involving using strcmp and evaluating by == 1.
+	// turns out it doens't return true or false, it returns 0 if false, and either ><1 based on
+	// the first character that does not match in the first string having a greater or smaller
+	// value than the first character that does not match on the second string.
+	// ~~~~~themoreyouknow~~~~~
 
-	if(strcmp(tileArray[thePerson->x+(thePerson->y*width)].description, "none") == 1)
+	if(strcmp(tileArray[thePerson->x+(thePerson->y*width)].description, "none") != 0)
+	{
 		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
+	}
 	else
 		cout << endl << endl << "Tile Description:" << endl << description;
 
@@ -102,22 +128,23 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&
-            target_tile->collidable == false)
+            target_tile->tiletype == 0 || target_tile->tiletype == 2)
     {
         //reset tile to what it was before
-        player_tile->representation = tempchar;
-        player_tile->collidable = false;
-        player_tile->occupant = 0;
+  //      player_tile->representation = tempchar;
+    //    player_tile->tiletype = 0;
+      //  player_tile->occupant = 0;
 
 
         //make the player's tile collidable and make it look like him
-        tempchar = target_tile->representation;
-        target_tile->collidable = true;
-        target_tile->representation = thePerson->representation;
-        target_tile->occupant = thePerson;
+//        tempchar = target_tile->representation;
+  //      target_tile->tiletype = 1;
+    //    target_tile->representation = thePerson->representation;
+      //  target_tile->occupant = thePerson;
 
         //the blank space for the command output
-        cout << endl << endl << endl;
+   
+		cout << endl << endl << endl;
 
         return true;
     }

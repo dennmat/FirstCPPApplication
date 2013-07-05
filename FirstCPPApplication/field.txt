@@ -1,6 +1,6 @@
 20
 10
-You are inside an office.
+You are in a field.
 #
 1
 This is a wall!
@@ -69,10 +69,10 @@ This is a wall!
 none
 W
 2
-1
+0
 2
 2
-This area smells kind of funny, and has a strange glow.
+This area smells kind of funny, and has a strange blow.
 .
 0
 none
@@ -82,10 +82,10 @@ none
 .
 0
 none
-R
+Q
 0
 test
-Q
+R
 0
 test2
 .
