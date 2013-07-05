@@ -1,3 +1,4 @@
+#pragma once
 #ifndef WORLD_H
 #define WORLD_H
 // The preprocessor directives shown above ensure that
@@ -9,13 +10,13 @@
 #include "game.h"
 
 /***************************** world.h ******************************
-*	Written by														*
-*		Grant Mcneil												*
-*																	*
-* please note:														*
-* this code is covered by the GrantPL license.					    *
+*	Written by							*
+*		Grant Mcneil						*
+*									*
+* please note:								*
+* this code is covered by the GrantPL license.				*
 * any project or construct that contains this file is immediatly	*
-* at the ownership of Grant McNeil.									*
+* at the ownership of Grant McNeil.					*
 ********************************************************************/
 
 /********************************************************************
@@ -29,17 +30,20 @@ using namespace std;
 #define		TILE_NORMAL		0
 #define		TILE_WALL		1
 
+
+class Game;
+
 class Tile
 {
-	public:
-		int tiletype;		// whether or not this tile cannot be walked on
-		char representation;	// the character that represents this tile
-		int warpMap;			// if this is a warp tile, index of the map to warp to
-		int warpX, warpY;		// where you warp to in the destination map
-		int type;				// type of tile
-		char *description;      // the description of the tile
-        Person *occupant;       // the dude sitting on the tile
-        bool fighter;
+    public:
+	int tiletype;		// whether or not this tile cannot be walked on
+	char representation;	// the character that represents this tile
+	int warpMap;			// if this is a warp tile, index of the map to warp to
+	int warpX, warpY;		// where you warp to in the destination map
+	int type;				// type of tile
+	char *description;      // the description of the tile
+	Person *occupant;       // the dude sitting on the tile
+	bool fighter;
 };
 
 
@@ -47,20 +51,20 @@ class Tile
 // whats under the player in tempchar
 class Map
 {
-	public:
-		// C++ Classes have constructors and deconstructors that
-		// are called whenever an instance of the class is created
-		// or destroyed. This is often used to free any memory that was
-		// allocated in the life of the instance.
-		Map();
-		~Map();
-		int build(Person *thePerson, Person *theEnemy, string filename);
-		char *description; // default description if tile does not have one
-		int draw(Game *the_game);
-		int width, height;
-		bool movePlayer(Person *thePerson, int x2, int y2);
-		Tile *tileArray;
-		char tempchar;
+    public:
+	// C++ Classes have constructors and deconstructors that
+	// are called whenever an instance of the class is created
+	// or destroyed. This is often used to free any memory that was
+	// allocated in the life of the instance.
+	Map();
+	~Map();
+	int build(Person *thePerson, Person *theEnemy, string filename);
+	char *description; // default description if tile does not have one
+	int draw(Game *the_game);
+	int width, height;
+	bool movePlayer(Person *thePerson, int x2, int y2);
+	Tile *tileArray;
+	char tempchar;
 };
 
 
