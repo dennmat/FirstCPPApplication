@@ -15,8 +15,7 @@ Map::Map()
 
 Map::~Map()
 {
-    // free(tileArray);
-    cout << "Deleting map" << endl;
+
 }
 
 int Map::build(Person *thePerson, Person *theEnemy, string filename)
@@ -102,6 +101,7 @@ int Map::draw(Person *thePerson)
 	// the first character that does not match in the first string having a greater or smaller
 	// value than the first character that does not match on the second string.
 	// ~~~~~themoreyouknow~~~~~
+    // very weird
 
 	if(strcmp(tileArray[thePerson->x+(thePerson->y*width)].description, "none") != 0)
 	{
@@ -130,29 +130,10 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
             new_y < height && new_y > -1 &&
             target_tile->tiletype == 0 || target_tile->tiletype == 2)
     {
-        //reset tile to what it was before
-  //      player_tile->representation = tempchar;
-    //    player_tile->tiletype = 0;
-      //  player_tile->occupant = 0;
-
-
-        //make the player's tile collidable and make it look like him
-//        tempchar = target_tile->representation;
-  //      target_tile->tiletype = 1;
-    //    target_tile->representation = thePerson->representation;
-      //  target_tile->occupant = thePerson;
-
-        //the blank space for the command output
-   
 		cout << endl << endl << endl;
-
         return true;
     }
-    // else if (target_tile->fighter == true)
-    // {
-    //     //there's someone here we want to fight
 
-    // }
     else
     {
         cout << endl << "invalid move" << endl;
@@ -161,7 +142,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
             cout << target_tile->description << endl;
         }
         else
-        {  // more blank space
+        {  // more blank space for gui consistency
             cout << endl;
         }
         return false;
