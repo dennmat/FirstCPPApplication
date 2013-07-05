@@ -6,6 +6,7 @@
 // duplicate function definition errors
 #include <string>
 #include "Person.h"
+#include "game.h"
 
 /***************************** world.h ******************************
 *	Written by														*
@@ -55,7 +56,7 @@ class Map
 		~Map();
 		int build(Person *thePerson, Person *theEnemy, string filename);
 		char *description; // default description if tile does not have one
-		int draw(Person *thePerson);
+		int draw(Game *the_game);
 		int width, height;
 		bool movePlayer(Person *thePerson, int x2, int y2);
 		Tile *tileArray;

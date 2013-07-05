@@ -11,6 +11,7 @@
 #include "Pet.h"
 #include "FirstCPPApplication.h"
 #include "world.h"
+#include "game.h"
 
 using namespace std;
 
@@ -193,6 +194,9 @@ int main ()
     enemy_player.name = "Max";
     enemy_player.age = 50;
 
+    Game the_game;
+    the_game.player = &player1;
+
 
 	buildworld(player1, enemy_player);
     
@@ -207,7 +211,7 @@ int main ()
 
     while (!battle_done){
 
-        world[current_map].draw(&player1);
+        world[current_map].draw(&the_game);
         std::string answer = ask_for_str("What would you like to do?\n");
         system("cls");
         WelcomeMessage();
@@ -215,22 +219,9 @@ int main ()
 
         process_request(answer, &player1);
 
-       /* if (answer == "n" || answer == "no"){
-            battle_done = true;
-            printf("Fine be that way\n");
-            break;
-        }
-
-        int damage  = ask_for_int("how much damage do you deal?\n");
-        p1_pet.Attack(&enemy_pet, damage);
-      */
     }
 
-    //attack player
-
-
     std::cout << "Hit enter to exit" << std::endl;
-    // std::cin.ignore();
     std::cin.get();
 
     return 0;

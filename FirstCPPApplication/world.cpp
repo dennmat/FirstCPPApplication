@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <cstdlib>
 #include "world.h"
+#include "game.h"
 
 using namespace std;
 
@@ -80,9 +81,11 @@ int Map::build(Person *thePerson, Person *theEnemy, string filename)
 	return 1;
 }
 
-int Map::draw(Person *thePerson)
+int Map::draw(Game *theGame)
 {
 	int i,j;
+
+    Person * thePerson = theGame->player;
 
 	for(i=0; i<height; i++)
 	{
