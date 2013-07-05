@@ -13,7 +13,8 @@ class Game
 
         int enemies_size ;   //don't really know how else to get the size of the
                             // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
-        Person *enemies[];  //later, this will be an array of all the enemies 
+        Person *enemies[255];  //later, this will be an array of all the enemies 
 
         Game::Game();
 };
+
