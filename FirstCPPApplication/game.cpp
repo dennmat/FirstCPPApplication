@@ -57,4 +57,6 @@ Game::Game(){
     buildworld();
     current_map = world; //I'm not so sure about this, but it solved the mem issue
 
+    last_cmd = "not set";
+
 };

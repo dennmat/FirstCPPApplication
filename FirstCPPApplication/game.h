@@ -20,8 +20,11 @@ class Game
         Map *world;
         Map *current_map;
         int current_map_index;
+
         bool buildmode;
         Tile *clipboard;
+
+        std::string last_cmd;
 
         Game::Game();
         void Game::buildworld();
