@@ -31,60 +31,34 @@ void WelcomeMessage(){
 
 };
 
-void buildworld(Person person1, Person person2)
-{
-    string line;
-    ifstream myfile ("world.txt");
-    int num_of_worlds;
-    int i;
-
-    if (myfile.is_open())
-    {
-	// get width
-	getline (myfile,line);
-	num_of_worlds = atoi(line.c_str());
-
-	the_game.world = new Map[num_of_worlds];
-
-	for(i=0;i<num_of_worlds;i++)
-	{
-	    // get height
-	    getline (myfile,line);
-	    the_game.world[i].build(&person1, &person2, line);
-	}
-	
-	
-    }
-}
 
 void process_movement(string request, Person *player)
 {
     Map *world = the_game.world;
     bool buildmode = the_game.buildmode;
-    int current_map = the_game.current_map;
     // Movement || N, S, E, W ||
 
     if(request == "north" || request == "n")
     {
-        if(world[current_map].movePlayer(player, 0, -1) || buildmode)
+        if(the_game.current_map->movePlayer(player, 0, -1) || buildmode)
             player->y--;
     }
 
     else if(request == "south" || request == "s")
     {
-        if(world[current_map].movePlayer(player, 0, 1) || buildmode)
+        if(the_game.current_map->movePlayer(player, 0, 1) || buildmode)
             player->y++;
     }
 
     else if(request == "east" || request == "e")
     {
-        if(world[current_map].movePlayer(player, 1, 0) || buildmode)
+        if(the_game.current_map->movePlayer(player, 1, 0) || buildmode)
             player->x++;
     }
 
     else if(request == "west" || request == "w")
     {
-        if(world[current_map].movePlayer(player, -1, 0) || buildmode)
+        if(the_game.current_map->movePlayer(player, -1, 0) || buildmode)
             player->x--;
     }
 
@@ -120,12 +94,11 @@ void process_buildmode(string request, int current_tile)
 {
     Map *world = the_game.world;
     bool buildmode = the_game.buildmode;
-    int current_map = the_game.current_map;
 	if(request == "change" || request == "c")
     {
 		// do the stuff to make a new tile
 		cout << "tiletype: ";
-        Tile this_tile = world[current_map].tileArray[current_tile];
+        Tile this_tile = the_game.current_map->tileArray[current_tile];
 		cin >> this_tile.tiletype;
 		if(this_tile.tiletype == 2)
 		{
@@ -152,15 +125,15 @@ void process_buildmode(string request, int current_tile)
 		myfile.open (filename);
 		int i,j;
 
-        Map this_map = world[current_map];
-		myfile << this_map.width << endl;
-		myfile << this_map.height << endl;  
-		myfile << this_map.description << endl;  
+        // Map this_map = the_game.current_map;
+		myfile << the_game.current_map->width << endl;
+		myfile << the_game.current_map->height << endl;  
+		myfile << the_game.current_map->description << endl;  
 
-		for(i=0; i<this_map.height; i++)
-			for(j=0; j<this_map.width; j++)
+		for(i=0; i<the_game.current_map->height; i++)
+			for(j=0; j<the_game.current_map->width; j++)
 			{
-                Tile active_tile = this_map.tileArray[(i*this_map.width)+j];
+                Tile active_tile = the_game.current_map->tileArray[(i*the_game.current_map->width)+j];
 				myfile << active_tile.representation << endl;
 				myfile << active_tile.tiletype << endl;
 				if(active_tile.tiletype == 2)
@@ -177,13 +150,13 @@ void process_buildmode(string request, int current_tile)
 	else if(request == "copy" || request == "o")
     {
 		// Copy a tile
-		clipboard = world[current_map].tileArray[current_tile];
+		clipboard = the_game.current_map->tileArray[current_tile];
 	}
 
 	else if(request == "paste" || request == "p")
     {
 		// paste a tile
-		world[current_map].tileArray[current_tile] = clipboard;
+		the_game.current_map->tileArray[current_tile] = clipboard;
 	}
 
 }
@@ -192,11 +165,10 @@ void process_request(string request, Person *player)
 {
     Map *world = the_game.world;
     bool buildmode = the_game.buildmode;
-    int current_map = the_game.current_map;
 
     //determine if movement command
     bool is_move_cmd;
-	int current_tile = player->x+(player->y*world[current_map].width);
+	int current_tile = player->x+(player->y*the_game.current_map->width);
     is_move_cmd = is_request_move_cmd(request);
 
     if(request == "test")
@@ -217,12 +189,13 @@ void process_request(string request, Person *player)
     else if(request == "warp" || request == "r")
     {
 	
-	if(world[current_map].tileArray[current_tile].tiletype == 2)
+	if(the_game.current_map->tileArray[current_tile].tiletype == 2)
 	{
-	    current_map = world[current_map].tileArray[current_tile].warpMap;
+	    the_game.current_map_index = the_game.current_map->tileArray[current_tile].warpMap;
+        the_game.current_map = &(the_game.world[the_game.current_map_index]);
 	
-	    player->x = world[current_map].tileArray[current_tile].warpX;
-	    player->y = world[current_map].tileArray[current_tile].warpY;
+	    player->x = the_game.current_map->tileArray[current_tile].warpX;
+	    player->y = the_game.current_map->tileArray[current_tile].warpY;
 	    // player->x = currentmap->startx;
 	    // player->y = currentmap->starty;
 	}
@@ -305,7 +278,7 @@ int main ()
     the_game.player = &player1;
 
 
-    buildworld(player1, enemy_player);
+    // buildworld();
     
 
     // save space for the command output
@@ -318,7 +291,7 @@ int main ()
 
     while (!battle_done){
 
-	the_game.world[the_game.current_map].draw(&the_game);
+	the_game.current_map->draw(&the_game);
 	std::string answer = ask_for_str("What would you like to do?\n");
 	system("cls");
 	WelcomeMessage();

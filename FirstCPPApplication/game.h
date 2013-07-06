@@ -17,9 +17,11 @@ class Game
         Person *enemies;  //later, this will be an array of all the enemies 
 
         Map *world;
-        int current_map;
+        Map *current_map;
+        int current_map_index;
         bool buildmode;
 
         Game::Game();
+        void Game::buildworld();
 };
 

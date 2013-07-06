@@ -19,7 +19,7 @@ Map::~Map()
 
 }
 
-int Map::build(Person *thePerson, Person *theEnemy, string filename)
+int Map::build(string filename)
 {
 	string line;
 	ifstream myfile (filename);
