@@ -82,23 +82,23 @@ int Map::draw(Game *theGame)
 {
 	int i,j;
 
-    Person * thePerson = theGame->player;
+    Person  thePerson = theGame->player;
 
 	for(i=0; i<height; i++)
 	{
 		cout << endl;
 		for(j=0; j<width;j++)
 		{
-			if(j==thePerson->x && i == thePerson->y)
+			if(j==thePerson.x && i == thePerson.y)
 				cout << '@';
 			else
 				cout << tileArray[(i*width)+j].representation;
 		}
 	}
 
-	if(tileArray[thePerson->x+(thePerson->y*width)].description != "none")
+	if(tileArray[thePerson.x+(thePerson.y*width)].description != "none")
 	{
-		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson->x+(thePerson->y*width)].description;
+		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson.x+(thePerson.y*width)].description;
 	}
 	else
 		cout << endl << endl << "Tile Description:" << endl << description;

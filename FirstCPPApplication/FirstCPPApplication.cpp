@@ -248,27 +248,27 @@ void process_request(string request, Person *player)
 };
 
 
-Person intialize_player(){
-
-    Person player1;
-    player1.name = "Josh";
-    player1.age = 23;
-    player1.x = 3;
-    player1.y = 3;
-    player1.representation = '@';
-
-
-    Pet p1_pet;
-    p1_pet.master = &player1;
-
-    return player1;
-
-
-};
-
+// Person intialize_player(){
+// 
+//     Person player1;
+//     player1.name = "Josh";
+//     player1.age = 23;
+//     player1.x = 3;
+//     player1.y = 3;
+//     player1.representation = '@';
+// 
+// 
+//     Pet p1_pet;
+//     p1_pet.master = &player1;
+// 
+//     return player1;
+// 
+// 
+// };
+// 
 int main ()
 {
-    the_game.player = &the_game.intialize_player(); //reinitializes the already created player. 
+    // the_game.player = &the_game.intialize_player(); //reinitializes the already created player. 
 	//Otherwise it gets corrupted or otherwise invalid values between this main() call
     // and the global declaration of it above, right after line 473 in the builtin crtexe.c file.
 
@@ -297,7 +297,7 @@ int main ()
 	WelcomeMessage();
 	answer = ToLower(answer);
 
-	process_request(answer, the_game.player);
+	process_request(answer, &the_game.player);
 
     }
 
