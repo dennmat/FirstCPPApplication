@@ -245,14 +245,11 @@ void process_request(string request, Person *player)
 	cout << endl << "command not found" << endl;
 	cout << "Try 'help' for list of commands" << endl;
     }
-}
+};
 
-int main ()
-{
 
-    WelcomeMessage();
+Person intialize_player(){
 
-    //init player
     Person player1;
     player1.name = "Josh";
     player1.age = 23;
@@ -264,22 +261,25 @@ int main ()
     Pet p1_pet;
     p1_pet.master = &player1;
 
-    //init enemy
-    Person enemy_player;
-    enemy_player.x = 1;
-    enemy_player.y = 3;
-    enemy_player.representation = 'E';
-
-    Pet enemy_pet;
-    enemy_pet.master = &enemy_player;
-    enemy_player.name = "Max";
-    enemy_player.age = 50;
-
-    the_game.player = &player1;
+    return player1;
 
 
-    // buildworld();
-    
+};
+
+int main ()
+{
+    the_game.player = &the_game.intialize_player(); //reinitializes the already created player. 
+	//Otherwise it gets corrupted or otherwise invalid values between this main() call
+    // and the global declaration of it above, right after line 473 in the builtin crtexe.c file.
+
+
+    WelcomeMessage();
+
+    //init player
+    // Person player1 = intialize_player();
+    // the_game.player = &player1;
+
+
 
     // save space for the command output
     cout << endl;
@@ -297,7 +297,7 @@ int main ()
 	WelcomeMessage();
 	answer = ToLower(answer);
 
-	process_request(answer, &player1);
+	process_request(answer, the_game.player);
 
     }
 

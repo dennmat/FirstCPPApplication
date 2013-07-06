@@ -23,5 +23,7 @@ class Game
 
         Game::Game();
         void Game::buildworld();
+
+        Person  Game::intialize_player();
 };
 
