@@ -159,7 +159,6 @@ void process_buildmode(string request, int current_tile)
 void process_request(string request, Person *player)
 {
     Map *world = the_game.world;
-    bool buildmode = the_game.buildmode;
 
     //determine if movement command
     bool is_move_cmd;
@@ -178,7 +177,7 @@ void process_request(string request, Person *player)
     }
 	else if(request == "buildmode" || request == "b")
     {
-		buildmode=!buildmode;
+		the_game.buildmode=!the_game.buildmode;
 	}
 
     else if(request == "warp" || request == "r")
@@ -199,7 +198,7 @@ void process_request(string request, Person *player)
     else if(request == "help" || request == "h")
     {
 		system("cls");
-		if(buildmode)
+		if(the_game.buildmode)
 		{
 			cout << "-------------------" << endl;
 			cout << "Available Commands:" << endl;
