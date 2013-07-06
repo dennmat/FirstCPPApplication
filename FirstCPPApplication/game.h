@@ -5,6 +5,7 @@
 #include "Pet.h"
 #include "world.h"
 
+class Map;
 
 class Game
 {
@@ -13,7 +14,11 @@ class Game
 
         int enemies_size ;   //don't really know how else to get the size of the
                             // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
-        Person *enemies[255];  //later, this will be an array of all the enemies 
+        Person *enemies;  //later, this will be an array of all the enemies 
+
+        Map *world;
+        int current_map;
+        bool buildmode;
 
         Game::Game();
 };

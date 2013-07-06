@@ -6,5 +6,6 @@
 Game::Game(){
 
     enemies_size = 255; //hardcoded
+    buildmode = false;
 
 };
