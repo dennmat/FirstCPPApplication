@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef WORLD_H
 #define WORLD_H
 // The preprocessor directives shown above ensure that

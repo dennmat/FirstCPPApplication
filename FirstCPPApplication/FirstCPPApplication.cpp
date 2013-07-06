@@ -16,11 +16,6 @@
 using namespace std;
 
 Game the_game;
-// Map *world;
-// Map newmap;
-// int current_map;
-// bool buildmode=false;
-Tile clipboard;
 
 void WelcomeMessage(){
 
@@ -150,13 +145,13 @@ void process_buildmode(string request, int current_tile)
 	else if(request == "copy" || request == "o")
     {
 		// Copy a tile
-		clipboard = the_game.current_map->tileArray[current_tile];
+		the_game.clipboard = &the_game.current_map->tileArray[current_tile];
 	}
 
 	else if(request == "paste" || request == "p")
     {
 		// paste a tile
-		the_game.current_map->tileArray[current_tile] = clipboard;
+		the_game.current_map->tileArray[current_tile] = *the_game.clipboard;
 	}
 
 }

@@ -6,6 +6,7 @@
 #include "world.h"
 
 class Map;
+class Tile;
 
 class Game
 {
@@ -20,6 +21,7 @@ class Game
         Map *current_map;
         int current_map_index;
         bool buildmode;
+        Tile *clipboard;
 
         Game::Game();
         void Game::buildworld();
