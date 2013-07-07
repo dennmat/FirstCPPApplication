@@ -96,7 +96,7 @@ int Map::draw(Game *theGame)
         }
     }
 
-    //may have just show readability in the head here...
+    //may have just shot readability in the head here...
     Tile * person_tile = &tileArray[thePerson.x+(thePerson.y*width)];
 
     cout << endl << endl;
