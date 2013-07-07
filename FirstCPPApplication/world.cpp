@@ -21,90 +21,92 @@ Map::~Map()
 
 int Map::build(string filename)
 {
-	string line;
-	ifstream myfile (filename);
+    string line;
+    ifstream myfile (filename);
 
-	if (myfile.is_open())
-	{
-		// get width
-		getline (myfile,line);
-		width = atoi(line.c_str());
-		
-		// get height
-		getline (myfile,line);
-		height = atoi(line.c_str());
-		
-		// get default tile description
-		getline (myfile,line);
-		description = line;
-	
-		tileArray = new Tile[width*height];
+    if (myfile.is_open())
+    {
+        // get width
+        getline (myfile,line);
+        width = atoi(line.c_str());
 
-		int i=0;
-		char *test;
-		while ( myfile.good() )
-		{
-			getline (myfile,line);
-			test = (char*)line.c_str();
-			tileArray[i].representation = test[0];
-													
-			getline (myfile,line);
-			tileArray[i].tiletype = atoi(line.c_str());
+        // get height
+        getline (myfile,line);
+        height = atoi(line.c_str());
 
-			if(tileArray[i].tiletype == 2)
-			{
-				getline (myfile,line);
-				tileArray[i].warpMap = atoi(line.c_str());
-				getline (myfile,line);
-				tileArray[i].warpX = atoi(line.c_str());
-				getline (myfile,line);
-				tileArray[i].warpY = atoi(line.c_str());
+        // get default tile description
+        getline (myfile,line);
+        description = line;
 
-				getline (myfile,line);
-				tileArray[i].description = line;
-			}
-			else
-			{
-				getline (myfile,line);
-				tileArray[i].description = line;
-			}
+        tileArray = new Tile[width*height];
 
-			i++;
-		}
+        int i=0;
+        char *test;
+        while ( myfile.good() )
+        {
+            getline (myfile,line);
+            test = (char*)line.c_str();
+            tileArray[i].representation = test[0];
 
-		myfile.close();
-	}
+            getline (myfile,line);
+            tileArray[i].tiletype = atoi(line.c_str());
 
-	return 1;
+            if(tileArray[i].tiletype == 2)
+            {
+                getline (myfile,line);
+                tileArray[i].warpMap = atoi(line.c_str());
+                getline (myfile,line);
+                tileArray[i].warpX = atoi(line.c_str());
+                getline (myfile,line);
+                tileArray[i].warpY = atoi(line.c_str());
+
+                getline (myfile,line);
+                tileArray[i].description = line;
+            }
+            else
+            {
+                getline (myfile,line);
+                tileArray[i].description = line;
+            }
+
+            i++;
+        }
+
+        myfile.close();
+    }
+
+    return 1;
 }
 
 int Map::draw(Game *theGame)
 {
-	int i,j;
+    int i,j;
 
     Person  thePerson = theGame->player;
 
-	for(i=0; i<height; i++)
-	{
-		cout << endl;
-		for(j=0; j<width;j++)
-		{
-			if(j==thePerson.x && i == thePerson.y)
-				cout << '@';
-			else
-				cout << tileArray[(i*width)+j].representation;
-		}
-	}
+    for(i=0; i<height; i++)
+    {
+        cout << endl;
+        for(j=0; j<width;j++)
+        {
+            if(j==thePerson.x && i == thePerson.y)
+                cout << '@';
+            else
+                cout << tileArray[(i*width)+j].representation;
+        }
+    }
 
-	if(tileArray[thePerson.x+(thePerson.y*width)].description != "none")
-	{
-		cout << endl << endl << "Tile Description:" << endl << tileArray[thePerson.x+(thePerson.y*width)].description;
-	}
-	else
-		cout << endl << endl << "Tile Description:" << endl << description;
+    //may have just show readability in the head here...
+    Tile * person_tile = &tileArray[thePerson.x+(thePerson.y*width)];
 
-	cout << endl << endl;
-	return 1;
+    cout << endl << endl;
+    cout << "Tile Description:" << endl;
+
+    string tile_description = (person_tile->description != "none" ?  person_tile->description : description);
+    cout << tile_description;
+    cout << endl << endl;
+
+    return 1;
 }
 
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
@@ -123,7 +125,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
             new_y < height && new_y > -1 &&
             target_tile->tiletype == 0 || target_tile->tiletype == 2)
     {
-		cout << endl << endl << endl;
+        cout << endl << endl << endl;
         return true;
     }
 

@@ -45,10 +45,10 @@ Person  Game::intialize_player(){
 
     return player;
 
-
 };
 
-Game::Game(){
+Game::Game()
+{
 
     enemies_size = 255; //hardcoded
     buildmode = false;

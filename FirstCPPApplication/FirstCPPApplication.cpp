@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <algorithm>
 
+#include <windows.h>
+
 #include "utils.h"
 #include "Person.h"
 #include "Pet.h"
@@ -158,10 +160,12 @@ void process_buildmode(string request, int current_tile)
 
 void process_request(string request, Person *player)
 {
+    //store the last command, or use it if its needed
     if (request == ""){
         request = the_game.last_cmd;
     }
     the_game.last_cmd = request;
+
     //determine if movement command
     bool is_move_cmd;
     int current_tile = player->x+(player->y*the_game.current_map->width);
@@ -177,6 +181,7 @@ void process_request(string request, Person *player)
     if(is_move_cmd){
         process_movement(request, player);
     }
+
     else if(request == "buildmode" || request == "b")
     {
         the_game.buildmode=!the_game.buildmode;
@@ -184,14 +189,14 @@ void process_request(string request, Person *player)
 
     else if(request == "warp" || request == "r")
     {
-
-        if(the_game.current_map->tileArray[current_tile].tiletype == 2)
+        Tile *this_tile = &the_game.current_map->tileArray[current_tile];
+        if(this_tile->tiletype == 2)
         {
-            the_game.current_map_index = the_game.current_map->tileArray[current_tile].warpMap;
-            the_game.current_map = &(the_game.world[the_game.current_map_index]);
+            the_game.current_map_index = this_tile->warpMap;
+            the_game.current_map = &(the_game.world[this_tile->warpMap]);
 
-            player->x = the_game.current_map->tileArray[current_tile].warpX;
-            player->y = the_game.current_map->tileArray[current_tile].warpY;
+            player->x = this_tile->warpX;
+            player->y = this_tile->warpY;
             // player->x = currentmap->startx;
             // player->y = currentmap->starty;
         }
@@ -243,58 +248,101 @@ void process_request(string request, Person *player)
     }
 };
 
+int* getConsoleSize(){
 
-// Person intialize_player(){
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    int columns, rows;
+
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+    // printf("columns: %d\n", columns);
+    // printf("rows: %d\n", rows);
+
+    int *info = new int[2];
+    info[0] = columns;
+    info[1] = rows;
+    return info;
+};
+
+
+void clearScreen()
+{
+    // the current way
+    system("cls");
+
+    // //my attempted way
+    //     int* info = getConsoleSize();
+    //     int columns = info[0];
+    //     
+    //     int i = 0;
+    //     cout << string(columns, '\n');
+    //     // while (i < columns){
+    //     //     cout << endl;
+    //     //     i++;
+    //     // }
+    // 
+}
+
+// //took this from the web to remove the screen flash, but it doesn't help.
+// {   
+//     HANDLE                     hStdOut;
+//     CONSOLE_SCREEN_BUFFER_INFO csbi;
+//     DWORD                      count;
+//     DWORD                      cellCount;
+//     COORD                      homeCoords = { 0, 0 };
 // 
-//     Person player1;
-//     player1.name = "Josh";
-//     player1.age = 23;
-//     player1.x = 3;
-//     player1.y = 3;
-//     player1.representation = '@';
+//     hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
+//     if (hStdOut == INVALID_HANDLE_VALUE) return;
 // 
+//     /* Get the number of cells in the current buffer */
+//     if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
+//     cellCount = csbi.dwSize.X *csbi.dwSize.Y;
 // 
-//     Pet p1_pet;
-//     p1_pet.master = &player1;
+//     /* Fill the entire buffer with spaces */
+//     if (!FillConsoleOutputCharacter(
+//                 hStdOut,
+//                 (TCHAR) ' ',
+//                 cellCount,
+//                 homeCoords,
+//                 &count
+//                 )) return;
 // 
-//     return player1;
+//     /* Fill the entire buffer with the current colors and attributes */
+//     if (!FillConsoleOutputAttribute(
+//                 hStdOut,
+//                 csbi.wAttributes,
+//                 cellCount,
+//                 homeCoords,
+//                 &count
+//                 )) return;
 // 
-// 
-// };
-// 
+//     /* Move the cursor home */
+//     SetConsoleCursorPosition( hStdOut, homeCoords );
+// }
+
 int main ()
 {
-    // the_game.player = &the_game.intialize_player(); //reinitializes the already created player. 
-    //Otherwise it gets corrupted or otherwise invalid values between this main() call
-    // and the global declaration of it above, right after line 473 in the builtin crtexe.c file.
 
 
     WelcomeMessage();
-
-    //init player
-    // Person player1 = intialize_player();
-    // the_game.player = &player1;
-
-
 
     // save space for the command output
     cout << endl;
     cout << endl;
     cout << endl;
 
-
     bool battle_done = false;
 
     while (!battle_done){
-
         the_game.current_map->draw(&the_game);
         std::string answer = ask_for_str("What would you like to do?\n");
-        system("cls");
+        clearScreen(); //gotta get rid of that flash when the page redraws
         WelcomeMessage();
         answer = ToLower(answer);
 
         process_request(answer, &the_game.player);
-
     }
 
     std::cout << "Hit enter to exit" << std::endl;

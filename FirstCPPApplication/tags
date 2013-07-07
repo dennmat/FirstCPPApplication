@@ -4,64 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-Attack	.\Pet.cpp	/^void Pet::Attack(Pet* ptr_target, int dmg){$/;"	f	class:Pet
-CheckDeath	.\Pet.cpp	/^bool Pet::CheckDeath(){$/;"	f	class:Pet
-Game	.\game.cpp	/^Game::Game(){$/;"	f	class:Game
-Game	.\game.h	/^class Game$/;"	c
-Map	.\world.cpp	/^Map::Map()$/;"	f	class:Map
-Map	.\world.h	/^class Map$/;"	c
-Person	.\Person.h	/^class Person{$/;"	c
-Pet	.\Pet.cpp	/^Pet::Pet(){$/;"	f	class:Pet
-Pet	.\Pet.cpp	/^Pet::Pet(string name, int max_hp, char representation ){$/;"	f	class:Pet
-Pet	.\Pet.h	/^class Pet{$/;"	c
-TILE_NORMAL	.\world.h	30;"	d
-TILE_WALL	.\world.h	31;"	d
-TakeDamage	.\Pet.cpp	/^void Pet::TakeDamage(int dmg){$/;"	f	class:Pet
-Tile	.\world.h	/^class Tile$/;"	c
-ToLower	.\utils.cpp	/^std::string ToLower(std::string data){$/;"	f
-ToUpper	.\utils.cpp	/^std::string ToUpper(std::string data){$/;"	f
-WORLD_H	.\world.h	3;"	d
-WelcomeMessage	.\FirstCPPApplication.cpp	/^void WelcomeMessage(){$/;"	f
-age	.\Person.h	/^    int age;$/;"	m	class:Person
-ask_for_int	.\utils.cpp	/^int ask_for_int(std::string msg, int default_int){$/;"	f
-ask_for_str	.\utils.cpp	/^std::string ask_for_str(std::string msg, std::string default_str){$/;"	f
-build	.\world.cpp	/^int Map::build(Person *thePerson, Person *theEnemy, string filename)$/;"	f	class:Map
-buildworld	.\FirstCPPApplication.cpp	/^void buildworld(Person person1, Person person2)$/;"	f
-cur_hp	.\Pet.h	/^    int cur_hp;$/;"	m	class:Pet
-current_map	.\FirstCPPApplication.cpp	/^int current_map;$/;"	v
-description	.\world.h	/^	char *description;      \/\/ the description of the tile$/;"	m	class:Tile
-description	.\world.h	/^	char *description; \/\/ default description if tile does not have one$/;"	m	class:Map
-draw	.\world.cpp	/^int Map::draw(Game *theGame)$/;"	f	class:Map
-enemies	.\game.h	/^        Person *enemies[];  \/\/later, this will be an array of all the enemies $/;"	m	class:Game
-enemies_size	.\game.h	/^        int enemies_size ;   \/\/don't really know how else to get the size of the$/;"	m	class:Game
-fighter	.\world.h	/^	bool fighter;$/;"	m	class:Tile
-height	.\world.h	/^	int width, height;$/;"	m	class:Map
-is_dead	.\Pet.h	/^    bool is_dead;$/;"	m	class:Pet
-is_request_move_cmd	.\FirstCPPApplication.cpp	/^bool is_request_move_cmd(string request){$/;"	f
-main	.\FirstCPPApplication.cpp	/^int main ()$/;"	f
-master	.\Pet.h	/^    Person* master;$/;"	m	class:Pet
-max_hp	.\Pet.h	/^    int max_hp;$/;"	m	class:Pet
-movePlayer	.\world.cpp	/^bool Map::movePlayer(Person *thePerson, int x2, int y2)$/;"	f	class:Map
-name	.\Person.h	/^    std::string name;$/;"	m	class:Person
-name	.\Pet.h	/^    std::string name;$/;"	m	class:Pet
-newmap	.\FirstCPPApplication.cpp	/^Map newmap;$/;"	v
-occupant	.\world.h	/^	Person *occupant;       \/\/ the dude sitting on the tile$/;"	m	class:Tile
-player	.\game.h	/^        Person *player;     \/\/the PC$/;"	m	class:Game
-print_str_array	.\utils.cpp	/^void print_str_array(std::string msg_list[], int len){$/;"	f
-printout	.\Pet.cpp	/^void Pet::printout(){$/;"	f	class:Pet
-process_movement	.\FirstCPPApplication.cpp	/^void process_movement(string request, Person *player)$/;"	f
-process_request	.\FirstCPPApplication.cpp	/^void process_request(string request, Person *player)$/;"	f
-representation	.\Person.h	/^    char representation;$/;"	m	class:Person
-representation	.\Pet.h	/^    char representation;$/;"	m	class:Pet
-representation	.\world.h	/^	char representation;	\/\/ the character that represents this tile$/;"	m	class:Tile
-tempchar	.\world.h	/^	char tempchar;$/;"	m	class:Map
-tileArray	.\world.h	/^	Tile *tileArray;$/;"	m	class:Map
-tiletype	.\world.h	/^	int tiletype;		\/\/ whether or not this tile cannot be walked on$/;"	m	class:Tile
-type	.\world.h	/^	int type;				\/\/ type of tile$/;"	m	class:Tile
-warpMap	.\world.h	/^	int warpMap;			\/\/ if this is a warp tile, index of the map to warp to$/;"	m	class:Tile
-warpX	.\world.h	/^	int warpX, warpY;		\/\/ where you warp to in the destination map$/;"	m	class:Tile
-warpY	.\world.h	/^	int warpX, warpY;		\/\/ where you warp to in the destination map$/;"	m	class:Tile
-width	.\world.h	/^	int width, height;$/;"	m	class:Map
-x	.\Person.h	/^	int x,y;$/;"	m	class:Person
-y	.\Person.h	/^	int x,y;$/;"	m	class:Person
-~Map	.\world.cpp	/^Map::~Map()$/;"	f	class:Map
+WelcomeMessage	FirstCPPApplication.cpp	/^void WelcomeMessage(){$/;"	f
+is_request_move_cmd	FirstCPPApplication.cpp	/^bool is_request_move_cmd(string request){$/;"	f
+main	FirstCPPApplication.cpp	/^int main ()$/;"	f
+process_buildmode	FirstCPPApplication.cpp	/^void process_buildmode(string request, int current_tile)$/;"	f
+process_movement	FirstCPPApplication.cpp	/^void process_movement(string request, Person *player)$/;"	f
+process_request	FirstCPPApplication.cpp	/^void process_request(string request, Person *player)$/;"	f
