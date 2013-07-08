@@ -39,22 +39,33 @@ class BaseTileType //all tile types must inherit this
         bool collidable;
         char representation;    // the character that represents this tile
         string description;      // the description of the tile
+        static int tiletype;
 
 };
+
 
 class WarpTileType : public BaseTileType
 {
     public:
         int warpMap;            // if this is a warp tile, index of the map to warp to
         int warpX, warpY;       // where you warp to in the destination map
+
+        WarpTileType(){ representation = 'w'; };
 };
 
 class WallTileType : public BaseTileType
 {
+    public: 
+        WallTileType(){ representation = '#'; };
 };
 
 class FloorTileType : public BaseTileType
 {
+    public: 
+        FloorTileType(){
+            representation = '.';
+            tiletype;
+        };
 };
 
 class Tile
@@ -63,7 +74,9 @@ class Tile
         BaseTileType * tile;
         int tiletype;               // type of tile
         Person *occupant;       // the dude sitting on the tile
-        Tile(){ tile = new BaseTileType;};
+        Tile(); 
+        ~Tile(){ delete tile; };
+        void updateTileType(int type = 0);
 };
 
 

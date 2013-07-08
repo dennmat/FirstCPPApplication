@@ -9,6 +9,39 @@
 
 using namespace std;
 
+Tile::Tile()
+{
+    tiletype = 0;
+    updateTileType(tiletype);
+};
+
+void Tile::updateTileType(int type )
+{
+    if (type == 0)
+    {
+        tile = new BaseTileType;
+    }
+    else if (type == 1)
+    {
+        tile = new FloorTileType;
+    }
+    else if (type == 2)
+    {
+        tile = new WallTileType;
+    }
+    else if (type == 3)
+    {
+        tile = new WarpTileType;
+    }
+    else 
+    {
+        cout << type << endl;
+        cout << "ASDADAFFDGsdggsd\n\n\nsadfsdfgsgadsfgdsf" << endl;
+    }
+
+};
+
+
 Map::Map()
 {
 
