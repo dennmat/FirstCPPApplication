@@ -17,26 +17,28 @@ Tile::Tile()
 
 void Tile::updateTileType(int type )
 {
+    tiletype = type;
+
     if (type == 0)
     {
         tile = new BaseTileType;
     }
-    else if (type == 1)
+    else if (type == 3)
     {
         tile = new FloorTileType;
     }
-    else if (type == 2)
+    else if (type == 1)
     {
         tile = new WallTileType;
     }
-    else if (type == 3)
+    else if (type == 2)
     {
         tile = new WarpTileType;
     }
     else 
     {
         cout << type << endl;
-        cout << "ASDADAFFDGsdggsd\n\n\nsadfsdfgsgadsfgdsf" << endl;
+        cout << "^ INVALID TILETYPE OH MY GOD" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
 
 };
@@ -79,10 +81,12 @@ int Map::build(string filename)
         {
             getline (myfile,line);
             test = (char*)line.c_str();
-            tileArray[i].tile->representation = test[0];
+            // tileArray[i].tile->representation = test[0];
 
             getline (myfile,line);
-            tileArray[i].tiletype = atoi(line.c_str());
+            int tileType = atoi(line.c_str());
+            // tileArray[i].tiletype = tileType;
+            tileArray[i].updateTileType(tileType);
 
             if(tileArray[i].tiletype == 2)
             {
@@ -159,7 +163,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&
-            target_tile->tiletype == 0 || target_tile->tiletype == 2)
+            target_tile->tiletype == 3 || target_tile->tiletype == 2)
     {
         cout << endl << endl << endl;
         return true;
