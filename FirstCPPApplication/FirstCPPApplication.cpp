@@ -99,18 +99,21 @@ void process_buildmode(string request, int current_tile)
         cin >> this_tile.tiletype;
         if(this_tile.tiletype == 2)
         {
+            WarpTileType* warp_tile;
+            warp_tile = (WarpTileType*) this_tile.tile;
+        
             cout << "Warp Map: ";
-            cin >> this_tile.warpMap;
+            cin >> warp_tile->warpMap;
             cout << "WarpX: ";
-            cin >> this_tile.warpX;
+            cin >> warp_tile->warpX;
             cout << "WarpY: ";
-            cin >> this_tile.warpY;
+            cin >> warp_tile->warpY;
         }
         cout << endl << "Description: ";
-        getline(cin, this_tile.description);	// do this twice because hitting enter... whatever
-        getline(cin, this_tile.description);
+        getline(cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
+        getline(cin, this_tile.tile->description);
         cout << endl << "Representation: ";
-        cin >> this_tile.representation;
+        cin >> this_tile.tile->representation;
     }
     else if(request == "write" || request == "i")
     {
@@ -118,7 +121,7 @@ void process_buildmode(string request, int current_tile)
         ofstream myfile;
         string filename;
         cout << "Filename: ";
-        getline(cin, filename);	// do this twice because hitting enter... whatever
+        getline(cin, filename); // do this twice because hitting enter... whatever
         myfile.open (filename);
         int i,j;
 
@@ -131,15 +134,18 @@ void process_buildmode(string request, int current_tile)
             for(j=0; j<the_game.current_map->width; j++)
             {
                 Tile active_tile = the_game.current_map->tileArray[(i*the_game.current_map->width)+j];
-                myfile << active_tile.representation << endl;
+                myfile << active_tile.tile->representation << endl;
                 myfile << active_tile.tiletype << endl;
                 if(active_tile.tiletype == 2)
                 {
-                    myfile << active_tile.warpMap << endl;
-                    myfile << active_tile.warpX << endl;
-                    myfile << active_tile.warpY << endl;
+                WarpTileType* warp_tile;
+                warp_tile = (WarpTileType*) active_tile.tile;
+
+                    myfile << warp_tile->warpMap << endl;
+                    myfile << warp_tile->warpX << endl;
+                    myfile << warp_tile->warpY << endl;
                 }
-                myfile << active_tile.description << endl;  
+                myfile << active_tile.tile->description << endl;  
             }
         myfile.close();
     }
@@ -192,11 +198,14 @@ void process_request(string request, Person *player)
         Tile *this_tile = &the_game.current_map->tileArray[current_tile];
         if(this_tile->tiletype == 2)
         {
-            the_game.current_map_index = this_tile->warpMap;
-            the_game.current_map = &(the_game.world[this_tile->warpMap]);
+                WarpTileType* warp_tile;
+                warp_tile = (WarpTileType*) this_tile->tile;
 
-            player->x = this_tile->warpX;
-            player->y = this_tile->warpY;
+            the_game.current_map_index = warp_tile->warpMap;
+            the_game.current_map = &(the_game.world[warp_tile->warpMap]);
+
+            player->x = warp_tile->warpX;
+            player->y = warp_tile->warpY;
             // player->x = currentmap->startx;
             // player->y = currentmap->starty;
         }
@@ -216,8 +225,8 @@ void process_request(string request, Person *player)
             cout << "[W]est -   Move West" <<endl;
             cout << "[C]hange - Alter a Tile" <<endl;
             cout << "Wr[i]te -  Write map to file" <<endl;
-            cout << "C[O]py -	Copy a Tile" <<endl;
-            cout << "[P]aste -	Paste a Tile" <<endl;
+            cout << "C[O]py -   Copy a Tile" <<endl;
+            cout << "[P]aste -  Paste a Tile" <<endl;
             cout << "[Q]uit -   Quit" <<endl;
             cout << "-------------------" << endl;
         }

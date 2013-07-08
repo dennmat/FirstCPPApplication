@@ -42,31 +42,34 @@ int Map::build(string filename)
 
         int i=0;
         char *test;
-        while ( myfile.good() )
+        while (i < width*height) //had to change this from file.good because it was reading too far. Not sure yet.
         {
             getline (myfile,line);
             test = (char*)line.c_str();
-            tileArray[i].representation = test[0];
+            tileArray[i].tile->representation = test[0];
 
             getline (myfile,line);
             tileArray[i].tiletype = atoi(line.c_str());
 
             if(tileArray[i].tiletype == 2)
             {
-                getline (myfile,line);
-                tileArray[i].warpMap = atoi(line.c_str());
-                getline (myfile,line);
-                tileArray[i].warpX = atoi(line.c_str());
-                getline (myfile,line);
-                tileArray[i].warpY = atoi(line.c_str());
+                WarpTileType* warp_tile;
+                warp_tile = (WarpTileType*) tileArray[i].tile;
 
                 getline (myfile,line);
-                tileArray[i].description = line;
+                warp_tile->warpMap = atoi(line.c_str());
+                getline (myfile,line);
+                warp_tile->warpX = atoi(line.c_str());
+                getline (myfile,line);
+                warp_tile->warpY = atoi(line.c_str());
+
+                getline (myfile,line);
+                warp_tile->description = line;
             }
             else
             {
                 getline (myfile,line);
-                tileArray[i].description = line;
+                tileArray[i].tile->description = line;
             }
 
             i++;
@@ -90,14 +93,14 @@ int Map::draw(Game *theGame)
         for(j=0; j<width;j++)
         {
             if(j==thePerson.x && i == thePerson.y)
-                cout << '@';
+                cout << thePerson.representation;
             else
-                cout << tileArray[(i*width)+j].representation;
+                cout << tileArray[(i*width)+j].tile->representation;
         }
     }
 
     //may have just shot readability in the head here...
-    Tile * person_tile = &tileArray[thePerson.x+(thePerson.y*width)];
+    BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
 
     cout << endl << endl;
     cout << "Tile Description:" << endl;
@@ -134,7 +137,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
         cout << endl << "invalid move" << endl;
         if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         {
-            cout << target_tile->description << endl;
+            cout << target_tile->tile->description << endl;
         }
         else
         {  // more blank space for gui consistency
