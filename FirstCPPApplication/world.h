@@ -77,9 +77,11 @@ class Tile
         BaseTileType * tile;
         int tiletype;               // type of tile
         Person *occupant;       // the dude sitting on the tile
+        bool is_occupied;
         Tile(); 
         ~Tile(){ delete tile; };
         void updateTileType(int type = 0);
+        void makeOccupied();
 };
 
 

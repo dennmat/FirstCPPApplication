@@ -12,7 +12,15 @@ using namespace std;
 Tile::Tile()
 {
     tiletype = 0;
+    is_occupied = false;
+
     updateTileType(tiletype);
+};
+
+void Tile::makeOccupied()
+{
+    is_occupied = true;
+
 };
 
 void Tile::updateTileType(int type )
@@ -122,23 +130,37 @@ int Map::draw(Game *theGame)
 {
     int i,j;
 
+    // this set of 4 LOC should be handled in a moveActor type of function where their old tile
+    // is made unoccupied, and the new one is, rather than manually setting it every time
+    //
+    // that'll have the option to make the whole movement of AI more convienient since we won't
+    // be worrying about the occupany all the time
     Person  thePerson = theGame->player;
+
+    BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
+    tileArray[thePerson.x+(thePerson.y*width)].is_occupied = true;
+    tileArray[thePerson.x+(thePerson.y*width)].occupant = &thePerson;
 
     for(i=0; i<height; i++)
     {
         cout << endl;
         for(j=0; j<width;j++)
         {
-            if(j==thePerson.x && i == thePerson.y)
-                cout << thePerson.representation;
+            Tile * the_tile = &tileArray[(i*width)+j];
+            if(the_tile->is_occupied)
+            {
+                cout << the_tile->occupant->representation;
+            }
             else
-                cout << tileArray[(i*width)+j].tile->representation;
+            {
+                cout << the_tile->tile->representation;
+            }
         }
     }
+    tileArray[thePerson.x+(thePerson.y*width)].is_occupied = false;
+
 
     //may have just shot readability in the head here...
-    BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
-
     cout << endl << endl;
     cout << "Tile Description:" << endl;
 
