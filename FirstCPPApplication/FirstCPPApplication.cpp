@@ -38,25 +38,34 @@ void process_movement(string request, Person *player)
     if(request == "north" || request == "n")
     {
         if(the_game.current_map->movePlayer(player, 0, -1) || buildmode)
-            player->y--;
+        { 
+//            player->y--;
+        }
     }
 
     else if(request == "south" || request == "s")
     {
         if(the_game.current_map->movePlayer(player, 0, 1) || buildmode)
-            player->y++;
+        { 
+//            player->y++; 
+        }
     }
 
     else if(request == "east" || request == "e")
     {
         if(the_game.current_map->movePlayer(player, 1, 0) || buildmode)
-            player->x++;
+        {
+//            player->x++; 
+        }
+
     }
 
     else if(request == "west" || request == "w")
     {
         if(the_game.current_map->movePlayer(player, -1, 0) || buildmode)
-            player->x--;
+        { 
+//            player->x--; 
+        }
     }
 
 };
@@ -101,7 +110,7 @@ void process_buildmode(string request, int current_tile)
         {
             WarpTileType* warp_tile;
             warp_tile = (WarpTileType*) this_tile.tile;
-        
+
             cout << "Warp Map: ";
             cin >> warp_tile->warpMap;
             cout << "WarpX: ";
@@ -138,8 +147,8 @@ void process_buildmode(string request, int current_tile)
                 myfile << active_tile.tiletype << endl;
                 if(active_tile.tiletype == 2)
                 {
-                WarpTileType* warp_tile;
-                warp_tile = (WarpTileType*) active_tile.tile;
+                    WarpTileType* warp_tile;
+                    warp_tile = (WarpTileType*) active_tile.tile;
 
                     myfile << warp_tile->warpMap << endl;
                     myfile << warp_tile->warpX << endl;
@@ -198,8 +207,8 @@ void process_request(string request, Person *player)
         Tile *this_tile = &the_game.current_map->tileArray[current_tile];
         if(this_tile->tiletype == 2)
         {
-                WarpTileType* warp_tile;
-                warp_tile = (WarpTileType*) this_tile->tile;
+            WarpTileType* warp_tile;
+            warp_tile = (WarpTileType*) this_tile->tile;
 
             the_game.current_map_index = warp_tile->warpMap;
             the_game.current_map = &(the_game.world[warp_tile->warpMap]);

@@ -32,7 +32,7 @@ void Game:: buildworld()
 }
 
 
-Person  Game::intialize_player(){
+Person  Game::initialize_player(){
 
     player.name = "Josh";
     player.age = 23;
@@ -53,7 +53,7 @@ Game::Game()
     enemies_size = 255; //hardcoded
     buildmode = false;
 
-    intialize_player(); //created the Person player
+    initialize_player(); //created the Person player
     buildworld();
     current_map = world; //I'm not so sure about this, but it solved the mem issue
 

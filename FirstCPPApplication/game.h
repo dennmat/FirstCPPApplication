@@ -31,7 +31,7 @@ class Game
         Game::Game();
         void Game::buildworld();
 
-        Person  Game::intialize_player();
+        Person  Game::initialize_player();
 };
 
 #endif

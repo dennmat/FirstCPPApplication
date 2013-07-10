@@ -138,8 +138,8 @@ int Map::draw(Game *theGame)
     Person  thePerson = theGame->player;
 
     BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
-    tileArray[thePerson.x+(thePerson.y*width)].is_occupied = true;
-    tileArray[thePerson.x+(thePerson.y*width)].occupant = &thePerson;
+    // tileArray[thePerson.x+(thePerson.y*width)].is_occupied = true;
+    // tileArray[thePerson.x+(thePerson.y*width)].occupant = &thePerson;
 
     for(i=0; i<height; i++)
     {
@@ -157,7 +157,7 @@ int Map::draw(Game *theGame)
             }
         }
     }
-    tileArray[thePerson.x+(thePerson.y*width)].is_occupied = false;
+    // tileArray[thePerson.x+(thePerson.y*width)].is_occupied = false;
 
 
     //may have just shot readability in the head here...
@@ -177,17 +177,19 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     new_x = thePerson->x+x2;
     new_y = thePerson->y+y2;
 
-    Tile *target_tile; // the tile of the new position
-    target_tile = &tileArray[new_x+((new_y)*width)];
 
     Tile *player_tile; // the current player position
     player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
+
+    Tile *target_tile; // the tile of the new position
+    target_tile = &tileArray[new_x+((new_y)*width)];
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&
             target_tile->tiletype == 3 || target_tile->tiletype == 2)
     {
         cout << endl << endl << endl;
+        thePerson->putPerson(player_tile, target_tile, new_x, new_y);
         return true;
     }
 
@@ -202,6 +204,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
         {  // more blank space for gui consistency
             cout << endl;
         }
+
         return false;
     }
 }
