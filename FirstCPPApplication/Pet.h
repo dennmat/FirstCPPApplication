@@ -1,3 +1,5 @@
+#ifndef PET_H
+#define PET_H
 #pragma once
 #include <sstream>
 
@@ -19,3 +21,4 @@ class Pet{
     void printout();
     bool Pet::CheckDeath();
 };
+#endif

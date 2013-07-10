@@ -1,3 +1,5 @@
+#ifndef GAME_H
+#define GAME_H
 #pragma once
 
 #include "stdafx.h"
@@ -32,3 +34,4 @@ class Game
         Person  Game::intialize_player();
 };
 
+#endif
