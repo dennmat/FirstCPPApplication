@@ -7,7 +7,7 @@ Person::Person(){
     pet = new Pet;
 };
 Person::~Person(){
-    delete pet;
+    //TODO: safely remove pet
 };
 
 void Person::putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new_y)

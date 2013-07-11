@@ -152,8 +152,8 @@ int Map::draw(Game *theGame)
     cout << endl << endl;
     cout << "Tile Description:" << endl;
 
-    Person  thePerson = theGame->player;
-    BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
+    Person  * thePerson = &theGame->player;
+    BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
 
     string pers_desc = person_tile->description;
     string tile_description = (pers_desc != "none" ?  pers_desc : description);
