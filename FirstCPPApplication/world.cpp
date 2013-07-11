@@ -177,12 +177,22 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     target_tile = &tileArray[new_x+((new_y)*width)];
 
     if(new_x < width && new_x > -1 &&
-            new_y < height && new_y > -1 &&
-            target_tile->tiletype == 3 || target_tile->tiletype == 2)
+       new_y < height && new_y > -1 &&
+       target_tile->tiletype == 3 || target_tile->tiletype == 2)
     {
         cout << endl << endl << endl;
         thePerson->putPerson(player_tile, target_tile, new_x, new_y);
         return true;
+    }
+
+    else if (target_tile->is_occupied)
+    {
+        bool is_fighter = target_tile->occupant->is_fighter;
+        if (is_fighter)
+        {
+            thePerson->attack(target_tile->occupant);
+            return false;
+        }
     }
 
     else

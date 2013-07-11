@@ -2,17 +2,28 @@
 #define PERSON_H
 #pragma once
 #include <sstream>
+#include "Pet.h"
 
 
 
+class Pet;
 class Tile;
+
 class Person{
     public:
-    std::string name;
-    int age;
-	int x,y;
+        std::string name;
+        int age;
 
-    char representation;
-    void putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new_y);
+        int x,y;
+        char representation;
+
+        bool is_fighter;
+        Pet * pet;
+
+        Person();
+        ~Person();
+
+        void putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new_y);
+        void Person::attack(Person * target);
 };
 #endif

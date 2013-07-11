@@ -40,8 +40,8 @@ Person  Game::initialize_player(){
     player.y = 3;
     player.representation = '@';
 
-    Pet p1_pet;
-    p1_pet.master = &player;
+    //Pet p1_pet;
+    //p1_pet.master = &player;
 
     Tile * next_tile = &current_map->tileArray[player.x + (player.y*current_map->width)];
     player.putPerson(NULL, next_tile, player.x, player.y);

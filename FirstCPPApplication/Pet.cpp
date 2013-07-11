@@ -43,14 +43,14 @@ Pet::Pet(string name, int max_hp, char representation ){
 
 };
 
-void Pet::Attack(Pet* ptr_target, int dmg){
+void Pet::Attack(Pet* pet_target, int dmg){
     //attacks another pet for dmg damage
-    // cout << ptr_target << endl;
+    // cout << pet_target << endl;
 
-    cout << "About to attack " << (*ptr_target).name << endl;
-    ptr_target->TakeDamage(dmg);
+    cout << "About to attack " << (*pet_target).name << endl;
+    pet_target->TakeDamage(dmg);
 
-    bool boo = ptr_target->CheckDeath();
+    bool boo = pet_target->CheckDeath();
     if (boo){
         printf("AHAAHAHA, you're dead bro, that's got to feel bad.\n");
     };

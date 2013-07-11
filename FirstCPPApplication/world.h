@@ -2,23 +2,11 @@
 
 #ifndef WORLD_H
 #define WORLD_H
-// The preprocessor directives shown above ensure that
-// if this file is included in more than one file the
-// linker only tried to read it once, and won't show
-// duplicate function definition errors
+
 #include <string>
 #include "Person.h"
 #include "game.h"
 
-/***************************** world.h ******************************
- *  Written by                                                      *
- *      Grant Mcneil                                                *
- *                                                                  *
- * please note:                                                     *
- * this code is covered by the GrantPL license.                     *
- * any project or construct that contains this file is immediatly   *
- * at the ownership of Grant McNeil.                                    *
- ********************************************************************/
 
 /********************************************************************
   So the idea here is to have a world, which is a navigatable set of
@@ -55,17 +43,18 @@ class WarpTileType : public BaseTileType
         WarpTileType(){ representation = 'w'; };
 };
 
+
 class WallTileType : public BaseTileType
 {
     public: 
         WallTileType(){ representation = '#'; };
 };
 
+
 class FloorTileType : public BaseTileType
 {
     public: 
         FloorTileType(){
-	    // printf("floor");
             representation = '.';
             tiletype;
         };
@@ -76,17 +65,18 @@ class Tile
     public:
         BaseTileType * tile;
         int tiletype;               // type of tile
+
         Person *occupant;       // the dude sitting on the tile
         bool is_occupied;
+
         Tile(); 
         ~Tile(){ delete tile; };
+
         void updateTileType(int type = 0);
         void makeOccupied();
 };
 
 
-// in order to properly draw the player, i'm going to store
-// whats under the player in tempchar
 class Map
 {
     public:
@@ -96,13 +86,15 @@ class Map
         // allocated in the life of the instance.
         Map();
         ~Map();
+
+        int width, height;
         int build(string filename);
         string description; // default description if tile does not have one
+
         int draw(Game *the_game);
-        int width, height;
         bool movePlayer(Person *thePerson, int x2, int y2);
+
         Tile *tileArray;
-        char tempchar;
 };
 
 

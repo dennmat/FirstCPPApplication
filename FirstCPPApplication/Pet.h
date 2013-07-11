@@ -2,6 +2,9 @@
 #define PET_H
 #pragma once
 #include <sstream>
+#include "Person.h"
+
+class Person; 
 
 class Pet{
     public:
