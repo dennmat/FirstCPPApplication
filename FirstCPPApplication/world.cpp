@@ -130,17 +130,6 @@ int Map::draw(Game *theGame)
 {
     int i,j;
 
-    // this set of 4 LOC should be handled in a moveActor type of function where their old tile
-    // is made unoccupied, and the new one is, rather than manually setting it every time
-    //
-    // that'll have the option to make the whole movement of AI more convienient since we won't
-    // be worrying about the occupany all the time
-    Person  thePerson = theGame->player;
-
-    BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
-    // tileArray[thePerson.x+(thePerson.y*width)].is_occupied = true;
-    // tileArray[thePerson.x+(thePerson.y*width)].occupant = &thePerson;
-
     for(i=0; i<height; i++)
     {
         cout << endl;
@@ -157,14 +146,17 @@ int Map::draw(Game *theGame)
             }
         }
     }
-    // tileArray[thePerson.x+(thePerson.y*width)].is_occupied = false;
 
 
     //may have just shot readability in the head here...
     cout << endl << endl;
     cout << "Tile Description:" << endl;
 
-    string tile_description = (person_tile->description != "none" ?  person_tile->description : description);
+    Person  thePerson = theGame->player;
+    BaseTileType * person_tile = tileArray[thePerson.x+(thePerson.y*width)].tile;
+
+    string pers_desc = person_tile->description;
+    string tile_description = (pers_desc != "none" ?  pers_desc : description);
     cout << tile_description;
     cout << endl << endl;
 
