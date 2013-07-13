@@ -15,17 +15,17 @@
 #include "world.h"
 #include "game.h"
 
+
+#include "libtcod.hpp"
+
 using namespace std;
 
 Game the_game;
 
 void WelcomeMessage(){
-
     printf("\t\tWELCOME TO THE GAME!\n");
     printf("\t\t********************\n");
-    // printf("\n\n");
     printf("\n\t\t   Prepare to die!\n\n");
-
 };
 
 
@@ -340,31 +340,33 @@ void clearScreen()
 //     SetConsoleCursorPosition( hStdOut, homeCoords );
 // }
 
+
+void libtcod()
+{
+   int playerx=40,playery=25;
+    TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
+    while ( !TCODConsole::isWindowClosed() ) {
+        TCOD_key_t key;
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS,&key,NULL);
+        switch(key.vk) {
+            case TCODK_UP : playery--; break;
+            case TCODK_DOWN : playery++; break;
+            case TCODK_LEFT : playerx--; break;
+            case TCODK_RIGHT : playerx++; break;
+            default:break;
+        }
+        TCODConsole::root->clear();
+        TCODConsole::root->putChar(playerx,playery,'@');
+        TCODConsole::flush();
+    }
+};
+
 int main ()
 {
 
+    libtcod();
 
-    WelcomeMessage();
-
-    // save space for the command output
-    cout << endl;
-    cout << endl;
-    cout << endl;
-
-    bool battle_done = false;
-
-    while (!battle_done){
-        the_game.current_map->draw(&the_game);
-        std::string answer = ask_for_str("What would you like to do?\n");
-        clearScreen(); //gotta get rid of that flash when the page redraws
-        WelcomeMessage();
-        answer = ToLower(answer);
-
-        process_request(answer, &the_game.player);
-    }
-
-    std::cout << "Hit enter to exit" << std::endl;
-    std::cin.get();
+    the_game.start_game();
 
     return 0;
 }

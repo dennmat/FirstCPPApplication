@@ -39,6 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Mark\Desktop\libtcod-1.5.1VS\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Mark\Desktop\libtcod-1.5.1VS\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,6 +55,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libtcod-VS.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,6 +82,68 @@
   <ItemGroup>
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="include\bresenham.h" />
+    <ClInclude Include="include\bresenham.hpp" />
+    <ClInclude Include="include\bsp.h" />
+    <ClInclude Include="include\bsp.hpp" />
+    <ClInclude Include="include\color.h" />
+    <ClInclude Include="include\color.hpp" />
+    <ClInclude Include="include\console.h" />
+    <ClInclude Include="include\console.hpp" />
+    <ClInclude Include="include\console_types.h" />
+    <ClInclude Include="include\fov.h" />
+    <ClInclude Include="include\fov.hpp" />
+    <ClInclude Include="include\fov_types.h" />
+    <ClInclude Include="include\gui\button.hpp" />
+    <ClInclude Include="include\gui\container.hpp" />
+    <ClInclude Include="include\gui\flatlist.hpp" />
+    <ClInclude Include="include\gui\gui.hpp" />
+    <ClInclude Include="include\gui\hbox.hpp" />
+    <ClInclude Include="include\gui\image.hpp" />
+    <ClInclude Include="include\gui\label.hpp" />
+    <ClInclude Include="include\gui\radiobutton.hpp" />
+    <ClInclude Include="include\gui\slider.hpp" />
+    <ClInclude Include="include\gui\statusbar.hpp" />
+    <ClInclude Include="include\gui\textbox.hpp" />
+    <ClInclude Include="include\gui\togglebutton.hpp" />
+    <ClInclude Include="include\gui\toolbar.hpp" />
+    <ClInclude Include="include\gui\vbox.hpp" />
+    <ClInclude Include="include\gui\widget.hpp" />
+    <ClInclude Include="include\heightmap.h" />
+    <ClInclude Include="include\heightmap.hpp" />
+    <ClInclude Include="include\image.h" />
+    <ClInclude Include="include\image.hpp" />
+    <ClInclude Include="include\lex.h" />
+    <ClInclude Include="include\lex.hpp" />
+    <ClInclude Include="include\libtcod.h" />
+    <ClInclude Include="include\libtcod.hpp" />
+    <ClInclude Include="include\libtcod_int.h" />
+    <ClInclude Include="include\list.h" />
+    <ClInclude Include="include\list.hpp" />
+    <ClInclude Include="include\mersenne.h" />
+    <ClInclude Include="include\mersenne.hpp" />
+    <ClInclude Include="include\mersenne_types.h" />
+    <ClInclude Include="include\mouse.h" />
+    <ClInclude Include="include\mouse.hpp" />
+    <ClInclude Include="include\mouse_types.h" />
+    <ClInclude Include="include\namegen.h" />
+    <ClInclude Include="include\namegen.hpp" />
+    <ClInclude Include="include\noise.h" />
+    <ClInclude Include="include\noise.hpp" />
+    <ClInclude Include="include\noise_defaults.h" />
+    <ClInclude Include="include\parser.h" />
+    <ClInclude Include="include\parser.hpp" />
+    <ClInclude Include="include\path.h" />
+    <ClInclude Include="include\path.hpp" />
+    <ClInclude Include="include\sys.h" />
+    <ClInclude Include="include\sys.hpp" />
+    <ClInclude Include="include\tree.h" />
+    <ClInclude Include="include\tree.hpp" />
+    <ClInclude Include="include\txtfield.h" />
+    <ClInclude Include="include\txtfield.hpp" />
+    <ClInclude Include="include\wrappers.h" />
+    <ClInclude Include="include\zip.h" />
+    <ClInclude Include="include\zip.hpp" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Pet.h" />
     <ClInclude Include="stdafx.h" />
