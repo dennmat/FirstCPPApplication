@@ -2,6 +2,10 @@
 #include "person.h"
 #include "world.h"
 
+#include <iostream>
+// #include <sstream>
+// #include <fstream>
+
 Person::Person(){
     is_fighter = true;
     pet = new Pet;
@@ -21,6 +25,11 @@ void Person::putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new
     if (next_tile != NULL){
         next_tile->is_occupied = true; 
         next_tile->occupant = this;
+        cout << "new occupant: " << name << endl;
+    }
+    else if (next_tile == NULL)
+    {
+        cout << "next tile is null" << endl;
     }
 
     x = new_x;

@@ -366,7 +366,7 @@ int main ()
 {
     // libtcod();
 
-    the_game.start_game();
+    the_game.mainloop();
 
     return 0;
 }

@@ -35,6 +35,33 @@ void Game:: buildworld()
     }
 }
 
+//creates a person and places them on the current map
+Person * Game::create_person(string name, int age, int x, int y, char repr)
+{
+
+    Person * new_pers = new Person;
+    new_pers->name = name;
+    new_pers->age = age;
+    new_pers->x = x;
+    new_pers->y = y;
+    new_pers->representation = repr;
+
+    Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
+    new_pers->putPerson(NULL, next_tile, x, y);
+
+    cout << "created person " << name << endl;
+
+    return new_pers;
+
+};
+
+//creates a bunch of enemies on the map
+void  Game::initialize_enemies(){
+    
+    enemies = create_person("first", 99, 5, 5, 'a');
+    ++enemies = create_person("second", 66, 5, 6, 'a');
+
+};
 
 Person  Game::initialize_player(){
 
@@ -67,12 +94,13 @@ Game::Game()
     current_map = world; //I'm not so sure about this, but it solved the mem issue
 
     initialize_player(); //created the Person player
+    initialize_enemies(); // create the enemies
 
     last_cmd = "not set";
 
 };
 
-void Game::start_game()
+void Game::mainloop()
 {
 	
     WelcomeMessage();

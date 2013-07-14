@@ -36,8 +36,10 @@ class Game
         void Game::buildworld();
 
         Person  Game::initialize_player();
+        Person * Game::create_person(std::string name, int age, int x, int y, char repr);
+        void  Game::initialize_enemies();
 
-        void Game::start_game();
+        void Game::mainloop();
 };
 
 #endif

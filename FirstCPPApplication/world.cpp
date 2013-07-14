@@ -140,6 +140,7 @@ int Map::draw(Game *theGame)
             Tile * the_tile = &tileArray[(i*width)+j];
             if(the_tile->is_occupied)
             {
+                cout << the_tile->occupant->name << endl;
                 TCODConsole::root->putChar(j, i, the_tile->occupant->representation);
                 TCODConsole::root->setCharForeground(j , i, TCODColor::red);
                 // cout << the_tile->occupant->representation;
