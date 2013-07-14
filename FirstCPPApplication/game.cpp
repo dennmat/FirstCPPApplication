@@ -74,6 +74,7 @@ Game::Game()
 
 void Game::start_game()
 {
+	
     WelcomeMessage();
 
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);

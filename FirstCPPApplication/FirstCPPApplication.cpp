@@ -218,7 +218,6 @@ void process_event(TCOD_key_t request, Person *player)
 
     else if(request.c == 'h')
     {
-        // system("cls");
         if(the_game.buildmode)
         {
             cout << "-------------------" << endl;
@@ -247,20 +246,21 @@ void process_event(TCOD_key_t request, Person *player)
             cout << "[Q]uit -   Quit" <<endl;
             cout << "-------------------" << endl;
         }
-        // cin.get();
-       // system("cls");
     }
 
     else if(request.c == 'q')
     {
+        cout << "Goodbye now" << endl;
         exit(1);
     }
     else
     {
+        //convert key char to string. 
         stringstream ss;
         ss << request.c;
         string temp_str;
         ss >> temp_str;
+
         cout << endl << "command not found: " << temp_str << endl;
         cout << "Try 'help' for list of commands" << endl;
     }
@@ -364,7 +364,6 @@ void clearScreen()
 
 int main ()
 {
-
     // libtcod();
 
     the_game.start_game();
