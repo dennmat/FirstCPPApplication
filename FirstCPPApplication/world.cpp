@@ -7,6 +7,8 @@
 #include "world.h"
 #include "game.h"
 
+#include "libtcod.hpp"
+
 using namespace std;
 
 Tile::Tile()
@@ -138,13 +140,19 @@ int Map::draw(Game *theGame)
             Tile * the_tile = &tileArray[(i*width)+j];
             if(the_tile->is_occupied)
             {
-                cout << the_tile->occupant->representation;
+                TCODConsole::root->putChar(j, i, the_tile->occupant->representation);
+                TCODConsole::root->setCharForeground(j , i, TCODColor::red);
+                // cout << the_tile->occupant->representation;
             }
             else
             {
-                cout << the_tile->tile->representation;
+                TCODConsole::root->putChar(j, i, the_tile->tile->representation);
+                TCODColor color = the_tile->tile->color;
+                TCODConsole::root->setCharForeground(j , i, color);
+                // cout << the_tile->tile->representation;
             }
         }
+        TCODConsole::flush();
     }
 
 

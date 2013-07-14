@@ -8,6 +8,8 @@
 #include "FirstCPPApplication.h"
 #include "utils.h"
 
+#include "libtcod.hpp"
+
 
 void Game:: buildworld()
 {
@@ -72,13 +74,16 @@ void Game::start_game()
     WelcomeMessage();
 
     // save space for the command output
-    cout << endl;
-    cout << endl;
-    cout << endl;
+    // cout << endl;
+    // cout << endl;
+    // cout << endl;
+    TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
 
     bool battle_done = false;
 
-    while (!battle_done){
+    while ( !TCODConsole::isWindowClosed() ) {
+        TCOD_key_t key;
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS,&key,NULL);
         current_map->draw(this);
         std::string answer = ask_for_str("What would you like to do?\n");
         clearScreen(); //gotta get rid of that flash when the page redraws
@@ -89,5 +94,5 @@ void Game::start_game()
     }
 
     std::cout << "Hit enter to exit" << std::endl;
-    std::cin.get();
+    // std::cin.get();
 };

@@ -7,6 +7,8 @@
 #include "Person.h"
 #include "game.h"
 
+#include "libtcod.hpp"
+
 
 /********************************************************************
   So the idea here is to have a world, which is a navigatable set of
@@ -28,8 +30,13 @@ class BaseTileType //all tile types must inherit this
         char representation;    // the character that represents this tile
         string description;      // the description of the tile
         static int tiletype;
+        TCODColor color;
 
-        BaseTileType(){ representation='b'; };
+        BaseTileType(){
+			representation='b';
+                    color = TCODColor::white;
+
+        };
 
 };
 
@@ -40,14 +47,22 @@ class WarpTileType : public BaseTileType
         int warpMap;            // if this is a warp tile, index of the map to warp to
         int warpX, warpY;       // where you warp to in the destination map
 
-        WarpTileType(){ representation = 'w'; };
+        WarpTileType()
+        {
+            representation = 'w';
+            color = TCODColor::sepia;
+        };
 };
 
 
 class WallTileType : public BaseTileType
 {
     public: 
-        WallTileType(){ representation = '#'; };
+        WallTileType()
+        {
+            representation = '#';
+            color = TCODColor::sepia ;
+        };
 };
 
 
@@ -57,6 +72,7 @@ class FloorTileType : public BaseTileType
         FloorTileType(){
             representation = '.';
             tiletype;
+            color = TCODColor::lighterSepia;
         };
 };
 
@@ -68,6 +84,7 @@ class Tile
 
         Person *occupant;       // the dude sitting on the tile
         bool is_occupied;
+
 
         Tile(); 
         ~Tile(){ delete tile; };
