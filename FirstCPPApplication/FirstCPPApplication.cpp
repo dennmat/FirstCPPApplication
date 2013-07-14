@@ -187,16 +187,16 @@ void process_event(TCOD_key_t request, Person *player)
     //    cout << "I see you testin'" << endl;
     //}
 
-    // process_buildmode(request, current_tile);
+    process_buildmode(request, current_tile);
 
     if(is_move_cmd){
         process_movement(request, player);
     }
 
-    // else if(request.c == 'b')
-    // {
-    //     the_game.buildmode=!the_game.buildmode;
-    // }
+    else if(request.c == 'b')
+    {
+        the_game.buildmode=!the_game.buildmode;
+    }
 
     // else if(request.c == 'r')
     // {
@@ -216,40 +216,40 @@ void process_event(TCOD_key_t request, Person *player)
     //     }
     // }
 
-    // else if(request.c == 'h')
-    // {
-    //     system("cls");
-    //     if(the_game.buildmode)
-    //     {
-    //         cout << "-------------------" << endl;
-    //         cout << "Available Commands:" << endl;
-    //         cout << "[H]elp -   See Help" <<endl;
-    //         cout << "[N]orth    -   Move North" <<endl;
-    //         cout << "[S]outh    -   Move South" <<endl;
-    //         cout << "[E]ast -   Move East" <<endl;
-    //         cout << "[W]est -   Move West" <<endl;
-    //         cout << "[C]hange - Alter a Tile" <<endl;
-    //         cout << "Wr[i]te -  Write map to file" <<endl;
-    //         cout << "C[O]py -   Copy a Tile" <<endl;
-    //         cout << "[P]aste -  Paste a Tile" <<endl;
-    //         cout << "[Q]uit -   Quit" <<endl;
-    //         cout << "-------------------" << endl;
-    //     }
-    //     else
-    //     {
-    //         cout << "-------------------" << endl;
-    //         cout << "Available Commands:" << endl;
-    //         cout << "[H]elp -   See Help" <<endl;
-    //         cout << "[N]orth    -   Move North" <<endl;
-    //         cout << "[S]outh    -   Move South" <<endl;
-    //         cout << "[E]ast -   Move East" <<endl;
-    //         cout << "[W]est -   Move West" <<endl;
-    //         cout << "[Q]uit -   Quit" <<endl;
-    //         cout << "-------------------" << endl;
-    //     }
-    //     cin.get();
-    //     system("cls");
-    // }
+    else if(request.c == 'h')
+    {
+        // system("cls");
+        if(the_game.buildmode)
+        {
+            cout << "-------------------" << endl;
+            cout << "Available Commands:" << endl;
+            cout << "[H]elp -   See Help" <<endl;
+            cout << "[N]orth    -   Move North" <<endl;
+            cout << "[S]outh    -   Move South" <<endl;
+            cout << "[E]ast -   Move East" <<endl;
+            cout << "[W]est -   Move West" <<endl;
+            cout << "[C]hange - Alter a Tile" <<endl;
+            cout << "Wr[i]te -  Write map to file" <<endl;
+            cout << "C[O]py -   Copy a Tile" <<endl;
+            cout << "[P]aste -  Paste a Tile" <<endl;
+            cout << "[Q]uit -   Quit" <<endl;
+            cout << "-------------------" << endl;
+        }
+        else
+        {
+            cout << "-------------------" << endl;
+            cout << "Available Commands:" << endl;
+            cout << "[H]elp -   See Help" <<endl;
+            cout << "[N]orth    -   Move North" <<endl;
+            cout << "[S]outh    -   Move South" <<endl;
+            cout << "[E]ast -   Move East" <<endl;
+            cout << "[W]est -   Move West" <<endl;
+            cout << "[Q]uit -   Quit" <<endl;
+            cout << "-------------------" << endl;
+        }
+        // cin.get();
+       // system("cls");
+    }
 
     else if(request.c == 'q')
     {
