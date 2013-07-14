@@ -85,14 +85,14 @@ void Game::start_game()
         TCOD_key_t key;
         // TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS,&key,NULL);
         //TCODConsole::waitForKeypress(true);
-        TCODConsole::checkForKeypress();
+        key = TCODConsole::checkForKeypress();
         current_map->draw(this);
-        std::string answer = ask_for_str("What would you like to do?\n"); //disable input on regular console window for draggable TCODConsole
+        // std::string answer = ask_for_str("What would you like to do?\n"); //disable input on regular console window for draggable TCODConsole
         clearScreen(); //gotta get rid of that flash when the page redraws
         WelcomeMessage();
         // answer = ToLower(answer);
 
-        // process_request(answer, &player);
+        process_request(key, &player);
     }
 
     std::cout << "Hit enter to exit" << std::endl;

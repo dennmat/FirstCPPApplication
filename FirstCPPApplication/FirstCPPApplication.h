@@ -8,12 +8,14 @@
 
 #include "person.h"
 
+#include "libtcod.hpp"
+
 
 class Person;
 
 void WelcomeMessage();
 void clearScreen();
-void process_movement(std::string request, Person *player);
-void process_request(std::string request, Person *player);
+void process_movement(TCOD_key_t request, Person *player);
+void process_request(TCOD_key_t request, Person *player);
 
 #endif
