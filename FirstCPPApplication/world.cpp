@@ -134,7 +134,7 @@ int Map::draw(Game *theGame)
 
     for(i=0; i<height; i++)
     {
-        cout << endl;
+        // cout << endl;
         for(j=0; j<width;j++)
         {
             Tile * the_tile = &tileArray[(i*width)+j];
@@ -157,16 +157,16 @@ int Map::draw(Game *theGame)
 
 
     //may have just shot readability in the head here...
-    cout << endl << endl;
-    cout << "Tile Description:" << endl;
+    // cout << endl << endl;
+    // cout << "Tile Description:" << endl;
 
     Person  * thePerson = &theGame->player;
     BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
 
     string pers_desc = person_tile->description;
     string tile_description = (pers_desc != "none" ?  pers_desc : description);
-    cout << tile_description;
-    cout << endl << endl;
+    // cout << tile_description;
+    // cout << endl << endl;
 
     return 1;
 }
@@ -188,7 +188,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
        new_y < height && new_y > -1 &&
        target_tile->tiletype == 3 || target_tile->tiletype == 2)
     {
-        cout << endl << endl << endl;
+        // cout << endl << endl << endl;
         thePerson->putPerson(player_tile, target_tile, new_x, new_y);
         return true;
     }

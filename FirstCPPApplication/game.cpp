@@ -73,10 +73,6 @@ void Game::start_game()
 {
     WelcomeMessage();
 
-    // save space for the command output
-    // cout << endl;
-    // cout << endl;
-    // cout << endl;
     TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
 
     bool battle_done = false;
@@ -84,12 +80,12 @@ void Game::start_game()
     while ( !TCODConsole::isWindowClosed() ) {
         TCOD_key_t key;
         // TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS,&key,NULL);
-        //TCODConsole::waitForKeypress(true);
-        key = TCODConsole::checkForKeypress();
+        key = TCODConsole::waitForKeypress(true);
+        // key = TCODConsole::checkForKeypress();
         current_map->draw(this);
         // std::string answer = ask_for_str("What would you like to do?\n"); //disable input on regular console window for draggable TCODConsole
-        clearScreen(); //gotta get rid of that flash when the page redraws
-        WelcomeMessage();
+        // clearScreen(); //gotta get rid of that flash when the page redraws
+        // WelcomeMessage();
         // answer = ToLower(answer);
 
         process_request(key, &player);

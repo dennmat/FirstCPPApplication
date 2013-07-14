@@ -76,16 +76,15 @@ bool is_request_move_cmd(TCOD_key_t request){
     bool is_move_cmd;
     is_move_cmd = false;
 
+    // using ~ (tilde) as a dead character as a stand in for noop
     char move_cmds[] = { 'n', 's', 'e', 'w', '~' };
 
     int move_cmds_size = sizeof(move_cmds)/sizeof(char);
 
     char* result;
     result = find(move_cmds, move_cmds+(move_cmds_size-1), request.c);
-    if (*result != '~')
-    {
-        is_move_cmd = true;
-    }
+
+    if (*result != '~') { is_move_cmd = true; }
 
 
 
