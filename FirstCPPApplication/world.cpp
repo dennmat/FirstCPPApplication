@@ -173,6 +173,8 @@ int Map::draw(Game *theGame)
 
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
 {
+    cout << "trying to move player" << endl;
+
     int new_x, new_y; // where the player is intending to go
     new_x = thePerson->x+x2;
     new_y = thePerson->y+y2;

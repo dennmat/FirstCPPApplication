@@ -257,10 +257,10 @@ void process_request(TCOD_key_t request, Person *player)
     }
     else
     {
-	stringstream ss;
-	ss << request.c;
-	string temp_str;
-	ss >> temp_str;
+        stringstream ss;
+        ss << request.c;
+        string temp_str;
+        ss >> temp_str;
         cout << endl << "command not found: " << temp_str << endl;
         cout << "Try 'help' for list of commands" << endl;
     }
@@ -341,26 +341,26 @@ void clearScreen()
 // }
 
 
-void libtcod()
-{
-    int playerx=40,playery=25;
-    TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
-    while ( !TCODConsole::isWindowClosed() ) {
-        TCOD_key_t key;
-        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
-        switch(key.vk) {
-            case TCODK_UP : playery--; break;
-            case TCODK_DOWN : playery++; break;
-            case TCODK_LEFT : playerx--; break;
-            case TCODK_RIGHT : playerx++; break;
-            default:break;
-        }
-        TCODConsole::root->clear();
-        TCODConsole::root->putChar(playerx,playery,'@');
-        TCODConsole::root->setCharForeground(playerx, playery, TCODColor::red);
-        TCODConsole::flush();
-    }
-};
+// void libtcod()
+// {
+//     int playerx=40,playery=25;
+//     TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
+//     while ( !TCODConsole::isWindowClosed() ) {
+//         TCOD_key_t key;
+//         TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+//         switch(key.vk) {
+//             case TCODK_UP : playery--; break;
+//             case TCODK_DOWN : playery++; break;
+//             case TCODK_LEFT : playerx--; break;
+//             case TCODK_RIGHT : playerx++; break;
+//             default:break;
+//         }
+//         TCODConsole::root->clear();
+//         TCODConsole::root->putChar(playerx,playery,'@');
+//         TCODConsole::root->setCharForeground(playerx, playery, TCODColor::red);
+//         TCODConsole::flush();
+//     }
+// };
 
 int main ()
 {
