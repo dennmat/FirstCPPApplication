@@ -39,7 +39,7 @@ void process_movement(string request, Person *player)
     {
         if(the_game.current_map->movePlayer(player, 0, -1) || buildmode)
         { 
-//            player->y--;
+            //            player->y--;
         }
     }
 
@@ -47,7 +47,7 @@ void process_movement(string request, Person *player)
     {
         if(the_game.current_map->movePlayer(player, 0, 1) || buildmode)
         { 
-//            player->y++; 
+            //            player->y++; 
         }
     }
 
@@ -55,7 +55,7 @@ void process_movement(string request, Person *player)
     {
         if(the_game.current_map->movePlayer(player, 1, 0) || buildmode)
         {
-//            player->x++; 
+            //            player->x++; 
         }
 
     }
@@ -64,7 +64,7 @@ void process_movement(string request, Person *player)
     {
         if(the_game.current_map->movePlayer(player, -1, 0) || buildmode)
         { 
-//            player->x--; 
+            //            player->x--; 
         }
     }
 
@@ -343,7 +343,7 @@ void clearScreen()
 
 void libtcod()
 {
-   int playerx=40,playery=25;
+    int playerx=40,playery=25;
     TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
     while ( !TCODConsole::isWindowClosed() ) {
         TCOD_key_t key;
@@ -357,6 +357,7 @@ void libtcod()
         }
         TCODConsole::root->clear();
         TCODConsole::root->putChar(playerx,playery,'@');
+        TCODConsole::root->setCharForeground(playerx, playery, TCODColor::red);
         TCODConsole::flush();
     }
 };
@@ -364,7 +365,7 @@ void libtcod()
 int main ()
 {
 
-    libtcod();
+    // libtcod();
 
     the_game.start_game();
 
