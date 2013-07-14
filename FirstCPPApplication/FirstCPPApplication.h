@@ -16,6 +16,6 @@ class Person;
 void WelcomeMessage();
 void clearScreen();
 void process_movement(TCOD_key_t request, Person *player);
-void process_request(TCOD_key_t request, Person *player);
+void process_event(TCOD_key_t request, Person *player);
 
 #endif

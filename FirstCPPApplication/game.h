@@ -19,6 +19,10 @@ class Game
                             // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
         Person *enemies;  //later, this will be an array of all the enemies 
 
+        int screen_w;
+        int screen_h;
+
+
         Map *world;
         Map *current_map;
         int current_map_index;

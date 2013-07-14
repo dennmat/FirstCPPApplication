@@ -57,6 +57,9 @@ Person  Game::initialize_player(){
 Game::Game()
 {
 
+    screen_w = 40;
+    screen_h = 25;
+
     enemies_size = 255; //hardcoded
     buildmode = false;
 
@@ -73,23 +76,18 @@ void Game::start_game()
 {
     WelcomeMessage();
 
-    TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
+    TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
 
     bool battle_done = false;
 
-	current_map->draw(this);
+    current_map->draw(this);
     while ( !TCODConsole::isWindowClosed() ) {
         TCODConsole::flush();
-        TCOD_key_t key;
-        // TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS,&key,NULL);
-        key = TCODConsole::waitForKeypress(true);
-        // key = TCODConsole::checkForKeypress();
-        process_request(key, &player);
+        TCOD_key_t key_evt;
+        TCOD_mouse_t mouse_evt;
+        TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
+        process_event(key_evt, &player);
         current_map->draw(this);
-        // std::string answer = ask_for_str("What would you like to do?\n"); //disable input on regular console window for draggable TCODConsole
-        // clearScreen(); //gotta get rid of that flash when the page redraws
-        // WelcomeMessage();
-        // answer = ToLower(answer);
 
     }
 

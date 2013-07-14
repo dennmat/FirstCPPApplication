@@ -169,7 +169,7 @@ void process_buildmode(TCOD_key_t request, int current_tile)
 
 };
 
-void process_request(TCOD_key_t request, Person *player)
+void process_event(TCOD_key_t request, Person *player)
 {
     //store the last command, or use it if its needed
     // if (request == ""){

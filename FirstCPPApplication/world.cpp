@@ -179,7 +179,6 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     new_x = thePerson->x+x2;
     new_y = thePerson->y+y2;
 
-
     Tile *player_tile; // the current player position
     player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
 
