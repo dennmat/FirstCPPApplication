@@ -80,6 +80,7 @@
     <None Include="world.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="actor.h" />
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="include\bresenham.h" />
@@ -144,6 +145,8 @@
     <ClInclude Include="include\wrappers.h" />
     <ClInclude Include="include\zip.h" />
     <ClInclude Include="include\zip.hpp" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Pet.h" />
     <ClInclude Include="stdafx.h" />

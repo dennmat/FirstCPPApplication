@@ -3,13 +3,15 @@
 #pragma once
 #include <sstream>
 #include "Pet.h"
+#include "Actor.h"
 
 
 
 class Pet;
 class Tile;
 
-class Person{
+class Person : public Actor
+{
     public:
         std::string name;
         int age;

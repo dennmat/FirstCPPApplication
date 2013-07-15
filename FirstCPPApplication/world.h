@@ -3,6 +3,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "object.h"
 #include <string>
 #include "Person.h"
 #include "game.h"
@@ -76,7 +77,7 @@ class FloorTileType : public BaseTileType
         };
 };
 
-class Tile
+class Tile : public Object
 {
     bool _is_occupied;
 
@@ -98,13 +99,9 @@ class Tile
 };
 
 
-class Map
+class Map : public Object
 {
     public:
-        // C++ Classes have constructors and deconstructors that
-        // are called whenever an instance of the class is created
-        // or destroyed. This is often used to free any memory that was
-        // allocated in the life of the instance.
         Map();
         ~Map();
 
