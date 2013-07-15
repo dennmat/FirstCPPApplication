@@ -7,6 +7,8 @@
 #include "Pet.h"
 #include "world.h"
 
+#include "tile.h"
+
 class Map;
 class Tile;
 
