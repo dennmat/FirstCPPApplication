@@ -78,12 +78,15 @@ class FloorTileType : public BaseTileType
 
 class Tile
 {
+    bool _is_occupied;
+
     public:
         BaseTileType * tile;
         int tiletype;               // type of tile
 
         Person *occupant;       // the dude sitting on the tile
-        bool is_occupied;
+
+        bool is_occupied() { return _is_occupied; };
 
 
         Tile(); 
@@ -91,6 +94,7 @@ class Tile
 
         void updateTileType(int type = 0);
         void makeOccupied();
+        void makeUnoccupied();
 };
 
 

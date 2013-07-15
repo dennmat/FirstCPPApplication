@@ -14,15 +14,19 @@ using namespace std;
 Tile::Tile()
 {
     tiletype = 0;
-    is_occupied = false;
+    _is_occupied = false;
 
     updateTileType(tiletype);
 };
 
 void Tile::makeOccupied()
 {
-    is_occupied = true;
+    _is_occupied = true;
+};
 
+void Tile::makeUnoccupied()
+{
+    _is_occupied = false;
 };
 
 void Tile::updateTileType(int type )
@@ -138,7 +142,7 @@ int Map::draw(Game *theGame)
         for(j=0; j<width;j++)
         {
             Tile * the_tile = &tileArray[(i*width)+j];
-            if(the_tile->is_occupied)
+            if(the_tile->is_occupied())
             {
                 // cout << the_tile->occupant->name << endl;
                 TCODConsole::root->putChar(j, i, the_tile->occupant->representation);
@@ -189,14 +193,14 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     if(new_x < width && new_x > -1 &&
        new_y < height && new_y > -1 &&
        (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
-       !target_tile->is_occupied)
+       !target_tile->is_occupied())
     {
         // cout << endl << endl << endl;
         thePerson->putPerson(player_tile, target_tile, new_x, new_y);
         return true;
     }
 
-    else if (target_tile->is_occupied)
+    else if (target_tile->is_occupied())
     {
         bool is_fighter = target_tile->occupant->is_fighter;
         if (is_fighter)

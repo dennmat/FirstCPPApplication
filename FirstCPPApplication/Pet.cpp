@@ -50,8 +50,8 @@ void Pet::Attack(Pet* pet_target, int dmg){
     cout << "About to attack " << (*pet_target).name << endl;
     pet_target->TakeDamage(dmg);
 
-    bool boo = pet_target->CheckDeath();
-    if (boo){
+    bool is_target_dead = pet_target->CheckDeath();
+    if (is_target_dead){
         printf("AHAAHAHA, you're dead bro, that's got to feel bad.\n");
     };
 
@@ -68,9 +68,10 @@ void Pet::TakeDamage(int dmg){
 };
 
 bool Pet::CheckDeath(){
-    if (cur_hp <= 0  && !is_dead){
-	printf("OH NO I\"M DEAD\n");
-	is_dead = true;
+    if (cur_hp <= 0  && !is_dead)
+    {
+        printf("OH NO I\"M DEAD\n");
+        is_dead = true;
     }
     return is_dead;
 
