@@ -38,9 +38,7 @@ void Person::putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new
 };
 
 
-void Person::attack(Person * target)
+void Person::attack(Actor * target)
 {
-
-    pet->Attack(target->pet, 10);
-
+    pet->Attack(((Person*)(target))->pet, 10); //shit will happen if the target isn't a Person
 };

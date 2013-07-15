@@ -1,6 +1,8 @@
 #ifndef TILE_H
 #define TILE_H
 
+#include <vector>
+
 #include "libtcod.hpp"
 #include "person.h"
 
@@ -65,7 +67,8 @@ class Tile : public Object
     BaseTileType * tile;
     int tiletype;               // type of tile
 
-    Person *occupant;       // the dude sitting on the tile
+    std::vector<Actor *> occupants;       // the dude sitting on the tile
+    Actor * occupant;
 
     bool is_occupied() { return _is_occupied; };
 

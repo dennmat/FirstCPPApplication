@@ -17,15 +17,13 @@ class Person : public Actor
         int age;
 
         int x,y;
-        char representation;
 
-        bool is_fighter;
         Pet * pet;
 
         Person();
         ~Person();
 
         void putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new_y);
-        void Person::attack(Person * target);
+        void Person::attack(Actor * target);
 };
 #endif

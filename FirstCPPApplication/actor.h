@@ -6,6 +6,9 @@
 class Actor : public Object 
 {
 
+    public:
+        bool is_fighter;
+        char representation;
 };
 
 #endif
