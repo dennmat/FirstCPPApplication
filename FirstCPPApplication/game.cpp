@@ -7,6 +7,7 @@
 #include "world.h"
 #include "FirstCPPApplication.h"
 #include "utils.h"
+#include "Representation.h"
 
 #include "libtcod.hpp"
 
@@ -38,14 +39,19 @@ void Game:: buildworld()
 //creates a person and places them on the current map
 Person * Game::create_person(string name, int age, int x, int y, char repr)
 {
-
+    //build the Person
     Person * new_pers = new Person;
     new_pers->name = name;
     new_pers->age = age;
     new_pers->x = x;
     new_pers->y = y;
-    new_pers->representation = repr;
 
+    //set its representation, aka color and char
+    Representation * representation =   new Representation;
+    representation->repr = repr;
+    new_pers->representation = representation;
+
+    //put it on the map somewhere
     Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
     new_pers->putPerson(NULL, next_tile, x, y);
 
@@ -66,11 +72,16 @@ void  Game::initialize_enemies(){
 
 Person  Game::initialize_player(){
 
+    //create the  repr of the player Person
+    Representation * representation =   new Representation;
+    representation->repr = '@';
+    representation->color= TCODColor::celadon;
+
     player.name = "Josh";
     player.age = 23;
     player.x = 3;
     player.y = 3;
-    player.representation = '@';
+    player.representation = representation;
 
     //Pet p1_pet;
     //p1_pet.master = &player;

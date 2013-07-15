@@ -145,15 +145,20 @@ int Map::draw(Game *theGame)
             if(the_tile->is_occupied())
             {
                 // cout << the_tile->occupant->name << endl;
-                TCODConsole::root->putChar(j, i, the_tile->occupant->representation);
-                TCODConsole::root->setCharForeground(j , i, TCODColor::red);
+		char the_char = the_tile->occupant->representation->repr;
+		TCODColor the_color = the_tile->occupant->representation->color;
+                TCODConsole::root->putChar(j, i, the_char);
+                TCODConsole::root->setCharForeground(j , i, the_color);
                 // cout << the_tile->occupant->representation;
             }
             else
             {
-                TCODConsole::root->putChar(j, i, the_tile->tile->representation);
-                TCODColor color = the_tile->tile->color;
-                TCODConsole::root->setCharForeground(j , i, color);
+		char the_char = the_tile->tile->representation->repr;
+		TCODColor the_color = the_tile->tile->representation->color;
+                //TCODColor color = the_tile->tile->color;
+
+                TCODConsole::root->putChar(j, i, the_char );
+                TCODConsole::root->setCharForeground(j , i, the_color);
                 // cout << the_tile->tile->representation;
             }
         }
@@ -191,9 +196,9 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     target_tile = &tileArray[new_x+((new_y)*width)];
 
     if(new_x < width && new_x > -1 &&
-       new_y < height && new_y > -1 &&
-       (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
-       !target_tile->is_occupied())
+            new_y < height && new_y > -1 &&
+            (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
+            !target_tile->is_occupied())
     {
         // cout << endl << endl << endl;
         thePerson->putPerson(player_tile, target_tile, new_x, new_y);

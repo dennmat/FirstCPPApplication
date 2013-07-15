@@ -4,21 +4,24 @@
 #include <vector>
 
 #include "libtcod.hpp"
+
 #include "person.h"
+#include "Representation.h"
+
+
 
 class BaseTileType //all tile types must inherit this
 {
     public:
         bool collidable;
-        char representation;    // the character that represents this tile
+        Representation * representation;    // the character that represents this tile
         std::string description;      // the description of the tile
         static int tiletype;
         TCODColor color;
 
-        BaseTileType(){
-            representation='b';
-            color = TCODColor::white;
-
+        BaseTileType()
+        {
+            representation = new BaseRepresentation;
         };
 
 };
@@ -32,8 +35,7 @@ class WarpTileType : public BaseTileType
 
         WarpTileType()
         {
-            representation = 'w';
-            color = TCODColor::sepia;
+            representation = new WarpRepresentation;
         };
 };
 
@@ -43,8 +45,7 @@ class WallTileType : public BaseTileType
     public: 
         WallTileType()
         {
-            representation = '#';
-            color = TCODColor::sepia ;
+            representation = new WallRepresentation;
         };
 };
 
@@ -53,9 +54,8 @@ class FloorTileType : public BaseTileType
 {
     public: 
         FloorTileType(){
-            representation = '.';
             tiletype;
-            color = TCODColor::lighterSepia;
+            representation = new FloorRepresentation;
         };
 };
 

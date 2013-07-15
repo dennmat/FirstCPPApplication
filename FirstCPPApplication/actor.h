@@ -2,13 +2,22 @@
 #define ACTOR_H
 
 #include "object.h"
+#include "Representation.h"
+
+class Representation;
 
 class Actor : public Object 
 {
 
     public:
         bool is_fighter;
-        char representation;
+        Representation* representation;
+
+        Actor::Actor()
+        {
+            representation = new Representation;
+        };
+
 };
 
 #endif

@@ -118,7 +118,7 @@ void process_buildmode(TCOD_key_t request, int current_tile)
         getline(cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
         getline(cin, this_tile.tile->description);
         cout << endl << "Representation: ";
-        cin >> this_tile.tile->representation;
+        cin >> this_tile.tile->representation->repr;
     }
     else if(request.c == 'i')
     {
