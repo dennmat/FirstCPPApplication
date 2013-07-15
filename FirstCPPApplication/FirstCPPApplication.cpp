@@ -182,11 +182,6 @@ void process_event(TCOD_key_t request, Person *player)
     int current_tile = player->x+(player->y*the_game.current_map->width);
     is_move_cmd = is_request_move_cmd(request);
 
-    //if(request.c == "test")
-    //{
-    //    cout << "I see you testin'" << endl;
-    //}
-
     process_buildmode(request, current_tile);
 
     if(is_move_cmd){
@@ -287,86 +282,11 @@ int* getConsoleSize(){
 
 void clearScreen()
 {
-    // the current way
     system("cls");
-
-    // //my attempted way
-    //     int* info = getConsoleSize();
-    //     int columns = info[0];
-    //     
-    //     int i = 0;
-    //     cout << string(columns, '\n');
-    //     // while (i < columns){
-    //     //     cout << endl;
-    //     //     i++;
-    //     // }
-    // 
 }
-
-// //took this from the web to remove the screen flash, but it doesn't help.
-// {   
-//     HANDLE                     hStdOut;
-//     CONSOLE_SCREEN_BUFFER_INFO csbi;
-//     DWORD                      count;
-//     DWORD                      cellCount;
-//     COORD                      homeCoords = { 0, 0 };
-// 
-//     hStdOut = GetStdHandle( STD_OUTPUT_HANDLE );
-//     if (hStdOut == INVALID_HANDLE_VALUE) return;
-// 
-//     /* Get the number of cells in the current buffer */
-//     if (!GetConsoleScreenBufferInfo( hStdOut, &csbi )) return;
-//     cellCount = csbi.dwSize.X *csbi.dwSize.Y;
-// 
-//     /* Fill the entire buffer with spaces */
-//     if (!FillConsoleOutputCharacter(
-//                 hStdOut,
-//                 (TCHAR) ' ',
-//                 cellCount,
-//                 homeCoords,
-//                 &count
-//                 )) return;
-// 
-//     /* Fill the entire buffer with the current colors and attributes */
-//     if (!FillConsoleOutputAttribute(
-//                 hStdOut,
-//                 csbi.wAttributes,
-//                 cellCount,
-//                 homeCoords,
-//                 &count
-//                 )) return;
-// 
-//     /* Move the cursor home */
-//     SetConsoleCursorPosition( hStdOut, homeCoords );
-// }
-
-
-// void libtcod()
-// {
-//     int playerx=40,playery=25;
-//     TCODConsole::initRoot(80,50,"libtcod C++ tutorial",false);
-//     while ( !TCODConsole::isWindowClosed() ) {
-//         TCOD_key_t key;
-//         TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
-//         switch(key.vk) {
-//             case TCODK_UP : playery--; break;
-//             case TCODK_DOWN : playery++; break;
-//             case TCODK_LEFT : playerx--; break;
-//             case TCODK_RIGHT : playerx++; break;
-//             default:break;
-//         }
-//         TCODConsole::root->clear();
-//         TCODConsole::root->putChar(playerx,playery,'@');
-//         TCODConsole::root->setCharForeground(playerx, playery, TCODColor::red);
-//         TCODConsole::flush();
-//     }
-// };
 
 int main ()
 {
-    // libtcod();
-
     the_game.mainloop();
-
     return 0;
 }
