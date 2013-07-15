@@ -49,7 +49,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr)
     Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
     new_pers->putPerson(NULL, next_tile, x, y);
 
-    cout << "created person " << name << endl;
+    // cout << "created person " << name << endl;
 
     return new_pers;
 
@@ -60,6 +60,7 @@ void  Game::initialize_enemies(){
     
     enemies = create_person("first", 99, 5, 5, 'a');
     ++enemies = create_person("second", 66, 5, 6, 'a');
+
 
 };
 

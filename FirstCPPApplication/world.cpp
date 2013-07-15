@@ -140,7 +140,7 @@ int Map::draw(Game *theGame)
             Tile * the_tile = &tileArray[(i*width)+j];
             if(the_tile->is_occupied)
             {
-                cout << the_tile->occupant->name << endl;
+                // cout << the_tile->occupant->name << endl;
                 TCODConsole::root->putChar(j, i, the_tile->occupant->representation);
                 TCODConsole::root->setCharForeground(j , i, TCODColor::red);
                 // cout << the_tile->occupant->representation;
@@ -174,7 +174,7 @@ int Map::draw(Game *theGame)
 
 bool Map::movePlayer(Person *thePerson, int x2, int y2)
 {
-    cout << "trying to move player" << endl;
+    // cout << "trying to move player" << endl;
 
     int new_x, new_y; // where the player is intending to go
     new_x = thePerson->x+x2;
@@ -188,7 +188,8 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 
     if(new_x < width && new_x > -1 &&
        new_y < height && new_y > -1 &&
-       target_tile->tiletype == 3 || target_tile->tiletype == 2)
+       (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
+       !target_tile->is_occupied)
     {
         // cout << endl << endl << endl;
         thePerson->putPerson(player_tile, target_tile, new_x, new_y);

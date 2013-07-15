@@ -25,7 +25,7 @@ void Person::putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new
     if (next_tile != NULL){
         next_tile->is_occupied = true; 
         next_tile->occupant = this;
-        cout << "new occupant: " << name << endl;
+        // cout << "new occupant: " << name << endl;
     }
     else if (next_tile == NULL)
     {
