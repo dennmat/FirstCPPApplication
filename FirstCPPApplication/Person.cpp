@@ -9,22 +9,24 @@
 Person::Person(){
     is_fighter = true;
     pet = new Pet;
+    my_tile = NULL;
 };
 Person::~Person(){
     //TODO: safely remove pet
 };
 
-void Person::putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new_y)
+void Person::putPerson( Tile * next_tile, int new_x, int new_y)
 {	//puts a person on a tile, resets the old tile
 
-    if (current_tile != NULL){
-		current_tile->makeUnoccupied(); //TODO: Check if current tile is occupied by someone other than self
-        current_tile->occupant = NULL;
+    if (my_tile != NULL){
+        my_tile->makeUnoccupied(); //TODO: Check if current tile is occupied by someone other than self
+        my_tile->occupant = NULL;
     }
 
     if (next_tile != NULL){
         next_tile->makeOccupied() ; 
         next_tile->occupant = this;
+        this->my_tile = next_tile;
         // cout << "new occupant: " << name << endl;
     }
     else if (next_tile == NULL)
@@ -32,8 +34,11 @@ void Person::putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new
         cout << "next tile is null" << endl;
     }
 
-    x = new_x;
-    y = new_y;
+    if (new_x != NULL && new_y != NULL)
+    {
+        x = new_x;
+        y = new_y;
+    }
 
 };
 

@@ -53,7 +53,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr)
 
     //put it on the map somewhere
     Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
-    new_pers->putPerson(NULL, next_tile, x, y);
+    new_pers->putPerson(next_tile, x, y);
 
     // cout << "created person " << name << endl;
 
@@ -64,8 +64,8 @@ Person * Game::create_person(string name, int age, int x, int y, char repr)
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
     
-    enemies = create_person("first", 99, 5, 5, 'a');
-    ++enemies = create_person("second", 66, 5, 6, 'a');
+    enemies.push_back(create_person("first", 99, 5, 5, 'a'));
+    enemies.push_back(create_person("second", 66, 5, 6, 'b'));
 
 
 };
@@ -87,7 +87,7 @@ Person  Game::initialize_player(){
     //p1_pet.master = &player;
 
     Tile * next_tile = &current_map->tileArray[player.x + (player.y*current_map->width)];
-    player.putPerson(NULL, next_tile, player.x, player.y);
+    player.putPerson(next_tile, player.x, player.y);
 
     return player;
 

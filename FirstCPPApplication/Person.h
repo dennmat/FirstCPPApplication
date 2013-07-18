@@ -20,10 +20,12 @@ class Person : public Actor
 
         Pet * pet;
 
+        Tile * my_tile;
+
         Person();
         ~Person();
 
-        void putPerson(Tile * current_tile, Tile * next_tile, int new_x, int new_y);
+        void putPerson( Tile * next_tile, int new_x, int new_y);
         void Person::attack(Actor * target);
 };
 #endif

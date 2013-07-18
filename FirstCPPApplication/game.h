@@ -6,8 +6,9 @@
 #include "Person.h"
 #include "Pet.h"
 #include "world.h"
-
 #include "tile.h"
+
+#include <Vector>
 
 class Map;
 class Tile;
@@ -19,7 +20,7 @@ class Game
 
         int enemies_size ;   //don't really know how else to get the size of the
         // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
-        Person *enemies;  //later, this will be an array of all the enemies 
+        std::vector<Person*> enemies;  //later, this will be an array of all the enemies 
 
         int screen_w;
         int screen_h;

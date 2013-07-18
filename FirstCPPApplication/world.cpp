@@ -201,7 +201,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
             !target_tile->is_occupied())
     {
         // cout << endl << endl << endl;
-        thePerson->putPerson(player_tile, target_tile, new_x, new_y);
+        thePerson->putPerson(target_tile, new_x, new_y);
         return true;
     }
 
