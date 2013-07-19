@@ -10,14 +10,26 @@ Tile::Tile()
 
 void Tile::makeOccupied()
 {
+    if (occupants.size() > 0)
+    {
     _is_occupied = true;
+    }
+    else
+    {
+        cout << "tile ain't occupied" << endl;
+    };
 };
 
 void Tile::makeUnoccupied()
 {
-    //TODO: Check if current tile is occupied by someone 
-    //if (
+    if (occupants.size() == 0)
+    {
     _is_occupied = false;
+    }
+    else
+    {
+        cout << "tile ain't empty" << endl;
+    };
 };
 
 void Tile::updateTileType(int type )
