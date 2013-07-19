@@ -8,7 +8,10 @@
 
 Person::Person(){
     is_fighter = true;
+
     pet = new Pet;
+    pet->master = this;
+
     my_tile = NULL;
 };
 Person::~Person(){
@@ -32,6 +35,10 @@ void Person::putPerson( Tile * next_tile, int new_x, int new_y)
     else if (next_tile == NULL)
     {
         cout << "next tile is null" << endl;
+    }
+    else
+    {
+        cout << "else, this shouldn't be a possiblity" << endl;
     }
 
     if (new_x != NULL && new_y != NULL)

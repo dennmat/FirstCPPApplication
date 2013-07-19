@@ -62,6 +62,16 @@ void Pet::TakeDamage(int dmg){
     if (CheckDeath()){
         printf("OH NO I\"M DEAD\n");
         //make position unblocked
+        if (master != NULL)
+        {
+            printf("Master's not NULL");
+            master->putPerson(NULL, NULL, NULL);
+        }
+        else if (master == NULL)
+        {
+            printf("Master's IS NULL");
+            // master->putPerson(NULL, NULL, NULL);
+        };
 
         //replace with dead corpse
     };
