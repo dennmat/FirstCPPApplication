@@ -26,6 +26,8 @@ void Tile::makeOccupied()
 
 void Tile::makeUnoccupied()
 {
+    //TODO: Check if current tile is occupied by someone 
+    //if (
     _is_occupied = false;
 };
 

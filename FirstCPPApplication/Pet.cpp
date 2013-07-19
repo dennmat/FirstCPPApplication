@@ -64,16 +64,14 @@ void Pet::TakeDamage(int dmg){
         //make position unblocked
         if (master != NULL)
         {
-            printf("Master's not NULL");
+            //make the master's tile no longer occupied by him
             master->putPerson(NULL, NULL, NULL);
+            //TODO: replace by corpse
         }
         else if (master == NULL)
         {
-            printf("Master's IS NULL");
-            // master->putPerson(NULL, NULL, NULL);
         };
 
-        //replace with dead corpse
     };
 };
 
