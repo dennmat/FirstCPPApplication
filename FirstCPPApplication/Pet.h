@@ -6,7 +6,8 @@
 
 class Person; 
 
-class Pet{
+class Pet
+{
     public:
     std::string name;
     int max_hp;
@@ -15,6 +16,7 @@ class Pet{
     char representation;
 
     bool is_dead;
+    bool was_attacked;
 
     Pet (std::string name, int max_hp, char representation = 'p');
     Pet::Pet();

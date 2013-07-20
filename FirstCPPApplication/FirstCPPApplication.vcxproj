@@ -167,6 +167,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="thinker.cpp" />
+    <ClCompile Include="tile.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>

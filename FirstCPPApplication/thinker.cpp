@@ -6,4 +6,7 @@
 void Thinker::update()
 {
 
+    //check if was attacked this round
+    //and then attack whoever attacked it
+
 };

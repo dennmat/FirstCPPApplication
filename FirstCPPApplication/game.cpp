@@ -123,12 +123,18 @@ void Game::mainloop()
 
     current_map->draw(this);
     while ( !TCODConsole::isWindowClosed() ) {
-        TCODConsole::flush();
+
+        //player input
         TCOD_key_t key_evt;
         TCOD_mouse_t mouse_evt;
         TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
         process_event(key_evt, &player);
+
+        //draw the map to libtconsole
         current_map->draw(this);
+
+        //draw libtcon to screen
+        TCODConsole::flush();
 
     }
 

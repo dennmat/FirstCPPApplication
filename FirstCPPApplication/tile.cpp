@@ -1,4 +1,10 @@
+#include "stdafx.h"
 #include "tile.h"
+#include <cstdlib>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 Tile::Tile()
 {

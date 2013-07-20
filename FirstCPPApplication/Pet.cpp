@@ -28,6 +28,7 @@ Pet::Pet(){
 
     master = NULL;
     is_dead = false;
+    was_attacked = false;
 };
 
 Pet::Pet(string name, int max_hp, char representation ){

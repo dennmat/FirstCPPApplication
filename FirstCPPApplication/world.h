@@ -7,6 +7,7 @@
 #include <string>
 #include "Person.h"
 #include "game.h"
+#include "tile.h"
 
 #include "libtcod.hpp"
 

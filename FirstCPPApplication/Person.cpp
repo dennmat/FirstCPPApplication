@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "tile.h"
 #include "person.h"
 #include "world.h"
 
@@ -22,7 +23,7 @@ void Person::putPerson( Tile * next_tile, int new_x, int new_y)
 {	//puts a person on a tile, resets the old tile
 
     if (my_tile != NULL){
-        my_tile->makeUnoccupied(); //TODO: Check if current tile is occupied by someone other than self
+        my_tile->makeUnoccupied(); 
         my_tile->occupant = NULL;
     }
 
