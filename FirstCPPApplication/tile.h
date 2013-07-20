@@ -67,7 +67,7 @@ class Tile : public Object
     BaseTileType * tile;
     int tiletype;               // type of tile
 
-    std::vector<Actor *> occupants;       // the dude sitting on the tile
+    std::vector<Actor *>* occupants;       // the dude sitting on the tile
     Actor * occupant;
 
     bool is_occupied() { return _is_occupied; };
@@ -77,8 +77,8 @@ class Tile : public Object
     ~Tile(){ delete tile; };
 
     void updateTileType(int type = 0);
-    void makeOccupied();
-    void makeUnoccupied();
+    void makeOccupied(Actor* the_actor);
+    void makeUnoccupied(Actor* the_actor);
 };
 
 #endif

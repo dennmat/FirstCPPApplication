@@ -23,14 +23,15 @@ void Person::putPerson( Tile * next_tile, int new_x, int new_y)
 {	//puts a person on a tile, resets the old tile
 
     if (my_tile != NULL){
-        my_tile->makeUnoccupied(); 
-        my_tile->occupant = NULL;
+        // my_tile->occupant = NULL;
+        my_tile->makeUnoccupied(this); 
     }
 
     if (next_tile != NULL){
-        next_tile->makeOccupied() ; 
-        next_tile->occupant = this;
+        //next_tile->occupant = this;
+        //next_tile->occupants->push_back(this);
         this->my_tile = next_tile;
+        next_tile->makeOccupied(this) ; 
         // cout << "new occupant: " << name << endl;
     }
     else if (next_tile == NULL)

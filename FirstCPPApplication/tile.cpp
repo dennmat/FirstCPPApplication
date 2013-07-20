@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 Tile::Tile()
@@ -11,12 +12,17 @@ Tile::Tile()
     tiletype = 0;
     _is_occupied = false;
 
+    occupants = new std::vector<Actor*>;
+
     updateTileType(tiletype);
 };
 
-void Tile::makeOccupied()
+void Tile::makeOccupied(Actor* the_actor)
 {
-    if (occupants.size() > 0)
+    occupant = the_actor;
+    occupants->push_back(the_actor);
+
+    if (occupants->size() > 0)
     {
     _is_occupied = true;
     }
@@ -26,14 +32,30 @@ void Tile::makeOccupied()
     };
 };
 
-void Tile::makeUnoccupied()
+void Tile::makeUnoccupied(Actor* the_actor)
 {
-    if (occupants.size() == 0)
+    //remove the actor from vector
+    // for(std::vector<Actor*>::iterator it = occupants->begin(); it != occupants->end(); ++it) {
+        for(std::vector<Actor*>::size_type i = 0; i != occupants->size(); i++) {
+        if (occupants->at(i) == the_actor)
+        {
+            cout << "ASDADSAD: " << occupants->size() << endl;
+            occupants->erase(occupants->begin() + i);
+            cout << "post ASDADSAD: " << occupants->size() << endl;
+	    break;
+        }
+    }
+
+    //see if anyone else is left on the tile
+    if (occupants->size() == 0)
     {
     _is_occupied = false;
+    occupant = NULL;
     }
     else
     {
+        //make the last actor on top of the tile
+        occupant = occupants->back();
         cout << "tile ain't empty" << endl;
     };
 };
