@@ -1,7 +1,7 @@
 20
 10
 You are inside an office.
-#
+!
 1
 This is a wall!
 #

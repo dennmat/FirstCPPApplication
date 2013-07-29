@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include "world.h"
 #include "game.h"
+#include "tile.h"
 
 #include "libtcod.hpp"
 
@@ -38,23 +39,24 @@ int Map::build(string filename)
         getline (myfile,line);
         height = atoi(line.c_str());
 
+        // printf("Width: %s, Height: %s\n", width, height);
+        // cout << width << " " << height << endl;
+
         // get default tile description
         getline (myfile,line);
         description = line;
 
         tileArray = new Tile[width*height];
 
-        int i=0;
-        char *test;
+        int i = 0;
+        int x = 0;
+        int y = 0;
         while (i < width*height) //had to change this from file.good because it was reading too far. Not sure yet.
         {
             getline (myfile,line);
-            test = (char*)line.c_str();
-            // tileArray[i].tile->representation = test[0];
 
             getline (myfile,line);
             int tileType = atoi(line.c_str());
-            // tileArray[i].tiletype = tileType;
             tileArray[i].updateTileType(tileType);
 
             if(tileArray[i].tiletype == 2)
@@ -78,6 +80,21 @@ int Map::build(string filename)
                 tileArray[i].tile->description = line;
             }
 
+            tileArray[i].tile_x = x;
+            tileArray[i].tile_y = y;
+
+            // printf("x: %i, y: %i\n", x, y);
+            if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
+            {
+                y++;
+                x = 0;
+            }
+            else 
+            {
+                x++;
+
+            };
+
             i++;
         }
 
@@ -100,16 +117,16 @@ int Map::draw(Game *theGame)
             if(the_tile->is_occupied())
             {
                 // cout << the_tile->occupant->name << endl;
-		char the_char = the_tile->occupant->representation->repr;
-		TCODColor the_color = the_tile->occupant->representation->color;
+                char the_char = the_tile->occupant->representation->repr;
+                TCODColor the_color = the_tile->occupant->representation->color;
                 TCODConsole::root->putChar(j, i, the_char);
                 TCODConsole::root->setCharForeground(j , i, the_color);
                 // cout << the_tile->occupant->representation;
             }
             else
             {
-		char the_char = the_tile->tile->representation->repr;
-		TCODColor the_color = the_tile->tile->representation->color;
+                char the_char = the_tile->tile->representation->repr;
+                TCODColor the_color = the_tile->tile->representation->color;
                 //TCODColor color = the_tile->tile->color;
 
                 TCODConsole::root->putChar(j, i, the_char );
@@ -127,6 +144,9 @@ int Map::draw(Game *theGame)
 
     Person  * thePerson = &theGame->player;
     BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
+
+    cout << "x:" << thePerson->my_tile->tile_x << endl;
+    cout << "y:" <<thePerson->my_tile->tile_y << endl;
 
     string pers_desc = person_tile->description;
     string tile_description = (pers_desc != "none" ?  pers_desc : description);

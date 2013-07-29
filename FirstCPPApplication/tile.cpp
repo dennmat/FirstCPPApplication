@@ -39,9 +39,9 @@ void Tile::makeUnoccupied(Actor* the_actor)
         for(std::vector<Actor*>::size_type i = 0; i != occupants->size(); i++) {
         if (occupants->at(i) == the_actor)
         {
-            cout << "ASDADSAD: " << occupants->size() << endl;
+            //cout << "ASDADSAD: " << occupants->size() << endl;
             occupants->erase(occupants->begin() + i);
-            cout << "post ASDADSAD: " << occupants->size() << endl;
+            //cout << "post ASDADSAD: " << occupants->size() << endl;
 	    break;
         }
     }
@@ -64,22 +64,10 @@ void Tile::updateTileType(int type )
 {
     tiletype = type;
 
-    if (type == 0)
-    {
-        tile = new BaseTileType;
-    }
-    else if (type == 3)
-    {
-        tile = new FloorTileType;
-    }
-    else if (type == 1)
-    {
-        tile = new WallTileType;
-    }
-    else if (type == 2)
-    {
-        tile = new WarpTileType;
-    }
+    if (type == 0) { tile = new BaseTileType; }
+    else if (type == 3) { tile = new FloorTileType; }
+    else if (type == 1) { tile = new WallTileType; }
+    else if (type == 2) { tile = new WarpTileType; }
     else 
     {
         cout << type << endl;

@@ -67,6 +67,9 @@ class Tile : public Object
     BaseTileType * tile;
     int tiletype;               // type of tile
 
+    int tile_x;
+    int tile_y;
+
     std::vector<Actor *>* occupants;       // the dude sitting on the tile
     Actor * occupant;
 
