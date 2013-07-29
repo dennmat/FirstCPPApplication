@@ -13,11 +13,20 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\libtcod">
+      <UniqueIdentifier>{50707b0a-d39c-4a7d-9c7a-f0fe3ec29b89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="world.txt" />
     <None Include="office.txt" />
+    <None Include="libtcod_cpp_hpp\libtcod-VS.dll">
+      <Filter>Resource Files\libtcod</Filter>
+    </None>
+    <None Include="libtcod_cpp_hpp\terminal.png">
+      <Filter>Resource Files\libtcod</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -44,192 +53,6 @@
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\bresenham.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\bresenham.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\bsp.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\bsp.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\color.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\color.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\console.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\console.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\console_types.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fov.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fov.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\fov_types.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\button.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\container.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\flatlist.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\gui.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\hbox.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\image.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\label.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\radiobutton.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\slider.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\statusbar.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\textbox.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\togglebutton.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\toolbar.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\vbox.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gui\widget.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\heightmap.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\heightmap.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\image.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\image.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\lex.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\lex.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libtcod.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libtcod.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\libtcod_int.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\list.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\list.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mersenne.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mersenne.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mersenne_types.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mouse.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mouse.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\mouse_types.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\namegen.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\namegen.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\noise.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\noise.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\noise_defaults.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\parser.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\parser.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\path.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\path.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sys.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sys.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tree.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tree.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\txtfield.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\txtfield.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\wrappers.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zip.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zip.hpp">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -247,6 +70,147 @@
     </ClInclude>
     <ClInclude Include="thinker.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\bresenham.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\bresenham.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\bsp.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\bsp.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\color.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\color.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\console.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\console.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\console_types.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\fov.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\fov.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\fov_types.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\heightmap.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\heightmap.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\image.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\image.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\lex.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\lex.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\libtcod.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\libtcod.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\libtcod_int.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\list.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\list.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\mersenne.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\mersenne.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\mersenne_types.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\mouse.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\mouse.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\mouse_types.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\namegen.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\namegen.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\noise.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\noise.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\noise_defaults.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\parser.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\parser.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\path.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\path.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\sys.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\sys.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\tree.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\tree.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\txtfield.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\txtfield.hpp">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\wrappers.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\zip.h">
+      <Filter>Resource Files\libtcod</Filter>
+    </ClInclude>
+    <ClInclude Include="libtcod_cpp_hpp\zip.hpp">
+      <Filter>Resource Files\libtcod</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
