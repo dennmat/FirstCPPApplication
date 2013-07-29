@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <cstdlib>
 #include <algorithm>
+#include <vector>
 
 #include "Pet.h"
 
@@ -29,6 +30,8 @@ Pet::Pet(){
     master = NULL;
     is_dead = false;
     was_attacked = false;
+
+    attackers = new std::vector<Pet*>;
 };
 
 Pet::Pet(string name, int max_hp, char representation ){
@@ -45,7 +48,7 @@ Pet::Pet(string name, int max_hp, char representation ){
 
 void Pet::Attack(Pet* pet_target, int dmg){
     cout << "About to attack " << (*pet_target).name << endl;
-    pet_target->TakeDamage(dmg);
+    pet_target->TakeDamage(this, dmg);
 
     bool is_target_dead = pet_target->CheckDeath();
     if (is_target_dead){
@@ -53,15 +56,34 @@ void Pet::Attack(Pet* pet_target, int dmg){
     };
 };
 
-void Pet::TakeDamage(int dmg){
+void Pet::RememberAttacker(Pet* pet_attacker)
+{
+    if(std::find(attackers->begin(), attackers->end(), pet_attacker) != attackers->end()) 
+    {
+        /* v contains x */
+        printf("already contains");
+    }
+    else 
+    {
+        /* v does not contain x */
+        attackers->push_back(pet_attacker);
+        printf("does NOT already contain");
+    }
+
+};
+
+void Pet::TakeDamage(Pet* pet_attacker, int dmg){
 
     printf("About to take %d damage! ", dmg);
-    printf("With %d hp.\n", cur_hp);
+    printf("with %d hp.\n", cur_hp);
     cur_hp-=dmg;
-    cout << name << " at " << cur_hp << " health left!" << endl;
+    cout << name << " at " << cur_hp << " health left!" << endl << endl;
+
+    //save attacker in history
+    RememberAttacker(pet_attacker);
 
     if (CheckDeath()){
-        printf("OH NO I\"M DEAD\n");
+        printf("I've died!\n");
         //make position unblocked
         if (master != NULL)
         {

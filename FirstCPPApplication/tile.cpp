@@ -24,7 +24,7 @@ void Tile::makeOccupied(Actor* the_actor)
 
     if (occupants->size() > 0)
     {
-    _is_occupied = true;
+        _is_occupied = true;
     }
     else
     {
@@ -36,21 +36,22 @@ void Tile::makeUnoccupied(Actor* the_actor)
 {
     //remove the actor from vector
     // for(std::vector<Actor*>::iterator it = occupants->begin(); it != occupants->end(); ++it) {
-        for(std::vector<Actor*>::size_type i = 0; i != occupants->size(); i++) {
+    for(std::vector<Actor*>::size_type i = 0; i != occupants->size(); i++) 
+    {
         if (occupants->at(i) == the_actor)
         {
             //cout << "ASDADSAD: " << occupants->size() << endl;
             occupants->erase(occupants->begin() + i);
             //cout << "post ASDADSAD: " << occupants->size() << endl;
-	    break;
+            break;
         }
     }
 
     //see if anyone else is left on the tile
     if (occupants->size() == 0)
     {
-    _is_occupied = false;
-    occupant = NULL;
+        _is_occupied = false;
+        occupant = NULL;
     }
     else
     {

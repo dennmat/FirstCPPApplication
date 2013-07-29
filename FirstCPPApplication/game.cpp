@@ -112,6 +112,19 @@ Game::Game()
 
 };
 
+/*
+   
+ */
+void Game::update()
+{
+
+    for(std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
+    {
+        Actor* enemy = enemies.at(i);
+        enemy->update();
+    }
+};
+
 void Game::mainloop()
 {
 	
@@ -129,6 +142,8 @@ void Game::mainloop()
         TCOD_mouse_t mouse_evt;
         TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
         process_event(key_evt, &player);
+
+        //AIs update
 
         //draw the map to libtconsole
         current_map->draw(this);

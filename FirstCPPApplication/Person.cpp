@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "tile.h"
-#include "person.h"
 #include "world.h"
+#include "Person.h"
 
 #include <iostream>
 // #include <sstream>
@@ -12,11 +12,26 @@ Person::Person(){
 
     pet = new Pet;
     pet->master = this;
+    has_live_pet = true;
 
     my_tile = NULL;
 };
 Person::~Person(){
     //TODO: safely remove pet
+};
+void Person::update()
+{
+    if (has_live_pet == true)
+    {
+        if (pet->was_attacked == true)
+        {
+            //retaliate
+
+            //calm the pet down
+            pet->was_attacked = false;
+        }
+    };
+
 };
 
 void Person::putPerson( Tile * next_tile, int new_x, int new_y)

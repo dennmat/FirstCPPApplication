@@ -4,9 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-WelcomeMessage	FirstCPPApplication.cpp	/^void WelcomeMessage(){$/;"	f
-is_request_move_cmd	FirstCPPApplication.cpp	/^bool is_request_move_cmd(string request){$/;"	f
-main	FirstCPPApplication.cpp	/^int main ()$/;"	f
-process_buildmode	FirstCPPApplication.cpp	/^void process_buildmode(string request, int current_tile)$/;"	f
-process_movement	FirstCPPApplication.cpp	/^void process_movement(string request, Person *player)$/;"	f
-process_request	FirstCPPApplication.cpp	/^void process_request(string request, Person *player)$/;"	f
+Attack	Pet.cpp	/^void Pet::Attack(Pet* pet_target, int dmg){$/;"	f	class:Pet
+CheckDeath	Pet.cpp	/^bool Pet::CheckDeath(){$/;"	f	class:Pet
+Pet	Pet.cpp	/^Pet::Pet(){$/;"	f	class:Pet
+Pet	Pet.cpp	/^Pet::Pet(string name, int max_hp, char representation ){$/;"	f	class:Pet
+TakeDamage	Pet.cpp	/^void Pet::TakeDamage(int dmg){$/;"	f	class:Pet
+printout	Pet.cpp	/^void Pet::printout(){$/;"	f	class:Pet

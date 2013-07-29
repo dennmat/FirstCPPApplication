@@ -17,6 +17,7 @@ class Actor : public Object
         {
             representation = new Representation;
         };
+        virtual void Actor::update() = 0;
 
 };
 
