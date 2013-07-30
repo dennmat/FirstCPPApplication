@@ -3,11 +3,12 @@
 #pragma once
 #include <sstream>
 #include "Person.h"
+#include "actor.h"
 #include <vector>
 
 class Person; 
 
-class Pet
+class Pet : public Actor
 {
     public:
     std::string name;
@@ -27,6 +28,7 @@ class Pet
     void Pet::TakeDamage(Pet* pet_attacker, int dmg);
     void printout();
     bool Pet::CheckDeath();
-    void Pet::RememberAttacker(Pet* pet_attacker);
+    void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk);
+    void Pet::update();
 };
 #endif

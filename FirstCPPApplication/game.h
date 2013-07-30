@@ -25,6 +25,8 @@ class Game
         int screen_w;
         int screen_h;
 
+        long int turn_count;
+
 
         Map *world;
         Map *current_map;

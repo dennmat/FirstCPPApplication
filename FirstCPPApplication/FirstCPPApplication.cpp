@@ -169,7 +169,7 @@ void process_buildmode(TCOD_key_t request, int current_tile)
 
 };
 
-void process_event(TCOD_key_t request, Person *player)
+bool process_event(TCOD_key_t request, Person *player)
 {
     //store the last command, or use it if its needed
     // if (request == ""){
@@ -179,12 +179,14 @@ void process_event(TCOD_key_t request, Person *player)
 
     //determine if movement command
     bool is_move_cmd;
+    bool is_valid_cmd = false;
     int current_tile = player->x+(player->y*the_game.current_map->width);
     is_move_cmd = is_request_move_cmd(request);
 
     process_buildmode(request, current_tile);
 
     if(is_move_cmd){
+        is_valid_cmd = true;
         process_movement(request, player);
     }
 
@@ -259,6 +261,7 @@ void process_event(TCOD_key_t request, Person *player)
         cout << endl << "command not found: " << temp_str << endl;
         cout << "Try 'help' for list of commands" << endl;
     }
+    return is_valid_cmd;
 };
 
 int* getConsoleSize(){

@@ -133,23 +133,36 @@ void Game::mainloop()
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
 
     bool battle_done = false;
+    bool incr_turn  = true;
+    turn_count = 1;
 
     current_map->draw(this);
+
     while ( !TCODConsole::isWindowClosed() ) {
+        if (incr_turn == true)
+        {
+        printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
+        }
 
         //player input
         TCOD_key_t key_evt;
         TCOD_mouse_t mouse_evt;
         TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
-        process_event(key_evt, &player);
+        incr_turn = process_event(key_evt, &player);
 
         //AIs update
+        update();
 
         //draw the map to libtconsole
         current_map->draw(this);
 
         //draw libtcon to screen
         TCODConsole::flush();
+
+        if (incr_turn == true)
+        {
+        turn_count++;
+        }
 
     }
 

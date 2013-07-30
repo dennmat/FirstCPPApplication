@@ -23,6 +23,7 @@ void Person::update()
 {
     if (has_live_pet == true)
     {
+        pet->update();
         if (pet->was_attacked == true)
         {
             //retaliate

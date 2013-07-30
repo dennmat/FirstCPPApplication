@@ -46,6 +46,18 @@ Pet::Pet(string name, int max_hp, char representation ){
 
 };
 
+void Pet::update()
+{
+    if (was_attacked == true)
+    {
+        cout << "I was attacked" << endl;
+        //retaliate
+
+        //calm the pet down
+        was_attacked = false;
+    };
+};
+
 void Pet::Attack(Pet* pet_target, int dmg){
     cout << "About to attack " << (*pet_target).name << endl;
     pet_target->TakeDamage(this, dmg);
@@ -56,18 +68,22 @@ void Pet::Attack(Pet* pet_target, int dmg){
     };
 };
 
-void Pet::RememberAttacker(Pet* pet_attacker)
+void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk=true)
 {
+    if (mark_the_attk == true)
+    {
+        //mark as was attacked this turn
+        was_attacked = true;
+    };
+
     if(std::find(attackers->begin(), attackers->end(), pet_attacker) != attackers->end()) 
     {
-        /* v contains x */
-        printf("already contains");
+        printf("already contains\n");
     }
     else 
     {
-        /* v does not contain x */
         attackers->push_back(pet_attacker);
-        printf("does NOT already contain");
+        printf("does NOT already contain\n");
     }
 
 };
