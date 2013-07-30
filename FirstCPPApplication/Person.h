@@ -6,6 +6,7 @@
 #include "Actor.h"
 #include "tile.h"
 
+#include <string>
 
 
 class Pet;
@@ -24,6 +25,7 @@ class Person : public Actor
         Tile * my_tile;
 
         Person();
+        Person(std::string name, int age, int x, int y, char repr, std::string pet_name);
         ~Person();
 
         void putPerson( Tile * next_tile, int new_x, int new_y);

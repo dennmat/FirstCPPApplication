@@ -21,7 +21,9 @@ void Pet::printout(){
 };
 
 Pet::Pet(){
-    name = "Nameless Pet";
+    default_name = "Nameless Pet";
+    name = default_name;
+
     max_hp = 100;
     cur_hp = max_hp;
 
@@ -32,6 +34,22 @@ Pet::Pet(){
     was_attacked = false;
 
     attackers = new std::vector<Pet*>;
+};
+
+void Pet::assign_to_master(Person* master)
+{
+    master = master;
+    if (name == default_name)
+    {
+        cout << "named default name: " << name << endl;
+        cout << "renaming to masters name" << endl;
+        name = master->name + "'s pet";
+        cout << "new name: " << name << endl;
+    }
+    else
+    {
+        cout << "not named default, it's named instead: " << name << endl;
+    };
 };
 
 Pet::Pet(string name, int max_hp, char representation ){
@@ -50,8 +68,10 @@ void Pet::update()
 {
     if (was_attacked == true)
     {
-        cout << "I was attacked" << endl;
+        cout << name << " was attacked" << endl;
+
         //retaliate
+
 
         //calm the pet down
         was_attacked = false;

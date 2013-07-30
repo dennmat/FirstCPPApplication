@@ -42,8 +42,10 @@ class Game
         void Game::update();
 
         Person  Game::initialize_player();
-        Person * Game::create_person(std::string name, int age, int x, int y, char repr);
         void  Game::initialize_enemies();
+
+        Person * Game::create_person(std::string name, int age, int x, int y, char repr, std::string pet_name = "");
+
 
         void Game::mainloop();
 };

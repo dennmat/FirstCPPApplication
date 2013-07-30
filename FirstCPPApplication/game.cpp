@@ -37,7 +37,8 @@ void Game:: buildworld()
 }
 
 //creates a person and places them on the current map
-Person * Game::create_person(string name, int age, int x, int y, char repr)
+Person * Game::create_person(string name, int age, int x, int y, char repr, 
+                            string pet_name)
 {
     //build the Person
     Person * new_pers = new Person;
@@ -45,6 +46,11 @@ Person * Game::create_person(string name, int age, int x, int y, char repr)
     new_pers->age = age;
     new_pers->x = x;
     new_pers->y = y;
+
+    if ( !pet_name.empty() )
+    {
+        new_pers->pet->name = pet_name;
+    };
 
     //set its representation, aka color and char
     Representation * representation =   new Representation;
@@ -64,8 +70,8 @@ Person * Game::create_person(string name, int age, int x, int y, char repr)
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
     
-    enemies.push_back(create_person("first", 99, 5, 5, 'a'));
-    enemies.push_back(create_person("second", 66, 5, 6, 'b'));
+    enemies.push_back(create_person("first", 99, 5, 5, 'a', "first's pet"));
+    enemies.push_back(create_person("second", 66, 5, 6, 'b', "second's pet"));
 
 
 };
@@ -167,5 +173,4 @@ void Game::mainloop()
     }
 
     std::cout << "Hit enter to exit" << std::endl;
-    // std::cin.get();
 };

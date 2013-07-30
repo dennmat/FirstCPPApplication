@@ -4,33 +4,43 @@
 #include "Person.h"
 
 #include <iostream>
-// #include <sstream>
+#include <sstream>
 // #include <fstream>
+
+Person::Person(string name, int age, int x, int y, char repr, string pet_name){
+    name = name;
+    age = age;
+    x = x;
+    y = y;
+
+    is_fighter = true;
+
+    pet = new Pet;
+    pet->assign_to_master(this);
+    has_live_pet = true;
+
+    my_tile = NULL;
+};
 
 Person::Person(){
     is_fighter = true;
 
     pet = new Pet;
-    pet->master = this;
+    pet->assign_to_master(this);
     has_live_pet = true;
 
     my_tile = NULL;
 };
+
 Person::~Person(){
     //TODO: safely remove pet
 };
+
 void Person::update()
 {
     if (has_live_pet == true)
     {
         pet->update();
-        if (pet->was_attacked == true)
-        {
-            //retaliate
-
-            //calm the pet down
-            pet->was_attacked = false;
-        }
     };
 
 };
