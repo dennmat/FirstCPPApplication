@@ -16,7 +16,7 @@ class Tile;
 class Game
 {
     public:
-        Person player;     //the PC
+        Person* player;     //the PC
 
         int enemies_size ;   //don't really know how else to get the size of the
         // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
@@ -41,7 +41,7 @@ class Game
         void Game::buildworld();
         void Game::update();
 
-        Person  Game::initialize_player();
+        Person*  Game::initialize_player();
         void  Game::initialize_enemies();
 
         Person * Game::create_person(std::string name, int age, int x, int y, char repr, std::string pet_name = "");

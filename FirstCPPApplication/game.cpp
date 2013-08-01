@@ -41,11 +41,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
                             string pet_name)
 {
     //build the Person
-    Person * new_pers = new Person;
-    new_pers->name = name;
-    new_pers->age = age;
-    new_pers->x = x;
-    new_pers->y = y;
+    Person * new_pers = new Person(name, age, x, y, repr, pet_name);
 
     if ( !pet_name.empty() )
     {
@@ -76,24 +72,21 @@ void  Game::initialize_enemies(){
 
 };
 
-Person  Game::initialize_player(){
+Person*  Game::initialize_player(){
+
 
     //create the  repr of the player Person
     Representation * representation =   new Representation;
     representation->repr = '@';
     representation->color= TCODColor::celadon;
 
-    player.name = "Josh";
-    player.age = 23;
-    player.x = 3;
-    player.y = 3;
-    player.representation = representation;
+    player = new Person( "Josh", 23, 3, 3, representation->repr, "");
 
     //Pet p1_pet;
     //p1_pet.master = &player;
 
-    Tile * next_tile = &current_map->tileArray[player.x + (player.y*current_map->width)];
-    player.putPerson(next_tile, player.x, player.y);
+    Tile * next_tile = &current_map->tileArray[player->x + (player->y*current_map->width)];
+    player->putPerson(next_tile, player->x, player->y);
 
     return player;
 
@@ -154,7 +147,7 @@ void Game::mainloop()
         TCOD_key_t key_evt;
         TCOD_mouse_t mouse_evt;
         TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
-        incr_turn = process_event(key_evt, &player);
+        incr_turn = process_event(key_evt, player);
 
         //AIs update
         update();
