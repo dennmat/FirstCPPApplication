@@ -38,7 +38,7 @@ Pet::Pet(){
 
 void Pet::assign_to_master(Person* master)
 {
-    master = master;
+    this->master = master;
     if (name == default_name)
     {
         cout << "named default name: " << name << endl;
@@ -68,9 +68,14 @@ void Pet::update()
 {
     if (was_attacked == true)
     {
-        cout << name << " was attacked" << endl;
+        cout << "I, " << name << ", was attacked!" << endl;
 
         //retaliate
+        Pet * assailant;
+        assailant = attackers->back();
+        cout << "attacker: " << assailant->name << endl;
+        Attack(assailant, 1);
+
 
 
         //calm the pet down
@@ -84,7 +89,7 @@ void Pet::Attack(Pet* pet_target, int dmg){
 
     bool is_target_dead = pet_target->CheckDeath();
     if (is_target_dead){
-        printf("AHAAHAHA, you're dead bro, that's got to feel bad.\n");
+        printf("Hahaa!, you're dead bro, that's got to feel bad.\n");
     };
 };
 
@@ -129,6 +134,7 @@ void Pet::TakeDamage(Pet* pet_attacker, int dmg){
         }
         else if (master == NULL)
         {
+            printf("I've no master\n");
         };
 
     };

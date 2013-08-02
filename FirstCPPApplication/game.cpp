@@ -117,6 +117,7 @@ void Game::update()
     {
         Actor* enemy = enemies.at(i);
         enemy->update();
+        printf("updating\n");
     }
 };
 

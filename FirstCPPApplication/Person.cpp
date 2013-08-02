@@ -46,7 +46,11 @@ void Person::update()
     if (has_live_pet == true)
     {
         pet->update();
-    };
+    }
+    else
+    {
+        printf("no pet\n");
+    }
 
 };
 
