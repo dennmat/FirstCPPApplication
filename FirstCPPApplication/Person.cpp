@@ -8,10 +8,15 @@
 // #include <fstream>
 
 Person::Person(string name, int age, int x, int y, char repr, string pet_name){
-    name = name;
-    age = age;
-    x = x;
-    y = y;
+    this->name = name;
+    this->age = age;
+    this->x = x;
+    this->y = y;
+
+    //set its representation, aka color and char
+    Representation * new_repr =   new Representation;
+    this->representation = new_repr;
+    this->representation->repr = repr;
 
     is_fighter = true;
 

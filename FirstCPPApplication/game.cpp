@@ -40,6 +40,11 @@ void Game:: buildworld()
 Person * Game::create_person(string name, int age, int x, int y, char repr, 
                             string pet_name)
 {
+    ////set its representation, aka color and char
+    //Representation * representation =   new Representation;
+    //representation->repr = repr;
+    // new_pers->representation = representation;
+
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, pet_name);
 
@@ -48,10 +53,6 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
         new_pers->pet->name = pet_name;
     };
 
-    //set its representation, aka color and char
-    Representation * representation =   new Representation;
-    representation->repr = repr;
-    new_pers->representation = representation;
 
     //put it on the map somewhere
     Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
@@ -74,13 +75,8 @@ void  Game::initialize_enemies(){
 
 Person*  Game::initialize_player(){
 
-
-    //create the  repr of the player Person
-    Representation * representation =   new Representation;
-    representation->repr = '@';
-    representation->color= TCODColor::celadon;
-
-    player = new Person( "Josh", 23, 3, 3, representation->repr, "");
+    player = new Person( "Josh", 23, 3, 3, '@', "");
+    player->representation->color = TCODColor::celadon;
 
     //Pet p1_pet;
     //p1_pet.master = &player;
