@@ -41,10 +41,10 @@ void Pet::assign_to_master(Person* master)
     this->master = master;
     if (name == default_name)
     {
-        cout << "named default name: " << name << endl;
-        cout << "renaming to masters name" << endl;
+        // cout << "named default name: " << name << endl;
+        // cout << "renaming to masters name" << endl;
         name = master->name + "'s pet";
-        cout << "new name: " << name << endl;
+        // cout << "new name: " << name << endl;
     }
     else
     {
@@ -73,7 +73,7 @@ void Pet::update()
         //retaliate
         Pet * assailant;
         assailant = attackers->back();
-        cout << "attacker: " << assailant->name << endl;
+        // cout << "attacker: " << assailant->name << endl;
         Attack(assailant, 1);
 
 
@@ -97,18 +97,17 @@ void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk=true)
 {
     if (mark_the_attk == true)
     {
-        //mark as was attacked this turn
         was_attacked = true;
     };
 
     if(std::find(attackers->begin(), attackers->end(), pet_attacker) != attackers->end()) 
     {
-        printf("already contains\n");
+        printf("I've already been attacked by you.\n");
     }
     else 
     {
         attackers->push_back(pet_attacker);
-        printf("does NOT already contain\n");
+        printf("Oh hi, you're new.\n");
     }
 
 };
