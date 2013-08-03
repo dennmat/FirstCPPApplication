@@ -13,7 +13,7 @@ class Pet : public Actor
     private:
         std::string default_name;
     public:
-        std::string name;
+        // std::string name;
         int max_hp;
         int cur_hp;
         Person* master;

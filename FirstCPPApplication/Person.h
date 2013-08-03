@@ -15,7 +15,7 @@ class Tile;
 class Person : public Actor
 {
     public:
-        std::string name;
+        // std::string name;
         int age;
         int x,y;
 

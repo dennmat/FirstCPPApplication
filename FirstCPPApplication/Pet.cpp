@@ -93,10 +93,7 @@ void Pet::Attack(Pet* pet_target, int dmg){
 
 void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk=true)
 {
-    if (mark_the_attk == true)
-    {
-        was_attacked = true;
-    };
+    if (mark_the_attk == true) { was_attacked = true; };
 
     if(std::find(attackers->begin(), attackers->end(), pet_attacker) != attackers->end()) 
     {
