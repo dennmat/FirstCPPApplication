@@ -31,6 +31,7 @@ class Pet : public Actor
         void printout();
         bool Pet::CheckDeath();
         void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk);
+        Pet* Pet::GetLastAttacker();
         void Pet::update();
         void Pet::assign_to_master(Person* master);
 };

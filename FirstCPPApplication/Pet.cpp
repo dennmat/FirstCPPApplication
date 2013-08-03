@@ -71,9 +71,7 @@ void Pet::update()
         cout << "I, " << name << ", was attacked!" << endl;
 
         //retaliate
-        Pet * assailant;
-        assailant = attackers->back();
-        // cout << "attacker: " << assailant->name << endl;
+        Pet* assailant = GetLastAttacker();
         Attack(assailant, 1);
 
 
@@ -110,6 +108,16 @@ void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk=true)
         printf("Oh hi, you're new.\n");
     }
 
+};
+
+Pet* Pet::GetLastAttacker()
+{
+    cout << "*** Retaliation ***" << endl;
+    Pet * assailant;
+    assailant = attackers->back();
+    // cout << "attacker: " << assailant->name << endl;
+
+    return assailant;
 };
 
 void Pet::TakeDamage(Pet* pet_attacker, int dmg){
