@@ -8,7 +8,8 @@
 
 #include "person.h"
 
-#include "libtcod.hpp"
+//#include "libtcod.hpp"
+#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
 
 class Person;

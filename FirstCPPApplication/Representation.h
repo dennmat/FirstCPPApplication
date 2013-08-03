@@ -1,7 +1,7 @@
 #ifndef REPRESENTATION_H
 #define REPRESENTATION_H
 
-#include "libtcod.hpp"
+#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
 class Representation : public Object
 {

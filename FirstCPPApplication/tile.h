@@ -3,7 +3,8 @@
 
 #include <vector>
 
-#include "libtcod.hpp"
+//#include "libtcod.hpp"
+#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
 #include "person.h"
 #include "Representation.h"
