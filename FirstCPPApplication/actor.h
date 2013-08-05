@@ -20,6 +20,7 @@ class Actor : public Object
             representation = new Representation;
             name = "Unset Actor name";
         };
+        std::string Actor::GetName();
         virtual void Actor::update() = 0;
 
 };

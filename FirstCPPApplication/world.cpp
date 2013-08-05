@@ -29,6 +29,7 @@ int Map::build(string filename)
     string line;
     ifstream myfile (filename);
 
+
     if (myfile.is_open())
     {
         // get width
@@ -39,6 +40,7 @@ int Map::build(string filename)
         getline (myfile,line);
         height = atoi(line.c_str());
 
+        l_map = new TCODMap(width, height);
         // printf("Width: %s, Height: %s\n", width, height);
         // cout << width << " " << height << endl;
 
@@ -58,6 +60,23 @@ int Map::build(string filename)
             getline (myfile,line);
             int tileType = atoi(line.c_str());
             tileArray[i].updateTileType(tileType);
+
+            // printf("x %i y %i\n", x, y);
+            if(tileArray[i].tiletype == 3)
+            {
+                //light passes though, walkable
+                l_map -> setProperties(x, y, true, true);
+
+                // printf("see through ");
+                // printf("this should be true: %s\n", BoolToString(l_map->isWalkable(x, y)));
+            }
+
+            else 
+            {
+                l_map -> setProperties(x, y, false, false);
+                // printf("NOT see through ");
+                // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
+            }
 
             if(tileArray[i].tiletype == 2)
             {
@@ -114,6 +133,7 @@ int Map::draw(Game *theGame)
         for(j=0; j<width;j++)
         {
             Tile * the_tile = &tileArray[(i*width)+j];
+
             if(the_tile->is_occupied())
             {
                 // cout << the_tile->occupant->name << endl;
@@ -132,7 +152,21 @@ int Map::draw(Game *theGame)
                 TCODConsole::root->putChar(j, i, the_char );
                 TCODConsole::root->setCharForeground(j , i, the_color);
                 // cout << the_tile->tile->representation;
-            }
+            };
+
+            // // printf("j %i i %i", j, i);
+            // if (l_map->isTransparent(j, i) == true)
+            // {
+            //     TCODConsole::root->putChar(j, i, 'w');
+            //     // printf("is\n" );
+            // }
+            // else
+            // {
+            //     // printf("isn't\n" );
+            //     TCODConsole::root->putChar(j, i, 'n');
+            // };
+
+
         }
         TCODConsole::flush();
     }

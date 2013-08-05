@@ -145,6 +145,7 @@
     <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="actor.cpp" />
     <ClCompile Include="FirstCPPApplication.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="Person.cpp" />

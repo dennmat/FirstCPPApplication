@@ -75,7 +75,6 @@ void Pet::update()
         Attack(assailant, 1);
 
 
-
         //calm the pet down
         was_attacked = false;
     };

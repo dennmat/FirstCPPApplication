@@ -41,7 +41,14 @@ class Map : public Object
         bool movePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
+
+	
+        TCODMap* l_map;
 };
 
+inline const char * const BoolToString(bool b)
+{
+  return b ? "true" : "false";
+}
 
 #endif;
