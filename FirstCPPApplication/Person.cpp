@@ -28,7 +28,8 @@ Person::Person(string name, int age, int x, int y, char repr, string pet_name){
 
 };
 
-Person::Person(){
+Person::Person()
+{
     is_fighter = true;
 
     pet = new Pet;
@@ -47,6 +48,11 @@ void Person::update()
     if (l_path == NULL)
     {
         l_path = new TCODPath(my_tile->map->l_map);
+    }
+    else 
+    {
+        l_path->compute(x, y, 1, 1);
+        // cout << "Path size: " << l_path->size() << endl;
     };
 
     if (has_live_pet == true)
