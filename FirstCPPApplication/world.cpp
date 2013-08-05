@@ -128,10 +128,8 @@ int Map::draw(Game *theGame)
 {
     int i,j;
 
-    //TCODConsole::root->clear();
     for(i=0; i<height; i++)
     {
-        // cout << endl;
         for(j=0; j<width;j++)
         {
             Tile * the_tile = &tileArray[(i*width)+j];
