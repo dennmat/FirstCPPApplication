@@ -24,6 +24,7 @@ class Person : public Actor
 
         Tile * my_tile;
 
+
         Person();
         Person(std::string name, int age, int x, int y, char repr, std::string pet_name);
         ~Person();

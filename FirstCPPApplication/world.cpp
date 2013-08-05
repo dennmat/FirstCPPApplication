@@ -59,6 +59,7 @@ int Map::build(string filename)
 
             getline (myfile,line);
             int tileType = atoi(line.c_str());
+	    tileArray[i].map = this;
             tileArray[i].updateTileType(tileType);
 
             // printf("x %i y %i\n", x, y);
@@ -155,12 +156,13 @@ int Map::draw(Game *theGame)
                 // cout << the_tile->tile->representation;
             };
 
+
             // printf("j %i i %i", j, i);
             if (l_map->isTransparent(j, i) == true)
             {
                 // TCODConsole::root->putChar(j, i, 'w');
-                const TCODColor bg_color = TCODColor::amber;
-				TCODConsole::root->setCharBackground(j, i, bg_color, TCOD_BKGND_ADDALPHA(0.1));
+                // const TCODColor bg_color = TCODColor::amber;
+				// TCODConsole::root->setCharBackground(j, i, bg_color, TCOD_BKGND_ADDALPHA(0.1));
                 // printf("is\n" );
             }
             else

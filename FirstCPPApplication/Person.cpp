@@ -25,6 +25,7 @@ Person::Person(string name, int age, int x, int y, char repr, string pet_name){
     has_live_pet = true;
 
     my_tile = NULL;
+
 };
 
 Person::Person(){
@@ -43,6 +44,11 @@ Person::~Person(){
 
 void Person::update()
 {
+    if (l_path == NULL)
+    {
+        l_path = new TCODPath(my_tile->map->l_map);
+    };
+
     if (has_live_pet == true)
     {
         pet->update();

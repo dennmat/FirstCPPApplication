@@ -8,7 +8,10 @@
 
 #include "person.h"
 #include "Representation.h"
+#include "world.h"
 
+
+class Map;
 
 
 class BaseTileType //all tile types must inherit this
@@ -19,6 +22,7 @@ class BaseTileType //all tile types must inherit this
         std::string description;      // the description of the tile
         static int tiletype;
         TCODColor color;
+
 
         BaseTileType()
         {
@@ -70,6 +74,8 @@ class Tile : public Object
 
     int tile_x;
     int tile_y;
+
+    Map* map; //the map that this tile is on
 
     std::vector<Actor *>* occupants;       // the dude sitting on the tile
     Actor * occupant;

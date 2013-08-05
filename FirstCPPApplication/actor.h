@@ -15,8 +15,11 @@ class Actor : public Object
         std::string name;
         Representation* representation;
 
+        TCODPath* l_path;
+
         Actor::Actor()
         {
+            l_path = NULL;
             representation = new Representation;
             name = "Unset Actor name";
         };

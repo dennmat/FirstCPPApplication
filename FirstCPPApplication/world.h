@@ -26,6 +26,7 @@ using namespace std;
 class Game;
 
 
+class Tile;
 
 class Map : public Object
 {
@@ -42,13 +43,12 @@ class Map : public Object
 
         Tile *tileArray;
 
-	
         TCODMap* l_map;
 };
 
 inline const char * const BoolToString(bool b)
 {
-  return b ? "true" : "false";
+    return b ? "true" : "false";
 }
 
 #endif;
