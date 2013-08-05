@@ -19,6 +19,8 @@ class Person : public Actor
         int age;
         int x,y;
 
+        int dest_x, dest_y;
+
         Pet * pet;
         bool has_live_pet;
 

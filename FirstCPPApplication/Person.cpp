@@ -47,12 +47,17 @@ void Person::update()
 {
     if (l_path == NULL)
     {
-        l_path = new TCODPath(my_tile->map->l_map);
+        Map* map =my_tile->map;
+        l_path = new TCODPath(map->l_map);
+
+        TCODRandom * rnd = TCODRandom::getInstance();
+        dest_x = rnd->getInt(1, map->width-1);
+        dest_y = rnd->getInt(1, map->height-1);
+        l_path->compute(x, y, dest_x, dest_y);
     }
     else 
     {
-        l_path->compute(x, y, 1, 1);
-        // cout << "Path size: " << l_path->size() << endl;
+         cout << "Path size: " << l_path->size() << endl;
     };
 
     if (has_live_pet == true)
