@@ -127,6 +127,7 @@ int Map::draw(Game *theGame)
 {
     int i,j;
 
+    //TCODConsole::root->clear();
     for(i=0; i<height; i++)
     {
         // cout << endl;
@@ -154,17 +155,19 @@ int Map::draw(Game *theGame)
                 // cout << the_tile->tile->representation;
             };
 
-            // // printf("j %i i %i", j, i);
-            // if (l_map->isTransparent(j, i) == true)
-            // {
-            //     TCODConsole::root->putChar(j, i, 'w');
-            //     // printf("is\n" );
-            // }
-            // else
-            // {
-            //     // printf("isn't\n" );
-            //     TCODConsole::root->putChar(j, i, 'n');
-            // };
+            // printf("j %i i %i", j, i);
+            if (l_map->isTransparent(j, i) == true)
+            {
+                // TCODConsole::root->putChar(j, i, 'w');
+                const TCODColor bg_color = TCODColor::amber;
+				TCODConsole::root->setCharBackground(j, i, bg_color, TCOD_BKGND_ADDALPHA(0.1));
+                // printf("is\n" );
+            }
+            else
+            {
+                // printf("isn't\n" );
+                // TCODConsole::root->putChar(j, i, 'n');
+            };
 
 
         }
