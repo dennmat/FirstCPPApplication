@@ -24,6 +24,13 @@ Map::~Map()
 
 }
 
+Tile * Map::getTileAt(int x, int y)
+{
+    return &tileArray[x + (y * width)];
+    // Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
+    // new_pers->putPerson(next_tile, x, y);
+};
+
 int Map::build(string filename)
 {
     string line;

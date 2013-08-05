@@ -55,7 +55,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 
 
     //put it on the map somewhere
-    Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
+    Tile * next_tile = current_map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     // cout << "created person " << name << endl;
@@ -148,6 +148,7 @@ void Game::mainloop()
 
         //AIs update
         update();
+;
 
         //draw the map to libtconsole
         current_map->draw(this);

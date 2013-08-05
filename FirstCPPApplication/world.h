@@ -42,6 +42,7 @@ class Map : public Object
         bool movePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
+        Tile * Map::getTileAt(int x, int y);
 
         TCODMap* l_map;
 };

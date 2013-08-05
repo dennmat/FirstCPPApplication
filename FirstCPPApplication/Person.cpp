@@ -57,7 +57,7 @@ void Person::update()
     }
          cout << "Path size: " << l_path->size() << endl;
          l_path->walk(&x, &y, false);
-         Tile * next_tile = &map->tileArray[x + (y*map->width)];
+         Tile * next_tile = map->getTileAt(x,y);
          putPerson(next_tile, x, y);
 
     if (has_live_pet == true)
