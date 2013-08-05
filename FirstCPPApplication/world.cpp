@@ -27,8 +27,6 @@ Map::~Map()
 Tile * Map::getTileAt(int x, int y)
 {
     return &tileArray[x + (y * width)];
-    // Tile * next_tile = &current_map->tileArray[x + (y*current_map->width)];
-    // new_pers->putPerson(next_tile, x, y);
 };
 
 int Map::build(string filename)
@@ -66,7 +64,7 @@ int Map::build(string filename)
 
             getline (myfile,line);
             int tileType = atoi(line.c_str());
-	    tileArray[i].map = this;
+            tileArray[i].map = this;
             tileArray[i].updateTileType(tileType);
 
             // printf("x %i y %i\n", x, y);
@@ -167,7 +165,7 @@ int Map::draw(Game *theGame)
             {
                 // TCODConsole::root->putChar(j, i, 'w');
                 // const TCODColor bg_color = TCODColor::amber;
-				// TCODConsole::root->setCharBackground(j, i, bg_color, TCOD_BKGND_ADDALPHA(0.1));
+                // TCODConsole::root->setCharBackground(j, i, bg_color, TCOD_BKGND_ADDALPHA(0.1));
                 // printf("is\n" );
             }
             else

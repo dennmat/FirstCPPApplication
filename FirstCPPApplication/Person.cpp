@@ -83,7 +83,7 @@ void Person::putPerson( Tile * next_tile, int new_x, int new_y)
         //next_tile->occupant = this;
         //next_tile->occupants->push_back(this);
         this->my_tile = next_tile;
-        next_tile->makeOccupied(this) ; 
+        next_tile->makeOccupied(this); 
         // cout << "new occupant: " << name << endl;
     }
     else if (next_tile == NULL)

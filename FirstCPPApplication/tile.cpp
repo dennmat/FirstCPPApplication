@@ -25,6 +25,8 @@ void Tile::makeOccupied(Actor* the_actor)
     if (occupants->size() > 0)
     {
         _is_occupied = true;
+        bool is_trans = map->l_map->isTransparent(tile_x, tile_y);
+        map->l_map->setProperties(tile_x, tile_y, is_trans, false);
     }
     else
     {
