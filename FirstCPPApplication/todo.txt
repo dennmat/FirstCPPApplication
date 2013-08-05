@@ -1,0 +1,24 @@
+AI
+    When to target someone
+    When to run away
+    Who to attack
+
+GUI
+    Player stats
+    Enemy information
+    Player inventory
+
+Gamestate
+    Have only certain button presses count as a turn
+    Let player wait once and have the game continue as if it had
+
+Combat 
+    Action point system where someone can attack more than once in the time
+    that it takes another person in the time it takes them to attack
+
+Story
+    Add races
+    Add history
+
+Misc
+    Comprehensive stats

@@ -45,7 +45,9 @@ Person::~Person(){
 
 void Person::update()
 {
-        Map* map =my_tile->map;
+
+    //PATH FINDING
+    Map* map = my_tile->map;
     if (l_path == NULL)
     {
         l_path = new TCODPath(map->l_map);
@@ -55,11 +57,15 @@ void Person::update()
         dest_y = rnd->getInt(1, map->height-1);
         l_path->compute(x, y, dest_x, dest_y);
     }
-         cout << "Path size: " << l_path->size() << endl;
-         l_path->walk(&x, &y, false);
-         Tile * next_tile = map->getTileAt(x,y);
-         putPerson(next_tile, x, y);
+    else
+    {
+        cout << "Path size: " << l_path->size() << endl;
+        // l_path->walk(&x, &y, false);
+        // Tile * next_tile = map->getTileAt(x,y);
+        // putPerson(next_tile, x, y);
+    };
 
+    //PET UPDATE
     if (has_live_pet == true)
     {
         pet->update();
