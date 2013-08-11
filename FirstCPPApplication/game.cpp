@@ -38,7 +38,7 @@ void Game:: buildworld()
 
 //creates a person and places them on the current map
 Person * Game::create_person(string name, int age, int x, int y, char repr, 
-                            string pet_name)
+        string pet_name)
 {
     ////set its representation, aka color and char
     //Representation * representation =   new Representation;
@@ -66,10 +66,9 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
-    
+
     enemies.push_back(create_person("first", 99, 5, 5, 'a', "first's pet"));
     enemies.push_back(create_person("second", 66, 5, 6, 'b', "second's pet"));
-
 
 };
 
@@ -91,8 +90,8 @@ Person*  Game::initialize_player(){
 Game::Game()
 {
 
-    screen_w = 40;
-    screen_h = 25;
+    screen_w = 80; //the average RL resolution
+    screen_h = 50;
 
     enemies_size = 255; //hardcoded
     buildmode = false;
@@ -107,13 +106,10 @@ Game::Game()
 
 };
 
-/*
-   
- */
 void Game::update()
 {
 
-    for(std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
+    for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
         Actor* enemy = enemies.at(i);
         enemy->update();
@@ -123,9 +119,11 @@ void Game::update()
 
 void Game::mainloop()
 {
-	
+
     WelcomeMessage();
 
+    cout << screen_w << endl;
+    cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
 
     bool battle_done = false;
@@ -137,7 +135,7 @@ void Game::mainloop()
     while ( !TCODConsole::isWindowClosed() ) {
         if (incr_turn == true)
         {
-        printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
+            printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
         }
 
         //player input
@@ -148,7 +146,7 @@ void Game::mainloop()
 
         //AIs update
         update();
-;
+        ;
 
         //draw the map to libtconsole
         current_map->draw(this);
@@ -158,7 +156,7 @@ void Game::mainloop()
 
         if (incr_turn == true)
         {
-        turn_count++;
+            turn_count++;
         }
 
     }

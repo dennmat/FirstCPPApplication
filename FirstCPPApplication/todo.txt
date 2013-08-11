@@ -1,5 +1,6 @@
 AI
     When to target someone
+    Who's an enemy or friend
     When to run away
     Who to attack
 
@@ -13,6 +14,7 @@ Gamestate
     Let player wait once and have the game continue as if it had
 
 Combat 
+    Critical hits
     Action point system where someone can attack more than once in the time
     that it takes another person in the time it takes them to attack
 
