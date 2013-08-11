@@ -24,6 +24,8 @@ class Game
 
         int screen_w;
         int screen_h;
+        int ui_msg_w;
+        int ui_msg_h;
 
         long int turn_count;
 
@@ -40,6 +42,8 @@ class Game
         Game::Game();
         void Game::buildworld();
         void Game::update();
+
+        void Game::draw_ui();
 
         Person*  Game::initialize_player();
         void  Game::initialize_enemies();

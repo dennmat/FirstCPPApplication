@@ -117,6 +117,18 @@ void Game::update()
     }
 };
 
+void Game::draw_ui()
+{
+    ui_msg_w = screen_w;
+    ui_msg_h = 10;
+    TCODConsole *con = new TCODConsole(ui_msg_w, ui_msg_h);
+    con->setDefaultBackground(TCODColor::red);
+    con->clear();
+    TCODConsole::blit(con, 0, 0, 80, 10, TCODConsole::root, 0, screen_h-ui_msg_h);
+    TCODConsole::flush();
+
+};
+
 void Game::mainloop()
 {
 
@@ -150,6 +162,10 @@ void Game::mainloop()
 
         //draw the map to libtconsole
         current_map->draw(this);
+        //draw the UI
+        draw_ui();
+
+
 
         //draw libtcon to screen
         TCODConsole::flush();
