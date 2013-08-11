@@ -132,7 +132,8 @@ void Game::draw_ui_sidebar()
     TCODConsole *ui_sidebar_con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
 
     //reset ui console to default
-    ui_sidebar_con->setDefaultBackground(TCODColor::lighterGreen);
+    TCODColor ui_sidebar_color(10, 5, 5);
+    ui_sidebar_con->setDefaultBackground(ui_sidebar_color);
     ui_sidebar_con->clear();
 
     //draw the message text
@@ -150,7 +151,8 @@ void Game::draw_ui_msg()
     TCODConsole *ui_msg_con = new TCODConsole(ui_msg_w, ui_msg_h);
 
     //reset ui console to default
-    ui_msg_con->setDefaultBackground(TCODColor::lighterRed);
+    TCODColor ui_msg_color(12,12,12);
+    ui_msg_con->setDefaultBackground(ui_msg_color);
     ui_msg_con->clear();
 
     //draw the message text
