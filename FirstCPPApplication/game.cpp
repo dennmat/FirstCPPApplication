@@ -129,36 +129,36 @@ void Game::draw_ui_sidebar()
 {
     ui_sidebar_w = 20;
     ui_sidebar_h = screen_h-ui_msg_h;
-    TCODConsole *con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
+    TCODConsole *ui_sidebar_con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
 
     //reset ui console to default
-    con->setDefaultBackground(TCODColor::lighterGreen);
-    con->clear();
+    ui_sidebar_con->setDefaultBackground(TCODColor::lighterGreen);
+    ui_sidebar_con->clear();
 
     //draw the message text
-    con->print(0, 0, "TURN COUNT %d", turn_count);
+    ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
 
     //draw ui console to root
-    TCODConsole::blit(con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );
-    delete con;
+    TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );
+    delete ui_sidebar_con;
 };
 
 void Game::draw_ui_msg()
 {
     ui_msg_w = screen_w;
     ui_msg_h = 10;
-    TCODConsole *con = new TCODConsole(ui_msg_w, ui_msg_h);
+    TCODConsole *ui_msg_con = new TCODConsole(ui_msg_w, ui_msg_h);
 
     //reset ui console to default
-    con->setDefaultBackground(TCODColor::lighterRed);
-    con->clear();
+    ui_msg_con->setDefaultBackground(TCODColor::lighterRed);
+    ui_msg_con->clear();
 
     //draw the message text
-    con->print(0, 0, "TURN COUNT %d", turn_count);
+    ui_msg_con->print(0, 0, "TURN COUNT %d", turn_count);
 
     //draw ui console to root
-    TCODConsole::blit(con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, screen_h-ui_msg_h);
-    delete con;
+    TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, screen_h-ui_msg_h);
+    delete ui_msg_con;
 };
 
 void Game::mainloop()
