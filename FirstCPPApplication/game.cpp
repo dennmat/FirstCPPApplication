@@ -119,14 +119,46 @@ void Game::update()
 
 void Game::draw_ui()
 {
+    draw_ui_msg();
+    draw_ui_sidebar();
+
+
+};
+
+void Game::draw_ui_sidebar()
+{
+    ui_sidebar_w = 20;
+    ui_sidebar_h = screen_h-ui_msg_h;
+    TCODConsole *con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
+
+    //reset ui console to default
+    con->setDefaultBackground(TCODColor::lighterGreen);
+    con->clear();
+
+    //draw the message text
+    con->print(0, 0, "TURN COUNT %d", turn_count);
+
+    //draw ui console to root
+    TCODConsole::blit(con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );
+    delete con;
+};
+
+void Game::draw_ui_msg()
+{
     ui_msg_w = screen_w;
     ui_msg_h = 10;
     TCODConsole *con = new TCODConsole(ui_msg_w, ui_msg_h);
-    con->setDefaultBackground(TCODColor::red);
-    con->clear();
-    TCODConsole::blit(con, 0, 0, 80, 10, TCODConsole::root, 0, screen_h-ui_msg_h);
-    TCODConsole::flush();
 
+    //reset ui console to default
+    con->setDefaultBackground(TCODColor::lighterRed);
+    con->clear();
+
+    //draw the message text
+    con->print(0, 0, "TURN COUNT %d", turn_count);
+
+    //draw ui console to root
+    TCODConsole::blit(con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, screen_h-ui_msg_h);
+    delete con;
 };
 
 void Game::mainloop()
@@ -158,7 +190,6 @@ void Game::mainloop()
 
         //AIs update
         update();
-        ;
 
         //draw the map to libtconsole
         current_map->draw(this);
