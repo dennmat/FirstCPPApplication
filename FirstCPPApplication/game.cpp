@@ -113,7 +113,7 @@ void Game::update()
     {
         Actor* enemy = enemies.at(i);
         enemy->update();
-        printf("updating\n");
+        // printf("updating\n");
     }
 };
 
@@ -121,7 +121,6 @@ void Game::draw_ui()
 {
     draw_ui_msg();
     draw_ui_sidebar();
-
 
 };
 
@@ -138,6 +137,8 @@ void Game::draw_ui_sidebar()
 
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
+    ui_sidebar_con->print(0, 2, "PLAYER NAME %s", player->name);
+    ui_sidebar_con->print(0, 3, "PLAYER HP %d", player->pet->cur_hp);
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );

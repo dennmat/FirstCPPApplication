@@ -8,7 +8,7 @@
 // #include <fstream>
 
 Person::Person(string name, int age, int x, int y, char repr, string pet_name){
-    this->name = name;
+    this->name = "ASD";
     this->age = age;
     this->x = x;
     this->y = y;
@@ -30,6 +30,16 @@ Person::Person(string name, int age, int x, int y, char repr, string pet_name){
 
 Person::Person()
 {
+    this->name = "Unnamed";
+    this->age = 999;
+    this->x = 10;
+    this->y = 10;
+
+    //set its representation, aka color and char
+    Representation * new_repr =   new Representation;
+    this->representation = new_repr;
+    this->representation->repr = '~';
+
     is_fighter = true;
 
     pet = new Pet;
@@ -59,7 +69,7 @@ void Person::update()
     }
     else
     {
-        cout << "Path size: " << l_path->size() << endl;
+        // cout << "Path size: " << l_path->size() << endl;
         // l_path->walk(&x, &y, false);
         // Tile * next_tile = map->getTileAt(x,y);
         // putPerson(next_tile, x, y);
