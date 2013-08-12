@@ -8,7 +8,7 @@
 // #include <fstream>
 
 Person::Person(string name, int age, int x, int y, char repr, string pet_name){
-    this->name = "ASD";
+    this->name = name;
     this->age = age;
     this->x = x;
     this->y = y;

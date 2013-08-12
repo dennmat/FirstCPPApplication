@@ -137,7 +137,10 @@ void Game::draw_ui_sidebar()
 
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
-    ui_sidebar_con->print(0, 2, "PLAYER NAME %s", player->name);
+
+    char plr_name[100];
+    sprintf(plr_name, "%s", player->name);
+    ui_sidebar_con->print(0, 2, "PLAYER NAME %s", player->GetNameC());
     ui_sidebar_con->print(0, 3, "PLAYER HP %d", player->pet->cur_hp);
 
     //draw ui console to root

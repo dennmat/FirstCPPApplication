@@ -24,6 +24,7 @@ class Actor : public Object
             name = "Unset Actor name";
         };
         std::string Actor::GetName();
+        const char* Actor::GetNameC();
         virtual void Actor::update() = 0;
 
 };
