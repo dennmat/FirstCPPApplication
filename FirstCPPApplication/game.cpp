@@ -96,6 +96,8 @@ Game::Game()
     enemies_size = 255; //hardcoded
     buildmode = false;
 
+    fps_limit= 120; //default
+
     buildworld();
     current_map = world; //I'm not so sure about this, but it solved the mem issue
 
@@ -138,8 +140,6 @@ void Game::draw_ui_sidebar()
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
 
-    char plr_name[100];
-    sprintf(plr_name, "%s", player->name);
     ui_sidebar_con->print(0, 2, "PLAYER NAME %s", player->GetNameC());
     ui_sidebar_con->print(0, 3, "PLAYER HP %d", player->pet->cur_hp);
 
@@ -175,12 +175,16 @@ void Game::mainloop()
     cout << screen_w << endl;
     cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
+        TCODConsole::setKeyboardRepeat(200, 1);
 
     bool battle_done = false;
     bool incr_turn  = true;
     turn_count = 1;
 
+    fps_limit = 60;
+
     current_map->draw(this);
+    TCODSystem::setFps(fps_limit);
 
     while ( !TCODConsole::isWindowClosed() ) {
         if (incr_turn == true)
@@ -201,8 +205,6 @@ void Game::mainloop()
         current_map->draw(this);
         //draw the UI
         draw_ui();
-
-
 
         //draw libtcon to screen
         TCODConsole::flush();

@@ -31,6 +31,7 @@ class Game
 
         long int turn_count;
 
+        int fps_limit; //how many frames do you want to refresh at a second
 
         Map *world;
         Map *current_map;
