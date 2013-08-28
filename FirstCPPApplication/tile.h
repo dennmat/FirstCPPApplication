@@ -8,7 +8,7 @@
 
 #include "person.h"
 #include "Representation.h"
-#include "world.h"
+#include "map.h"
 
 
 class Map;

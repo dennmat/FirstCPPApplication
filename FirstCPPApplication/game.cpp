@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "world.h"
+#include "map.h"
 #include "FirstCPPApplication.h"
 #include "utils.h"
 #include "Representation.h"
@@ -31,7 +31,7 @@ void Game:: buildworld()
         {
             // get height
             getline (myfile,line);
-            world[i].build(line);
+            world[i].build_from_file(line);
         }
     }
 }

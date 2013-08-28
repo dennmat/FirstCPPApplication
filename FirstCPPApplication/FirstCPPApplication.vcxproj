@@ -142,7 +142,7 @@
     <ClInclude Include="thinker.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="utils.h" />
-    <ClInclude Include="world.h" />
+    <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="actor.cpp" />
@@ -157,7 +157,7 @@
     <ClCompile Include="thinker.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="utils.cpp" />
-    <ClCompile Include="world.cpp" />
+    <ClCompile Include="map.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,7 +12,7 @@
 #include "Person.h"
 #include "Pet.h"
 #include "FirstCPPApplication.h"
-#include "world.h"
+#include "map.h"
 #include "game.h"
 
 

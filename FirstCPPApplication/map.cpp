@@ -4,7 +4,7 @@
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
-#include "world.h"
+#include "map.h"
 #include "game.h"
 #include "tile.h"
 
@@ -29,7 +29,12 @@ Tile * Map::getTileAt(int x, int y)
     return &tileArray[x + (y * width)];
 };
 
-int Map::build(string filename)
+int Map::build_from_random(int seed)
+{
+    return 1;
+};
+
+int Map::build_from_file(string filename)
 {
     string line;
     ifstream myfile (filename);

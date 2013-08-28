@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "Person.h"
 #include "Pet.h"
-#include "world.h"
+#include "map.h"
 #include "tile.h"
 
 #include <Vector>

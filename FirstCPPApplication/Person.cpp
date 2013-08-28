@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "tile.h"
-#include "world.h"
+#include "map.h"
 #include "Person.h"
 
 #include <iostream>
