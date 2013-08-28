@@ -8,6 +8,7 @@
 #include "FirstCPPApplication.h"
 #include "utils.h"
 #include "Representation.h"
+#include "build.h"
 
 #include "libtcod.hpp"
 
@@ -25,14 +26,17 @@ void Game:: buildworld()
         getline (myfile,line);
         num_of_worlds = atoi(line.c_str());
 
-        world = new Map[num_of_worlds];
+        // world = new Map[num_of_worlds];
 
-        for(i=0;i<num_of_worlds;i++)
-        {
-            // get height
-            getline (myfile,line);
-            world[i].build_from_file(line);
-        }
+        world = new Map;
+        world->l_map = build_from_seed(0);
+
+        // for(i=0;i<num_of_worlds;i++)
+        // {
+        //     // get height
+        //     getline (myfile,line);
+        //     world[i].build_from_file(line);
+        // }
     }
 }
 
