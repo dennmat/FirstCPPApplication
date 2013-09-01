@@ -27,16 +27,16 @@ void Game:: buildworld()
         num_of_worlds = atoi(line.c_str());
 
 
-        //world = new Map;
-        //world->l_map = build_from_seed(0);
-
-         world = new Map[num_of_worlds];
-         for(i=0;i<num_of_worlds;i++)
-         {
-             // get height
-             getline (myfile,line);
-             world[i].build_from_file(line);
-         }
+        world = new Map;
+        world[0].build_from_random(0);
+// 
+//          world = new Map[num_of_worlds];
+//          for(i=0;i<num_of_worlds;i++)
+//          {
+//              // get height
+//              getline (myfile,line);
+//              world[i].build_from_file(line);
+//          }
     }
 }
 
@@ -179,7 +179,7 @@ void Game::mainloop()
     cout << screen_w << endl;
     cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
-        TCODConsole::setKeyboardRepeat(200, 1);
+        TCODConsole::setKeyboardRepeat(400, 1);
 
     bool battle_done = false;
     bool incr_turn  = true;

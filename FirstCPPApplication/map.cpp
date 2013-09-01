@@ -31,7 +31,79 @@ Tile * Map::getTileAt(int x, int y)
 
 int Map::build_from_random(int seed)
 {
+    width = 10;
+    height = 10;
+    l_map = new TCODMap(width, height);
+    description = "poppycock";
+
+    tileArray = new Tile[width*height];
+
+    int i = 0;
+    int x = 0;
+    int y = 0;
+
+    while ( i < width*height )
+    {
+        tileArray[i].map = this;
+        tileArray[i].updateTileType(3);
+        if(tileArray[i].tiletype == 3)
+        {
+            //light passes though, walkable
+            l_map -> setProperties(x, y, true, true);
+
+            // printf("see through ");
+            // printf("this should be true: %s\n", BoolToString(l_map->isWalkable(x, y)));
+        }
+
+        else 
+        {
+            l_map -> setProperties(x, y, false, false);
+            // printf("NOT see through ");
+            // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
+        }
+
+        // if(tileArray[i].tiletype == 2)
+        // {
+        //     WarpTileType* warp_tile;
+        //     warp_tile = (WarpTileType*) tileArray[i].tile;
+
+        //     getline (myfile,line);
+        //     warp_tile->warpMap = atoi(line.c_str());
+        //     getline (myfile,line);
+        //     warp_tile->warpX = atoi(line.c_str());
+        //     getline (myfile,line);
+        //     warp_tile->warpY = atoi(line.c_str());
+
+        //     getline (myfile,line);
+        //     warp_tile->description = line;
+        // }
+        // else
+        // {
+            // getline (myfile,line);
+            tileArray[i].tile->description = "another desc";
+            // tileArray[i].tile->description = line;
+        // }
+
+        tileArray[i].tile_x = x;
+        tileArray[i].tile_y = y;
+
+        // printf("x: %i, y: %i\n", x, y);
+        if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
+        {
+            y++;
+            x = 0;
+        }
+        else 
+        {
+            x++;
+
+        };
+
+        i++;
+    }
+
     return 1;
+
 };
 
 int Map::build_from_file(string filename)
