@@ -26,7 +26,7 @@ Map::~Map()
 
 Tile * Map::getTileAt(int x, int y)
 {
-    return &tileArray[x + (y * width)];
+    return &(*tileVector)[x][y];
 };
 
 int Map::build_from_random(int seed)
@@ -34,9 +34,14 @@ int Map::build_from_random(int seed)
     width = 10;
     height = 10;
     l_map = new TCODMap(width, height);
+    //the default tile description
     description = "poppycock";
 
-    tileArray = new Tile[width*height];
+    // tileArray = new Tile[width*height];
+    tileVector = new vector<vector<Tile>>;
+    tileVector->resize(width);
+    for(int ix = 0; ix < width; ++ix)
+        (*tileVector)[ix].resize(height);
 
     int i = 0;
     int x = 0;
@@ -44,9 +49,9 @@ int Map::build_from_random(int seed)
 
     while ( i < width*height )
     {
-        tileArray[i].map = this;
-        tileArray[i].updateTileType(3);
-        if(tileArray[i].tiletype == 3)
+        (*tileVector)[x][y].map = this;
+        (*tileVector)[x][y].updateTileType(3);
+        if((*tileVector)[x][y].tiletype == 3)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
@@ -57,15 +62,16 @@ int Map::build_from_random(int seed)
 
         else 
         {
+            //light does NOT pass through nor is walkable
             l_map -> setProperties(x, y, false, false);
             // printf("NOT see through ");
             // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
         }
 
-        // if(tileArray[i].tiletype == 2)
+        // if(tileVector[x][y].tiletype == 2)
         // {
         //     WarpTileType* warp_tile;
-        //     warp_tile = (WarpTileType*) tileArray[i].tile;
+        //     warp_tile = (WarpTileType*) tileVector[x][y].tile;
 
         //     getline (myfile,line);
         //     warp_tile->warpMap = atoi(line.c_str());
@@ -80,12 +86,12 @@ int Map::build_from_random(int seed)
         // else
         // {
             // getline (myfile,line);
-            tileArray[i].tile->description = "another desc";
-            // tileArray[i].tile->description = line;
+            (*tileVector)[x][y].tile->description = "another desc";
+            // tileVector[x][y].tile->description = line;
         // }
 
-        tileArray[i].tile_x = x;
-        tileArray[i].tile_y = y;
+        (*tileVector)[x][y].tile_x = x;
+        (*tileVector)[x][y].tile_y = y;
 
         // printf("x: %i, y: %i\n", x, y);
         if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
@@ -214,7 +220,7 @@ int Map::draw(Game *theGame)
     {
         for(j=0; j<width;j++)
         {
-            Tile * the_tile = &tileArray[(i*width)+j];
+            Tile * the_tile = &(*tileVector)[i][j];
 
             if(the_tile->is_occupied())
             {
@@ -262,7 +268,8 @@ int Map::draw(Game *theGame)
     // cout << "Tile Description:" << endl;
 
     Person  * thePerson = theGame->player;
-    BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
+    //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
+    BaseTileType * person_tile = (*tileVector)[thePerson->x][thePerson->y].tile;
 
 
     string pers_desc = person_tile->description;
@@ -282,10 +289,13 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     new_y = thePerson->y+y2;
 
     Tile *player_tile; // the current player position
-    player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
+    //player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
+    player_tile = &(*tileVector)[thePerson->x][thePerson->y];
 
     Tile *target_tile; // the tile of the new position
-    target_tile = &tileArray[new_x+((new_y)*width)];
+    target_tile = &(*tileVector)[new_x][new_y];
+    // target_tile = &tileArray[new_x+((new_y)*width)];
+    //target_tile = &tileArray[new_x+((new_y)*width)];
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&

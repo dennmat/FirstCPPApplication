@@ -29,14 +29,14 @@ void Game:: buildworld()
 
         world = new Map;
         world[0].build_from_random(0);
-// 
-//          world = new Map[num_of_worlds];
-//          for(i=0;i<num_of_worlds;i++)
-//          {
-//              // get height
-//              getline (myfile,line);
-//              world[i].build_from_file(line);
-//          }
+        // 
+        //          world = new Map[num_of_worlds];
+        //          for(i=0;i<num_of_worlds;i++)
+        //          {
+        //              // get height
+        //              getline (myfile,line);
+        //              world[i].build_from_file(line);
+        //          }
     }
 }
 
@@ -84,7 +84,9 @@ Person*  Game::initialize_player(){
     //Pet p1_pet;
     //p1_pet.master = &player;
 
-    Tile * next_tile = &current_map->tileArray[player->x + (player->y*current_map->width)];
+    vector<vector<Tile>> * poop = this->current_map->tileVector;
+    Tile * next_tile = &(*poop)[player->x][player->y];
+    //Tile * next_tile = &current_map->tileArray[player->x + (player->y*current_map->width)];
     player->putPerson(next_tile, player->x, player->y);
 
     return player;
@@ -179,7 +181,7 @@ void Game::mainloop()
     cout << screen_w << endl;
     cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
-        TCODConsole::setKeyboardRepeat(400, 1);
+    TCODConsole::setKeyboardRepeat(400, 1);
 
     bool battle_done = false;
     bool incr_turn  = true;

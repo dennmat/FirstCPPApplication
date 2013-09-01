@@ -5,6 +5,7 @@
 
 #include "object.h"
 #include <string>
+#include <vector>
 #include "Person.h"
 #include "game.h"
 #include "tile.h"
@@ -43,6 +44,7 @@ class Map : public Object
         bool movePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
+        vector< vector<Tile> > *tileVector;
         Tile * Map::getTileAt(int x, int y);
 
         TCODMap* l_map;

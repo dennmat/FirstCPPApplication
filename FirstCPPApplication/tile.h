@@ -80,7 +80,7 @@ class Tile : public Object
     std::vector<Actor *>* occupants;       // the dude sitting on the tile
     Actor * occupant;
 
-    bool is_occupied() { return _is_occupied; };
+    bool is_occupied() { return this->_is_occupied; };
 
 
     Tile(); 
