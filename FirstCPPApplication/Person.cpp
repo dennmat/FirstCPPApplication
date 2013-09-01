@@ -35,6 +35,9 @@ Person::Person()
     this->x = 10;
     this->y = 10;
 
+    this->dest_x = NULL;
+    this->dest_y = NULL;
+
     //set its representation, aka color and char
     Representation * new_repr =   new Representation;
     this->representation = new_repr;
@@ -47,6 +50,7 @@ Person::Person()
     has_live_pet = true;
 
     my_tile = NULL;
+    l_path = NULL;
 };
 
 Person::~Person(){
@@ -72,7 +76,7 @@ void Person::update()
         // cout << "Path size: " << l_path->size() << endl;
         // l_path->walk(&x, &y, false);
         // Tile * next_tile = map->getTileAt(x,y);
-        // putPerson(next_tile, x, y);
+        // putPerson(next_tile, x, y);https://www.youtube.com/watch?feature=player_embedded&v=8wWuH7MIeCA&noredirect=1
     };
 
     //PET UPDATE
