@@ -26,7 +26,7 @@ Map::~Map()
 
 Tile * Map::getTileAt(int x, int y)
 {
-    return &(*tileVector)[x][y];
+    return &(*tileVector)[y][x];
 };
 
 int Map::build_from_random(int seed)
@@ -49,9 +49,9 @@ int Map::build_from_random(int seed)
 
     while ( i < width*height )
     {
-        (*tileVector)[x][y].map = this;
-        (*tileVector)[x][y].updateTileType(3);
-        if((*tileVector)[x][y].tiletype == 3)
+        (*tileVector)[y][x].map = this;
+        (*tileVector)[y][x].updateTileType(3);
+        if((*tileVector)[y][x].tiletype == 3)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
@@ -68,10 +68,10 @@ int Map::build_from_random(int seed)
             // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
         }
 
-        // if(tileVector[x][y].tiletype == 2)
+        // if(tileVector[y][x].tiletype == 2)
         // {
         //     WarpTileType* warp_tile;
-        //     warp_tile = (WarpTileType*) tileVector[x][y].tile;
+        //     warp_tile = (WarpTileType*) tileVector[y][x].tile;
 
         //     getline (myfile,line);
         //     warp_tile->warpMap = atoi(line.c_str());
@@ -86,12 +86,12 @@ int Map::build_from_random(int seed)
         // else
         // {
             // getline (myfile,line);
-            (*tileVector)[x][y].tile->description = "another desc";
-            // tileVector[x][y].tile->description = line;
+            (*tileVector)[y][x].tile->description = "another desc";
+            // tileVector[y][x].tile->description = line;
         // }
 
-        (*tileVector)[x][y].tile_x = x;
-        (*tileVector)[x][y].tile_y = y;
+        (*tileVector)[y][x].tile_x = x;
+        (*tileVector)[y][x].tile_y = y;
 
         // printf("x: %i, y: %i\n", x, y);
         if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
@@ -269,7 +269,7 @@ int Map::draw(Game *theGame)
 
     Person  * thePerson = theGame->player;
     //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
-    BaseTileType * person_tile = (*tileVector)[thePerson->x][thePerson->y].tile;
+    BaseTileType * person_tile = (*tileVector)[thePerson->y][thePerson->x].tile;
 
 
     string pers_desc = person_tile->description;
@@ -290,10 +290,10 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 
     Tile *player_tile; // the current player position
     //player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
-    player_tile = &(*tileVector)[thePerson->x][thePerson->y];
+    player_tile = &(*tileVector)[thePerson->y][thePerson->x];
 
     Tile *target_tile; // the tile of the new position
-    target_tile = &(*tileVector)[new_x][new_y];
+    target_tile = &(*tileVector)[new_y][new_x];
     // target_tile = &tileArray[new_x+((new_y)*width)];
     //target_tile = &tileArray[new_x+((new_y)*width)];
 
