@@ -214,21 +214,21 @@ int Map::build_from_file(string filename)
 
 int Map::draw(Game *theGame)
 {
-    int i,j;
+    int x,y;
 
-    for(j=0; j<width;j++)
+    for(x=0; x<width;x++)
     {
-        for(i=0; i<height; i++)
+        for(y=0; y<height; y++)
         {
-            Tile * the_tile = &(*tileVector)[i][j];
+            Tile * the_tile = getTileAt(x, y);
 
             if(the_tile->is_occupied())
             {
                 // cout << the_tile->occupant->name << endl;
                 char the_char = the_tile->occupant->representation->repr;
                 TCODColor the_color = the_tile->occupant->representation->color;
-                TCODConsole::root->putChar(j, i, the_char);
-                TCODConsole::root->setCharForeground(j , i, the_color);
+                TCODConsole::root->putChar(x, y, the_char);
+                TCODConsole::root->setCharForeground(x, y, the_color);
                 // cout << the_tile->occupant->representation;
             }
             else
@@ -237,24 +237,24 @@ int Map::draw(Game *theGame)
                 TCODColor the_color = the_tile->tile->representation->color;
                 //TCODColor color = the_tile->tile->color;
 
-                TCODConsole::root->putChar(j, i, the_char );
-                TCODConsole::root->setCharForeground(j , i, the_color);
+                TCODConsole::root->putChar(x, y, the_char );
+                TCODConsole::root->setCharForeground(x, y, the_color);
                 // cout << the_tile->tile->representation;
             };
 
 
-            // printf("j %i i %i", j, i);
-            if (l_map->isTransparent(j, i) == true)
+            // printf("j %i i %i", x, y);
+            if (l_map->isTransparent(x, y) == true)
             {
-                // TCODConsole::root->putChar(j, i, 'w');
+                // TCODConsole::root->putChar(x, y, 'w');
                 // const TCODColor bg_color = TCODColor::amber;
-                // TCODConsole::root->setCharBackground(j, i, bg_color, TCOD_BKGND_ADDALPHA(0.1));
+                // TCODConsole::root->setCharBackground(x, y, bg_color, TCOD_BKGND_ADDALPHA(0.1));
                 // printf("is\n" );
             }
             else
             {
                 // printf("isn't\n" );
-                // TCODConsole::root->putChar(j, i, 'n');
+                // TCODConsole::root->putChar(x, y, 'n');
             };
 
 
@@ -269,7 +269,7 @@ int Map::draw(Game *theGame)
 
     Person  * thePerson = theGame->player;
     //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
-    BaseTileType * person_tile = (*tileVector)[thePerson->y][thePerson->x].tile;
+    BaseTileType * person_tile = getTileAt(thePerson->x, thePerson->y)->tile;
 
 
     string pers_desc = person_tile->description;
