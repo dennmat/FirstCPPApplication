@@ -36,13 +36,13 @@ class Map : public Object
         ~Map();
 
         int width, height;
-        int build_from_file(string filename);
+        int Map::build_from_file(string filename);
         int Map::build_from_random(int seed);
         void Map::build_rect_room(int room_x, int room_y, int room_width, int room_height);
         string description; // default description if tile does not have one
 
-        int draw(Game *the_game);
-        bool movePlayer(Person *thePerson, int x2, int y2);
+        int Map::draw(Game *the_game);
+        bool Map::movePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
         vector< vector<Tile> > *tileVector;
