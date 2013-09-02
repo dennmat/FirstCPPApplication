@@ -31,7 +31,7 @@ Tile * Map::getTileAt(int x, int y)
 
 int Map::build_from_random(int seed)
 {
-    width = 10;
+    width = 50;
     height = 10;
     l_map = new TCODMap(width, height);
     //the default tile description
@@ -39,9 +39,9 @@ int Map::build_from_random(int seed)
 
     // tileArray = new Tile[width*height];
     tileVector = new vector<vector<Tile>>;
-    tileVector->resize(width);
-    for(int ix = 0; ix < width; ++ix)
-        (*tileVector)[ix].resize(height);
+    tileVector->resize(height);
+    for(int ix = 0; ix < height; ++ix)
+        (*tileVector)[ix].resize(width);
 
     int i = 0;
     int x = 0;
