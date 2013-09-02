@@ -183,7 +183,7 @@ bool process_event(TCOD_key_t request, Person *player)
     int current_tile = player->x+(player->y*the_game.current_map->width);
     is_move_cmd = is_request_move_cmd(request);
 
-    process_buildmode(request, current_tile);
+    // process_buildmode(request, current_tile);
 
     if(is_move_cmd){
         is_valid_cmd = true;

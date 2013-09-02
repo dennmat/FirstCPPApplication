@@ -216,9 +216,9 @@ int Map::draw(Game *theGame)
 {
     int i,j;
 
-    for(i=0; i<height; i++)
+    for(j=0; j<width;j++)
     {
-        for(j=0; j<width;j++)
+        for(i=0; i<height; i++)
         {
             Tile * the_tile = &(*tileVector)[i][j];
 
@@ -296,6 +296,20 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     target_tile = &(*tileVector)[new_y][new_x];
     // target_tile = &tileArray[new_x+((new_y)*width)];
     //target_tile = &tileArray[new_x+((new_y)*width)];
+
+    cout << "player tile x, y  ";
+    cout << player_tile->tile_x << ", " ;
+    cout <<player_tile->tile_y << endl;
+
+    cout << "target tile x, y  ";
+    cout << target_tile->tile_x << ", " ;
+    cout << target_tile->tile_y << endl;
+
+    std::stringstream converter;
+    converter << target_tile->is_occupied();
+    string bool_string = converter.str();
+
+    cout << "Target tile is occupied: " << bool_string << endl;
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&
