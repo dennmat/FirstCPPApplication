@@ -71,8 +71,8 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(create_person("first", 99, 5, 5, 'a', "first's pet"));
-    enemies.push_back(create_person("second", 66, 5, 6, 'b', "second's pet"));
+    enemies.push_back(create_person("first", 99, 2, 2, 'a', "first's pet"));
+    enemies.push_back(create_person("second", 66, 4, 4, 'b', "second's pet"));
 
 };
 
@@ -191,6 +191,14 @@ void Game::mainloop()
 
     current_map->draw(this);
     TCODSystem::setFps(fps_limit);
+
+    //draw the map to libtconsole
+    current_map->draw(this);
+    //draw the UI
+    draw_ui();
+
+    //draw libtcon to screen
+    TCODConsole::flush();
 
     while ( !TCODConsole::isWindowClosed() ) {
         if (incr_turn == true)

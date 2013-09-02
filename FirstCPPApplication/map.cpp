@@ -259,7 +259,7 @@ int Map::draw(Game *theGame)
 
 
         }
-        TCODConsole::flush();
+        // TCODConsole::flush();
     }
 
 
