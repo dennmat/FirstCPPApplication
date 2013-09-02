@@ -139,6 +139,7 @@ int Map::build_from_random(int seed)
 
 };
 
+
 void Map::build_rect_room(int room_x, int room_y, int room_width, int room_height)
 {
     
@@ -148,8 +149,22 @@ void Map::build_rect_room(int room_x, int room_y, int room_width, int room_heigh
 
             int adj_x = room_x + new_x;
             int adj_y = room_y + new_y;
-            getTileAt(adj_x, adj_y)->updateTileType(1);
-            l_map -> setProperties(adj_x, adj_y, false, false);
+
+            //check for outer perimeter
+            if (new_x == 0 || new_x == room_width-1 ||
+                    new_y == 0 || new_y == room_height-1)
+            {
+                getTileAt(adj_x, adj_y)->updateTileType(1);
+                l_map -> setProperties(adj_x, adj_y, false, false);
+            }
+
+            //everything else
+            else 
+            {
+                getTileAt(adj_x, adj_y)->updateTileType(2);
+                l_map -> setProperties(adj_x, adj_y, false, false);
+            }
+
         }
     }
 
