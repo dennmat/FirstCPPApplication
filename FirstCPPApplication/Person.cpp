@@ -35,8 +35,8 @@ Person::Person()
     this->x = 10;
     this->y = 10;
 
-    this->dest_x = NULL;
-    this->dest_y = NULL;
+    this->dest_x = -1;
+    this->dest_y = -1;
 
     //set its representation, aka color and char
     Representation * new_repr =   new Representation;
@@ -115,7 +115,7 @@ void Person::putPerson( Tile * next_tile, int new_x, int new_y)
         cout << "else, this shouldn't be a possiblity" << endl;
     }
 
-    if (new_x != NULL && new_y != NULL)
+    if (new_x != -1 && new_y != -1)
     {
         x = new_x;
         y = new_y;
