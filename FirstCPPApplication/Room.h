@@ -13,6 +13,8 @@ class Room
         //its location on the map
         int x, y;
 
+        bool Room::isPerimeter(int point_x, int point_y);
+
         
 };
 
