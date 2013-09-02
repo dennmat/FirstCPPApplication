@@ -26,7 +26,25 @@ Map::~Map()
 
 Tile * Map::getTileAt(int x, int y)
 {
-    return &(*tileVector)[y][x];
+    vector<Tile> * temp;
+    try {
+        temp = &(*tileVector).at(y);
+    }
+    catch ( std::out_of_range& ex )
+    {
+        printf("failed on get y\n");
+        cout << "exception!!!!!!" << ex.what() << endl;
+    };
+
+    try {
+        temp->at(x);
+        return &(*tileVector)[y][x];
+    }
+    catch ( std::out_of_range& ex )
+    {
+        printf("failed on get x\n");
+        cout << "exception!!!!!!" << ex.what() << endl;
+    };
 };
 
 int Map::build_from_random(int seed)
@@ -85,9 +103,9 @@ int Map::build_from_random(int seed)
         // }
         // else
         // {
-            // getline (myfile,line);
-            getTileAt(x, y)->tile->description = "another desc";
-            // tileVector[y][x].tile->description = line;
+        // getline (myfile,line);
+        getTileAt(x, y)->tile->description = "another desc";
+        // tileVector[y][x].tile->description = line;
         // }
 
         getTileAt(x, y)->tile_x = x;
