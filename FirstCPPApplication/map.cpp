@@ -24,26 +24,33 @@ Map::~Map()
 
 }
 
-Tile * Map::getTileAt(int x, int y)
+Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 {
     vector<Tile> * temp;
+
     try {
         temp = &(*tileVector).at(y);
     }
     catch ( std::out_of_range& ex )
     {
-        printf("failed on get y\n");
-        cout << "exception!!!!!!" << ex.what() << endl;
+        // printf("failed on get y\n");
+        // cout << "exception: " << ex.what() << " retrying with " << x << " and " << y-1 << endl;
+        return getTileAt(x, y-1, false, x, y);
     };
 
     try {
         temp->at(x);
-        return &(*tileVector)[y][x];
+        if (!is_original_pos)
+        {
+            cout << "original position was " << ox << " and " << oy << " but setting to " << x << " and " << y << " instead." << endl;
+        }
+        return &(*tileVector)[y][x]; 
     }
     catch ( std::out_of_range& ex )
     {
-        printf("failed on get x\n");
-        cout << "exception!!!!!!" << ex.what() << endl;
+        // printf("failed on get x\n");
+        // cout << "exception: " << ex.what() << " retrying with " << x-1 << " and " << y << endl;
+        return getTileAt(x-1, y, false, x, y);
     };
 };
 

@@ -45,7 +45,8 @@ class Map : public Object
 
         Tile *tileArray;
         vector< vector<Tile> > *tileVector;
-        Tile * Map::getTileAt(int x, int y);
+        // Tile * Map::getTileAt(int x, int y);
+        Tile * Map::getTileAt(int x, int y, bool is_original_pos=true, int ox=-1, int oy=-1);
 
         TCODMap* l_map;
 };
