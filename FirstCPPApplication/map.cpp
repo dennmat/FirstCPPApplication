@@ -288,6 +288,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     new_x = thePerson->x+x2;
     new_y = thePerson->y+y2;
 
+    //check to make sure the target tile's position would be valid
     if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     {
         cout << "invalid move" << endl;
@@ -296,10 +297,12 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
 
     Tile *player_tile; // the current player position
     //player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
-    player_tile = &(*tileVector)[thePerson->y][thePerson->x];
+    player_tile = getTileAt(thePerson->x, thePerson->y);
+    // player_tile = &(*tileVector)[thePerson->y][thePerson->x];
 
     Tile *target_tile; // the tile of the new position
-    target_tile = &(*tileVector)[new_y][new_x];
+    // target_tile = &(*tileVector)[new_y][new_x];
+    target_tile = getTileAt(new_x, new_y);
     // target_tile = &tileArray[new_x+((new_y)*width)];
     //target_tile = &tileArray[new_x+((new_y)*width)];
 
