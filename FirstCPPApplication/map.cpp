@@ -31,20 +31,23 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     if (!is_original_pos && (x < 0 || y < 0 ) )
     { cout << "can't find a tile here. I'd throw and error but I don't know how yet" << endl;}
 
+    //try to get the y vector
     try { temp = &(*tileVector).at(y); }
     catch ( std::out_of_range& ex )
     {
         return getTileAt(x, y-1, false, x, y);
     };
 
+    //try to get the tile from the x vector in the y vector
+    // and sense an message if the position isn't the same as the original position
     try {
         temp->at(x);
-        if (!is_original_pos)
-        {
-            cout << "original position was " << ox << " and ";
-            cout << oy << " but setting to " << x << " and " << y;
-            cout << " instead." << endl;
-        }
+        // if (!is_original_pos)
+        // {
+        //     cout << "original position was " << ox << " and ";
+        //     cout << oy << " but setting to " << x << " and " << y;
+        //     cout << " instead." << endl;
+        // }
         return &(*tileVector)[y][x]; 
     }
     catch ( std::out_of_range& ex )
@@ -55,8 +58,8 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 
 int Map::build_from_random(int seed)
 {
-    width = 50;
-    height = 10;
+    width = 60;
+    height = 40;
     l_map = new TCODMap(width, height);
     //the default tile description
     description = "poppycock";
@@ -123,16 +126,32 @@ int Map::build_from_random(int seed)
             y++;
             x = 0;
         }
-        else 
-        {
-            x++;
-
-        };
+        else { x++; };
 
         i++;
     }
 
+    build_rect_room(10, 10, 10, 10);
+    build_rect_room(50, 30, 5, 10);
+    build_rect_room(0, 5, 5, 3);
+
     return 1;
+
+};
+
+void Map::build_rect_room(int room_x, int room_y, int room_width, int room_height)
+{
+    
+    for(int new_y=0; new_y<room_height; new_y++)
+    {
+        for(int new_x=0; new_x<room_width;new_x++){
+
+            int adj_x = room_x + new_x;
+            int adj_y = room_y + new_y;
+            getTileAt(adj_x, adj_y)->updateTileType(1);
+            l_map -> setProperties(adj_x, adj_y, false, false);
+        }
+    }
 
 };
 
