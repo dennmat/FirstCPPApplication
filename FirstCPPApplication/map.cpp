@@ -49,9 +49,9 @@ int Map::build_from_random(int seed)
 
     while ( i < width*height )
     {
-        (*tileVector)[y][x].map = this;
-        (*tileVector)[y][x].updateTileType(3);
-        if((*tileVector)[y][x].tiletype == 3)
+        getTileAt(x, y)->map = this;
+        getTileAt(x, y)->updateTileType(3);
+        if(getTileAt(x, y)->tiletype == 3)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
@@ -86,12 +86,12 @@ int Map::build_from_random(int seed)
         // else
         // {
             // getline (myfile,line);
-            (*tileVector)[y][x].tile->description = "another desc";
+            getTileAt(x, y)->tile->description = "another desc";
             // tileVector[y][x].tile->description = line;
         // }
 
-        (*tileVector)[y][x].tile_x = x;
-        (*tileVector)[y][x].tile_y = y;
+        getTileAt(x, y)->tile_x = x;
+        getTileAt(x, y)->tile_y = y;
 
         // printf("x: %i, y: %i\n", x, y);
         if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
