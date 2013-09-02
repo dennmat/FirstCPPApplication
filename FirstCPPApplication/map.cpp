@@ -296,15 +296,10 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     }
 
     Tile *player_tile; // the current player position
-    //player_tile = &tileArray[thePerson->x+(thePerson->y*width)];
     player_tile = getTileAt(thePerson->x, thePerson->y);
-    // player_tile = &(*tileVector)[thePerson->y][thePerson->x];
 
     Tile *target_tile; // the tile of the new position
-    // target_tile = &(*tileVector)[new_y][new_x];
     target_tile = getTileAt(new_x, new_y);
-    // target_tile = &tileArray[new_x+((new_y)*width)];
-    //target_tile = &tileArray[new_x+((new_y)*width)];
 
     cout << "player tile x, y  ";
     cout << player_tile->tile_x << ", " ;
