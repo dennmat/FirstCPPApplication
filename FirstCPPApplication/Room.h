@@ -6,6 +6,7 @@ class Room
     public:
         Room();
         ~Room();
+        Room::Room(int x, int y, int width, int height);
 
         //w and h of the room
         int width, height;

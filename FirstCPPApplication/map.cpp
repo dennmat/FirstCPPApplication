@@ -7,6 +7,7 @@
 #include "map.h"
 #include "game.h"
 #include "tile.h"
+#include "room.h"
 
 #include "libtcod.hpp"
 
@@ -142,7 +143,8 @@ int Map::build_from_random(int seed)
 
 void Map::build_rect_room(int room_x, int room_y, int room_width, int room_height)
 {
-    
+    Room * room = new Room(room_x, room_y, room_width, room_height);
+
     for(int new_y=0; new_y<room_height; new_y++)
     {
         for(int new_x=0; new_x<room_width;new_x++){
@@ -151,8 +153,7 @@ void Map::build_rect_room(int room_x, int room_y, int room_width, int room_heigh
             int adj_y = room_y + new_y;
 
             //check for outer perimeter
-            if (new_x == 0 || new_x == room_width-1 ||
-                    new_y == 0 || new_y == room_height-1)
+            if (room->isPerimeter(new_x, new_y))
             {
                 getTileAt(adj_x, adj_y)->updateTileType(1);
                 l_map -> setProperties(adj_x, adj_y, false, false);
