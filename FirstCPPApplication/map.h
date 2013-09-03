@@ -38,7 +38,8 @@ class Map : public Object
         int width, height;
         int Map::build_from_file(string filename);
         int Map::build_from_random(int seed);
-        void Map::build_rect_room(int room_x, int room_y, int room_width, int room_height);
+        void Map::build_rect_room(int room_x, int room_y,
+                int room_width, int room_height, int door_count);
         string description; // default description if tile does not have one
 
         int Map::draw(Game *the_game);

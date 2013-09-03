@@ -132,18 +132,20 @@ int Map::build_from_random(int seed)
         i++;
     }
 
-    build_rect_room(10, 10, 10, 10);
-    build_rect_room(50, 30, 5, 10);
-    build_rect_room(0, 5, 5, 3);
+    build_rect_room(10, 10, 10, 10, 3);
+    build_rect_room(50, 30, 5, 10, 5);
+    build_rect_room(0, 5, 5, 3, 7);
 
     return 1;
 
 };
 
 
-void Map::build_rect_room(int room_x, int room_y, int room_width, int room_height)
+void Map::build_rect_room(int room_x, int room_y,
+                        int room_width, int room_height,
+                        int door_count)
 {
-    Room * room = new Room(room_x, room_y, room_width, room_height);
+    Room * room = new Room(room_x, room_y, room_width, room_height, door_count);
 
     for(int new_y=0; new_y<room_height; new_y++)
     {
@@ -159,7 +161,10 @@ void Map::build_rect_room(int room_x, int room_y, int room_width, int room_heigh
                 l_map -> setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
-                if (new_x == 3 && new_y == 0)
+                // room->_current_door_number++;
+                // if (room->_current_door_number == room->_door_number_limit )
+                // if (new_x == 3 && new_y == 0)
+                if (room->checkDoorCount())
                 {
                 getTileAt(adj_x, adj_y)->updateTileType(4);
                 l_map -> setProperties(adj_x, adj_y, false, false);
