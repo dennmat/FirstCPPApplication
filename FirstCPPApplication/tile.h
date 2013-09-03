@@ -55,6 +55,15 @@ class WallTileType : public BaseTileType
 };
 
 
+class DoorTileType : public BaseTileType
+{
+    public: 
+        DoorTileType(){
+            tiletype;
+            representation = new DoorRepresentation;
+        };
+};
+
 class FloorTileType : public BaseTileType
 {
     public: 
@@ -77,7 +86,7 @@ class Tile : public Object
 
     Map* map; //the map that this tile is on
 
-    std::vector<Actor *>* occupants;       // the dude sitting on the tile
+    std::vector<Actor *> * occupants;       // the dude sitting on the tile
     Actor * occupant;
 
     bool is_occupied() { return this->_is_occupied; };

@@ -157,6 +157,13 @@ void Map::build_rect_room(int room_x, int room_y, int room_width, int room_heigh
             {
                 getTileAt(adj_x, adj_y)->updateTileType(1);
                 l_map -> setProperties(adj_x, adj_y, false, false);
+
+                //place door if valid position
+                if (new_x == 3 && new_y == 0)
+                {
+                getTileAt(adj_x, adj_y)->updateTileType(4);
+                l_map -> setProperties(adj_x, adj_y, false, false);
+                }
             }
 
             //everything else

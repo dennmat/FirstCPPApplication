@@ -68,9 +68,10 @@ void Tile::updateTileType(int type )
     tiletype = type;
 
     if (type == 0) { tile = new BaseTileType; }
-    else if (type == 3) { tile = new FloorTileType; }
     else if (type == 1) { tile = new WallTileType; }
     else if (type == 2) { tile = new WarpTileType; }
+    else if (type == 3) { tile = new FloorTileType; }
+    else if (type == 4) { tile = new DoorTileType; }
     else 
     {
         cout << type << endl;

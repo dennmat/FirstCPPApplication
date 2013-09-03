@@ -67,6 +67,16 @@ class WallRepresentation : public Representation
 
 };
 
+class DoorRepresentation : public Representation
+{
+    public:
+    DoorRepresentation()
+    {
+        repr = '+';
+        color = TCODColor::darkerSepia;
+    };
+
+};
 class FloorRepresentation : public Representation
 {
     public:
