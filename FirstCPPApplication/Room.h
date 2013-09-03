@@ -18,8 +18,8 @@ class Room
         bool Room::checkDoorCount();
 
     private:
-        int _door_number_limit;
-        int _current_door_number;
+        int _door_index_limit;
+        int _current_door_index;
 
         
 };
