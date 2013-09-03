@@ -17,6 +17,8 @@ using namespace std;
 
 Map::Map()
 {
+    
+    this->roomVector = new vector<Room*>;
 
 }
 
@@ -127,7 +129,9 @@ int Map::build_from_random(int seed)
             y++;
             x = 0;
         }
-        else { x++; };
+        else { 
+            x++;
+        };
 
         i++;
     }
@@ -146,6 +150,7 @@ void Map::build_rect_room(int room_x, int room_y,
                         int door_count)
 {
     Room * room = new Room(room_x, room_y, room_width, room_height, door_count);
+    this->roomVector->push_back(room);
 
     for(int new_y=0; new_y<room_height; new_y++)
     {

@@ -25,6 +25,7 @@ using namespace std;
 #define     TILE_WALL       1
 
 class Game;
+class Room;
 
 
 class Tile;
@@ -38,6 +39,8 @@ class Map : public Object
         int width, height;
         int Map::build_from_file(string filename);
         int Map::build_from_random(int seed);
+
+        // void Map::add_room(
         void Map::build_rect_room(int room_x, int room_y,
                 int room_width, int room_height, int door_count);
         string description; // default description if tile does not have one
@@ -47,6 +50,7 @@ class Map : public Object
 
         Tile *tileArray;
         vector< vector<Tile> > *tileVector;
+        vector<Room*> * roomVector;
         // Tile * Map::getTileAt(int x, int y);
         Tile * Map::getTileAt(int x, int y, bool is_original_pos=true, int ox=-1, int oy=-1);
 
