@@ -71,7 +71,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(create_person("first", 99, 200, 2, 'a', "first's pet"));
+    enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
     enemies.push_back(create_person("second", 66, 4, 4, 'b', "second's pet"));
 
 };
@@ -178,8 +178,8 @@ void Game::mainloop()
 
     WelcomeMessage();
 
-    cout << screen_w << endl;
-    cout << screen_h << endl;
+    // cout << screen_w << endl;
+    // cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
     TCODConsole::setKeyboardRepeat(400, 1);
 

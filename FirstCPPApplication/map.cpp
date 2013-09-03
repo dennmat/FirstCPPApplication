@@ -149,6 +149,7 @@ void Map::build_rect_room(int room_x, int room_y,
                         int room_width, int room_height,
                         int door_count)
 {
+    //create and add the room to the list of vectors
     Room * room = new Room(room_x, room_y, room_width, room_height, door_count);
     this->roomVector->push_back(room);
 
@@ -377,13 +378,13 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     Tile *target_tile; // the tile of the new position
     target_tile = getTileAt(new_x, new_y);
 
-    cout << "player tile x, y  ";
-    cout << player_tile->tile_x << ", " ;
-    cout <<player_tile->tile_y << endl;
+    // cout << "player tile x, y  ";
+    // cout << player_tile->tile_x << ", " ;
+    // cout <<player_tile->tile_y << endl;
 
-    cout << "target tile x, y  ";
-    cout << target_tile->tile_x << ", " ;
-    cout << target_tile->tile_y << endl;
+    // cout << "target tile x, y  ";
+    // cout << target_tile->tile_x << ", " ;
+    // cout << target_tile->tile_y << endl;
 
     std::stringstream converter;
     converter << target_tile->is_occupied();

@@ -39,7 +39,7 @@ bool Room::checkDoorCount()
     }
     else
     {
-        std::cout << this->_current_door_index << " limit: " << this->_door_index_limit << std::endl;
+        // std::cout << this->_current_door_index << " limit: " << this->_door_index_limit << std::endl;
         return false;
     }
 };
