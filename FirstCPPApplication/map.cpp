@@ -32,7 +32,11 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     vector<Tile> * temp;
 
     if (!is_original_pos && (x < 0 || y < 0 ) )
-    { cout << "can't find a tile here. I'd throw and error but I don't know how yet" << endl;}
+    { 
+        cout << "can't find a tile here.";
+        cout << "I'd throw and error but I don't know how yet" << endl;
+    }
+
 
     //try to get the y vector
     try { temp = &(*tileVector).at(y); }
@@ -155,7 +159,8 @@ void Map::build_rect_room(int room_x, int room_y,
 
     for(int new_y=0; new_y<room_height; new_y++)
     {
-        for(int new_x=0; new_x<room_width;new_x++){
+        for(int new_x=0; new_x<room_width;new_x++)
+        {
 
             int adj_x = room_x + new_x;
             int adj_y = room_y + new_y;

@@ -24,6 +24,7 @@ using namespace std;
 // Game the_game;
 
 
+
 void process_movement(Game* the_game, TCOD_key_t request, Person *player)
 {
     Map *world = the_game->world;
@@ -31,38 +32,49 @@ void process_movement(Game* the_game, TCOD_key_t request, Person *player)
     // Movement || N, S, E, W ||
 
 
-    if(request.c == 'n')
+    if(request.c == 'n' && request.pressed)
     {
+        player->is_moving_up = true;
         if(the_game->current_map->movePlayer(player, 0, -1) || buildmode)
         { 
             //            player->y--;
         }
     }
+    else { player->is_moving_up = false; };
 
-    else if(request.c == 's')
+    if(request.c == 's' && request.pressed)
     {
+        player->is_moving_down = true;
         if(the_game->current_map->movePlayer(player, 0, 1) || buildmode)
         { 
             //            player->y++; 
         }
     }
+    else { player->is_moving_down = false; };
 
-    else if(request.c == 'e')
+    if(request.c == 'e' && request.pressed)
     {
+        player->is_moving_right = true;
         if(the_game->current_map->movePlayer(player, 1, 0) || buildmode)
         {
             //            player->x++; 
         }
 
     }
+    else { player->is_moving_right = false; };
 
-    else if(request.c == 'w')
+    if(request.c == 'w' && request.pressed)
     {
+        player->is_moving_left = true;
         if(the_game->current_map->movePlayer(player, -1, 0) || buildmode)
         { 
             //            player->x--; 
         }
     }
+    else 
+    { 
+        player->is_moving_left = false;
+    };
 
 };
 

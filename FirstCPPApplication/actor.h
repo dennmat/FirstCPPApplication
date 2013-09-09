@@ -17,11 +17,21 @@ class Actor : public Object
 
         TCODPath* l_path;
 
+        bool is_moving_left;
+        bool is_moving_right;
+        bool is_moving_up;
+        bool is_moving_down;
+
         Actor::Actor()
         {
             l_path = NULL;
             representation = new Representation;
             name = "Unset Actor name";
+
+            is_moving_left = false;
+            is_moving_right = false;
+            is_moving_up = false;
+            is_moving_down = false;
         };
         std::string Actor::GetName();
         const char* Actor::GetNameC();
