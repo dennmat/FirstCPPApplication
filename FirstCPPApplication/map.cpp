@@ -311,21 +311,25 @@ int Map::draw(Game *theGame)
             else
             {
                 char the_char = the_tile->tile->representation->repr;
+                TCODColor the_bg_color ;
                 TCODColor the_fg_color ;
-                TCODColor tile_temp_col = the_tile->tile->representation->temp_fg_color;
-                TCODColor tile_orig_col = the_tile->tile->representation->fg_color;
+                TCODColor tile_temp_col = the_tile->tile->representation->temp_bg_color;
+                TCODColor tile_orig_col = the_tile->tile->representation->bg_color;
 
+
+                TCODConsole::root->putChar(x, y, the_char );
                 if ( tile_temp_col != tile_orig_col){
                     the_fg_color = tile_temp_col;
-                    the_tile->tile->representation->temp_fg_color = tile_orig_col;
+                    the_tile->tile->representation->temp_bg_color = tile_orig_col;
+                    TCODConsole::root->setCharBackground(x, y, the_fg_color);
                 }
                 else {
                     the_fg_color = the_tile->tile->representation->fg_color;
+                    TCODConsole::root->setCharForeground(x, y, the_fg_color);
+                    TCODConsole::root->setCharBackground(x, y, the_bg_color);
                 }
                 //TCODColor fg_color = the_tile->tile->fg_color;
 
-                TCODConsole::root->putChar(x, y, the_char );
-                TCODConsole::root->setCharForeground(x, y, the_fg_color);
                 // cout << the_tile->tile->representation;
             };
 
