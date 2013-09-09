@@ -18,6 +18,10 @@ class Game
     public:
         Person* player;     //the PC
 
+        //player input
+        TCOD_key_t key_evt;
+        TCOD_mouse_t mouse_evt;
+
         int enemies_size ;   //don't really know how else to get the size of the
         // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
         std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
@@ -45,6 +49,8 @@ class Game
         Game::Game();
         void Game::buildworld();
         void Game::update();
+
+        void Game::update_ui();
 
         void Game::draw_ui();
         void Game::draw_ui_msg();

@@ -168,8 +168,18 @@ void process_buildmode(TCOD_key_t request, int current_tile)
     }
 
 };
+bool process_mouse_event(TCOD_mouse_t request, Person *player)
+{
+    
+    //set the foreground color to red for the tile the mouse is on
+    Tile* moused_tile = the_game.current_map->getTileAt(the_game.mouse_evt.cx, the_game.mouse_evt.cy);
+    moused_tile->tile->representation->temp_color = TCODColor::red;
 
-bool process_event(TCOD_key_t request, Person *player)
+
+    return 0;
+};
+
+bool process_key_event(TCOD_key_t request, Person *player)
 {
     //store the last command, or use it if its needed
     // if (request == ""){

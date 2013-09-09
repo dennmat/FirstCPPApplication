@@ -17,7 +17,7 @@ using namespace std;
 
 Map::Map()
 {
-    
+
     this->roomVector = new vector<Room*>;
 
 }
@@ -146,8 +146,8 @@ int Map::build_from_random(int seed)
 
 
 void Map::build_rect_room(int room_x, int room_y,
-                        int room_width, int room_height,
-                        int door_count)
+        int room_width, int room_height,
+        int door_count)
 {
     //create and add the room to the list of vectors
     Room * room = new Room(room_x, room_y, room_width, room_height, door_count);
@@ -172,8 +172,8 @@ void Map::build_rect_room(int room_x, int room_y,
                 // if (new_x == 3 && new_y == 0)
                 if (room->checkDoorCount())
                 {
-                getTileAt(adj_x, adj_y)->updateTileType(4);
-                l_map -> setProperties(adj_x, adj_y, false, false);
+                    getTileAt(adj_x, adj_y)->updateTileType(4);
+                    l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
 
@@ -311,7 +311,17 @@ int Map::draw(Game *theGame)
             else
             {
                 char the_char = the_tile->tile->representation->repr;
-                TCODColor the_color = the_tile->tile->representation->color;
+                TCODColor the_color ;
+                TCODColor tile_temp_col = the_tile->tile->representation->temp_color;
+                TCODColor tile_orig_col = the_tile->tile->representation->color;
+
+                if ( tile_temp_col != tile_orig_col){
+                    the_color = tile_temp_col;
+                    the_tile->tile->representation->temp_color = tile_orig_col;
+                }
+                else {
+                    the_color = the_tile->tile->representation->color;
+                }
                 //TCODColor color = the_tile->tile->color;
 
                 TCODConsole::root->putChar(x, y, the_char );

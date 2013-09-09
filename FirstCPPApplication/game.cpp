@@ -18,7 +18,6 @@ void Game:: buildworld()
     string line;
     ifstream myfile ("world.txt");
     int num_of_worlds;
-    int i;
 
     if (myfile.is_open())
     {
@@ -125,6 +124,10 @@ void Game::update()
     }
 };
 
+void Game::update_ui()
+{
+}
+
 void Game::draw_ui()
 {
     draw_ui_msg();
@@ -146,8 +149,13 @@ void Game::draw_ui_sidebar()
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
 
+    //player stats
     ui_sidebar_con->print(0, 2, "PLAYER NAME %s", player->GetNameC());
     ui_sidebar_con->print(0, 3, "PLAYER HP %d", player->pet->cur_hp);
+
+    //mouse stats
+    ui_sidebar_con->print(0, 5, "MOUSE X Y" );
+    ui_sidebar_con->print(0, 6, "%d %d", mouse_evt.cx, mouse_evt.cy);
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );
@@ -181,7 +189,7 @@ void Game::mainloop()
     // cout << screen_w << endl;
     // cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
-    TCODConsole::setKeyboardRepeat(400, 1);
+    TCODConsole::setKeyboardRepeat(500, 1);
 
     bool battle_done = false;
     bool incr_turn  = false;
@@ -207,19 +215,23 @@ void Game::mainloop()
             incr_turn = false;
         }
 
-        //player input
-        TCOD_key_t key_evt;
-        TCOD_mouse_t mouse_evt;
         // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
-        TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt);
+        TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
         if (key_evt.c != NULL)
-            incr_turn = process_event(key_evt, player);
+            incr_turn = process_key_event(key_evt, player);
+        // else if (mouse_evt.dx != NULL)
+        // {
+        incr_turn = process_mouse_event(mouse_evt, player);
+        // }
+        // else {
+        //     cout << "Null events" << endl;
+        // };
 
-            //AIs update
-            update();
+        //AIs update
+        update();
 
-            //draw the map to libtconsole
-            current_map->draw(this);
+        //draw the map to libtconsole
+        current_map->draw(this);
 
         //draw the UI
         draw_ui();

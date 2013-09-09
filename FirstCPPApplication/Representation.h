@@ -9,9 +9,15 @@ class Representation : public Object
         char repr;
         TCODColor color;
 
+        //temp color for highlighting etc
+        TCODColor temp_color;
+        TCODColor orig_color;
+
         Representation(){
             repr = '/';
             color = TCODColor::white;
+            temp_color = TCODColor::white;
+            orig_color = TCODColor::white;
         };
 
 };
