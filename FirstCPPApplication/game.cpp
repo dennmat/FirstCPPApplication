@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "Representation.h"
 #include "build.h"
+#include "input.h"
 
 #include "libtcod.hpp"
 
@@ -218,10 +219,10 @@ void Game::mainloop()
         // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
         TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
         if (key_evt.c != NULL)
-            incr_turn = process_key_event(key_evt, player);
+            incr_turn = process_key_event(this, key_evt, player);
         // else if (mouse_evt.dx != NULL)
         // {
-        incr_turn = process_mouse_event(mouse_evt, player);
+        incr_turn = process_mouse_event(this, mouse_evt, player);
         // }
         // else {
         //     cout << "Null events" << endl;

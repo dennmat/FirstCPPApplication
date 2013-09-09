@@ -298,12 +298,14 @@ int Map::draw(Game *theGame)
         for(y=0; y<height; y++)
         {
             Tile * the_tile = getTileAt(x, y);
+            TCODColor the_bg_color ;
+            TCODColor the_fg_color ;
 
             if(the_tile->is_occupied())
             {
                 // cout << the_tile->occupant->name << endl;
                 char the_char = the_tile->occupant->representation->repr;
-                TCODColor the_fg_color = the_tile->occupant->representation->fg_color;
+                the_fg_color = the_tile->occupant->representation->fg_color;
                 TCODConsole::root->putChar(x, y, the_char);
                 TCODConsole::root->setCharForeground(x, y, the_fg_color);
                 // cout << the_tile->occupant->representation;
@@ -311,14 +313,12 @@ int Map::draw(Game *theGame)
             else
             {
                 char the_char = the_tile->tile->representation->repr;
-                TCODColor the_bg_color ;
-                TCODColor the_fg_color ;
+
                 TCODColor tile_temp_col = the_tile->tile->representation->temp_bg_color;
                 TCODColor tile_orig_col = the_tile->tile->representation->bg_color;
 
-
                 TCODConsole::root->putChar(x, y, the_char );
-                if ( tile_temp_col != tile_orig_col){
+                if ( tile_temp_col != tile_orig_col) {
                     the_fg_color = tile_temp_col;
                     the_tile->tile->representation->temp_bg_color = tile_orig_col;
                     TCODConsole::root->setCharBackground(x, y, the_fg_color);
@@ -406,7 +406,7 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     converter << target_tile->is_occupied();
     string bool_string = converter.str();
 
-    cout << "Target tile is occupied: " << bool_string << endl;
+    // cout << "Target tile is occupied: " << bool_string << endl;
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&

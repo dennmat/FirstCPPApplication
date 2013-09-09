@@ -16,8 +16,5 @@ class Person;
 
 void WelcomeMessage();
 void clearScreen();
-void process_movement(TCOD_key_t request, Person *player);
-bool process_mouse_event(TCOD_mouse_t request, Person *player);
-bool process_key_event(TCOD_key_t request, Person *player);
 
 #endif
