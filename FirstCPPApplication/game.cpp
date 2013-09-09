@@ -147,6 +147,7 @@ void Game::draw_ui_sidebar()
     ui_sidebar_con->setDefaultBackground(ui_sidebar_color);
     ui_sidebar_con->clear();
 
+    
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
 
@@ -157,6 +158,11 @@ void Game::draw_ui_sidebar()
     //mouse stats
     ui_sidebar_con->print(0, 5, "MOUSE X Y" );
     ui_sidebar_con->print(0, 6, "%d %d", mouse_evt.cx, mouse_evt.cy);
+
+    //is moving in a direciton
+    ui_sidebar_con->print(1, 8, "%s", BoolToString(player->is_moving_up, false) );
+    ui_sidebar_con->print(0, 9, "%s %s", BoolToString(player->is_moving_left, false), BoolToString(player->is_moving_right, false));
+    ui_sidebar_con->print(1, 10, "%s", BoolToString(player->is_moving_down, false));
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );

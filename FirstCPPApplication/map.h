@@ -57,9 +57,12 @@ class Map : public Object
         TCODMap* l_map;
 };
 
-inline const char * const BoolToString(bool b)
+inline const char * const BoolToString(bool b, bool verbose=true)
 {
+    if (verbose)
     return b ? "true" : "false";
+    else
+    return b ? "T" : "F";
 }
 
 #endif;
