@@ -78,7 +78,7 @@ void  Game::initialize_enemies(){
 Person*  Game::initialize_player(){
 
     player = new Person( "Josh", 23, 3, 3, '@', "");
-    player->representation->color = TCODColor::celadon;
+    player->representation->fg_color = TCODColor::celadon;
 
     //Pet p1_pet;
     //p1_pet.master = &player;

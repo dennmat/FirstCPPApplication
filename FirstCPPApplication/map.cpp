@@ -303,29 +303,29 @@ int Map::draw(Game *theGame)
             {
                 // cout << the_tile->occupant->name << endl;
                 char the_char = the_tile->occupant->representation->repr;
-                TCODColor the_color = the_tile->occupant->representation->color;
+                TCODColor the_fg_color = the_tile->occupant->representation->fg_color;
                 TCODConsole::root->putChar(x, y, the_char);
-                TCODConsole::root->setCharForeground(x, y, the_color);
+                TCODConsole::root->setCharForeground(x, y, the_fg_color);
                 // cout << the_tile->occupant->representation;
             }
             else
             {
                 char the_char = the_tile->tile->representation->repr;
-                TCODColor the_color ;
-                TCODColor tile_temp_col = the_tile->tile->representation->temp_color;
-                TCODColor tile_orig_col = the_tile->tile->representation->color;
+                TCODColor the_fg_color ;
+                TCODColor tile_temp_col = the_tile->tile->representation->temp_fg_color;
+                TCODColor tile_orig_col = the_tile->tile->representation->fg_color;
 
                 if ( tile_temp_col != tile_orig_col){
-                    the_color = tile_temp_col;
-                    the_tile->tile->representation->temp_color = tile_orig_col;
+                    the_fg_color = tile_temp_col;
+                    the_tile->tile->representation->temp_fg_color = tile_orig_col;
                 }
                 else {
-                    the_color = the_tile->tile->representation->color;
+                    the_fg_color = the_tile->tile->representation->fg_color;
                 }
-                //TCODColor color = the_tile->tile->color;
+                //TCODColor fg_color = the_tile->tile->fg_color;
 
                 TCODConsole::root->putChar(x, y, the_char );
-                TCODConsole::root->setCharForeground(x, y, the_color);
+                TCODConsole::root->setCharForeground(x, y, the_fg_color);
                 // cout << the_tile->tile->representation;
             };
 
@@ -334,8 +334,8 @@ int Map::draw(Game *theGame)
             if (l_map->isTransparent(x, y) == true)
             {
                 // TCODConsole::root->putChar(x, y, 'w');
-                // const TCODColor bg_color = TCODColor::amber;
-                // TCODConsole::root->setCharBackground(x, y, bg_color, TCOD_BKGND_ADDALPHA(0.1));
+                // const TCODColor bg_fg_color = TCODColor::amber;
+                // TCODConsole::root->setCharBackground(x, y, bg_fg_color, TCOD_BKGND_ADDALPHA(0.1));
                 // printf("is\n" );
             }
             else

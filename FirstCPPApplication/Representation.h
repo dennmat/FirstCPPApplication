@@ -7,17 +7,26 @@ class Representation : public Object
 {
     public:
         char repr;
-        TCODColor color;
 
-        //temp color for highlighting etc
-        TCODColor temp_color;
-        TCODColor orig_color;
+        //temp fg_color for highlighting etc
+        TCODColor fg_color;
+        TCODColor temp_fg_color;
+        TCODColor orig_fg_color;
+
+        TCODColor bg_color;
+        TCODColor temp_bg_color;
+        TCODColor orig_bg_color;
 
         Representation(){
             repr = '/';
-            color = TCODColor::white;
-            temp_color = TCODColor::white;
-            orig_color = TCODColor::white;
+
+            fg_color = TCODColor::white;
+            temp_fg_color = TCODColor::white;
+            orig_fg_color = TCODColor::white;
+
+            bg_color = TCODColor::white;
+            temp_bg_color = TCODColor::white;
+            orig_bg_color = TCODColor::white;
         };
 
 };
@@ -28,7 +37,7 @@ class DeadRepresentation : public Representation
     public:
     DeadRepresentation(){
         repr = 'X';
-        color = TCODColor::black;
+        fg_color = TCODColor::black;
     };
 };
 
@@ -36,7 +45,7 @@ class DeadRepresentation : public Representation
 // {
 //     FloorRepresentation(){
 //         repr = 'X';
-//         color = TCODColor::black;
+//         fg_color = TCODColor::black;
 //     };
 // };
 
@@ -46,7 +55,7 @@ class BaseRepresentation : public Representation
     BaseRepresentation()
     {
         repr='b';
-        color = TCODColor::white;
+        fg_color = TCODColor::white;
     };
 
 };
@@ -57,7 +66,7 @@ class WarpRepresentation : public Representation
     WarpRepresentation()
     {
         repr = 'w';
-        color = TCODColor::sepia;
+        fg_color = TCODColor::sepia;
     };
 
 };
@@ -68,7 +77,7 @@ class WallRepresentation : public Representation
     WallRepresentation()
     {
         repr = '#';
-        color = TCODColor::sepia ;
+        fg_color = TCODColor::sepia ;
     };
 
 };
@@ -79,7 +88,7 @@ class DoorRepresentation : public Representation
     DoorRepresentation()
     {
         repr = '+';
-        color = TCODColor::darkerSepia;
+        fg_color = TCODColor::darkerSepia;
     };
 
 };
@@ -89,7 +98,7 @@ class FloorRepresentation : public Representation
     FloorRepresentation()
     {
         repr = '.';
-        color = TCODColor::lighterSepia;
+        fg_color = TCODColor::lighterSepia;
     };
 
 };
