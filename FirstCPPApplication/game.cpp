@@ -228,7 +228,7 @@ void Game::mainloop()
             incr_turn = process_key_event(this, key_evt, player);
         // else if (mouse_evt.dx != NULL)
         // {
-        incr_turn = process_mouse_event(this, mouse_evt, player);
+        process_mouse_event(this, mouse_evt, player);
         // }
         // else {
         //     cout << "Null events" << endl;
