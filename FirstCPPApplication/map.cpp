@@ -352,8 +352,8 @@ int Map::draw(Game *theGame)
                 {
                     char the_char = the_tile->tile->representation->repr;
                     TCODConsole::root->putChar(x, y, the_char);
-                    TCODConsole::root->setCharBackground(x, y, the_tile->tile->representation->bg_color);
-                    TCODConsole::root->setCharForeground(x, y, the_tile->tile->representation->fg_color);
+                    TCODConsole::root->setCharBackground(x, y, the_tile->tile->representation->bg_color * TCODColor::darkGrey);
+                    TCODConsole::root->setCharForeground(x, y, the_tile->tile->representation->fg_color * TCODColor::darkGrey);
                 }
                 else {
                     TCODConsole::root->setCharBackground(x, y, TCODColor::black);
