@@ -304,66 +304,73 @@ int Map::draw(Game *theGame)
     {
         for(y=0; y<height; y++)
         {
-            Tile * the_tile = getTileAt(x, y);
-            TCODColor the_bg_color ;
-            TCODColor the_fg_color ;
-
-            if(the_tile->is_occupied())
+            if (l_map->isInFov(x, y))
             {
-                // cout << the_tile->occupant->name << endl;
-                char the_char = the_tile->occupant->representation->repr;
-                the_fg_color = the_tile->occupant->representation->fg_color;
-                TCODConsole::root->putChar(x, y, the_char);
-                TCODConsole::root->setCharForeground(x, y, the_fg_color);
-                // cout << the_tile->occupant->representation;
-            }
-            else
-            {
-                char the_char = the_tile->tile->representation->repr;
+                Tile * the_tile = getTileAt(x, y);
+                TCODColor the_bg_color ;
+                TCODColor the_fg_color ;
 
-                TCODColor tile_temp_col = the_tile->tile->representation->temp_bg_color;
-                TCODColor tile_orig_col = the_tile->tile->representation->bg_color;
-
-                TCODConsole::root->putChar(x, y, the_char );
-                if ( tile_temp_col != tile_orig_col) {
-                    the_fg_color = tile_temp_col;
-                    the_tile->tile->representation->temp_bg_color = tile_orig_col;
-                    TCODConsole::root->setCharBackground(x, y, the_fg_color);
-                }
-                else {
-                    the_fg_color = the_tile->tile->representation->fg_color;
+                if(the_tile->is_occupied())
+                {
+                    // cout << the_tile->occupant->name << endl;
+                    char the_char = the_tile->occupant->representation->repr;
+                    the_fg_color = the_tile->occupant->representation->fg_color;
+                    TCODConsole::root->putChar(x, y, the_char);
                     TCODConsole::root->setCharForeground(x, y, the_fg_color);
-                    TCODConsole::root->setCharBackground(x, y, the_bg_color);
+                    // cout << the_tile->occupant->representation;
                 }
-                //TCODColor fg_color = the_tile->tile->fg_color;
+                else
+                {
+                    char the_char = the_tile->tile->representation->repr;
 
-                if (l_map->isInFov(x, y)){
-                    TCODConsole::root->setCharBackground(x, y, TCODColor::white);
+                    TCODColor tile_temp_col = the_tile->tile->representation->temp_bg_color;
+                    TCODColor tile_orig_col = the_tile->tile->representation->bg_color;
+
+                    TCODConsole::root->putChar(x, y, the_char );
+                    if ( tile_temp_col != tile_orig_col) {
+                        the_fg_color = tile_temp_col;
+                        the_tile->tile->representation->temp_bg_color = tile_orig_col;
+                        TCODConsole::root->setCharBackground(x, y, the_fg_color);
+                    }
+                    else {
+                        the_fg_color = the_tile->tile->representation->fg_color;
+                        TCODConsole::root->setCharForeground(x, y, the_fg_color);
+                        TCODConsole::root->setCharBackground(x, y, the_bg_color);
+                    }
+                    //TCODColor fg_color = the_tile->tile->fg_color;
+
+                    // if (l_map->isInFov(x, y)){
+                    //     TCODConsole::root->setCharBackground(x, y, TCODColor::lightbrown);
+                    // }
+
+
+                    // cout << the_tile->tile->representation;
+                };
+
+
+
+                // printf("j %i i %i", x, y);
+                if (l_map->isTransparent(x, y) == true)
+                {
+                    // TCODConsole::root->putChar(x, y, 'w');
+                    // const TCODColor bg_fg_color = TCODColor::amber;
+                    // TCODConsole::root->setCharBackground(x, y, bg_fg_color, TCOD_BKGND_ADDALPHA(0.1));
+                    // printf("is\n" );
                 }
-            
+                else
+                {
+                    // printf("isn't\n" );
+                    // TCODConsole::root->putChar(x, y, 'n');
+                };
 
-                // cout << the_tile->tile->representation;
-            };
 
-
-
-            // printf("j %i i %i", x, y);
-            if (l_map->isTransparent(x, y) == true)
-            {
-                // TCODConsole::root->putChar(x, y, 'w');
-                // const TCODColor bg_fg_color = TCODColor::amber;
-                // TCODConsole::root->setCharBackground(x, y, bg_fg_color, TCOD_BKGND_ADDALPHA(0.1));
-                // printf("is\n" );
             }
-            else
-            {
-                // printf("isn't\n" );
-                // TCODConsole::root->putChar(x, y, 'n');
+            else {
+                TCODConsole::root->setCharBackground(x, y, TCODColor::black);
+                TCODConsole::root->setCharForeground(x, y, TCODColor::black);
             };
-
-
+            // TCODConsole::flush();
         }
-        // TCODConsole::flush();
     }
 
 
