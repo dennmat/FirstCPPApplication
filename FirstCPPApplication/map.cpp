@@ -304,20 +304,21 @@ int Map::draw(Game *theGame)
     {
         for(y=0; y<height; y++)
         {
+            Tile * the_tile = getTileAt(x, y);
+            TCODColor the_bg_color ;
+            TCODColor the_fg_color ;
+
             if (l_map->isInFov(x, y))
             {
-                Tile * the_tile = getTileAt(x, y);
-                TCODColor the_bg_color ;
-                TCODColor the_fg_color ;
+
+                the_tile->setKnown(true);
 
                 if(the_tile->is_occupied())
                 {
-                    // cout << the_tile->occupant->name << endl;
                     char the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
                     TCODConsole::root->putChar(x, y, the_char);
                     TCODConsole::root->setCharForeground(x, y, the_fg_color);
-                    // cout << the_tile->occupant->representation;
                 }
                 else
                 {
@@ -337,39 +338,28 @@ int Map::draw(Game *theGame)
                         TCODConsole::root->setCharForeground(x, y, the_fg_color);
                         TCODConsole::root->setCharBackground(x, y, the_bg_color);
                     }
-                    //TCODColor fg_color = the_tile->tile->fg_color;
-
-                    // if (l_map->isInFov(x, y)){
-                    //     TCODConsole::root->setCharBackground(x, y, TCODColor::lightbrown);
-                    // }
-
-
-                    // cout << the_tile->tile->representation;
                 };
 
-
-
-                // printf("j %i i %i", x, y);
-                if (l_map->isTransparent(x, y) == true)
-                {
-                    // TCODConsole::root->putChar(x, y, 'w');
-                    // const TCODColor bg_fg_color = TCODColor::amber;
-                    // TCODConsole::root->setCharBackground(x, y, bg_fg_color, TCOD_BKGND_ADDALPHA(0.1));
-                    // printf("is\n" );
+                if (l_map->isTransparent(x, y) == true) {
                 }
-                else
-                {
-                    // printf("isn't\n" );
-                    // TCODConsole::root->putChar(x, y, 'n');
+                else {
                 };
 
 
             }
             else {
-                TCODConsole::root->setCharBackground(x, y, TCODColor::black);
-                TCODConsole::root->setCharForeground(x, y, TCODColor::black);
+                if (the_tile->is_known() == true)
+                {
+                    char the_char = the_tile->tile->representation->repr;
+                    TCODConsole::root->putChar(x, y, the_char);
+                    TCODConsole::root->setCharBackground(x, y, the_tile->tile->representation->bg_color);
+                    TCODConsole::root->setCharForeground(x, y, the_tile->tile->representation->fg_color);
+                }
+                else {
+                    TCODConsole::root->setCharBackground(x, y, TCODColor::black);
+                    TCODConsole::root->setCharForeground(x, y, TCODColor::black);
+                }
             };
-            // TCODConsole::flush();
         }
     }
 

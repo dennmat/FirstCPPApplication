@@ -38,7 +38,7 @@ class WarpTileType : public BaseTileType
         int warpMap;            // if this is a warp tile, index of the map to warp to
         int warpX, warpY;       // where you warp to in the destination map
 
-        WarpTileType()
+        WarpTileType() : BaseTileType()
         {
             representation = new WarpRepresentation;
         };
@@ -48,7 +48,7 @@ class WarpTileType : public BaseTileType
 class WallTileType : public BaseTileType
 {
     public: 
-        WallTileType()
+        WallTileType() : BaseTileType()
         {
             representation = new WallRepresentation;
         };
@@ -58,7 +58,7 @@ class WallTileType : public BaseTileType
 class DoorTileType : public BaseTileType
 {
     public: 
-        DoorTileType(){
+        DoorTileType()  : BaseTileType() {
             tiletype;
             representation = new DoorRepresentation;
         };
@@ -67,7 +67,7 @@ class DoorTileType : public BaseTileType
 class FloorTileType : public BaseTileType
 {
     public: 
-        FloorTileType(){
+        FloorTileType()   : BaseTileType() {
             tiletype;
             representation = new FloorRepresentation;
         };
@@ -76,6 +76,7 @@ class FloorTileType : public BaseTileType
 class Tile : public Object
 {
     bool _is_occupied;
+    bool _is_known;
 
     public:
     BaseTileType * tile;
@@ -90,6 +91,9 @@ class Tile : public Object
     Actor * occupant;
 
     bool is_occupied() { return this->_is_occupied; };
+
+    bool is_known() { return this->_is_known; };
+    void setKnown(bool is_known);
 
 
     Tile(); 

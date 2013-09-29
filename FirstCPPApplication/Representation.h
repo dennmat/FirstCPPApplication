@@ -24,9 +24,9 @@ class Representation : public Object
             temp_fg_color = TCODColor::white;
             orig_fg_color = TCODColor::white;
 
-            bg_color = TCODColor::white;
+            bg_color = TCODColor::black;
             temp_bg_color = TCODColor::white;
-            orig_bg_color = TCODColor::white;
+            orig_bg_color = TCODColor::black;
         };
 
 };
@@ -35,10 +35,10 @@ class Representation : public Object
 class DeadRepresentation : public Representation
 {
     public:
-    DeadRepresentation(){
-        repr = 'X';
-        fg_color = TCODColor::black;
-    };
+        DeadRepresentation(): Representation(){
+            repr = 'X';
+            fg_color = TCODColor::black;
+        };
 };
 
 // class FloorRepresentation : public Representation
@@ -52,18 +52,19 @@ class DeadRepresentation : public Representation
 class BaseRepresentation : public Representation
 {
     public:
-    BaseRepresentation()
-    {
-        repr='b';
-        fg_color = TCODColor::white;
-    };
+        BaseRepresentation()
+        {
+            repr='b';
+            fg_color = TCODColor::white;
+            bg_color = TCODColor::grey;
+        };
 
 };
 
 class WarpRepresentation : public Representation
 {
     public:
-    WarpRepresentation()
+        WarpRepresentation() : Representation()
     {
         repr = 'w';
         fg_color = TCODColor::sepia;
@@ -74,7 +75,7 @@ class WarpRepresentation : public Representation
 class WallRepresentation : public Representation
 {
     public:
-    WallRepresentation()
+        WallRepresentation(): Representation()
     {
         repr = '#';
         fg_color = TCODColor::sepia ;
@@ -85,7 +86,7 @@ class WallRepresentation : public Representation
 class DoorRepresentation : public Representation
 {
     public:
-    DoorRepresentation()
+        DoorRepresentation(): Representation()
     {
         repr = '+';
         fg_color = TCODColor::darkerSepia;
@@ -95,7 +96,7 @@ class DoorRepresentation : public Representation
 class FloorRepresentation : public Representation
 {
     public:
-    FloorRepresentation()
+        FloorRepresentation(): Representation()
     {
         repr = '.';
         fg_color = TCODColor::lighterSepia;

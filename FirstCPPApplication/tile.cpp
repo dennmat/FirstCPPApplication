@@ -11,12 +11,19 @@ Tile::Tile()
 {
     tiletype = 0;
     _is_occupied = false;
+    _is_known = false;
 
     occupants = new std::vector<Actor*>;
 
     updateTileType(tiletype);
 };
 
+
+void Tile::setKnown(bool is_known)
+{
+    this->_is_known = is_known;
+    // cout << "is known" << endl;
+}
 void Tile::makeOccupied(Actor* the_actor)
 {
     occupant = the_actor;
