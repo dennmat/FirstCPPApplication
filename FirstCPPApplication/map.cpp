@@ -298,6 +298,8 @@ int Map::draw(Game *theGame)
 {
     int x,y;
 
+    l_map->computeFov(theGame->player->x, theGame->player->y, 10, true, FOV_SHADOW);
+
     for(x=0; x<width;x++)
     {
         for(y=0; y<height; y++)
@@ -335,8 +337,14 @@ int Map::draw(Game *theGame)
                 }
                 //TCODColor fg_color = the_tile->tile->fg_color;
 
+                if (l_map->isInFov(x, y)){
+                    TCODConsole::root->setCharBackground(x, y, TCODColor::white);
+                }
+            
+
                 // cout << the_tile->tile->representation;
             };
+
 
 
             // printf("j %i i %i", x, y);
