@@ -13,6 +13,10 @@
 
 using namespace std;
 
+// bool TCODColor::operator == (const TCODColor  &left, const int &right)
+// {
+//     return true;
+// }
 
 
 Map::Map()
@@ -75,7 +79,9 @@ int Map::build_from_random(int seed)
     tileVector = new vector<vector<Tile>>;
     tileVector->resize(height);
     for(int ix = 0; ix < height; ++ix)
+    {
         (*tileVector)[ix].resize(width);
+    }
 
     int i = 0;
     int x = 0;
@@ -315,6 +321,8 @@ int Map::draw(Game *theGame)
 
                 if(the_tile->is_occupied())
                 {
+                    theGame->player->ActorInSight(x, y, the_tile->occupant);
+
                     char the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
                     TCODConsole::root->putChar(x, y, the_char);

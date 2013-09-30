@@ -18,12 +18,24 @@ Tile::Tile()
     updateTileType(tiletype);
 };
 
+void Tile::drawColorsToRoot(TCODColor fg_color, TCODColor bg_color)
+{
+    // if (fg_color != 0)
+    // {
+    //     TCODConsole::root->setCharForeground(this->tile_x, this->tile_y, fg_color);
+    // };
+    // if (bg_color != NULL)
+    // {
+    //     TCODConsole::root->setCharBackground(this->tile_x, this->tile_y, bg_color);
+    // };
+};
 
 void Tile::setKnown(bool is_known)
 {
     this->_is_known = is_known;
     // cout << "is known" << endl;
-}
+};
+
 void Tile::makeOccupied(Actor* the_actor)
 {
     occupant = the_actor;

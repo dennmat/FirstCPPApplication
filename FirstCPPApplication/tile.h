@@ -95,6 +95,8 @@ class Tile : public Object
     bool is_known() { return this->_is_known; };
     void setKnown(bool is_known);
 
+    void drawColorsToRoot(TCODColor fg_color, TCODColor bg_color);
+
 
     Tile(); 
     ~Tile(){ delete tile; };

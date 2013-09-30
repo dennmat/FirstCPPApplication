@@ -4,8 +4,11 @@
 #include "object.h"
 #include "Representation.h"
 #include <string>
+#include <vector>
 
 class Representation;
+
+class Actor;
 
 class Actor : public Object 
 {
@@ -22,11 +25,15 @@ class Actor : public Object
         bool is_moving_up;
         bool is_moving_down;
 
+        std::vector<Actor*> * actors_in_sight;
+
         Actor::Actor()
         {
             l_path = NULL;
             representation = new Representation;
             name = "Unset Actor name";
+
+            actors_in_sight = new std::vector<Actor*>;
 
             is_moving_left = false;
             is_moving_right = false;
@@ -36,6 +43,7 @@ class Actor : public Object
         std::string Actor::GetName();
         const char* Actor::GetNameC();
         virtual void Actor::update() = 0;
+        void Actor::ActorInSight(int x, int y, Actor * actor);
 
 };
 

@@ -73,10 +73,10 @@ void Person::update()
     }
     else
     {
-        // cout << "Path size: " << l_path->size() << endl;
-        // l_path->walk(&x, &y, false);
-        // Tile * next_tile = map->getTileAt(x,y);
-        // putPerson(next_tile, x, y);https://www.youtube.com/watch?feature=player_embedded&v=8wWuH7MIeCA&noredirect=1
+        cout << "Path size: " << l_path->size() << endl;
+        l_path->walk(&x, &y, false);
+        Tile * next_tile = map->getTileAt(x,y);
+        putPerson(next_tile, x, y); 
     };
 
     //PET UPDATE

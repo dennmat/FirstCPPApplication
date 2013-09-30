@@ -235,7 +235,14 @@ void Game::mainloop()
         // };
 
         //AIs update
-        update();
+        if (incr_turn == true)
+        {
+            std::vector<Actor*>* ais = player->actors_in_sight;
+            for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
+		    cout << (*it)->GetNameC() << endl;
+            }
+            update();
+        }
 
         //draw the map to libtconsole
         current_map->draw(this);
