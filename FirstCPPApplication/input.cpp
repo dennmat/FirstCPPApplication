@@ -204,7 +204,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     // process_buildmode(request, current_tile);
 
     if(is_move_cmd){
-        incr_turn =process_movement(the_game, request, player);
+        incr_turn = process_movement(the_game, request, player);
     }
 
     else if(request.c == 'h')

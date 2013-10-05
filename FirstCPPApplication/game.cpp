@@ -62,7 +62,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 void  Game::initialize_enemies(){
 
     enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
-    enemies.push_back(create_person("second", 66, 4, 4, 'b', "second's pet"));
+    enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
 
 };
 
@@ -233,7 +233,7 @@ void Game::mainloop()
         {
             std::vector<Actor*>* ais = player->actors_in_sight;
             for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
-		    cout << (*it)->GetNameC() << endl;
+                cout << "Actor in sight: " << (*it)->GetNameC() << endl;
             }
             update();
         }

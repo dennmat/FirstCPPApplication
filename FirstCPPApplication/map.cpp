@@ -372,6 +372,13 @@ int Map::draw(Game *theGame)
         }
     }
 
+    //TODO remove this debug stuff
+    std::vector<Actor*>* ais = theGame->player->actors_in_sight;
+    for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
+        char the_char = (*it)->representation->repr;
+        TCODConsole::root->putChar((*it)->dest_x, (*it)->dest_y,the_char);
+        TCODConsole::root->setCharForeground((*it)->dest_x, (*it)->dest_y, TCODColor::darkRed);
+    }
 
     //may have just shot readability in the head here...
     // cout << endl << endl;

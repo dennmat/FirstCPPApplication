@@ -19,8 +19,6 @@ class Person : public Actor
         // std::string name;
         int age;
 
-        int dest_x, dest_y;
-
         Pet * pet;
         bool has_live_pet;
 
