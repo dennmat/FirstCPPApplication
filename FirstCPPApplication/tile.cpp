@@ -70,11 +70,13 @@ void Tile::makeUnoccupied(Actor* the_actor)
         }
     }
 
-    //see if anyone else is left on the tile
+    //see if anyone else is left on the tile, if not:
     if (occupants->size() == 0)
     {
         _is_occupied = false;
         occupant = NULL;
+        bool is_trans = map->l_map->isTransparent(tile_x, tile_y);
+        map->l_map->setProperties(tile_x, tile_y, is_trans, true);
     }
     else
     {

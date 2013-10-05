@@ -26,6 +26,8 @@ void Thinker::update(Game* game)
         printf("thinking\n");
         //PATH FINDING
         Map* map = game->player->my_tile->map;
+        delete master->l_path;
+        master->l_path = NULL;
         if (master->l_path == NULL)
         {
             cout << "Building Path" << endl;
@@ -52,8 +54,6 @@ void Thinker::update(Game* game)
 
         //if (path_size == 0)
         //{
-        delete master->l_path;
-        master->l_path = NULL;
         //}
     }
 

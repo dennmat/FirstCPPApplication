@@ -357,6 +357,7 @@ int Map::draw(Game *theGame)
 
             }
             else {
+                
                 if (the_tile->is_known() == true)
                 {
                     char the_char = the_tile->tile->representation->repr;
@@ -369,15 +370,34 @@ int Map::draw(Game *theGame)
                     TCODConsole::root->setCharForeground(x, y, TCODColor::black);
                 }
             };
+
+            //TODO Debug walkable
+            if (the_tile->map->l_map->isWalkable(the_tile->tile_x, the_tile->tile_y) == false)
+			{
+                    TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
+			}
         }
     }
 
-    //TODO remove this debug stuff
+    //TODO debug pathing
     std::vector<Actor*>* ais = theGame->player->actors_in_sight;
     for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
         char the_char = (*it)->representation->repr;
         TCODConsole::root->putChar((*it)->dest_x, (*it)->dest_y,the_char);
         TCODConsole::root->setCharForeground((*it)->dest_x, (*it)->dest_y, TCODColor::darkRed);
+
+        if ((*it)->l_path != NULL){
+            for (int i=0; i < (*it)->l_path->size(); i++ ) {
+                int path_x,path_y;
+                (*it)->l_path->get(i,&path_x,&path_y);
+                TCODConsole::root->putChar(path_x, path_y, 'x');
+                TCODConsole::root->setCharBackground(path_x, path_y, TCODColor::lightRed);
+                // printf ("Astar coord : %d %d\n", path_x,path_y );
+            }
+        }
+        else {
+            cout << "its null" << endl;
+        }
     }
 
     //may have just shot readability in the head here...
