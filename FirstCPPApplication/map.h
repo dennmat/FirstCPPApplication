@@ -37,7 +37,7 @@ class Map : public Object
         string description; // default description if tile does not have one
 
         int draw(Game *the_game);
-        bool movePlayer(Person *thePerson, int x2, int y2);
+        bool attackMovePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
         vector< vector<Tile> > *tileVector;
@@ -56,4 +56,4 @@ inline const char * const BoolToString(bool b, bool verbose=true)
     return b ? "T" : "F";
 }
 
-#endif;
+#endif

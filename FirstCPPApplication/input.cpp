@@ -32,7 +32,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     if(request.c == 'n' && request.pressed)
     {
         player->is_moving_up = true;
-        if(the_game->current_map->movePlayer(player, 0, -1) || buildmode)
+        if(the_game->current_map->attackMovePlayer(player, 0, -1) || buildmode)
         { 
             //            player->y--;
             return true;
@@ -43,7 +43,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     if(request.c == 's' && request.pressed)
     {
         player->is_moving_down = true;
-        if(the_game->current_map->movePlayer(player, 0, 1) || buildmode)
+        if(the_game->current_map->attackMovePlayer(player, 0, 1) || buildmode)
         { 
             //            player->y++; 
             return true;
@@ -54,7 +54,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     if(request.c == 'e' && request.pressed)
     {
         player->is_moving_right = true;
-        if(the_game->current_map->movePlayer(player, 1, 0) || buildmode)
+        if(the_game->current_map->attackMovePlayer(player, 1, 0) || buildmode)
         {
             //            player->x++; 
             return true;
@@ -66,7 +66,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     if(request.c == 'w' && request.pressed)
     {
         player->is_moving_left = true;
-        if(the_game->current_map->movePlayer(player, -1, 0) || buildmode)
+        if(the_game->current_map->attackMovePlayer(player, -1, 0) || buildmode)
         { 
             //            player->x--; 
             return true;

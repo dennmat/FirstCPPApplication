@@ -392,7 +392,7 @@ int Map::draw(Game *theGame)
     return 1;
 }
 
-bool Map::movePlayer(Person *thePerson, int x2, int y2)
+bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 {
     // cout << "trying to move player" << endl;
 
@@ -413,30 +413,20 @@ bool Map::movePlayer(Person *thePerson, int x2, int y2)
     Tile *target_tile; // the tile of the new position
     target_tile = getTileAt(new_x, new_y);
 
-    // cout << "player tile x, y  ";
-    // cout << player_tile->tile_x << ", " ;
-    // cout <<player_tile->tile_y << endl;
-
-    // cout << "target tile x, y  ";
-    // cout << target_tile->tile_x << ", " ;
-    // cout << target_tile->tile_y << endl;
-
     std::stringstream converter;
     converter << target_tile->is_occupied();
     string bool_string = converter.str();
-
-    // cout << "Target tile is occupied: " << bool_string << endl;
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&
             (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
             !target_tile->is_occupied())
     {
-        // cout << endl << endl << endl;
         thePerson->putPerson(target_tile, new_x, new_y);
         return true;
     }
 
+    //fight if the tile is occupied
     else if (target_tile->is_occupied())
     {
         bool is_fighter = target_tile->occupant->is_fighter;
