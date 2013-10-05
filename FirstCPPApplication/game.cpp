@@ -33,14 +33,6 @@ void Game:: buildworld()
 
         world = new Map;
         world[0].build_from_random(0);
-        // 
-        //          world = new Map[num_of_worlds];
-        //          for(i=0;i<num_of_worlds;i++)
-        //          {
-        //              // get height
-        //              getline (myfile,line);
-        //              world[i].build_from_file(line);
-        //          }
     }
 }
 
@@ -48,10 +40,6 @@ void Game:: buildworld()
 Person * Game::create_person(string name, int age, int x, int y, char repr, 
         string pet_name)
 {
-    ////set its representation, aka color and char
-    //Representation * representation =   new Representation;
-    //representation->repr = repr;
-    // new_pers->representation = representation;
 
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, pet_name);
@@ -65,8 +53,6 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
-
-    // cout << "created person " << name << endl;
 
     return new_pers;
 
@@ -86,9 +72,6 @@ Person*  Game::initialize_player(){
     player->representation->fg_color = TCODColor::celadon;
     delete player->thinker;
     player->thinker = NULL;
-
-    //Pet p1_pet;
-    //p1_pet.master = &player;
 
     vector<vector<Tile>> * poop = this->current_map->tileVector;
     Tile * next_tile = &(*poop)[player->x][player->y];
@@ -166,8 +149,13 @@ void Game::draw_ui_sidebar()
     ui_sidebar_con->print(0, 6, "%d %d", mouse_evt.cx, mouse_evt.cy);
 
     //is moving in a direciton
+    const char* move_left;
+    const char* move_right;
+    move_left = BoolToString(player->is_moving_left, false);
+    move_right = BoolToString(player->is_moving_right, false);
+
     ui_sidebar_con->print(1, 8, "%s", BoolToString(player->is_moving_up, false) );
-    ui_sidebar_con->print(0, 9, "%s %s", BoolToString(player->is_moving_left, false), BoolToString(player->is_moving_right, false));
+    ui_sidebar_con->print(0, 9, "%s %s", move_left, move_right);
     ui_sidebar_con->print(1, 10, "%s", BoolToString(player->is_moving_down, false));
 
     //draw ui console to root

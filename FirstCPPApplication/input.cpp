@@ -22,7 +22,7 @@ using namespace std;
 
 
 
-void process_movement(Game* the_game, TCOD_key_t request, Person *player)
+bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 {
     Map *world = the_game->world;
     bool buildmode = the_game->buildmode;
@@ -35,6 +35,7 @@ void process_movement(Game* the_game, TCOD_key_t request, Person *player)
         if(the_game->current_map->movePlayer(player, 0, -1) || buildmode)
         { 
             //            player->y--;
+            return true;
         }
     }
     else { player->is_moving_up = false; };
@@ -45,6 +46,7 @@ void process_movement(Game* the_game, TCOD_key_t request, Person *player)
         if(the_game->current_map->movePlayer(player, 0, 1) || buildmode)
         { 
             //            player->y++; 
+            return true;
         }
     }
     else { player->is_moving_down = false; };
@@ -55,6 +57,7 @@ void process_movement(Game* the_game, TCOD_key_t request, Person *player)
         if(the_game->current_map->movePlayer(player, 1, 0) || buildmode)
         {
             //            player->x++; 
+            return true;
         }
 
     }
@@ -66,12 +69,13 @@ void process_movement(Game* the_game, TCOD_key_t request, Person *player)
         if(the_game->current_map->movePlayer(player, -1, 0) || buildmode)
         { 
             //            player->x--; 
+            return true;
         }
     }
     else 
-    { 
-        player->is_moving_left = false;
-    };
+    { player->is_moving_left = false; };
+
+    return false;
 
 };
 
@@ -180,7 +184,6 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     Tile* moused_tile = the_game->current_map->getTileAt(the_game->mouse_evt.cx, the_game->mouse_evt.cy);
     moused_tile->tile->representation->temp_bg_color = TCODColor::red;
 
-
     return 0;
 };
 
@@ -194,39 +197,15 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 
     //determine if movement command
     bool is_move_cmd;
-    bool is_valid_cmd = false;
+    bool incr_turn = false;
     int current_tile = player->x+(player->y*(the_game->current_map->width));
     is_move_cmd = is_request_move_cmd(request);
 
     // process_buildmode(request, current_tile);
 
     if(is_move_cmd){
-        is_valid_cmd = true;
-        process_movement(the_game, request, player);
+        incr_turn =process_movement(the_game, request, player);
     }
-
-    // else if(request.c == 'b')
-    // {
-    //     the_game->buildmode=!the_game->buildmode;
-    // }
-
-    // else if(request.c == 'r')
-    // {
-    //     Tile *this_tile = &the_game->current_map->tileArray[current_tile];
-    //     if(this_tile->tiletype == 2)
-    //     {
-    //         WarpTileType* warp_tile;
-    //         warp_tile = (WarpTileType*) this_tile->tile;
-
-    //         the_game->current_map_index = warp_tile->warpMap;
-    //         the_game->current_map = &(the_game->world[warp_tile->warpMap]);
-
-    //         player->x = warp_tile->warpX;
-    //         player->y = warp_tile->warpY;
-    //         // player->x = currentmap->startx;
-    //         // player->y = currentmap->starty;
-    //     }
-    // }
 
     else if(request.c == 'h')
     {
@@ -276,5 +255,5 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
         cout << endl << "command not found: " << temp_str << endl;
         cout << "Try 'help' for list of commands" << endl;
     }
-    return is_valid_cmd;
+    return incr_turn;
 };
