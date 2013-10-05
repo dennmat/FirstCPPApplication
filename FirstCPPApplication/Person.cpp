@@ -57,17 +57,17 @@ Person::~Person(){
     //TODO: safely remove pet
 };
 
-void Person::update()
+void Person::update(Game* game)
 {
 
     
     if (this->thinker != NULL)
     {
-        thinker->update();
+        thinker->update(game);
 
         //PET UPDATE
         if (has_live_pet == true) {
-            pet->update();
+            pet->update(game);
         }
         else {
             printf("no pet\n");

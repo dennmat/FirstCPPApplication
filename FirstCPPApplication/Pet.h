@@ -8,6 +8,7 @@
 
 class Person; 
 class Actor;
+class Game;
 
 class Pet : public Actor
 {
@@ -33,7 +34,7 @@ class Pet : public Actor
         bool Pet::CheckDeath();
         void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk);
         Pet* Pet::GetLastAttacker();
-        void Pet::update();
+        void Pet::update(Game* game);
         void Pet::assign_to_master(Person* master);
 };
 #endif

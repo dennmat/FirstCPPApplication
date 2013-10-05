@@ -3,6 +3,7 @@
 #define THINKER_H
 
 
+class Game;
 class Actor;
 
 //class to handle the ai, from combat to movement
@@ -12,7 +13,7 @@ class Thinker
 
     public:
     Actor* master;
-        void update();
+        void update(Game* game);
         Thinker();
 
 };

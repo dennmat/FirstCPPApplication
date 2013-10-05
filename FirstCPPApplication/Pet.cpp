@@ -64,7 +64,7 @@ Pet::Pet(string name, int max_hp, char representation ){
 
 };
 
-void Pet::update()
+void Pet::update(Game* game)
 {
     if (was_attacked == true)
     {

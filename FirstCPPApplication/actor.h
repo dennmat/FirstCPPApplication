@@ -10,6 +10,7 @@ class Representation;
 
 class Tile;
 class Thinker;
+class Game;
 
 class Actor : public Object 
 {
@@ -36,7 +37,8 @@ class Actor : public Object
         Actor();
         std::string GetName();
         const char* GetNameC();
-        virtual void update() = 0;
+        virtual void update(Game* game) = 0;
+        bool IsActorInSight(Actor * actor);
         void ActorInSight(int x, int y, Actor * actor);
         void putPerson( Tile * next_tile, int new_x, int new_y);
 

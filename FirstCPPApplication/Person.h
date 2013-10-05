@@ -11,6 +11,7 @@
 class Pet;
 class Tile;
 class Actor;
+class Game;
 
 class Person : public Actor
 {
@@ -30,6 +31,6 @@ class Person : public Actor
         ~Person();
 
         void attack(Actor * target);
-        void update();
+        void update(Game* game);
 };
 #endif

@@ -126,7 +126,7 @@ void Game::update()
     for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
         Actor* enemy = enemies.at(i);
-        enemy->update();
+        enemy->update(this);
         // printf("updating\n");
     }
 };
