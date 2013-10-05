@@ -3,10 +3,8 @@
 
 #include "stdafx.h"
 
-#include "Person.h"
-
-
 #include "libtcod.hpp"
+
 
 class Person;
 class Map;

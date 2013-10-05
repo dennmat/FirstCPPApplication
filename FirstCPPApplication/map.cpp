@@ -4,12 +4,13 @@
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
-#include "map.h"
-#include "game.h"
-#include "tile.h"
-#include "room.h"
-
 #include "libtcod.hpp"
+
+#include "map.h"
+#include "Room.h"
+#include "Person.h"
+#include "game.h"
+
 
 using namespace std;
 

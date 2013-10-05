@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "Person.h"
 #include <iostream>
 #include <sstream>
 #include <typeinfo>
@@ -8,6 +7,7 @@
 #include <vector>
 
 #include "Pet.h"
+#include "Person.h"
 
 using namespace std;
 

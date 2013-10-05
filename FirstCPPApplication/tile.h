@@ -5,13 +5,19 @@
 
 //#include "libtcod.hpp"
 #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
-
-#include "person.h"
 #include "Representation.h"
-#include "map.h"
-
 
 class Map;
+class Person;
+class Actor;
+class Object;
+
+class Representation;
+class DoorRepresentation;
+class WarpRepresentation;
+class FloorRepresentation;
+class WallRepresentation;
+class BaseRepresentation;
 
 
 class BaseTileType //all tile types must inherit this
@@ -39,9 +45,9 @@ class WarpTileType : public BaseTileType
         int warpX, warpY;       // where you warp to in the destination map
 
         WarpTileType() : BaseTileType()
-        {
-            representation = new WarpRepresentation;
-        };
+    {
+        representation = new WarpRepresentation;
+    };
 };
 
 
@@ -49,9 +55,9 @@ class WallTileType : public BaseTileType
 {
     public: 
         WallTileType() : BaseTileType()
-        {
-            representation = new WallRepresentation;
-        };
+    {
+        representation = new WallRepresentation;
+    };
 };
 
 

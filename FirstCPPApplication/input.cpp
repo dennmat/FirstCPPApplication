@@ -8,14 +8,11 @@
 #include <algorithm>
 
 #include <windows.h>
-// 
-// #include "utils.h"
-// #include "Person.h"
-// #include "Pet.h"
-// #include "FirstCPPApplication.h"
-// #include "map.h"
-// #include "game.h"
+
 #include "input.h"
+#include "game.h"
+#include "Person.h"
+#include "map.h"
 
 
 

@@ -1,13 +1,13 @@
 #include "stdafx.h"
-#include "tile.h"
-#include "map.h"
-#include "Person.h"
 
 #include <iostream>
 #include <sstream>
+
+#include "Person.h"
+#include "thinker.h"
 // #include <fstream>
 
-Person::Person(string name, int age, int x, int y, char repr, string pet_name){
+Person::Person(std::string name, int age, int x, int y, char repr, std::string pet_name){
     this->name = name;
     this->age = age;
     this->x = x;
@@ -60,68 +60,22 @@ Person::~Person(){
 void Person::update()
 {
 
-    //PATH FINDING
-    Map* map = my_tile->map;
-    if (l_path == NULL)
+    
+    if (this->thinker != NULL)
     {
-        l_path = new TCODPath(map->l_map);
+        thinker->update();
 
-        TCODRandom * rnd = TCODRandom::getInstance();
-        dest_x = rnd->getInt(1, map->width-1);
-        dest_y = rnd->getInt(1, map->height-1);
-        l_path->compute(x, y, dest_x, dest_y);
-    }
-    else
-    {
-        cout << "Path size: " << l_path->size() << endl;
-        l_path->walk(&x, &y, false);
-        Tile * next_tile = map->getTileAt(x,y);
-        putPerson(next_tile, x, y); 
-    };
-
-    //PET UPDATE
-    if (has_live_pet == true)
-    {
-        pet->update();
-    }
-    else
-    {
-        printf("no pet\n");
+        //PET UPDATE
+        if (has_live_pet == true) {
+            pet->update();
+        }
+        else {
+            printf("no pet\n");
+        }
     }
 
 };
 
-void Person::putPerson( Tile * next_tile, int new_x, int new_y)
-{	//puts a person on a tile, resets the old tile
-
-    if (my_tile != NULL){
-        // my_tile->occupant = NULL;
-        my_tile->makeUnoccupied(this); 
-    }
-
-    if (next_tile != NULL){
-        //next_tile->occupant = this;
-        //next_tile->occupants->push_back(this);
-        this->my_tile = next_tile;
-        next_tile->makeOccupied(this); 
-        // cout << "new occupant: " << name << endl;
-    }
-    else if (next_tile == NULL)
-    {
-        cout << "next tile is null" << endl;
-    }
-    else
-    {
-        cout << "else, this shouldn't be a possiblity" << endl;
-    }
-
-    if (new_x != -1 && new_y != -1)
-    {
-        x = new_x;
-        y = new_y;
-    }
-
-};
 
 
 void Person::attack(Actor * target)

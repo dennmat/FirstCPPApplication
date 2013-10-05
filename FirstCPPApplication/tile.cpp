@@ -5,6 +5,9 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+
+#include "map.h"
+
 using namespace std;
 
 Tile::Tile()
@@ -56,7 +59,6 @@ void Tile::makeOccupied(Actor* the_actor)
 void Tile::makeUnoccupied(Actor* the_actor)
 {
     //remove the actor from vector
-    // for(std::vector<Actor*>::iterator it = occupants->begin(); it != occupants->end(); ++it) {
     for(std::vector<Actor*>::size_type i = 0; i != occupants->size(); i++) 
     {
         if (occupants->at(i) == the_actor)

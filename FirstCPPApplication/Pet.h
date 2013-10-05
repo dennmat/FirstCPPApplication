@@ -2,11 +2,12 @@
 #define PET_H
 #pragma once
 #include <sstream>
-#include "Person.h"
-#include "actor.h"
 #include <vector>
+#include "actor.h"
+//#include "Person.h"
 
 class Person; 
+class Actor;
 
 class Pet : public Actor
 {

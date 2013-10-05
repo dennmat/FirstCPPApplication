@@ -1,17 +1,21 @@
 #include "stdafx.h"
-#include "game.h"
-#include "Person.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
+
+#include "libtcod.hpp"
+
+#include "game.h"
+
+#include "Person.h"
 #include "map.h"
 #include "FirstCPPApplication.h"
 #include "utils.h"
 #include "Representation.h"
 #include "build.h"
 #include "input.h"
+#include "map.h"
 
-#include "libtcod.hpp"
 
 
 void Game:: buildworld()
@@ -80,6 +84,8 @@ Person*  Game::initialize_player(){
 
     player = new Person( "Josh", 23, 3, 3, '@', "");
     player->representation->fg_color = TCODColor::celadon;
+    delete player->thinker;
+    player->thinker = NULL;
 
     //Pet p1_pet;
     //p1_pet.master = &player;

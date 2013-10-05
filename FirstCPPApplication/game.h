@@ -3,16 +3,15 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Person.h"
-#include "Pet.h"
-#include "map.h"
-#include "tile.h"
 // #include "input.h"
 
 #include <Vector>
 
 class Map;
 class Tile;
+class Person;
+class Pet;
+class Actor;
 
 class Game
 {
@@ -47,23 +46,23 @@ class Game
 
         std::string last_cmd;
 
-        Game::Game();
-        void Game::buildworld();
-        void Game::update();
+        Game();
+        void buildworld();
+        void update();
 
-        void Game::update_ui();
+        void update_ui();
 
-        void Game::draw_ui();
-        void Game::draw_ui_msg();
-        void Game::draw_ui_sidebar();
+        void draw_ui();
+        void draw_ui_msg();
+        void draw_ui_sidebar();
 
-        Person*  Game::initialize_player();
-        void  Game::initialize_enemies();
+        Person*  initialize_player();
+        void  initialize_enemies();
 
-        Person * Game::create_person(std::string name, int age, int x, int y, char repr, std::string pet_name = "");
+        Person * create_person(std::string name, int age, int x, int y, char repr, std::string pet_name = "");
 
 
-        void Game::mainloop();
+        void mainloop();
 };
 
 #endif

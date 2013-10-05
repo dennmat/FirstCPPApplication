@@ -3,6 +3,10 @@
 
 #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
+#include "Object.h"
+
+class Object;
+
 class Representation : public Object
 {
     public:
@@ -52,7 +56,7 @@ class DeadRepresentation : public Representation
 class BaseRepresentation : public Representation
 {
     public:
-        BaseRepresentation()
+        BaseRepresentation() : Representation()
         {
             repr='b';
             fg_color = TCODColor::white;

@@ -1,14 +1,15 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include "object.h"
 #include "Representation.h"
 #include <string>
 #include <vector>
+#include "tile.h"
 
 class Representation;
 
-class Actor;
+class Tile;
+class Thinker;
 
 class Actor : public Object 
 {
@@ -17,8 +18,13 @@ class Actor : public Object
         bool is_fighter;
         std::string name;
         Representation* representation;
+        Thinker* thinker;
 
         TCODPath* l_path;
+
+        int x,y;
+        int dest_x, dest_y;
+        Tile * my_tile;
 
         bool is_moving_left;
         bool is_moving_right;
@@ -27,23 +33,12 @@ class Actor : public Object
 
         std::vector<Actor*> * actors_in_sight;
 
-        Actor::Actor()
-        {
-            l_path = NULL;
-            representation = new Representation;
-            name = "Unset Actor name";
-
-            actors_in_sight = new std::vector<Actor*>;
-
-            is_moving_left = false;
-            is_moving_right = false;
-            is_moving_up = false;
-            is_moving_down = false;
-        };
-        std::string Actor::GetName();
-        const char* Actor::GetNameC();
-        virtual void Actor::update() = 0;
-        void Actor::ActorInSight(int x, int y, Actor * actor);
+        Actor();
+        std::string GetName();
+        const char* GetNameC();
+        virtual void update() = 0;
+        void ActorInSight(int x, int y, Actor * actor);
+        void putPerson( Tile * next_tile, int new_x, int new_y);
 
 };
 
