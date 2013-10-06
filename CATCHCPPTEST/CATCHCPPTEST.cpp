@@ -35,8 +35,8 @@ TEST_CASE( "actors are tested", "[idk actors]" ) {
     REQUIRE( pers->name != "TEST" );
 }
 
-int _tmain(int argc, _TCHAR* argv[])
-{
-	return 0;
-}
+//int _tmain(int argc, _TCHAR* argv[])
+//{
+//	return 0;
+//}
 
