@@ -20,7 +20,6 @@
 
 using namespace std;
 
-Game the_game;
 #include "input.h"
 
 void WelcomeMessage(){
@@ -58,6 +57,5 @@ void clearScreen()
 
 int main ()
 {
-    the_game.mainloop();
     return 0;
 }

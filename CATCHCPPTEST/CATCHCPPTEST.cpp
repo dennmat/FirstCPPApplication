@@ -6,6 +6,8 @@
 #include "catch.hpp"
 
 #include "person.h"
+#include "utils.h"
+
 
 
 unsigned int Factorial( unsigned int number ) {
@@ -17,6 +19,13 @@ TEST_CASE( "Factorials are computed", "[factorial]" ) {
     REQUIRE( Factorial(2) == 2 );
     REQUIRE( Factorial(3) == 6 );
     REQUIRE( Factorial(10) == 3628800 );
+}
+
+TEST_CASE( "strings are lowered", "[lowered strings]") {
+
+    std::string test_str = "TEST";
+
+     REQUIRE( ToLower(test_str) == "test");
 }
 
 TEST_CASE( "actors are tested", "[idk actors]" ) {
