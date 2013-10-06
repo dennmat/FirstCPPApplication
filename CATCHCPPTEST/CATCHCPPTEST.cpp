@@ -1,0 +1,33 @@
+// CATCHCPPTEST.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
+
+#include "person.h"
+
+
+unsigned int Factorial( unsigned int number ) {
+    return number <= 1 ? number : Factorial(number-1)*number;
+}
+
+TEST_CASE( "Factorials are computed", "[factorial]" ) {
+    REQUIRE( Factorial(1) == 1 );
+    REQUIRE( Factorial(2) == 2 );
+    REQUIRE( Factorial(3) == 6 );
+    REQUIRE( Factorial(10) == 3628800 );
+}
+
+TEST_CASE( "actors are tested", "[idk actors]" ) {
+    Person* pers = new Person;
+    pers->name = "ASD";
+    REQUIRE( pers->name == "ASD" );
+    REQUIRE( pers->name != "TEST" );
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+

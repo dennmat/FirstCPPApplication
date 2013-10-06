@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 // #include "input.h"
+#include "libtcod_cpp_hpp\libtcod.hpp"
 
 #include <Vector>
 
