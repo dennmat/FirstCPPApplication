@@ -41,5 +41,8 @@
     <ClCompile Include="CATCHCPPTEST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_person.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
