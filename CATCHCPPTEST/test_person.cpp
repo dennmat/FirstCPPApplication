@@ -8,4 +8,4 @@ TEST_CASE( "actors are tested", "[idk actors]" ) {
     pers->name = "ASD";
     REQUIRE( pers->name == "ASD" );
     REQUIRE( pers->name != "TEST" );
-}
+};

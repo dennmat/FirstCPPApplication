@@ -3,6 +3,8 @@
 #include <sstream>
 #include <fstream>
 
+#include <Windows.h>
+
 #include "libtcod.hpp"
 
 #include "game.h"
@@ -21,7 +23,7 @@
 void Game:: buildworld()
 {
     string line;
-    ifstream myfile ("world.txt");
+    ifstream myfile ("../FirstCPPApplication/world.txt");
     int num_of_worlds;
 
     if (myfile.is_open())
@@ -34,6 +36,12 @@ void Game:: buildworld()
         world = new Map;
         world[0].build_from_random(0);
     }
+    else
+    {
+
+        MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
+        exit(EXIT_FAILURE);
+    };
 }
 
 //creates a person and places them on the current map

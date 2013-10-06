@@ -47,7 +47,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     try { temp = &(*tileVector).at(y); }
     catch ( std::out_of_range& ex )
     {
-	ex;
+        ex;
         return getTileAt(x, y-1, false, x, y);
     };
 
@@ -65,7 +65,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     }
     catch ( std::out_of_range& ex )
     {
-	ex;
+        ex;
         return getTileAt(x-1, y, false, x, y);
     };
 };
@@ -359,7 +359,7 @@ int Map::draw(Game *theGame)
 
             }
             else {
-                
+
                 if (the_tile->is_known() == true)
                 {
                     char the_char = the_tile->tile->representation->repr;
@@ -375,9 +375,9 @@ int Map::draw(Game *theGame)
 
             //TODO Debug walkable
             // if (the_tile->map->l_map->isWalkable(the_tile->tile_x, the_tile->tile_y) == false)
-			{
-            //         TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
-			}
+            {
+                //         TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
+            }
         }
     }
 
