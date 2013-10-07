@@ -15,7 +15,8 @@ std::vector<std::string> &split(const std::string &s, char delim, std::vector<st
 std::vector<std::string> StringSplit(std::string input_str, char delim);
 std::string StringJoin(std::vector<std::string> string_vector, char delim);
 std::string get_exe_path();
-std::string get_resource_path();
+std::string get_data_path();
+std::string get_images_path();
 
 const char kPathSeparator =
 #ifdef _WIN32

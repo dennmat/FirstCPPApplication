@@ -96,12 +96,33 @@ std::string ask_for_str(std::string msg, std::string default_str){
     return str_answer;
     // }
 };
-std::string get_resource_path()
+std::string get_images_path()
 {
     //ex: C:\Users\Mark\Documents\Visual Studio
     //2010\Projects\FirstCPPApplication\Debug\BiochRL++.exe
     std::string exepath = get_exe_path();
-    return "not set";
+    std::vector<std::string> exesplit = StringSplit(exepath, kPathSeparator);
+
+    exesplit.pop_back();
+    std::string data = "images";
+    data+=kPathSeparator;
+    exesplit.push_back(data);
+
+    return StringJoin(exesplit, kPathSeparator);
+};
+std::string get_data_path()
+{
+    //ex: C:\Users\Mark\Documents\Visual Studio
+    //2010\Projects\FirstCPPApplication\Debug\BiochRL++.exe
+    std::string exepath = get_exe_path();
+    std::vector<std::string> exesplit = StringSplit(exepath, kPathSeparator);
+
+    exesplit.pop_back();
+    std::string data = "data";
+    data+=kPathSeparator;
+    exesplit.push_back(data);
+
+    return StringJoin(exesplit, kPathSeparator);
 };
 
 std::string get_exe_path() 

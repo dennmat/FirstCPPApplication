@@ -36,23 +36,26 @@ TEST_CASE("Utils test", "[utils]")
         REQUIRE(expected == StringSplit("1|2|3", '|'));
         REQUIRE(expected == StringSplit("1||2||3|", '|'));
 
-	expected.clear();
+        expected.clear();
         expected.push_back("This");
         expected.push_back("is");
         expected.push_back("SPARTA!");
         REQUIRE(expected == StringSplit("This is SPARTA!", ' '));
 
-	expected.clear();
+        expected.clear();
         expected.push_back("C:");
         expected.push_back("my");
         expected.push_back("project");
         expected.push_back("dir.exe");
         REQUIRE(expected == StringSplit("C:/my/project/dir.exe", '/'));
     };
+
     SECTION("Get paths")
     {
-        //TODO fix un-ideal test
-        REQUIRE(StringSplit(get_exe_path(), kPathSeparator).back() == "CATCHCPPTEST.exe");
-        REQUIRE(StringSplit(get_exe_path(), kPathSeparator).back() == "CATCHCPPTEST.exe");
+        //TODO fix test only testing the last item
+        // REQUIRE(StringSplit(get_exe_path(), kPathSeparator).back() == "CATCHCPPTEST.exe");
+        REQUIRE(get_exe_path() == "C:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\CATCHCPPTEST.exe");
+        REQUIRE(get_data_path() == "C:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\data\\");
+        REQUIRE(get_images_path() == "C:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\images\\");
     };
 };
