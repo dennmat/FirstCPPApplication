@@ -17,11 +17,15 @@
 #include "build.h"
 #include "input.h"
 #include "map.h"
+#include "thinker.h"
 
 
 
 void Game:: buildworld()
 {
+
+	cout << get_exe_path() << endl;
+
     string line;
     ifstream myfile ("../FirstCPPApplication/world.txt");
     int num_of_worlds;
@@ -38,7 +42,9 @@ void Game:: buildworld()
     }
     else
     {
-
+TCHAR exepath[MAX_PATH+1];
+    GetModuleFileName(0, exepath, MAX_PATH+1);
+        MessageBox(0, exepath, _T("ERROR"), MB_OK);
         MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
         exit(EXIT_FAILURE);
     };
