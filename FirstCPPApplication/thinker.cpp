@@ -33,16 +33,12 @@ void Thinker::update(Game* game)
             cout << "Building Path" << endl;
             master->l_path = new TCODPath(map->l_map);
 
-            // TCODRandom * rnd = TCODRandom::getInstance();
-            // master->dest_x = rnd->getInt(1, map->width-1);
-            // master->dest_y = rnd->getInt(1, map->height-1);
             master->dest_x = game->player->x;
             master->dest_y = game->player->y-1;
             int x, y, dest_x, dest_y;
             x = master->x; y = master->y;
             dest_x = master->dest_x; dest_y = master->dest_y;
             bool computed = master->l_path->compute(x, y, dest_x, dest_y);
-            // master->l_path->compute(4,9,1,3);
             int path_size = master->l_path->size();
             cout << "Path size AFTER BUILDING IT: " << path_size << endl << "I'mna walk it" << endl;
         };

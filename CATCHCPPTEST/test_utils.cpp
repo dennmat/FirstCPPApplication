@@ -52,10 +52,10 @@ TEST_CASE("Utils test", "[utils]")
 
     SECTION("Get paths")
     {
-        //TODO fix test only testing the last item
-        // REQUIRE(StringSplit(get_exe_path(), kPathSeparator).back() == "CATCHCPPTEST.exe");
-        REQUIRE(get_exe_path() == "C:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\CATCHCPPTEST.exe");
-        REQUIRE(get_data_path() == "C:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\data\\");
-        REQUIRE(get_images_path() == "C:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\images\\");
+        //TODO fix test lower case-ing everything. It's because git bash uses c:
+        //and VS2010 uses C: which breaks the paths
+        REQUIRE(ToLower(get_exe_path()) == ToLower("c:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\CATCHCPPTEST.exe"));
+        REQUIRE(ToLower(get_data_path()) == ToLower("c:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\data\\"));
+        REQUIRE(ToLower(get_images_path()) == ToLower("c:\\Users\\Mark\\Documents\\Visual Studio 2010\\Projects\\FirstCPPApplication\\Debug\\images\\"));
     };
 };

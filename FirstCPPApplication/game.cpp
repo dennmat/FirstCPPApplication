@@ -27,7 +27,7 @@ void Game:: buildworld()
 	cout << get_exe_path() << endl;
 
     string line;
-    ifstream myfile ("../FirstCPPApplication/world.txt");
+    ifstream myfile (get_data_path()+"world.txt");
     int num_of_worlds;
 
     if (myfile.is_open())

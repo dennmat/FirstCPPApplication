@@ -98,7 +98,66 @@ void Tile::updateTileType(int type )
     else 
     {
         cout << type << endl;
-        cout << "^ INVALID TILETYPE OH MY GOD" << endl; //probably because the tiletype is being assigned with a `new` call.
+        cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
 
+};
+
+Tile* Tile::getTileAtRelative(int x, int y)
+{
+    //if tile is in map get tile, otherwise fail nicely
+    int new_x = this->tile_x + x;
+    int new_y = this->tile_y + y;
+
+    if (new_x <= this->map->width && new_x >= 0 
+            && new_y <= this->map->height && new_y >= 0)
+    {
+        return this->map->getTileAt(new_x, new_y);
+    }
+
+    else {
+
+        return NULL;
+    };
+
+};
+
+Tile* Tile::getTopLeftTile()
+{
+    return this->getTileAtRelative(-1, -1);
+};
+
+Tile* Tile::getTopMidTile()
+{
+    return this->getTileAtRelative(0, -1);
+};
+
+Tile* Tile::getTopRigtTile()
+{
+    return this->getTileAtRelative(1, -1);
+};
+
+Tile* Tile::getMidRightTile()
+{
+    return this->getTileAtRelative(1, 0);
+};
+
+Tile* Tile::getBotRightTile()
+{
+    return this->getTileAtRelative(1, -1);
+};
+
+Tile* Tile::getBotMidTile()
+{
+    return this->getTileAtRelative(0, -1);
+};
+
+Tile* Tile::getBotLeftTile()
+{
+    return this->getTileAtRelative(-1, -1);
+};
+
+Tile* Tile::getMidLeftTile()
+{
+    return this->getTileAtRelative(-1, 0);
 };

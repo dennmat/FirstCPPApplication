@@ -110,6 +110,17 @@ class Tile : public Object
     void updateTileType(int type = 0);
     void makeOccupied(Actor* the_actor);
     void makeUnoccupied(Actor* the_actor);
+
+    Tile* getTileAtRelative(int x, int y);
+
+    Tile* getTopLeftTile();
+    Tile* getTopMidTile();
+    Tile* getTopRigtTile();
+    Tile* getMidRightTile();
+    Tile* getBotRightTile();
+    Tile* getBotMidTile();
+    Tile* getBotLeftTile();
+    Tile* getMidLeftTile();
 };
 
 #endif
