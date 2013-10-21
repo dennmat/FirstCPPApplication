@@ -26,8 +26,33 @@ void Thinker::update(Game* game)
         printf("thinking\n");
         //PATH FINDING
         Map* map = game->player->my_tile->map;
-        delete master->l_path;
-        master->l_path = NULL;
+
+        //in order for the AI to keep looking for the player, the path needs to
+        //be rebuilt every update, otherwise he just walks to the same place
+        //until he gets there
+        if (master->l_path != NULL)
+        {
+            //if the path destination isn't adj to the player make a new path
+            Tile* player_tile = game->player->my_tile;
+            int dest_tile_x, dest_tile_y;
+            master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
+            vector<Tile*>* adj_tiles = game->world->getTileAt(dest_tile_x, dest_tile_y)->getVacantAdjacentTiles();
+            vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
+            if (adjItr == adj_tiles->end())
+            {
+		cout << "EQUALS" << endl;
+                delete master->l_path;
+                master->l_path = NULL;
+            }
+            else
+            {
+		cout << "\n\nNOT NOT NOT EQUALS" << endl;
+                //continue on that path
+            };
+
+
+        };
+
         if (master->l_path == NULL)
         {
             cout << "Building Path" << endl;
@@ -59,9 +84,10 @@ void Thinker::update(Game* game)
         Tile * next_tile = map->getTileAt(master->x,master->y);
         master->putPerson(next_tile, master->x, master->y); 
 
-        //if (path_size == 0)
-        //{
-        //}
+        if (path_size == 0)
+        {
+            cout << "IMNA ATTACK THE PLAYER" << endl;
+        }
     }
 
 };
