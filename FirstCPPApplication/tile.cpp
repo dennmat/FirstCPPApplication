@@ -161,3 +161,18 @@ Tile* Tile::getMidLeftTile()
 {
     return this->getTileAtRelative(-1, 0);
 };
+
+vector<Tile*>* Tile::getVacantAdjacentTiles()
+{
+    vector<Tile*>* adjacent_tiles = new vector<Tile*>;
+    adjacent_tiles->push_back(getTopLeftTile());
+    adjacent_tiles->push_back(getTopMidTile());
+    adjacent_tiles->push_back(getTopRigtTile());
+    adjacent_tiles->push_back(getMidRightTile());
+    adjacent_tiles->push_back(getBotRightTile());
+    adjacent_tiles->push_back(getBotMidTile());
+    adjacent_tiles->push_back(getBotLeftTile());
+    adjacent_tiles->push_back(getMidLeftTile());
+
+    return adjacent_tiles;
+};
