@@ -96,12 +96,12 @@ void Pet::RememberAttacker(Pet* pet_attacker, bool mark_the_attk=true)
 
     if(std::find(attackers->begin(), attackers->end(), pet_attacker) != attackers->end()) 
     {
-        printf("I've already been attacked by you.\n");
+        // printf("I've already been attacked by you.\n");
     }
     else 
     {
         attackers->push_back(pet_attacker);
-        printf("Oh hi, you're new.\n");
+        // printf("Oh hi, you're new.\n");
     }
 
 };

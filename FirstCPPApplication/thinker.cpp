@@ -23,7 +23,7 @@ void Thinker::update(Game* game)
     // aisItr = std::find(game->player->actors_in_sight->begin(), game->player->actors_in_sight->end(),  this->master);
     if (game->player->IsActorInSight(this->master))
     {
-        printf("thinking\n");
+        // printf("thinking\n");
         //PATH FINDING
         Map* map = game->player->my_tile->map;
 
@@ -59,7 +59,7 @@ void Thinker::update(Game* game)
 
         if (master->l_path == NULL)
         {
-            cout << "Building Path" << endl;
+            // cout << "Building Path" << endl;
             master->l_path = new TCODPath(map->l_map);
 
             //set the master's destination to above the player
@@ -78,11 +78,11 @@ void Thinker::update(Game* game)
             bool computed = master->l_path->compute(x, y, dest_x, dest_y);
             int path_size = master->l_path->size();
 
-            cout << "Path size AFTER BUILDING IT: " << path_size << endl << "I'mna walk it" << endl;
+            // cout << "Path size AFTER BUILDING IT: " << path_size << endl << "I'mna walk it" << endl;
         };
 
         int path_size = master->l_path->size();
-        cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
+        // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
 
         master->l_path->walk(&master->x, &master->y, true);
         Tile * next_tile = map->getTileAt(master->x,master->y);
@@ -90,7 +90,7 @@ void Thinker::update(Game* game)
 
         if (path_size == 0)
         {
-            cout << "IMNA ATTACK THE PLAYER" << endl;
+            // cout << "IMNA ATTACK THE PLAYER" << endl;
             //retaliate
             Pet* assailant = game->player->pet;
             ((Person*)master)->pet->Attack(assailant, 1);
