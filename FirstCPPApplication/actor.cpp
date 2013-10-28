@@ -23,6 +23,8 @@ Actor::Actor()
     is_moving_right = false;
     is_moving_up = false;
     is_moving_down = false;
+
+    has_attacked = false;
 };
 
 std::string Actor::GetName()

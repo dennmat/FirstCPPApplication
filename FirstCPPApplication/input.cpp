@@ -22,11 +22,17 @@ using namespace std;
 
 
 
+//returns whether or not the player has moved
 bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 {
     Map *world = the_game->world;
     bool buildmode = the_game->buildmode;
     // Movement || N, S, E, W ||
+
+    int plr_x, plr_y;
+    plr_x = player->x;
+    plr_y = player->y;
+
 
 
     if(request.c == 'n' && request.pressed)
@@ -75,7 +81,15 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     else 
     { player->is_moving_left = false; };
 
-    return false;
+
+    //if the player has moved or attacked this update, increment the turn
+    //counter
+    if ((plr_x != player->x || plr_y != player->y || player->has_attacked) && request.pressed) {
+        return true;
+    }
+    else {
+        return false;
+    }
 
 };
 
@@ -93,8 +107,6 @@ bool is_request_move_cmd(TCOD_key_t request){
     result = find(move_cmds, move_cmds+(move_cmds_size-1), request.c);
 
     if (*result != '~') { is_move_cmd = true; }
-
-
 
     return is_move_cmd;
 
@@ -179,7 +191,7 @@ void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
 
 bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
 {
-    
+
     //set the foreground color to red for the tile the mouse is on
     Tile* moused_tile = the_game->current_map->getTileAt(the_game->mouse_evt.cx, the_game->mouse_evt.cy);
     moused_tile->tile->representation->temp_bg_color = TCODColor::red;

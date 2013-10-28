@@ -16,7 +16,6 @@ class Actor : public Object
 {
 
     public:
-        bool is_fighter;
         std::string name;
         Representation* representation;
         Thinker* thinker;
@@ -33,6 +32,9 @@ class Actor : public Object
         bool is_moving_down;
 
         std::vector<Actor*> * actors_in_sight;
+
+        bool is_fighter;
+        bool has_attacked;
 
         Actor();
         std::string GetName();

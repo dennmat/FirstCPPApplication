@@ -451,6 +451,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
             (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
             !target_tile->is_occupied())
     {
+        thePerson->has_attacked = false;
         thePerson->putPerson(target_tile, new_x, new_y);
         return true;
     }
@@ -461,9 +462,14 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
         bool is_fighter = target_tile->occupant->is_fighter;
         if (is_fighter)
         {
+            thePerson->has_attacked = true;
             thePerson->attack(target_tile->occupant);
             return false;
         }
+        else 
+        {
+            thePerson->has_attacked = false;
+        };
     }
 
     else

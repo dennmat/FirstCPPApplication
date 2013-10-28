@@ -214,7 +214,7 @@ void Game::mainloop()
 
     bool battle_done = false;
     bool incr_turn  = false;
-    turn_count = 1;
+    turn_count = 0;
 
     fps_limit = 60;
 
@@ -232,6 +232,7 @@ void Game::mainloop()
     while ( !TCODConsole::isWindowClosed() ) {
         if (incr_turn == true)
         {
+            turn_count++;
             printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
             incr_turn = false;
         }
@@ -267,10 +268,6 @@ void Game::mainloop()
         //draw libtcon to screen
         TCODConsole::flush();
 
-        if (incr_turn == true)
-        {
-            turn_count++;
-        }
 
     }
 
