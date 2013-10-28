@@ -68,15 +68,15 @@ void Pet::update(Game* game)
 {
     if (was_attacked == true)
     {
-        cout << "I, " << name << ", was attacked!" << endl;
+        cout << "I (a pet), " << name << ", was attacked, ouch!" << endl;
 
-        //retaliate
-        Pet* assailant = GetLastAttacker();
-        Attack(assailant, 1);
+        // //retaliate
+        // Pet* assailant = GetLastAttacker();
+        // Attack(assailant, 1);
 
 
-        //calm the pet down
-        was_attacked = false;
+        // //calm the pet down
+        // was_attacked = false;
     };
 };
 

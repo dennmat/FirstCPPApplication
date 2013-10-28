@@ -32,21 +32,25 @@ void Thinker::update(Game* game)
         //until he gets there
         if (master->l_path != NULL)
         {
-            //if the path destination isn't adj to the player make a new path
-            Tile* player_tile = game->player->my_tile;
+            //get the destination tile coords
             int dest_tile_x, dest_tile_y;
+            Tile* player_tile = game->player->my_tile;
             master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
+
+            //if the target tile is adjacent to the player keep moving towards
+            //it, otherwise change spots
             vector<Tile*>* adj_tiles = game->world->getTileAt(dest_tile_x, dest_tile_y)->getVacantAdjacentTiles();
             vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
             if (adjItr == adj_tiles->end())
             {
-		cout << "EQUALS" << endl;
+
+                //if the path destination isn't adj to the player make a new path
+                cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << endl;
                 delete master->l_path;
                 master->l_path = NULL;
             }
             else
             {
-		cout << "\n\nNOT NOT NOT EQUALS" << endl;
                 //continue on that path
             };
 
@@ -87,6 +91,13 @@ void Thinker::update(Game* game)
         if (path_size == 0)
         {
             cout << "IMNA ATTACK THE PLAYER" << endl;
+            //retaliate
+            Pet* assailant = game->player->pet;
+            ((Person*)master)->pet->Attack(assailant, 1);
+
+
+            //calm the pet down
+            ((Person*)master)->pet->was_attacked = false;
         }
     }
 

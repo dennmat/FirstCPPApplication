@@ -143,3 +143,13 @@ std::string get_exe_path()
 
     return path;
 };
+
+void move_window(int x, int y)
+{
+    //MoveWindow(GetCurrentProcess(), 100, 100, 100, 100);
+    RECT rcWind;
+    POINT pnt;
+    HWND hwnd = FindWindow(NULL, _T("FirstCPPApplication"));
+    GetWindowRect(hwnd, &rcWind);
+    MoveWindow(hwnd, x, y, rcWind.right - rcWind.left, rcWind.bottom - rcWind.top, true);
+};

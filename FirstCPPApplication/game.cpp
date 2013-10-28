@@ -123,9 +123,11 @@ void Game::update()
     for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
         Actor* enemy = enemies.at(i);
+        cout << "\t" << enemy->name << "is updating" << endl;
         enemy->update(this);
         // printf("updating\n");
     }
+        cout << "\t" << "done updating" << endl;
 };
 
 void Game::update_ui()
@@ -196,6 +198,7 @@ void Game::draw_ui_msg()
     delete ui_msg_con;
 };
 
+
 void Game::mainloop()
 {
 
@@ -205,6 +208,9 @@ void Game::mainloop()
     // cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
     TCODConsole::setKeyboardRepeat(500, 1);
+    //move main window over a bit so that the console isn't blocked
+    move_window(600, 100);
+
 
     bool battle_done = false;
     bool incr_turn  = false;

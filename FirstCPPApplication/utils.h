@@ -18,6 +18,8 @@ std::string get_exe_path();
 std::string get_data_path();
 std::string get_images_path();
 
+void move_window(int x, int y);
+
 const char kPathSeparator =
 #ifdef _WIN32
                             '\\';
