@@ -13,14 +13,9 @@
 #include "game.h"
 #include "Person.h"
 #include "map.h"
-
-
+#include "utils.h"
 
 using namespace std;
-
-// Game the_game;
-
-
 
 //returns whether or not the player has moved
 bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
@@ -32,8 +27,6 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     int plr_x, plr_y;
     plr_x = player->x;
     plr_y = player->y;
-
-
 
     if(request.c == 'n' && request.pressed)
     {
@@ -264,7 +257,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
         string temp_str;
         ss >> temp_str;
 
-        cout << endl << "command not found: " << temp_str << endl;
+        cout << endl << "command not found: " << char_to_str(request.c) << endl;
         cout << "Try 'help' for list of commands" << endl;
     }
     return incr_turn;

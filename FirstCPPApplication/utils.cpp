@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include "windows.h"
+#include <fstream>
 #include <vector>
 
 #include "utils.h"
@@ -96,6 +97,7 @@ std::string ask_for_str(std::string msg, std::string default_str){
     return str_answer;
     // }
 };
+
 std::string get_images_path()
 {
     //ex: C:\Users\Mark\Documents\Visual Studio
@@ -110,6 +112,7 @@ std::string get_images_path()
 
     return StringJoin(exesplit, kPathSeparator);
 };
+
 std::string get_data_path()
 {
     //ex: C:\Users\Mark\Documents\Visual Studio
@@ -150,4 +153,15 @@ void move_window(int x, int y)
     HWND hwnd = FindWindow(NULL, _T("FirstCPPApplication"));
     GetWindowRect(hwnd, &rcWind);
     MoveWindow(hwnd, x, y, rcWind.right - rcWind.left, rcWind.bottom - rcWind.top, true);
+};
+
+std::string char_to_str(char chr)
+{
+    std::stringstream ss;
+    ss << chr;
+    std::string temp_str;
+    ss >> temp_str;
+
+    return temp_str;
+
 };

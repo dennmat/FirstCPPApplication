@@ -17,6 +17,7 @@ std::string StringJoin(std::vector<std::string> string_vector, char delim);
 std::string get_exe_path();
 std::string get_data_path();
 std::string get_images_path();
+std::string char_to_str(char chr);
 
 void move_window(int x, int y);
 

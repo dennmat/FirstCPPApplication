@@ -239,8 +239,9 @@ void Game::mainloop()
 
         // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
         TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
-        if (key_evt.c != NULL)
+        if (key_evt.c != NULL){
             incr_turn = process_key_event(this, key_evt, player);
+        };
         // else if (mouse_evt.dx != NULL)
         // {
         process_mouse_event(this, mouse_evt, player);
@@ -267,7 +268,6 @@ void Game::mainloop()
 
         //draw libtcon to screen
         TCODConsole::flush();
-
 
     }
 
