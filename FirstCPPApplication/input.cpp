@@ -17,6 +17,34 @@
 
 using namespace std;
 
+enum movements_t {
+    NW=0, N, NE,
+    W,    X,  E,
+    SW,   S, SE,
+    NO_MATCH
+};
+
+movements_t direction_pressed(TCOD_keycode_t key)
+{
+    std::map<int, movements_t> movemap;
+    movemap[TCODK_KP7] = movements_t::NW;
+    movemap[TCODK_KP8] = movements_t::N;
+    movemap[TCODK_KP9] = movements_t::NE;
+    movemap[TCODK_KP6] = movements_t::E;
+    movemap[TCODK_KP3] = movements_t::SE;
+    movemap[TCODK_KP2] = movements_t::S;
+    movemap[TCODK_KP1] = movements_t::SW;
+    movemap[TCODK_KP4] = movements_t::W;
+
+    auto it = movemap.find(key);
+    if(it == movemap.end())
+    {
+           return movements_t::NO_MATCH;
+    }
+    return it->second;
+    // return movements_t::N;
+};
+
 //returns whether or not the player has moved
 bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 {
@@ -28,7 +56,9 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     plr_x = player->x;
     plr_y = player->y;
 
-    if(request.c == 'n' && request.pressed)
+    if((request.c == 'n' || direction_pressed(request.vk) == movements_t::N)
+		&& request.pressed)
+    // if(direction_pressed(request) == movements_t::N && request.pressed)
     {
         player->is_moving_up = true;
         if(the_game->current_map->attackMovePlayer(player, 0, -1) || buildmode)
