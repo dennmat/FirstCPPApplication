@@ -95,7 +95,15 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
         player->is_moving_up = true;
         if(the_game->current_map->attackMovePlayer(player, 0, -1) )
         { 
-            //player->y--;
+            return true;
+        }
+    }
+    else if( direction == directions_t::NE )
+    {
+        player->is_moving_up = true;
+        player->is_moving_left = true;
+        if(the_game->current_map->attackMovePlayer(player, 1, -1) )
+        { 
             return true;
         }
     }
@@ -104,7 +112,15 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
         player->is_moving_down = true;
         if(the_game->current_map->attackMovePlayer(player, 0, 1) )
         { 
-            //player->y++; 
+            return true;
+        }
+    }
+    else if( direction == directions_t::SE)
+    {
+        player->is_moving_right = true;
+        player->is_moving_down = true;
+        if(the_game->current_map->attackMovePlayer(player, 1, 1) )
+        {
             return true;
         }
     }
@@ -113,7 +129,24 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
         player->is_moving_right = true;
         if(the_game->current_map->attackMovePlayer(player, 1, 0) )
         {
-            //player->x++; 
+            return true;
+        }
+    }
+    else if( direction == directions_t::SW)
+    {
+        player->is_moving_left = true;
+        player->is_moving_down = true;
+        if(the_game->current_map->attackMovePlayer(player, -1, 1) )
+        { 
+            return true;
+        }
+    }
+    else if( direction == directions_t::NW)
+    {
+        player->is_moving_left = true;
+        player->is_moving_up = true;
+        if(the_game->current_map->attackMovePlayer(player, -1, -1) )
+        { 
             return true;
         }
     }
@@ -122,7 +155,6 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
         player->is_moving_left = true;
         if(the_game->current_map->attackMovePlayer(player, -1, 0) )
         { 
-            //player->x--; 
             return true;
         }
     };
@@ -130,10 +162,12 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 
     //if the player has moved or attacked this update, increment the turn
     //counter
-    if ((plr_x != player->x || plr_y != player->y || player->has_attacked) && request.pressed) {
+    if ((plr_x != player->x || plr_y != player->y || player->has_attacked))
+    {
         return true;
     }
-    else {
+    else
+    {
         return false;
     }
 
