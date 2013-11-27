@@ -17,32 +17,55 @@
 
 using namespace std;
 
-enum movements_t {
+enum directions_t {
     NW=0, N, NE,
     W,    X,  E,
     SW,   S, SE,
     NO_MATCH
 };
 
-movements_t direction_pressed(TCOD_keycode_t key)
+directions_t direction_pressed(TCOD_key_t key)
 {
-    std::map<int, movements_t> movemap;
-    movemap[TCODK_KP7] = movements_t::NW;
-    movemap[TCODK_KP8] = movements_t::N;
-    movemap[TCODK_KP9] = movements_t::NE;
-    movemap[TCODK_KP6] = movements_t::E;
-    movemap[TCODK_KP3] = movements_t::SE;
-    movemap[TCODK_KP2] = movements_t::S;
-    movemap[TCODK_KP1] = movements_t::SW;
-    movemap[TCODK_KP4] = movements_t::W;
+    std::map<int, directions_t> spec_movemap; //Keypad, punctuation
+    std::map<char, directions_t> char_movemap; //regular letters
 
-    auto it = movemap.find(key);
-    if(it == movemap.end())
+    spec_movemap[TCODK_KP7] = directions_t::NW;
+    spec_movemap[TCODK_KP8] = directions_t::N;
+    spec_movemap[TCODK_KP9] = directions_t::NE;
+    spec_movemap[TCODK_KP6] = directions_t::E;
+    spec_movemap[TCODK_KP3] = directions_t::SE;
+    spec_movemap[TCODK_KP2] = directions_t::S;
+    spec_movemap[TCODK_KP1] = directions_t::SW;
+    spec_movemap[TCODK_KP4] = directions_t::W;
+
+    // char_movemap[TCODK_KP7] = directions_t::NW;
+    char_movemap['n'] = directions_t::N;
+    // char_movemap[TCODK_KP9] = directions_t::NE;
+    char_movemap['e'] = directions_t::E;
+    // char_movemap[TCODK_KP3] = directions_t::SE;
+    char_movemap['s'] = directions_t::S;
+    // char_movemap[TCODK_KP1] = directions_t::SW;
+    char_movemap['w'] = directions_t::W;
+
+    if (key.vk == TCODK_CHAR) 
     {
-           return movements_t::NO_MATCH;
+        auto it = char_movemap.find(key.c);
+        if(it == char_movemap.end())
+        {
+            return directions_t::NO_MATCH;
+        }
+        return it->second;
     }
-    return it->second;
-    // return movements_t::N;
+    else
+    {
+        auto it = spec_movemap.find(key.vk);
+        if(it == spec_movemap.end())
+        {
+            return directions_t::NO_MATCH;
+        }
+        return it->second;
+    }
+    // return directions_t::N;
 };
 
 //returns whether or not the player has moved
@@ -56,9 +79,8 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     plr_x = player->x;
     plr_y = player->y;
 
-    if((request.c == 'n' || direction_pressed(request.vk) == movements_t::N)
-		&& request.pressed)
-    // if(direction_pressed(request) == movements_t::N && request.pressed)
+    if( direction_pressed(request) == directions_t::N && request.pressed)
+        // if(direction_pressed(request) == directions_t::N && request.pressed)
     {
         player->is_moving_up = true;
         if(the_game->current_map->attackMovePlayer(player, 0, -1) || buildmode)
@@ -117,22 +139,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 };
 
 bool is_request_move_cmd(TCOD_key_t request){
-
-    bool is_move_cmd;
-    is_move_cmd = false;
-
-    // using ~ (tilde) as a dead character as a stand in for noop
-    char move_cmds[] = { 'n', 's', 'e', 'w', '~' };
-
-    int move_cmds_size = sizeof(move_cmds)/sizeof(char);
-
-    char* result;
-    result = find(move_cmds, move_cmds+(move_cmds_size-1), request.c);
-
-    if (*result != '~') { is_move_cmd = true; }
-
-    return is_move_cmd;
-
+    return direction_pressed(request) != directions_t::NO_MATCH;
 };
 
 void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
@@ -231,14 +238,12 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     // the_game->last_cmd = request;
 
     //determine if movement command
-    bool is_move_cmd;
     bool incr_turn = false;
     int current_tile = player->x+(player->y*(the_game->current_map->width));
-    is_move_cmd = is_request_move_cmd(request);
 
     // process_buildmode(request, current_tile);
 
-    if(is_move_cmd){
+    if(is_request_move_cmd(request)){
         incr_turn = process_movement(the_game, request, player);
     }
 

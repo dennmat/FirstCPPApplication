@@ -13,13 +13,13 @@ class Person;
 class Map;
 class Game;
 
-extern enum movements_t;
-// extern std::map<TCOD_key_t, movements_t> movemap;
+extern enum directions_t;
+// extern std::map<TCOD_key_t, directions_t> movemap;
 
 
 bool process_movement(Game* the_game,TCOD_key_t request, Person *player);
 bool process_mouse_event(Game* the_game,TCOD_mouse_t request, Person *player);
 bool process_key_event(Game* the_game,TCOD_key_t request, Person *player);
-movements_t direction_pressed(TCOD_keycode_t key);
+directions_t direction_pressed(TCOD_key_t key);
 
 #endif
