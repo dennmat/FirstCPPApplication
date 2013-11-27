@@ -11,6 +11,7 @@ class Map;
 class Person;
 class Actor;
 class Object;
+class Item;
 
 class Representation;
 class DoorRepresentation;
@@ -94,9 +95,15 @@ class Tile : public Object
     Map* map; //the map that this tile is on
 
     std::vector<Actor *> * occupants;       // the dude sitting on the tile
+    std::vector<Item *> * items;       // the dude sitting on the tile
     Actor * occupant;
 
     bool is_occupied() { return this->_is_occupied; };
+
+    bool check_for_items() { 
+		return this->items->size() != 0; };
+    void place_item_down(Item* item);
+    void pick_up_item(Item* item);
 
     bool is_known() { return this->_is_known; };
     void setKnown(bool is_known);

@@ -13,6 +13,7 @@ class Tile;
 class Person;
 class Pet;
 class Actor;
+class Item;
 
 class Game
 {
@@ -26,6 +27,7 @@ class Game
         int enemies_size ;   //don't really know how else to get the size of the
         // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
         std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
+        std::vector<Item*> items;  //later, this will be an array of all the enemies 
 
         int screen_w;
         int screen_h;
@@ -59,6 +61,7 @@ class Game
 
         Person*  initialize_player();
         void  initialize_enemies();
+        void  Game::initialize_items();
 
         Person * create_person(std::string name, int age, int x, int y, char repr, std::string pet_name = "");
 

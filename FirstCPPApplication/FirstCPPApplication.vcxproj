@@ -217,6 +217,7 @@
     <ClCompile Include="FirstCPPApplication.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Pet.cpp" />
     <ClCompile Include="Room.cpp" />

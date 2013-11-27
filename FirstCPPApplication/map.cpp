@@ -10,6 +10,7 @@
 #include "Room.h"
 #include "Person.h"
 #include "game.h"
+#include "item.h"
 
 
 using namespace std;
@@ -322,8 +323,15 @@ int Map::draw(Game *theGame)
 
                 the_tile->setKnown(true);
 
+
                 if(the_tile->is_occupied())
                 {
+                    //check for item first, so it'll get drawn over by actors
+                    if (the_tile->check_for_items())
+                    {
+                        TCODConsole::root->putChar(x, y, the_tile->items->back()->repr->repr);
+
+                    };
                     theGame->player->ActorInSight(x, y, the_tile->occupant);
 
                     char the_char = the_tile->occupant->representation->repr;
@@ -349,6 +357,11 @@ int Map::draw(Game *theGame)
                         TCODConsole::root->setCharForeground(x, y, the_fg_color);
                         TCODConsole::root->setCharBackground(x, y, the_bg_color);
                     }
+                    if (the_tile->check_for_items())
+                    {
+                        TCODConsole::root->putChar(x, y, the_tile->items->back()->repr->repr);
+
+                    };
                 };
 
                 if (l_map->isTransparent(x, y) == true) {

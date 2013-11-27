@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "tile.h"
+#include <algorithm>
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
@@ -7,6 +8,7 @@
 #include <vector>
 
 #include "map.h"
+#include "item.h"
 
 using namespace std;
 
@@ -17,6 +19,7 @@ Tile::Tile()
     _is_known = false;
 
     occupants = new std::vector<Actor*>;
+    items = new std::vector<Item*>;
 
     updateTileType(tiletype);
 };
@@ -37,6 +40,21 @@ void Tile::setKnown(bool is_known)
 {
     this->_is_known = is_known;
     // cout << "is known" << endl;
+};
+
+void Tile::place_item_down(Item* item)
+{
+    //check for item in list, if its not, add it in
+    auto it = std::find(this->items->begin(), this->items->end(), item);
+    if (it == this->items->end())
+    {
+        this->items->push_back(item);
+    };
+
+};
+void Tile::pick_up_item(Item* item)
+{
+
 };
 
 void Tile::makeOccupied(Actor* the_actor)

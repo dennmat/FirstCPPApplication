@@ -65,6 +65,18 @@ class BaseRepresentation : public Representation
 
 };
 
+class BaseItemRepresentation : public Representation
+{
+    public:
+        BaseItemRepresentation() : Representation()
+        {
+            repr='?';
+            fg_color = TCODColor::white;
+            bg_color = TCODColor::grey;
+        };
+
+};
+
 class WarpRepresentation : public Representation
 {
     public:

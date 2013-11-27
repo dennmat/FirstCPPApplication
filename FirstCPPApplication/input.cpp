@@ -73,7 +73,6 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 {
     Map *world = the_game->world;
     bool buildmode = the_game->buildmode;
-    // Movement || N, S, E, W ||
 
     int plr_x, plr_y;
     plr_x = player->x;

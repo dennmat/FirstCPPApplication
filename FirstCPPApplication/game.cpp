@@ -18,6 +18,7 @@
 #include "input.h"
 #include "map.h"
 #include "thinker.h"
+#include "item.h"
 
 
 
@@ -72,11 +73,26 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 
 };
 
+//creates a bunch of items on the map
+void  Game::initialize_items(){
+
+    //put it on the map somewhere
+    Tile * next_tile = current_map->getTileAt(1,1);
+    // new_pers->putPerson(next_tile, x, y);
+
+    Item* item = new Item();
+    next_tile->place_item_down(item);
+    items.push_back(item);
+    // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
+    // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
+
+};
+
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
-    enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
+    // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
+    // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
 
 };
 
@@ -112,6 +128,7 @@ Game::Game()
 
     initialize_player(); //created the Person player
     initialize_enemies(); // create the enemies
+    initialize_items(); // create the items
 
     last_cmd = "not set";
 
