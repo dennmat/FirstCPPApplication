@@ -79,52 +79,57 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     plr_x = player->x;
     plr_y = player->y;
 
+    if (request.pressed == false)
+    {
+        player->is_moving_up = false; 
+        player->is_moving_right = false;
+        player->is_moving_down = false;
+        player->is_moving_left = false;
+        return false;
+
+    };
+
     if( direction_pressed(request) == directions_t::N && request.pressed)
         // if(direction_pressed(request) == directions_t::N && request.pressed)
     {
         player->is_moving_up = true;
         if(the_game->current_map->attackMovePlayer(player, 0, -1) || buildmode)
         { 
-            //            player->y--;
+            //player->y--;
             return true;
         }
     }
-    else { player->is_moving_up = false; };
 
     if(request.c == 's' && request.pressed)
     {
         player->is_moving_down = true;
         if(the_game->current_map->attackMovePlayer(player, 0, 1) || buildmode)
         { 
-            //            player->y++; 
+            //player->y++; 
             return true;
         }
     }
-    else { player->is_moving_down = false; };
 
     if(request.c == 'e' && request.pressed)
     {
         player->is_moving_right = true;
         if(the_game->current_map->attackMovePlayer(player, 1, 0) || buildmode)
         {
-            //            player->x++; 
+            //player->x++; 
             return true;
         }
 
     }
-    else { player->is_moving_right = false; };
 
     if(request.c == 'w' && request.pressed)
     {
         player->is_moving_left = true;
         if(the_game->current_map->attackMovePlayer(player, -1, 0) || buildmode)
         { 
-            //            player->x--; 
+            //player->x--; 
             return true;
         }
     }
-    else 
-    { player->is_moving_left = false; };
 
 
     //if the player has moved or attacked this update, increment the turn
