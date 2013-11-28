@@ -115,15 +115,20 @@ directions_t direction_pressed(TCOD_key_t key)
     // return directions_t::N;
 };
 
+bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
+{
+    return false;
+};
+
 //returns whether or not the player has moved
 bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 {
     Map *world = the_game->world;
     bool buildmode = the_game->buildmode;
 
-    int plr_x, plr_y;
-    plr_x = player->x;
-    plr_y = player->y;
+    int orig_plr_pos_x, orig_plr_pos_y;
+    orig_plr_pos_x = player->x;
+    orig_plr_pos_y = player->y;
 
 
     directions_t direction = direction_pressed(request);
@@ -199,7 +204,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 
     //if the player has moved or attacked this update, increment the turn
     //counter
-    if ((plr_x != player->x || plr_y != player->y || player->has_attacked))
+    if ((orig_plr_pos_x != player->x || orig_plr_pos_y != player->y || player->has_attacked))
     {
         return true;
     }
@@ -326,6 +331,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 
     else if (is_request_basic_cmd(request))
     {
+        incr_turn = process_basic_cmd(the_game, request, player);
     }
 
     else if(request.c == 'q')
