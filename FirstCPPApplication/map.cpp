@@ -331,7 +331,6 @@ int Map::draw(Game *theGame)
                     if (the_tile->check_for_items())
                     {
                         TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
-
                     };
                     theGame->player->ActorInSight(x, y, the_tile->occupant);
 

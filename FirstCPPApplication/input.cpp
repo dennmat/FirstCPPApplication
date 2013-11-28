@@ -17,12 +17,59 @@
 
 using namespace std;
 
-enum directions_t {
-    NW=0, N, NE,
-    W,    X,  E,
-    SW,   S, SE,
-    NO_MATCH
+    enum basic_cmds_t {
+        Pickup, Drop,
+        OpenInventory,
+        Look,
+        NO_MATCHING_BASIC_CMD
+    };
+
+basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
+{
+    std::map<int, basic_cmds_t> spec_movemap; //Keypad, punctuation
+    std::map<char, basic_cmds_t> char_movemap; //regular letters
+
+    // spec_movemap[','] = basic_cmds_t::Pickup;
+    // spec_movemap[TCODK_KP8] = 
+    // spec_movemap[TCODK_KP9] = 
+    // spec_movemap[TCODK_KP6] = 
+    // spec_movemap[TCODK_KP3] = 
+    // spec_movemap[TCODK_KP2] = 
+    // spec_movemap[TCODK_KP1] = 
+    // spec_movemap[TCODK_KP4] = 
+
+    // char_movemap[TCODK_KP7] = basic_cmds_t::NW;
+    //char_movemap['n'] = basic_cmds_t::N;
+    char_movemap[','] = basic_cmds_t::Pickup;
+
+    if (key.vk == TCODK_CHAR) 
+    {
+        auto it = char_movemap.find(key.c);
+        if(it == char_movemap.end())
+        {
+            return basic_cmds_t::NO_MATCHING_BASIC_CMD;
+        }
+        return it->second;
+    }
+    else
+    {
+        auto it = spec_movemap.find(key.vk);
+        if(it == spec_movemap.end())
+        {
+            return basic_cmds_t::NO_MATCHING_BASIC_CMD;
+        }
+        return it->second;
+    }
+    // return basic_cmds_t::N;
+
 };
+
+    enum directions_t {
+        NW=0, N, NE,
+        W,    X,  E,
+        SW,   S, SE,
+        NO_MATCHING_DIRECTION
+    };
 
 directions_t direction_pressed(TCOD_key_t key)
 {
@@ -52,7 +99,7 @@ directions_t direction_pressed(TCOD_key_t key)
         auto it = char_movemap.find(key.c);
         if(it == char_movemap.end())
         {
-            return directions_t::NO_MATCH;
+            return directions_t::NO_MATCHING_DIRECTION;
         }
         return it->second;
     }
@@ -61,7 +108,7 @@ directions_t direction_pressed(TCOD_key_t key)
         auto it = spec_movemap.find(key.vk);
         if(it == spec_movemap.end())
         {
-            return directions_t::NO_MATCH;
+            return directions_t::NO_MATCHING_DIRECTION;
         }
         return it->second;
     }
@@ -172,8 +219,14 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
 
 };
 
-bool is_request_move_cmd(TCOD_key_t request){
-    return direction_pressed(request) != directions_t::NO_MATCH;
+bool is_request_basic_cmd(TCOD_key_t request)
+{
+    return basic_cmd_pressed(request) != basic_cmds_t::NO_MATCHING_BASIC_CMD;
+};
+
+bool is_request_move_cmd(TCOD_key_t request)
+{
+    return direction_pressed(request) != directions_t::NO_MATCHING_DIRECTION;
 };
 
 void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
@@ -277,41 +330,15 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 
     // process_buildmode(request, current_tile);
 
-    if(is_request_move_cmd(request)){
+    if(is_request_move_cmd(request))
+    {
         incr_turn = process_movement(the_game, request, player);
     }
 
-    else if(request.c == 'h')
+    else if (is_request_basic_cmd(request))
     {
-        if(the_game->buildmode)
-        {
-            cout << "-------------------" << endl;
-            cout << "Available Commands:" << endl;
-            cout << "[H]elp -   See Help" <<endl;
-            cout << "[N]orth    -   Move North" <<endl;
-            cout << "[S]outh    -   Move South" <<endl;
-            cout << "[E]ast -   Move East" <<endl;
-            cout << "[W]est -   Move West" <<endl;
-            cout << "[C]hange - Alter a Tile" <<endl;
-            cout << "Wr[i]te -  Write map to file" <<endl;
-            cout << "C[O]py -   Copy a Tile" <<endl;
-            cout << "[P]aste -  Paste a Tile" <<endl;
-            cout << "[Q]uit -   Quit" <<endl;
-            cout << "-------------------" << endl;
-        }
-        else
-        {
-            cout << "-------------------" << endl;
-            cout << "Available Commands:" << endl;
-            cout << "[H]elp -   See Help" <<endl;
-            cout << "[N]orth    -   Move North" <<endl;
-            cout << "[S]outh    -   Move South" <<endl;
-            cout << "[E]ast -   Move East" <<endl;
-            cout << "[W]est -   Move West" <<endl;
-            cout << "[Q]uit -   Quit" <<endl;
-            cout << "-------------------" << endl;
-        }
     }
+
 
     else if(request.c == 'q')
     {
