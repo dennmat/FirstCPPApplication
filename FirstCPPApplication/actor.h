@@ -32,6 +32,7 @@ class Actor : public Object
         bool is_moving_right;
         bool is_moving_up;
         bool is_moving_down;
+        void resetIsMoving();
 
         std::vector<Actor*> * actors_in_sight;
 

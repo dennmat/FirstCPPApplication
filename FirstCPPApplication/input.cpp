@@ -117,6 +117,8 @@ directions_t direction_pressed(TCOD_key_t key)
 
 bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
 {
+    basic_cmds_t basic_cmds = basic_cmd_pressed(request);
+
     return false;
 };
 
@@ -130,6 +132,12 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     orig_plr_pos_x = player->x;
     orig_plr_pos_y = player->y;
 
+    //reset player facing directions
+    if (request.pressed == false)
+    {
+        player->resetIsMoving();
+        return false;
+    };
 
     directions_t direction = direction_pressed(request);
     if( direction == directions_t::N )

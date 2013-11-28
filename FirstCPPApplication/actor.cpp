@@ -29,6 +29,14 @@ Actor::Actor()
     has_attacked = false;
 };
 
+void Actor::resetIsMoving()
+{
+        this->is_moving_up = false; 
+        this->is_moving_right = false;
+        this->is_moving_down = false;
+        this->is_moving_left = false;
+};
+
 std::string Actor::GetName()
 {
     return name;
