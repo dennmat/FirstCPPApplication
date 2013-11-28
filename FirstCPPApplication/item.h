@@ -5,11 +5,9 @@ class Representation;
 
 class Item
 {
-
     public:
         Representation* repr;
         Item();
-
 
 };
 

@@ -151,6 +151,7 @@
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.hpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="FirstCPPApplication.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Pet.cpp" />

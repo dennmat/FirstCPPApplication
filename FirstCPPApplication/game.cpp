@@ -155,7 +155,6 @@ void Game::draw_ui()
 {
     draw_ui_msg();
     draw_ui_sidebar();
-
 };
 
 void Game::draw_ui_sidebar()
