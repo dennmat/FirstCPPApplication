@@ -31,10 +31,10 @@ Actor::Actor()
 
 void Actor::resetIsMoving()
 {
-        this->is_moving_up = false; 
-        this->is_moving_right = false;
-        this->is_moving_down = false;
-        this->is_moving_left = false;
+    this->is_moving_up = false; 
+    this->is_moving_right = false;
+    this->is_moving_down = false;
+    this->is_moving_left = false;
 };
 
 std::string Actor::GetName()
@@ -92,5 +92,16 @@ void Actor::putPerson( Tile * next_tile, int new_x, int new_y)
         x = new_x;
         y = new_y;
     }
+
+};
+
+void Actor::pickUpItem(Item* item)
+{
+
+    //add to inventory
+    this->inventory->add_item(item);
+
+    // remove from Tiles
+    this->my_tile->pick_up_item(item);
 
 };

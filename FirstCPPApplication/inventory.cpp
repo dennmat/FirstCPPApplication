@@ -24,6 +24,12 @@ void Inventory::add_item(Item* item)
 
 void Inventory::remove_item(Item* item)
 {
+    //check for item in list, if its not, remove it 
+    auto it = std::find(this->items->begin(), this->items->end(), item);
+    if (it != this->items->end())
+    {
+        this->items->erase(it);
+    };
 
 };
 int Inventory::get_count()

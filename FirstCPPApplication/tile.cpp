@@ -27,7 +27,8 @@ Tile::Tile()
 };
 
 bool Tile::check_for_items() { 
-    return this->inventory->get_count() != 0; 
+    bool are_items = this->inventory->get_count() != 0; 
+    return are_items;
 };
 
 void Tile::drawColorsToRoot(TCODColor fg_color, TCODColor bg_color)
@@ -55,6 +56,7 @@ void Tile::place_item_down(Item* item)
 };
 void Tile::pick_up_item(Item* item)
 {
+    this->inventory->remove_item(item);
 
 };
 

@@ -14,6 +14,7 @@
 #include "Person.h"
 #include "map.h"
 #include "utils.h"
+#include "inventory.h"
 
 using namespace std;
 
@@ -117,7 +118,32 @@ directions_t direction_pressed(TCOD_key_t key)
 
 bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
 {
-    basic_cmds_t basic_cmds = basic_cmd_pressed(request);
+    basic_cmds_t basic_cmd = basic_cmd_pressed(request);
+
+    //ignore key releases
+    if (request.pressed == false)
+    {
+        return false;
+    };
+
+    if (basic_cmd == basic_cmds_t::Pickup)
+    {
+        cout << "PICKUP THIS IS A STICKUP" << endl;
+
+        //check if items are on the floor
+        if (player->my_tile->check_for_items())
+        {
+            cout << "items on the floor" << endl;
+            Item* item = player->my_tile->inventory->items->back();
+            player->pickUpItem(item);
+        //
+        //open ui for item pickup to choose which item
+        //
+        //add to inventory
+        // remove from Tiles
+
+        };
+    };
 
     return false;
 };
