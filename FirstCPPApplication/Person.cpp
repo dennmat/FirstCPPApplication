@@ -64,7 +64,7 @@ Person::~Person(){
 void Person::update(Game* game)
 {
 
-    
+
     if (this->thinker != NULL)
     {
         thinker->update(game);

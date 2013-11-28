@@ -18,12 +18,12 @@
 
 using namespace std;
 
-    enum basic_cmds_t {
-        Pickup, Drop,
-        OpenInventory,
-        Look,
-        NO_MATCHING_BASIC_CMD
-    };
+enum basic_cmds_t {
+    Pickup, Drop,
+    OpenInventory,
+    Look,
+    NO_MATCHING_BASIC_CMD
+};
 
 basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 {
@@ -65,12 +65,12 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 
 };
 
-    enum directions_t {
-        NW=0, N, NE,
-        W,    X,  E,
-        SW,   S, SE,
-        NO_MATCHING_DIRECTION
-    };
+enum directions_t {
+    NW=0, N, NE,
+    W,    X,  E,
+    SW,   S, SE,
+    NO_MATCHING_DIRECTION
+};
 
 directions_t direction_pressed(TCOD_key_t key)
 {
@@ -133,14 +133,13 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         //check if items are on the floor
         if (player->my_tile->check_for_items())
         {
-            cout << "items on the floor" << endl;
+            cout << "items on the floor, you'll be picking up";
+            cout << "the last item you picked up now" << endl;
+            //TODO:open ui for item pickup to choose which item
             Item* item = player->my_tile->inventory->items->back();
             player->pickUpItem(item);
-        //
-        //open ui for item pickup to choose which item
-        //
-        //add to inventory
-        // remove from Tiles
+
+            return true;
 
         };
     };

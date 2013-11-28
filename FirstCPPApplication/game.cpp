@@ -26,7 +26,7 @@
 void Game:: buildworld()
 {
 
-	cout << get_exe_path() << endl;
+    cout << get_exe_path() << endl;
 
     string line;
     ifstream myfile (get_data_path()+"world.txt");
@@ -44,8 +44,8 @@ void Game:: buildworld()
     }
     else
     {
-TCHAR exepath[MAX_PATH+1];
-    GetModuleFileName(0, exepath, MAX_PATH+1);
+        TCHAR exepath[MAX_PATH+1];
+        GetModuleFileName(0, exepath, MAX_PATH+1);
         MessageBox(0, exepath, _T("ERROR"), MB_OK);
         MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
         exit(EXIT_FAILURE);
@@ -147,7 +147,7 @@ void Game::update()
         enemy->update(this);
         // printf("updating\n");
     }
-        cout << "\t" << "done updating" << endl;
+    cout << "\t" << "done updating" << endl;
 };
 
 void Game::update_ui()
@@ -171,7 +171,7 @@ void Game::draw_ui_sidebar()
     ui_sidebar_con->setDefaultBackground(ui_sidebar_color);
     ui_sidebar_con->clear();
 
-    
+
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %d", turn_count);
 
