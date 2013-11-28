@@ -6,6 +6,7 @@
 #include "actor.h"
 #include "thinker.h"
 #include "inventory.h"
+#include "equipment.h"
 
 using namespace std;
 

@@ -6,6 +6,7 @@
 #include "Person.h"
 #include "thinker.h"
 #include "inventory.h"
+#include "equipment.h"
 // #include <fstream>
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string pet_name){
@@ -21,6 +22,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string p
 
     Inventory* inventory =   new Inventory;
     this->inventory = inventory;
+    this->equipment = new Equipment;
 
     is_fighter = true;
 
@@ -35,7 +37,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string p
 Person::Person()
 {
     this->name = "Unnamed";
-    this->age = 999;
+    this->age = 80085;
     this->x = 10;
     this->y = 10;
 
@@ -46,6 +48,10 @@ Person::Person()
     Representation * new_repr =   new Representation;
     this->representation = new_repr;
     this->representation->repr = '~';
+
+    Inventory* inventory =   new Inventory;
+    this->inventory = inventory;
+    this->equipment = new Equipment;
 
     is_fighter = true;
 
@@ -63,6 +69,10 @@ Person::~Person(){
 
 void Person::update(Game* game)
 {
+
+    //apply item basic item attributes of only equipped items
+    this->equipment->Update();
+
 
 
     if (this->thinker != NULL)

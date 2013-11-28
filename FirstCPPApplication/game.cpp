@@ -140,6 +140,8 @@ Game::Game()
 void Game::update()
 {
 
+    player->update(this);
+
     for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
         Actor* enemy = enemies.at(i);
@@ -252,7 +254,7 @@ void Game::mainloop()
     TCODConsole::flush();
 
     while ( !TCODConsole::isWindowClosed() ) {
-        if (incr_turn == true)
+        if (incr_turn)
         {
             turn_count++;
             printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
@@ -264,13 +266,8 @@ void Game::mainloop()
         if (key_evt.c != NULL ){
             incr_turn = process_key_event(this, key_evt, player);
         };
-        // else if (mouse_evt.dx != NULL)
-        // {
+
         process_mouse_event(this, mouse_evt, player);
-        // }
-        // else {
-        //     cout << "Null events" << endl;
-        // };
 
         //AIs update
         if (incr_turn == true)

@@ -12,6 +12,7 @@ class Tile;
 class Thinker;
 class Game;
 class Inventory;
+class Equipment;
 
 class Actor : public Object 
 {
@@ -21,6 +22,7 @@ class Actor : public Object
         Representation* representation;
         Thinker* thinker;
         Inventory* inventory;
+        Equipment* equipment;
 
         TCODPath* l_path;
 
