@@ -9,6 +9,7 @@
 
 #include "map.h"
 #include "item.h"
+#include "inventory.h"
 
 using namespace std;
 
@@ -19,9 +20,14 @@ Tile::Tile()
     _is_known = false;
 
     occupants = new std::vector<Actor*>;
-    items = new std::vector<Item*>;
+    // items = new std::vector<Item*>;
+    inventory = new Inventory;
 
     updateTileType(tiletype);
+};
+
+bool Tile::check_for_items() { 
+    return this->inventory->get_count() != 0; 
 };
 
 void Tile::drawColorsToRoot(TCODColor fg_color, TCODColor bg_color)
@@ -44,12 +50,7 @@ void Tile::setKnown(bool is_known)
 
 void Tile::place_item_down(Item* item)
 {
-    //check for item in list, if its not, add it in
-    auto it = std::find(this->items->begin(), this->items->end(), item);
-    if (it == this->items->end())
-    {
-        this->items->push_back(item);
-    };
+    this->inventory->add_item(item);
 
 };
 void Tile::pick_up_item(Item* item)

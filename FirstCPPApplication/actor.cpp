@@ -5,6 +5,7 @@
 
 #include "actor.h"
 #include "thinker.h"
+#include "inventory.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ Actor::Actor()
 {
     l_path = NULL;
     representation = new Representation;
+    inventory = new Inventory;
     name = "Unset Actor name";
 
     actors_in_sight = new std::vector<Actor*>;

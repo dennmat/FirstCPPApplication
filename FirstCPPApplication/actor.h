@@ -11,6 +11,7 @@ class Representation;
 class Tile;
 class Thinker;
 class Game;
+class Inventory;
 
 class Actor : public Object 
 {
@@ -19,6 +20,7 @@ class Actor : public Object
         std::string name;
         Representation* representation;
         Thinker* thinker;
+        Inventory* inventory;
 
         TCODPath* l_path;
 

@@ -19,6 +19,7 @@
 #include "map.h"
 #include "thinker.h"
 #include "item.h"
+#include "inventory.h"
 
 
 
@@ -83,6 +84,8 @@ void  Game::initialize_items(){
     Item* item = new Item();
     next_tile->place_item_down(item);
     items.push_back(item);
+    Item* item2 = new Item();
+    player->inventory->add_item(item2);
     // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
     // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
 
@@ -189,6 +192,9 @@ void Game::draw_ui_sidebar()
     ui_sidebar_con->print(1, 8, "%s", BoolToString(player->is_moving_up, false) );
     ui_sidebar_con->print(0, 9, "%s %s", move_left, move_right);
     ui_sidebar_con->print(1, 10, "%s", BoolToString(player->is_moving_down, false));
+
+    //draw player inventory info
+    ui_sidebar_con->print(0, 13, "%d", player->inventory->get_count());
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, screen_w-ui_sidebar_w, 0 );

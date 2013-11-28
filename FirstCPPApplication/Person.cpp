@@ -5,6 +5,7 @@
 
 #include "Person.h"
 #include "thinker.h"
+#include "inventory.h"
 // #include <fstream>
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string pet_name){
@@ -17,6 +18,9 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string p
     Representation * new_repr =   new Representation;
     this->representation = new_repr;
     this->representation->repr = repr;
+
+    Inventory* inventory =   new Inventory;
+    this->inventory = inventory;
 
     is_fighter = true;
 

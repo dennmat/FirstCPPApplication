@@ -12,6 +12,7 @@ class Person;
 class Actor;
 class Object;
 class Item;
+class Inventory;
 
 class Representation;
 class DoorRepresentation;
@@ -87,6 +88,7 @@ class Tile : public Object
 
     public:
     BaseTileType * tile;
+    Inventory* inventory;
     int tiletype;               // type of tile
 
     int tile_x;
@@ -100,8 +102,7 @@ class Tile : public Object
 
     bool is_occupied() { return this->_is_occupied; };
 
-    bool check_for_items() { 
-		return this->items->size() != 0; };
+    bool check_for_items();
     void place_item_down(Item* item);
     void pick_up_item(Item* item);
 
