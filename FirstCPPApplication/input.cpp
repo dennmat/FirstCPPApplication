@@ -125,15 +125,6 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     plr_x = player->x;
     plr_y = player->y;
 
-    if (request.pressed == false)
-    {
-        player->is_moving_up = false; 
-        player->is_moving_right = false;
-        player->is_moving_down = false;
-        player->is_moving_left = false;
-        return false;
-
-    };
 
     directions_t direction = direction_pressed(request);
     if( direction == directions_t::N )
@@ -328,8 +319,6 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     bool incr_turn = false;
     int current_tile = player->x+(player->y*(the_game->current_map->width));
 
-    // process_buildmode(request, current_tile);
-
     if(is_request_move_cmd(request))
     {
         incr_turn = process_movement(the_game, request, player);
@@ -339,7 +328,6 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     {
     }
 
-
     else if(request.c == 'q')
     {
         cout << "Goodbye now" << endl;
@@ -347,12 +335,6 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     }
     else
     {
-        //convert key char to string. 
-        stringstream ss;
-        ss << request.c;
-        string temp_str;
-        ss >> temp_str;
-
         cout << endl << "command not found: " << char_to_str(request.c) << endl;
         cout << "Try 'help' for list of commands" << endl;
     }
