@@ -11,3 +11,5 @@ It's too early to have a distinct direction for the game, but I want to be able 
 * finally, some sort of over the top stat tracking
 
 There's a screenshot in the directory
+
+https://github.com/tankorsmash/FirstCPPApplication/blob/master/Screenshot_28Nov2013.png
