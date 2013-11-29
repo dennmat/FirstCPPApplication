@@ -4,7 +4,7 @@
 #include <vector>
 
 //#include "libtcod.hpp"
-#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
+//#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 //#include "Representation.h"
 
 class Map;
@@ -21,6 +21,8 @@ class FloorRepresentation;
 class WallRepresentation;
 class BaseRepresentation;
 
+class TCODColor;
+
 #include "object.h"
 
 
@@ -31,7 +33,7 @@ class BaseTileType //all tile types must inherit this
         Representation * representation;    // the character that represents this tile
         std::string description;      // the description of the tile
         static int tiletype;
-        TCODColor color;
+        TCODColor* color;
 
 
         BaseTileType() ;
@@ -97,7 +99,7 @@ class Tile : public Object
     bool is_known() { return this->_is_known; };
     void setKnown(bool is_known);
 
-    void drawColorsToRoot(TCODColor fg_color, TCODColor bg_color);
+    void drawColorsToRoot(TCODColor* fg_color, TCODColor* bg_color);
 
 
     Tile(); 

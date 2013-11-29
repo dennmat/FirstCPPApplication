@@ -1,6 +1,7 @@
+#pragma once
+
 #ifndef GAME_H
 #define GAME_H
-#pragma once
 
 #include "stdafx.h"
 // #include "input.h"
@@ -14,6 +15,7 @@ class Person;
 class Pet;
 class Actor;
 class Item;
+
 
 class Game
 {

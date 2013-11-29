@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "libtcod.hpp"
+//#include "libtcod.hpp"
 
 #include "object.h"
 
@@ -19,6 +19,8 @@ class Room;
 class Person;
 class Object;
 class Tile;
+
+class TCODMap;
 
 using namespace std;
 class Map : public Object

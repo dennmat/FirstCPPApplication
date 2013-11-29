@@ -13,6 +13,8 @@
 #include "inventory.h"
 #include "Representation.h"
 
+#include "libtcod_cpp_hpp\libtcod.hpp"
+
 
 using namespace std;
 
@@ -34,7 +36,7 @@ bool Tile::check_for_items() {
     return are_items;
 };
 
-void Tile::drawColorsToRoot(TCODColor fg_color, TCODColor bg_color)
+void Tile::drawColorsToRoot(TCODColor* fg_color, TCODColor* bg_color)
 {
     // if (fg_color != 0)
     // {

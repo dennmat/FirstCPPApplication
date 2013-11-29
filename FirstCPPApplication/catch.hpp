@@ -1,3 +1,4 @@
+#pragma once
 
 /*
  *  CATCH v1.0 build 6 (master branch)
