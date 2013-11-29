@@ -7,6 +7,8 @@
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"
+#include "Representation.h"
+#include "tile.h"
 
 using namespace std;
 

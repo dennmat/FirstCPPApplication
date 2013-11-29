@@ -5,7 +5,7 @@
 
 //#include "libtcod.hpp"
 #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
-#include "Representation.h"
+//#include "Representation.h"
 
 class Map;
 class Person;
@@ -21,6 +21,8 @@ class FloorRepresentation;
 class WallRepresentation;
 class BaseRepresentation;
 
+#include "object.h"
+
 
 class BaseTileType //all tile types must inherit this
 {
@@ -32,10 +34,7 @@ class BaseTileType //all tile types must inherit this
         TCODColor color;
 
 
-        BaseTileType()
-        {
-            representation = new BaseRepresentation;
-        };
+        BaseTileType() ;
 
 };
 
@@ -46,39 +45,28 @@ class WarpTileType : public BaseTileType
         int warpMap;            // if this is a warp tile, index of the map to warp to
         int warpX, warpY;       // where you warp to in the destination map
 
-        WarpTileType() : BaseTileType()
-    {
-        representation = new WarpRepresentation;
-    };
+        WarpTileType();
+    ;
 };
 
 
 class WallTileType : public BaseTileType
 {
     public: 
-        WallTileType() : BaseTileType()
-    {
-        representation = new WallRepresentation;
-    };
+        WallTileType();
 };
 
 
 class DoorTileType : public BaseTileType
 {
     public: 
-        DoorTileType()  : BaseTileType() {
-            tiletype;
-            representation = new DoorRepresentation;
-        };
+        DoorTileType();
 };
 
 class FloorTileType : public BaseTileType
 {
     public: 
-        FloorTileType()   : BaseTileType() {
-            tiletype;
-            representation = new FloorRepresentation;
-        };
+        FloorTileType();
 };
 
 class Tile : public Object

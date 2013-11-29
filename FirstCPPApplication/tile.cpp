@@ -7,9 +7,12 @@
 #include <iostream>
 #include <vector>
 
+#include "tile.h"
 #include "map.h"
 #include "item.h"
 #include "inventory.h"
+#include "Representation.h"
+
 
 using namespace std;
 
@@ -197,3 +200,12 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 
     return adjacent_tiles;
 };
+
+BaseTileType::BaseTileType() { representation = new BaseRepresentation; };
+WarpTileType::WarpTileType() : BaseTileType() { representation = new WarpRepresentation; };
+WallTileType::WallTileType() : BaseTileType() { representation = new WallRepresentation; };
+DoorTileType::DoorTileType()  : BaseTileType() { tiletype; representation = new DoorRepresentation; }
+FloorTileType::FloorTileType() : BaseTileType() { tiletype; representation = new FloorRepresentation; }
+
+
+

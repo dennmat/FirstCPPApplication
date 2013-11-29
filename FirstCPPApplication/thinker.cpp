@@ -8,6 +8,9 @@
 #include "libtcod.hpp"
 #include "Person.h"
 #include "game.h"
+#include "Representation.h"
+#include "tile.h"	
+#include "Pet.h"
 
 using namespace std;
 

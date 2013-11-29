@@ -12,6 +12,8 @@
 #include "game.h"
 #include "item.h"
 #include "inventory.h"
+#include "Representation.h"
+#include "tile.h"
 
 
 using namespace std;

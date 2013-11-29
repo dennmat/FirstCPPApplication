@@ -5,6 +5,10 @@
 
 #include "game.h"
 #include "Person.h"
+#include "Representation.h"
+#include "tile.h"	
+#include "Pet.h"
+
 
 
 TEST_CASE("Game is being tested", "[game]"){

@@ -15,6 +15,8 @@
 #include "map.h"
 #include "utils.h"
 #include "inventory.h"
+#include "Representation.h"
+#include "tile.h"	
 
 using namespace std;
 

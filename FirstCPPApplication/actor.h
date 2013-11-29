@@ -1,10 +1,11 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include "Representation.h"
+//#include "Representation.h"
 #include <string>
 #include <vector>
-#include "tile.h"
+//#include "tile.h"
+#include "object.h"
 
 class Representation;
 
@@ -13,6 +14,11 @@ class Thinker;
 class Game;
 class Inventory;
 class Equipment;
+class Item;
+
+class TCODPath;
+
+
 
 class Actor : public Object 
 {

@@ -7,6 +7,9 @@
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"
+#include "Representation.h"
+#include "tile.h"	
+#include "Pet.h"
 // #include <fstream>
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string pet_name){

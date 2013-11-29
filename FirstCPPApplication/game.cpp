@@ -20,6 +20,9 @@
 #include "thinker.h"
 #include "item.h"
 #include "inventory.h"
+#include "tile.h"	
+#include "Pet.h"
+
 
 
 
