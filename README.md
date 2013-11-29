@@ -1,8 +1,13 @@
-FirstCPPApplication
-===================
+#_FirstCPPApplication_
 
-Ignore the comments, they're outdated
+This is a Roguelike made with Libtcod, and is also my first experience using C++.
 
+It's too early to have a distinct direction for the game, but I want to be able to say its 'finished', so what I'd like to add for now is:
 
-Never wrote any C++ before, just trying it out to see what's up. It's a good time so far. Finally understand where pointers come into play though, with all that pass by value or something.
+* 3 items of all slot types
+* 6 monster types with their own drop rates
+* a random dungeon generation with at least 2 room types, square and round
+* levelling and experience
+* finally, some sort of over the top stat tracking
 
+There's a screenshot in the directory
