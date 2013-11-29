@@ -73,8 +73,6 @@ void Person::update(Game* game)
     //apply item basic item attributes of only equipped items
     this->equipment->Update();
 
-
-
     if (this->thinker != NULL)
     {
         thinker->update(game);

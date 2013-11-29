@@ -176,7 +176,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     else if( direction == directions_t::NE )
     {
         player->is_moving_up = true;
-        player->is_moving_left = true;
+        player->is_moving_right = true;
         if(the_game->current_map->attackMovePlayer(player, 1, -1) )
         { 
             return true;
