@@ -12,6 +12,7 @@
 #include "item.h"
 #include "inventory.h"
 #include "Representation.h"
+#include "utils.h"
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
@@ -199,6 +200,14 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
     adjacent_tiles->push_back(getBotMidTile());
     adjacent_tiles->push_back(getBotLeftTile());
     adjacent_tiles->push_back(getMidLeftTile());
+
+    //remove all adjacent null tile ptrs
+    adjacent_tiles->erase(
+            std::remove_if(
+                adjacent_tiles->begin(),
+                adjacent_tiles->end(),
+                [](Tile* s) -> bool { return s == NULL; }),
+            adjacent_tiles->end());
 
     return adjacent_tiles;
 };

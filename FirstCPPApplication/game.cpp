@@ -97,8 +97,8 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
-    // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
+    enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
+    enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
 
 };
 

@@ -165,3 +165,13 @@ std::string char_to_str(char chr)
     return temp_str;
 
 };
+
+// void stripNullsFromVector(std::vector<T*>* vect)
+// {
+//     vect->erase(
+//             std::remove_if(
+//                 vect->begin(),
+//                 vect->end(),
+//                 [](T s) { return s == NULL; }),
+//             vect->end());
+// };
