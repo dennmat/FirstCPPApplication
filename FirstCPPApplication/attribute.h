@@ -29,7 +29,7 @@ class Attribute
         virtual void Tick();
         virtual bool CheckIsReady();
 
-        virtual void AddToCurrentVal(int difference);
+        virtual void AddToCurrentVal(int difference, bool force_change = false);
 
 };
 

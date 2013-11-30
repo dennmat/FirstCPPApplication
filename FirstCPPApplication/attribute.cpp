@@ -26,9 +26,19 @@ void Attribute::Update()
 
 void Attribute::Tick()
 {
+
+    //if there's no regen rate, freeze and reset regen
+    if (this->regen_rate == 0)
+    {
+        this->is_ready = false;
+        this->tick = 0;
+        return;
+    };
+
     if (this->tick < this->regen_interval)
     {
         this->tick += 1;
+        this->is_ready = false;
     }
     else
     {
@@ -37,14 +47,17 @@ void Attribute::Tick()
 
 };
 
-void Attribute::AddToCurrentVal(int difference)
+void Attribute::AddToCurrentVal(int difference, bool force_change)
 {
-
-    this->current_val += difference;
-    if (this->current_val > this->max_val) 
+    if (difference != 0)
     {
-        this->current_val = this->max_val;
-    }
+
+        this->current_val += difference;
+        if (this->current_val > this->max_val && !force_change) 
+        {
+            this->current_val = this->max_val;
+        };
+    };
 
 };
 
@@ -65,17 +78,24 @@ Mana::Mana() : Attribute()
     this->max_val = 25;
     this->current_val = this->max_val;
 
+    this->regen_rate = 1;
+    this->regen_interval = 3;
+
 };
 
 Armor::Armor() : Attribute()
 {
     this->max_val = 1;
     this->current_val = this->max_val;
+
+    this->regen_rate = 0;
 };
 
 Damage::Damage() : Attribute()
 {
     this->max_val = 5;
     this->current_val = this->max_val;
+
+    this->regen_rate = 0;
 
 };
