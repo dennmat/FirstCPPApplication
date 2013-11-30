@@ -38,6 +38,7 @@ class Slot
         bool CanFitInSlot(Item* item);
         void AddToSlot(Item* item);
         void RemoveFromSlot(Item* item);
+        Actor* get_master();
 
         bool HasRoomFor(Item* item);
         Item* Slot::GetEquippedItem();

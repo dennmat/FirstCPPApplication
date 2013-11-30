@@ -4,20 +4,26 @@
 #include <algorithm>
 
 #include "actor.h"
+
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"
 #include "Representation.h"
 #include "tile.h"
+#include "attribute.h"
+#include "attribute_container.h"
 
 using namespace std;
 
 Actor::Actor()
 {
     l_path = NULL;
+    name = "Unset Actor name";
+
     representation = new Representation;
     inventory = new Inventory;
-    name = "Unset Actor name";
+    attrs = new AttributeContainer;
+    attrs->owner = this;
 
     actors_in_sight = new std::vector<Actor*>;
 
@@ -108,3 +114,9 @@ void Actor::pickUpItem(Item* item)
     this->my_tile->pick_up_item(item);
 
 };
+
+bool Actor::has_attributes()
+{
+    return this->attrs != NULL;
+};
+

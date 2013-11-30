@@ -2,6 +2,7 @@
 
 #include "equipment.h"
 #include "item.h"
+#include "actor.h"
 
 Slot::Slot(slots_t type, Equipment* equipment)
 {
@@ -22,17 +23,35 @@ void Slot::AddToSlot(Item* item)
     if (this->HasRoomFor(item))
     {
         //add item to slot
-        this->equipped_item == item;
+        this->equipped_item = item;
 
     };
 
+};
+
+Actor* Slot::get_master()
+{
+    if (this->equipment->master != NULL)
+    {
+        return this->equipment->master;
+    }
+    else
+    {
+        return NULL;
+    };
 };
 
 void Slot::apply_item_effect()
 {
 
     //find equipment master
+    Actor* master = this->get_master();
     //check if attributes
+    if (master != NULL && master->has_attributes())
+    {
+
+    }
+
     //apply appropriate health mana damage armor changes
     //
     //TODO TODO TODO

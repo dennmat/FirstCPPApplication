@@ -29,30 +29,36 @@ class Attribute
         virtual void Tick();
         virtual bool CheckIsReady();
 
-        virtual void AddToCurrentVal(int difference, bool force_change = false);
+        virtual void AddToCurrentVal(int difference);
+        virtual void AddToMaxVal(int difference);
+        virtual void AddToRegenRate(int difference);
+        virtual void AddToRegenInterval(int difference);
 
 };
 
-class Health : Attribute
+class HealthAttribute : public Attribute
 {
-
-    Health();
+    public:
+        HealthAttribute();
 
 };
 
-class Mana : Attribute
+class ManaAttribute : public Attribute
 {
-    Mana();
+    public:
+        ManaAttribute();
 };
 
-class Armor : Attribute
+class ArmorAttribute : public Attribute
 {
-    Armor();
+    public:
+        ArmorAttribute();
 };
 
-class Damage : Attribute
+class DamageAttribute : public Attribute
 {
-    Damage();
+    public:
+        DamageAttribute();
 
 };
 

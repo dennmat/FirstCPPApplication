@@ -47,16 +47,55 @@ void Attribute::Tick()
 
 };
 
-void Attribute::AddToCurrentVal(int difference, bool force_change)
+void Attribute::AddToCurrentVal(int difference)
 {
     if (difference != 0)
     {
 
         this->current_val += difference;
-        if (this->current_val > this->max_val && !force_change) 
-        {
-            this->current_val = this->max_val;
-        };
+        // if (this->current_val > this->max_val && !force_change) 
+        // {
+        //     this->current_val = this->max_val;
+        // };
+    };
+
+};
+
+void Attribute::AddToMaxVal(int difference)
+{
+    if (difference != 0)
+    {
+        this->max_val += difference;
+        // if (this->max_val < 0 && !force_change) 
+        // {
+        //     this->current_val += difference;
+        // };
+    };
+
+};
+
+void Attribute::AddToRegenRate(int difference)
+{
+    if (difference != 0)
+    {
+        this->regen_rate += difference;
+        // if (this->max_val < 0 && !force_change) 
+        // {
+        //     this->current_val += difference;
+        // };
+    };
+
+};
+
+void Attribute::AddToRegenInterval(int difference)
+{
+    if (difference != 0)
+    {
+        this->regen_interval += difference;
+        // if (this->max_val < 0 && !force_change) 
+        // {
+        //     this->current_val += difference;
+        // };
     };
 
 };
@@ -66,14 +105,14 @@ bool Attribute::CheckIsReady()
     return this->is_ready;
 };
 
-Health::Health() : Attribute()
+HealthAttribute::HealthAttribute() : Attribute()
 {
     this->max_val = 100;
     this->current_val = this->max_val;
 
 };
 
-Mana::Mana() : Attribute()
+ManaAttribute::ManaAttribute() : Attribute()
 {
     this->max_val = 25;
     this->current_val = this->max_val;
@@ -83,7 +122,7 @@ Mana::Mana() : Attribute()
 
 };
 
-Armor::Armor() : Attribute()
+ArmorAttribute::ArmorAttribute() : Attribute()
 {
     this->max_val = 1;
     this->current_val = this->max_val;
@@ -91,7 +130,7 @@ Armor::Armor() : Attribute()
     this->regen_rate = 0;
 };
 
-Damage::Damage() : Attribute()
+DamageAttribute::DamageAttribute() : Attribute()
 {
     this->max_val = 5;
     this->current_val = this->max_val;

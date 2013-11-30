@@ -1,10 +1,9 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-//#include "Representation.h"
 #include <string>
 #include <vector>
-//#include "tile.h"
+
 #include "object.h"
 
 class Representation;
@@ -15,6 +14,7 @@ class Game;
 class Inventory;
 class Equipment;
 class Item;
+class AttributeContainer;
 
 class TCODPath;
 
@@ -29,6 +29,9 @@ class Actor : public Object
         Thinker* thinker;
         Inventory* inventory;
         Equipment* equipment;
+
+        AttributeContainer* attrs;
+        bool has_attributes();
 
         TCODPath* l_path;
 
