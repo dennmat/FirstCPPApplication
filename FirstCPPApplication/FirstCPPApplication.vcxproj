@@ -156,6 +156,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="item_effect.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.hpp" />
     <ClInclude Include="libtcod_cpp_hpp\bsp.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="item_effect.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Pet.cpp" />
     <ClCompile Include="Room.cpp" />

@@ -26,6 +26,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string p
     Inventory* inventory =   new Inventory;
     this->inventory = inventory;
     this->equipment = new Equipment;
+    this->equipment->master = this;
 
     is_fighter = true;
 
@@ -55,6 +56,7 @@ Person::Person()
     Inventory* inventory =   new Inventory;
     this->inventory = inventory;
     this->equipment = new Equipment;
+    this->equipment->master = this;
 
     is_fighter = true;
 

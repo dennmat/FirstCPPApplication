@@ -9,6 +9,7 @@ class Item;
 class Inventory;
 class Tile;
 
+class Equipment;
 
 enum slots_t : unsigned int {
     Head, 
@@ -27,14 +28,20 @@ enum slots_t : unsigned int {
 class Slot
 {
     slots_t type;
+    Item* equipped_item;
+    Equipment* equipment;
 
     public:
-        Slot(slots_t type);
+        Slot(slots_t type, Equipment* equipment);
         void Update();
 
         bool CanFitInSlot(Item* item);
         void AddToSlot(Item* item);
         void RemoveFromSlot(Item* item);
+
+        bool HasRoomFor(Item* item);
+        Item* Slot::GetEquippedItem();
+        void apply_item_effect();
 
 
 };
@@ -42,10 +49,12 @@ class Equipment
 {
 
     public:
-        //apply buffs/debuffs and durability for all equipment
+
+        Actor* master;
+        
         ~Equipment();
         Equipment();
-        void Update();
+        void Update();//apply buffs/debuffs and durability for all equipment
 
         Slot* head;
         Slot* earrings;
