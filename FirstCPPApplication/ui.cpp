@@ -42,10 +42,8 @@ void Ui::update_ui()
             {
                 if (difference > this->tick_threshold)
                 {
-                    std::cout << "difference greater than 150" << std::endl;
                     this->last_turn_noted = this->game->turn_count;
                     this->tick_turn_changed = this->game->tick_count;
-
                 };
                 float coef = (float)difference / (float)(this->tick_threshold);
                 TCODColor myColor = TCODColor::lerp ( TCODColor::white, TCODColor::red, coef );
