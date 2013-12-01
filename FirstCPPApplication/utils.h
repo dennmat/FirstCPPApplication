@@ -31,6 +31,14 @@ std::string char_to_str(char chr);
 
 void move_window(int x, int y);
 
+inline const char * const BoolToString(bool b, bool verbose=true)
+{
+    if (verbose)
+    return b ? "true" : "false";
+    else
+    return b ? "T" : "F";
+}
+
 const char kPathSeparator =
 #ifdef _WIN32
                             '\\';

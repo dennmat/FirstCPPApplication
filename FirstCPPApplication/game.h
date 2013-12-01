@@ -16,11 +16,13 @@ class Pet;
 class Actor;
 class Item;
 
+class Ui;
 
 class Game
 {
     public:
         Person* player;     //the PC
+        Ui* ui;
 
         //player input
         TCOD_key_t key_evt;
@@ -33,10 +35,6 @@ class Game
 
         int screen_w;
         int screen_h;
-        int ui_msg_w;
-        int ui_msg_h;
-        int ui_sidebar_w;
-        int ui_sidebar_h;
 
         long int turn_count;
 
@@ -58,8 +56,6 @@ class Game
         void update_ui();
 
         void draw_ui();
-        void draw_ui_msg();
-        void draw_ui_sidebar();
 
         Person*  initialize_player();
         void  initialize_enemies();

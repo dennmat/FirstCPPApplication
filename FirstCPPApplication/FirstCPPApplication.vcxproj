@@ -214,6 +214,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="thinker.h" />
     <ClInclude Include="tile.h" />
+    <ClInclude Include="ui.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="map.h" />
   </ItemGroup>
@@ -240,6 +241,7 @@
     </ClCompile>
     <ClCompile Include="thinker.cpp" />
     <ClCompile Include="tile.cpp" />
+    <ClCompile Include="ui.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="map.cpp" />
   </ItemGroup>
