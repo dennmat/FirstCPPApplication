@@ -74,7 +74,6 @@ Person::~Person(){
 
 void Person::update(Game* game)
 {
-
     //apply item basic item attributes of only equipped items
     this->equipment->Update();
 
@@ -90,10 +89,7 @@ void Person::update(Game* game)
             printf("no pet\n");
         }
     }
-
 };
-
-
 
 void Person::attack(Actor * target)
 {

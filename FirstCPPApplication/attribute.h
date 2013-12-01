@@ -45,7 +45,6 @@ class HealthAttribute : public Attribute
 {
     public:
         HealthAttribute();
-
 };
 
 class ManaAttribute : public Attribute
@@ -64,7 +63,6 @@ class DamageAttribute : public Attribute
 {
     public:
         DamageAttribute();
-
 };
 
 #endif
