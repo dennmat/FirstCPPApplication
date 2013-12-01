@@ -1,14 +1,13 @@
+#pragma once
 #ifndef PERSON_H
 #define PERSON_H
-#pragma once
 #include <sstream>
 #include <string>
 
 #include "Actor.h"
-//#include "Pet.h"
 
 
-class Pet;
+class Combat;
 class Tile;
 class Actor;
 class Game;
@@ -19,13 +18,13 @@ class Person : public Actor
         // std::string name;
         int age;
 
-        Pet * pet;
-        bool has_live_pet;
+        Combat * combat;
+        bool has_live_combat;
 
 
 
         Person();
-        Person(std::string name, int age, int x, int y, char repr, std::string pet_name);
+        Person(std::string name, int age, int x, int y, char repr, std::string combat_name);
         ~Person();
 
         void attack(Actor * target);

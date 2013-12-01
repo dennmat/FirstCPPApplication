@@ -8,10 +8,10 @@
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"
-#include "Representation.h"
 #include "tile.h"
 #include "attribute.h"
 #include "attribute_container.h"
+#include "Representation.h"
 
 using namespace std;
 

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 
+#include "libtcod_cpp_hpp\libtcod.hpp"
+
 #include "tile.h"
 #include "map.h"
 #include "item.h"
@@ -14,7 +16,6 @@
 #include "Representation.h"
 #include "utils.h"
 
-#include "libtcod_cpp_hpp\libtcod.hpp"
 
 
 using namespace std;

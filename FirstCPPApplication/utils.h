@@ -5,9 +5,6 @@
 #include <sstream>
 #include <vector>
 
-
-
-
 std::string ToLower(std::string data);
 std::string ToUpper(std::string data);
 

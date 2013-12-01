@@ -10,7 +10,7 @@
 #include "game.h"
 #include "Representation.h"
 #include "tile.h"	
-#include "Pet.h"
+#include "combat.h"
 
 using namespace std;
 
@@ -95,12 +95,12 @@ void Thinker::update(Game* game)
         {
             // cout << "IMNA ATTACK THE PLAYER" << endl;
             //retaliate
-            Pet* assailant = game->player->pet;
-            ((Person*)master)->pet->Attack(assailant, 1);
+            Combat* assailant = game->player->combat;
+            ((Person*)master)->combat->Attack(assailant, 1);
 
 
-            //calm the pet down
-            ((Person*)master)->pet->was_attacked = false;
+            //calm the combat down
+            ((Person*)master)->combat->was_attacked = false;
         }
     }
 

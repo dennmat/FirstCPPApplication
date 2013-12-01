@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "object.h"
 //#include "libtcod.hpp"
 //#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 //#include "Representation.h"
@@ -23,7 +24,6 @@ class BaseRepresentation;
 
 class TCODColor;
 
-#include "object.h"
 
 
 class BaseTileType //all tile types must inherit this

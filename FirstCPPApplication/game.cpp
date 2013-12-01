@@ -21,7 +21,7 @@
 #include "item.h"
 #include "inventory.h"
 #include "tile.h"	
-#include "Pet.h"
+#include "combat.h"
 #include "ui.h"
 
 
@@ -58,16 +58,16 @@ void Game:: buildworld()
 
 //creates a person and places them on the current map
 Person * Game::create_person(string name, int age, int x, int y, char repr, 
-        string pet_name)
+        string Combat_name)
 {
 
     //build the Person
-    Person * new_pers = new Person(name, age, x, y, repr, pet_name);
+    Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
 
-    if ( !pet_name.empty() )
-    {
-        new_pers->pet->name = pet_name;
-    };
+    //if ( !Combat_name.empty() )
+    //{
+    //    new_pers->Combat->name = Combat_name;
+    //};
 
 
     //put it on the map somewhere
@@ -90,23 +90,23 @@ void  Game::initialize_items(){
     items.push_back(item);
     Item* item2 = new Item();
     player->inventory->add_item(item2);
-    // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
-    // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
+    // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's Combat"));
+    // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's Combat"));
 
 };
 
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's pet"));
-    enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's pet"));
+    enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's Combat"));
+    enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's Combat"));
 
 };
 
 Person*  Game::initialize_player(){
 
     player = new Person( "Josh", 23, 3, 3, '@', "");
-    player->representation->fg_color = TCODColor::celadon;
+    player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     delete player->thinker;
     player->thinker = NULL;
 

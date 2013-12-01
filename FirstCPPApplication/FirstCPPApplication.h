@@ -6,10 +6,10 @@
 #include <sstream>
 #include <string>
 
-#include "person.h"
+//#include "person.h"
 
 //#include "libtcod.hpp"
-#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
+//#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
 
 class Person;

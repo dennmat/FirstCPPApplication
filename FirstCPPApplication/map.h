@@ -9,8 +9,6 @@
 #include <string>
 #include <vector>
 
-//#include "libtcod.hpp"
-
 #include "object.h"
 
 

@@ -5,31 +5,27 @@
 #include <typeinfo>
 #include <cstdlib>
 #include <algorithm>
-
 #include <windows.h>
+
+#include "libtcod_cpp_hpp\libtcod.hpp"
+
+#include "FirstCPPApplication.h"
 
 #include "utils.h"
 #include "Person.h"
-#include "Pet.h"
-#include "FirstCPPApplication.h"
+#include "combat.h"
 #include "map.h"
 #include "game.h"
-
-
-#include "libtcod.hpp"
+#include "input.h"
 
 using namespace std;
 
-#include "input.h"
 
 void WelcomeMessage(){
     printf("\t\tWELCOME TO THE GAME!\n");
     printf("\t\t********************\n");
     printf("\n\t\t   Prepare to die!\n\n");
 };
-
-
-
 
 int* getConsoleSize(){
 
@@ -49,13 +45,7 @@ int* getConsoleSize(){
     return info;
 };
 
-
 void clearScreen()
 {
     system("cls");
 }
-//
-//int main ()
-//{
-//    return 0;
-//}

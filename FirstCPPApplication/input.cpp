@@ -343,8 +343,8 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
 {
 
     //set the foreground color to red for the tile the mouse is on
-    Tile* moused_tile = the_game->current_map->getTileAt(the_game->mouse_evt.cx, the_game->mouse_evt.cy);
-    moused_tile->tile->representation->temp_bg_color = TCODColor::red;
+    // Tile* moused_tile = the_game->current_map->getTileAt(the_game->mouse_evt.cx, the_game->mouse_evt.cy);
+    // moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red);
 
     return 0;
 };

@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "equipment.h"
-
+// #include "equipment.h"
+#include "slots_t.h"
 
 class Representation;
 class Slot;

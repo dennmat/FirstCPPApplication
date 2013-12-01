@@ -4,15 +4,15 @@
 #include <sstream>
 
 #include "Person.h"
+
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"
 #include "Representation.h"
 #include "tile.h"	
-#include "Pet.h"
-// #include <fstream>
+#include "combat.h"
 
-Person::Person(std::string name, int age, int x, int y, char repr, std::string pet_name){
+Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name){
     this->name = name;
     this->age = age;
     this->x = x;
@@ -30,9 +30,9 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string p
 
     is_fighter = true;
 
-    pet = new Pet;
-    pet->assign_to_master(this);
-    has_live_pet = true;
+    combat = new Combat;
+    combat->assign_to_master(this);
+    has_live_combat = true;
 
     my_tile = NULL;
 
@@ -60,16 +60,16 @@ Person::Person()
 
     is_fighter = true;
 
-    pet = new Pet;
-    pet->assign_to_master(this);
-    has_live_pet = true;
+    combat = new Combat;
+    combat->assign_to_master(this);
+    has_live_combat = true;
 
     my_tile = NULL;
     l_path = NULL;
 };
 
 Person::~Person(){
-    //TODO: safely remove pet
+    //TODO: safely remove Combat
 };
 
 void Person::update(Game* game)
@@ -81,17 +81,17 @@ void Person::update(Game* game)
     {
         thinker->update(game);
 
-        //PET UPDATE
-        if (has_live_pet == true) {
-            pet->update(game);
+        //Combat UPDATE
+        if (has_live_combat == true) {
+            combat->update(game);
         }
         else {
-            printf("no pet\n");
+            printf("no combat\n");
         }
     }
 };
 
 void Person::attack(Actor * target)
 {
-    pet->Attack(((Person*)target)->pet, 10); //shit will happen if the target isn't a Person
+    combat->Attack(((Person*)target)->combat, 10); //shit will happen if the target isn't a Person
 };

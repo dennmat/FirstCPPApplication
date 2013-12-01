@@ -11,18 +11,19 @@ class Tile;
 
 class Equipment;
 
-enum slots_t : unsigned int {
-    Head, 
-    Ear,
-    Neck,
-    Chest,
-    Shoulders,
-    Forearms,
-    Hands,
-    Fingers,
-    MainHand,
-    OffHand
-};
+#include "slots_t.h"
+// enum slots_t : unsigned int {
+//     Head, 
+//     Ear,
+//     Neck,
+//     Chest,
+//     Shoulders,
+//     Forearms,
+//     Hands,
+//     Fingers,
+//     MainHand,
+//     OffHand
+// };
 
 
 class Slot

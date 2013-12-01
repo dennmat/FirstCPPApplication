@@ -2,11 +2,11 @@
 #define INPUT_H
 
 #pragma once
-#include "stdafx.h"
 #include <map>
 #include <iostream>
 
-#include "libtcod.hpp"
+// #include "libtcod.hpp"
+#include "libtcod_cpp_hpp\libtcod.hpp"
 
 
 class Person;

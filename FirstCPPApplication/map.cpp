@@ -318,8 +318,10 @@ int Map::draw(Game *theGame)
         for(y=0; y<height; y++)
         {
             Tile * the_tile = getTileAt(x, y);
-            TCODColor the_bg_color ;
-            TCODColor the_fg_color ;
+            TCODColor* the_bg_color = &(TCODColor)(TCODColor::black);
+            TCODColor* the_fg_color = &(TCODColor)(TCODColor::white);
+
+            // cout << the_fg_color << endl << the_bg_color << endl;
 
             if (l_map->isInFov(x, y))
             {
@@ -339,25 +341,25 @@ int Map::draw(Game *theGame)
                     char the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
                     TCODConsole::root->putChar(x, y, the_char);
-                    TCODConsole::root->setCharForeground(x, y, the_fg_color);
+                    TCODConsole::root->setCharForeground(x, y, *the_fg_color);
                 }
                 else
                 {
                     char the_char = the_tile->tile->representation->repr;
 
-                    TCODColor tile_temp_col = the_tile->tile->representation->temp_bg_color;
-                    TCODColor tile_orig_col = the_tile->tile->representation->bg_color;
+                    TCODColor* tile_temp_col = the_tile->tile->representation->temp_bg_color;
+                    TCODColor* tile_orig_col = the_tile->tile->representation->bg_color;
 
                     TCODConsole::root->putChar(x, y, the_char );
                     if ( tile_temp_col != tile_orig_col) {
                         the_fg_color = tile_temp_col;
                         the_tile->tile->representation->temp_bg_color = tile_orig_col;
-                        TCODConsole::root->setCharBackground(x, y, the_fg_color);
+                        TCODConsole::root->setCharBackground(x, y, *the_bg_color);
                     }
                     else {
                         the_fg_color = the_tile->tile->representation->fg_color;
-                        TCODConsole::root->setCharForeground(x, y, the_fg_color);
-                        TCODConsole::root->setCharBackground(x, y, the_bg_color);
+                        TCODConsole::root->setCharForeground(x, y, *the_fg_color);
+                        TCODConsole::root->setCharBackground(x, y, *the_bg_color);
                     }
                     if (the_tile->check_for_items())
                     {
@@ -379,8 +381,8 @@ int Map::draw(Game *theGame)
                 {
                     char the_char = the_tile->tile->representation->repr;
                     TCODConsole::root->putChar(x, y, the_char);
-                    TCODConsole::root->setCharBackground(x, y, the_tile->tile->representation->bg_color * TCODColor::darkGrey);
-                    TCODConsole::root->setCharForeground(x, y, the_tile->tile->representation->fg_color * TCODColor::darkGrey);
+                    TCODConsole::root->setCharBackground(x, y, *(the_tile->tile->representation->bg_color) * TCODColor::darkGrey);
+                    TCODConsole::root->setCharForeground(x, y, *(the_tile->tile->representation->fg_color) * TCODColor::darkGrey);
                 }
                 else {
                     TCODConsole::root->setCharBackground(x, y, TCODColor::black);

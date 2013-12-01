@@ -3,7 +3,7 @@
 
 class Actor;
 class Person;
-class Pet;
+class Combat;
 class Person;
 class Item;
 class Inventory;

@@ -3,7 +3,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "stdafx.h"
 // #include "input.h"
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
@@ -12,7 +11,7 @@
 class Map;
 class Tile;
 class Person;
-class Pet;
+class Combat;
 class Actor;
 class Item;
 
@@ -62,7 +61,7 @@ class Game
         void  initialize_enemies();
         void  Game::initialize_items();
 
-        Person * create_person(std::string name, int age, int x, int y, char repr, std::string pet_name = "");
+        Person * create_person(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
 
 
         void mainloop();

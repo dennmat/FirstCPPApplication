@@ -1,11 +1,14 @@
 #ifndef REPRESENTATION_H
 #define REPRESENTATION_H
 
-#include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
+// #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
+
 
 #include "Object.h"
 
 class Object;
+
+class TCODColor;
 
 class Representation : public Object
 {
@@ -13,25 +16,15 @@ class Representation : public Object
         char repr;
 
         //temp fg_color for highlighting etc
-        TCODColor fg_color;
-        TCODColor temp_fg_color;
-        TCODColor orig_fg_color;
+         TCODColor* fg_color;
+         TCODColor* temp_fg_color;
+         TCODColor* orig_fg_color;
+                    
+         TCODColor* bg_color;
+         TCODColor* temp_bg_color;
+         TCODColor* orig_bg_color;
 
-        TCODColor bg_color;
-        TCODColor temp_bg_color;
-        TCODColor orig_bg_color;
-
-        Representation(){
-            repr = '/';
-
-            fg_color = TCODColor::white;
-            temp_fg_color = TCODColor::white;
-            orig_fg_color = TCODColor::white;
-
-            bg_color = TCODColor::black;
-            temp_bg_color = TCODColor::white;
-            orig_bg_color = TCODColor::black;
-        };
+        Representation();
 
 };
 
@@ -39,10 +32,7 @@ class Representation : public Object
 class DeadRepresentation : public Representation
 {
     public:
-        DeadRepresentation(): Representation(){
-            repr = 'X';
-            fg_color = TCODColor::black;
-        };
+        DeadRepresentation();
 };
 
 // class FloorRepresentation : public Representation
@@ -56,67 +46,41 @@ class DeadRepresentation : public Representation
 class BaseRepresentation : public Representation
 {
     public:
-        BaseRepresentation() : Representation()
-        {
-            repr='b';
-            fg_color = TCODColor::white;
-            bg_color = TCODColor::grey;
-        };
+        BaseRepresentation();
 
 };
 
 class BaseItemRepresentation : public Representation
 {
     public:
-        BaseItemRepresentation() : Representation()
-        {
-            repr='?';
-            fg_color = TCODColor::white;
-            bg_color = TCODColor::grey;
-        };
+        BaseItemRepresentation() ;
 
 };
 
 class WarpRepresentation : public Representation
 {
     public:
-        WarpRepresentation() : Representation()
-    {
-        repr = 'w';
-        fg_color = TCODColor::sepia;
-    };
+        WarpRepresentation();
 
 };
 
 class WallRepresentation : public Representation
 {
     public:
-        WallRepresentation(): Representation()
-    {
-        repr = '#';
-        fg_color = TCODColor::sepia ;
-    };
+        WallRepresentation();
 
 };
 
 class DoorRepresentation : public Representation
 {
     public:
-        DoorRepresentation(): Representation()
-    {
-        repr = '+';
-        fg_color = TCODColor::darkerSepia;
-    };
+        DoorRepresentation();
 
 };
 class FloorRepresentation : public Representation
 {
     public:
-        FloorRepresentation(): Representation()
-    {
-        repr = '.';
-        fg_color = TCODColor::lighterSepia;
-    };
+        FloorRepresentation();
 
 };
 #endif
