@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include <iostream>
+
 #include "equipment.h"
 #include "item.h"
 #include "actor.h"
@@ -25,8 +27,13 @@ void Slot::AddToSlot(Item* item)
     if (this->HasRoomFor(item))
     {
         //add item to slot
+        std::cout << "added item to slot" << std::endl;
         this->equipped_item = item;
 
+    }
+    else
+    {
+        std::cout << "DID NOT HAVE ROOM to  item to slot" << std::endl;
     };
 
 };
@@ -35,7 +42,7 @@ void Slot::RemoveFromSlot()
 {
     this->remove_item_effect();
     this->equipped_item = NULL;
-    
+
 };
 
 Actor* Slot::get_master()
@@ -80,7 +87,6 @@ void Slot::apply_item_effect()
         this->equipped_item->item_effect->ApplyManaEffects(master);
         this->equipped_item->item_effect->ApplyArmorEffects(master);
         this->equipped_item->item_effect->ApplyDamageEffects(master);
-
     }
 
     //TODO TODO TODO
