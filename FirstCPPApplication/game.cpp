@@ -185,7 +185,7 @@ void Game::mainloop()
 
     bool battle_done = false;
     bool incr_turn  = false;
-    turn_count = 0;
+    turn_count = 1;
 
     fps_limit = 60;
 
@@ -200,7 +200,10 @@ void Game::mainloop()
     //draw libtcon to screen
     TCODConsole::flush();
 
+    this->tick_count = 1;
+    bool tick_printed = true;
     while ( !TCODConsole::isWindowClosed() ) {
+
         if (incr_turn)
         {
             turn_count++;
@@ -226,6 +229,8 @@ void Game::mainloop()
             update();
         }
 
+        update_ui();
+
         //draw the map to libtconsole
         current_map->draw(this);
 
@@ -235,6 +240,8 @@ void Game::mainloop()
         //draw libtcon to screen
         TCODConsole::flush();
 
+        this->tick_count++;
+        // printf("ticks: %d \r", tick_count);
     }
 
     std::cout << "Hit enter to exit" << std::endl;

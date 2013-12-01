@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <iostream>
 #include "ui.h"
 
 #include "game.h"
@@ -8,9 +9,83 @@
 #include "inventory.h"
 #include "equipment.h"
 
+Ui::Ui()
+{
+    this->turn_checking_against = 1;
+    this->last_turn_noted = 1;
+
+    this->tick_turn_changed = 0;
+
+    this->tick_threshold = 50;
+
+    this->tick_checking_against = this->tick_threshold;
+};
 
 void Ui::update_ui()
 {
+    // if last_turn_noted != turn_checking_aga  nt:
+    //     if tick_count < future_tick_count:
+    //         draw(redish_color)
+    //     else:
+    //         last_turn_noted = game.turn_count
+    //         draw(yellow_color)
+    if (this->turn_checking_against < this->game->turn_count)
+    {
+        //reset the future time
+        this->tick_checking_against = this->game->tick_count+this->tick_threshold;
+        this->turn_checking_against = this->game->turn_count;
+
+    };
+    if (this->last_turn_noted != this->turn_checking_against)
+    {
+        // last_turn_noted = this->game->turn_count;
+        // if (this->game->turn_count - tick_turn_changed > this->tick_threshold)
+        // {
+        //     //TODO make the tick count reset at the right time 
+        // };
+        // if (this->
+
+        //if turn was changed less than 300 ticks ago, make the turn count red
+        if (this->game->tick_count < this->tick_checking_against)
+        {
+
+            unsigned long long int difference = this->tick_checking_against - this->game->tick_count ;
+            if (difference != 0)
+            {
+                if (difference > this->tick_threshold)
+                {
+                    std::cout << "difference greater than 150" << std::endl;
+                    this->last_turn_noted = this->game->turn_count;
+                    this->tick_turn_changed = this->game->tick_count;
+
+                };
+                std::cout << "difference doesnt == 0: " ;
+                std::cout << difference << std::endl;
+                float coef = (float)difference / (float)(this->tick_threshold);
+                std::cout << coef << std::endl;
+                TCODColor myColor = TCODColor::lerp ( TCODColor::white, TCODColor::red, coef );
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, myColor,TCODColor::black);
+            }
+            else
+            {
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::yellow,TCODColor::black);
+
+            };
+        }
+        //otherwise make it yellow because enough time has passed and reset the
+        //the counters to update that we're finally in the new time
+        else
+        {
+            // if (this->last_turn_noted != this->game->turn_count)
+            // {
+            //     this->last_turn_noted = this->game->turn_count;
+            //     // this->tick_turn_changed = this->game->tick_count+this->tick_threshold;
+            // };
+            std::cout << "else yellow" << std::endl;
+
+            TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor::yellow,TCODColor::black);
+        };
+    }
 }
 
 void Ui::draw_ui()
@@ -32,7 +107,7 @@ void Ui::draw_ui_sidebar()
 
 
     //draw the message text
-    ui_sidebar_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
+    ui_sidebar_con->print(0, 0, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->game->turn_count, TCOD_COLCTRL_STOP);
 
     //player stats
     ui_sidebar_con->print(0, 2, "PLAYER NAME %s", this->game->player->GetNameC());

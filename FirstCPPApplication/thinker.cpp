@@ -4,8 +4,8 @@
 #include <iostream>
 #include <algorithm>
 
-#include "map.h"
 #include "libtcod.hpp"
+#include "map.h"
 #include "Person.h"
 #include "game.h"
 #include "Representation.h"

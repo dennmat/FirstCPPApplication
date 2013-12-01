@@ -36,7 +36,8 @@ class Game
         int screen_w;
         int screen_h;
 
-        long int turn_count;
+        unsigned long int turn_count;
+        unsigned long long int tick_count;
 
         int fps_limit; //how many frames do you want to refresh at a second
 
