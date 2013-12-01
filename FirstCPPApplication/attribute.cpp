@@ -53,10 +53,6 @@ void Attribute::AddToCurrentVal(int difference)
     {
 
         this->current_val += difference;
-        // if (this->current_val > this->max_val && !force_change) 
-        // {
-        //     this->current_val = this->max_val;
-        // };
     };
 
 };
@@ -66,10 +62,6 @@ void Attribute::AddToMaxVal(int difference)
     if (difference != 0)
     {
         this->max_val += difference;
-        // if (this->max_val < 0 && !force_change) 
-        // {
-        //     this->current_val += difference;
-        // };
     };
 
 };
@@ -79,10 +71,6 @@ void Attribute::AddToRegenRate(int difference)
     if (difference != 0)
     {
         this->regen_rate += difference;
-        // if (this->max_val < 0 && !force_change) 
-        // {
-        //     this->current_val += difference;
-        // };
     };
 
 };
@@ -92,10 +80,43 @@ void Attribute::AddToRegenInterval(int difference)
     if (difference != 0)
     {
         this->regen_interval += difference;
-        // if (this->max_val < 0 && !force_change) 
-        // {
-        //     this->current_val += difference;
-        // };
+    };
+
+};
+
+void Attribute::RemoveFromCurrentVal(int difference)
+{
+    if (difference != 0)
+    {
+
+        this->current_val -= difference;
+    };
+
+};
+
+void Attribute::RemoveFromMaxVal(int difference)
+{
+    if (difference != 0)
+    {
+        this->max_val -= difference;
+    };
+
+};
+
+void Attribute::RemoveFromRegenRate(int difference)
+{
+    if (difference != 0)
+    {
+        this->regen_rate -= difference;
+    };
+
+};
+
+void Attribute::RemoveFromRegenInterval(int difference)
+{
+    if (difference != 0)
+    {
+        this->regen_interval -= difference;
     };
 
 };

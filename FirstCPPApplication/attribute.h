@@ -34,6 +34,11 @@ class Attribute
         virtual void AddToRegenRate(int difference);
         virtual void AddToRegenInterval(int difference);
 
+        virtual void RemoveFromCurrentVal(int difference);
+        virtual void RemoveFromMaxVal(int difference);
+        virtual void RemoveFromRegenRate(int difference);
+        virtual void RemoveFromRegenInterval(int difference);
+
 };
 
 class HealthAttribute : public Attribute

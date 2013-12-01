@@ -3,11 +3,13 @@
 #include "equipment.h"
 #include "item.h"
 #include "actor.h"
+#include "item_effect.h"
 
 Slot::Slot(slots_t type, Equipment* equipment)
 {
     this->type = type;
     this->equipment = equipment;
+    this->equipped_item = NULL;
 
 };
 
@@ -29,6 +31,13 @@ void Slot::AddToSlot(Item* item)
 
 };
 
+void Slot::RemoveFromSlot()
+{
+    this->remove_item_effect();
+    this->equipped_item = NULL;
+    
+};
+
 Actor* Slot::get_master()
 {
     if (this->equipment->master != NULL)
@@ -41,22 +50,42 @@ Actor* Slot::get_master()
     };
 };
 
+void Slot::remove_item_effect()
+{
+    //find equipment master
+    Actor* master = this->get_master();
+    //check if attributes
+    if (master != NULL && master->has_attributes(), this->equipped_item != NULL)
+    {
+        //apply appropriate health mana damage armor changes
+        this->equipped_item->item_effect->RemoveHealthEffects(master);
+        this->equipped_item->item_effect->RemoveManaEffects(master);
+        this->equipped_item->item_effect->RemoveArmorEffects(master);
+        this->equipped_item->item_effect->RemoveDamageEffects(master);
+
+    }
+
+};
+
 void Slot::apply_item_effect()
 {
 
     //find equipment master
     Actor* master = this->get_master();
     //check if attributes
-    if (master != NULL && master->has_attributes())
+    if (master != NULL && master->has_attributes(), this->equipped_item != NULL)
     {
+        //apply appropriate health mana damage armor changes
+        this->equipped_item->item_effect->ApplyHealthEffects(master);
+        this->equipped_item->item_effect->ApplyManaEffects(master);
+        this->equipped_item->item_effect->ApplyArmorEffects(master);
+        this->equipped_item->item_effect->ApplyDamageEffects(master);
 
     }
 
-    //apply appropriate health mana damage armor changes
-    //
     //TODO TODO TODO
     //add equipment update to main loop
-    
+
 };
 
 Item* Slot::GetEquippedItem()
