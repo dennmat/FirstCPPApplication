@@ -38,7 +38,7 @@ void Ui::update_ui()
         {
 
             unsigned long long int difference = this->tick_checking_against - this->game->tick_count ;
-            if (difference != 0)
+            if (difference >= 0)
             {
                 if (difference > this->tick_threshold)
                 {
@@ -47,23 +47,20 @@ void Ui::update_ui()
                     this->tick_turn_changed = this->game->tick_count;
 
                 };
-                // std::cout << "difference doesnt == 0: " ;
-                // std::cout << difference << std::endl;
                 float coef = (float)difference / (float)(this->tick_threshold);
-                // std::cout << coef << std::endl;
                 TCODColor myColor = TCODColor::lerp ( TCODColor::white, TCODColor::red, coef );
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, myColor,TCODColor::black);
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, myColor, TCODColor::black);
             }
             else
             {
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white,TCODColor::black);
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
             };
         }
         //otherwise make it yellow because enough time has passed and reset the
         //the counters to update that we're finally in the new time
         else
         {
-            TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor::white,TCODColor::black);
+            TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
         };
     }
 }
