@@ -335,7 +335,8 @@ int Map::draw(Game *theGame)
                     //check for item first, so it'll get drawn over by actors
                     if (the_tile->check_for_items())
                     {
-                        TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
+                        // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
+                        the_char = the_tile->inventory->items->back()->repr->repr;
                     };
                     theGame->player->ActorInSight(x, y, the_tile->occupant);
 
@@ -363,7 +364,9 @@ int Map::draw(Game *theGame)
                     }
                     if (the_tile->check_for_items())
                     {
-                        TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
+                        // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
+                        the_char = the_tile->inventory->items->back()->repr->repr;
+                        
 
                     };
                 };
