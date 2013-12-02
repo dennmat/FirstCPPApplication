@@ -320,14 +320,14 @@ int Map::draw(Game *theGame)
             Tile * the_tile = getTileAt(x, y);
             TCODColor* the_bg_color = &(TCODColor)(TCODColor::black);
             TCODColor* the_fg_color = &(TCODColor)(TCODColor::white);
+            char the_char;
 
+            // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
             if (l_map->isInFov(x, y))
             {
-
                 the_tile->setKnown(true);
-
 
                 if(the_tile->is_occupied())
                 {
@@ -338,28 +338,27 @@ int Map::draw(Game *theGame)
                     };
                     theGame->player->ActorInSight(x, y, the_tile->occupant);
 
-                    char the_char = the_tile->occupant->representation->repr;
+                    the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
-                    TCODConsole::root->putChar(x, y, the_char);
-                    TCODConsole::root->setCharForeground(x, y, *the_fg_color);
                 }
+                //tile is not occupied
                 else
                 {
-                    char the_char = the_tile->tile->representation->repr;
+                    the_char = the_tile->tile->representation->repr;
 
                     TCODColor* tile_temp_col = the_tile->tile->representation->temp_bg_color;
                     TCODColor* tile_orig_col = the_tile->tile->representation->bg_color;
 
                     TCODConsole::root->putChar(x, y, the_char );
+                    //if the temp colour isnt the original color
                     if ( tile_temp_col != tile_orig_col) {
-                        the_fg_color = tile_temp_col;
+                        the_bg_color = tile_temp_col;
                         the_tile->tile->representation->temp_bg_color = tile_orig_col;
-                        TCODConsole::root->setCharBackground(x, y, *the_bg_color);
                     }
-                    else {
+                    //if the two colors are the same
+                    else 
+                    {
                         the_fg_color = the_tile->tile->representation->fg_color;
-                        TCODConsole::root->setCharForeground(x, y, *the_fg_color);
-                        TCODConsole::root->setCharBackground(x, y, *the_bg_color);
                     }
                     if (the_tile->check_for_items())
                     {
@@ -368,13 +367,19 @@ int Map::draw(Game *theGame)
                     };
                 };
 
-                if (l_map->isTransparent(x, y) == true) {
+                if (l_map->isTransparent(x, y) == true) 
+                {
                 }
-                else {
+                else
+                {
                 };
+                TCODConsole::root->putChar(x, y, the_char);
+                TCODConsole::root->setCharForeground(x, y, *the_fg_color);
+                TCODConsole::root->setCharBackground(x, y, *the_bg_color);
 
 
             }
+            //tile isn't in FOV
             else {
 
                 if (the_tile->is_known() == true)
@@ -395,6 +400,8 @@ int Map::draw(Game *theGame)
             {
                 //         TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
             }
+            // cout << "final white and black" << endl;
+            // cout << the_fg_color << endl << the_bg_color << endl << endl;
         }
     }
 
