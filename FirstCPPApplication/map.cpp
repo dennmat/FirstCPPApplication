@@ -96,9 +96,10 @@ int Map::build_from_random(int seed)
 
     while ( i < width*height )
     {
-        getTileAt(x, y)->map = this;
-        getTileAt(x, y)->updateTileType(3);
-        if(getTileAt(x, y)->tiletype == 3)
+        Tile* this_tile = getTileAt(x, y);
+        this_tile->map = this;
+        this_tile->updateTileType(3);
+        if(this_tile->tiletype == 3)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
@@ -133,12 +134,12 @@ int Map::build_from_random(int seed)
         // else
         // {
         // getline (myfile,line);
-        getTileAt(x, y)->tile->description = "another desc";
+        this_tile->tile->description = "another desc";
         // tileVector[y][x].tile->description = line;
         // }
 
-        getTileAt(x, y)->tile_x = x;
-        getTileAt(x, y)->tile_y = y;
+        this_tile->tile_x = x;
+        this_tile->tile_y = y;
 
         // printf("x: %i, y: %i\n", x, y);
         if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
@@ -373,6 +374,7 @@ int Map::draw(Game *theGame)
                 else
                 {
                 };
+
                 TCODConsole::root->putChar(x, y, the_char);
                 TCODConsole::root->setCharForeground(x, y, *the_fg_color);
                 TCODConsole::root->setCharBackground(x, y, *the_bg_color);

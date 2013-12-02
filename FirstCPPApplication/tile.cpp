@@ -213,11 +213,32 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
     return adjacent_tiles;
 };
 
-BaseTileType::BaseTileType() { representation = new BaseRepresentation; };
-WarpTileType::WarpTileType() : BaseTileType() { representation = new WarpRepresentation; };
-WallTileType::WallTileType() : BaseTileType() { representation = new WallRepresentation; };
-DoorTileType::DoorTileType()  : BaseTileType() { tiletype; representation = new DoorRepresentation; }
-FloorTileType::FloorTileType() : BaseTileType() { tiletype; representation = new FloorRepresentation; }
+BaseTileType::BaseTileType() 
+{
+    tiletype = 0;
+    representation = new BaseRepresentation; 
+};
 
+WarpTileType::WarpTileType() : BaseTileType() 
+{
+    tiletype = 2;
+    representation = new WarpRepresentation; 
+};
 
+WallTileType::WallTileType() : BaseTileType() 
+{
+    tiletype = 1;
+    representation = new WallRepresentation;
+};
 
+DoorTileType::DoorTileType()  : BaseTileType() 
+{
+    tiletype = 4;
+    representation = new DoorRepresentation; 
+};
+
+FloorTileType::FloorTileType() : BaseTileType() 
+{
+    tiletype = 3;
+    representation = new FloorRepresentation; 
+};

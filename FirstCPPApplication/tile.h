@@ -32,9 +32,8 @@ class BaseTileType //all tile types must inherit this
         bool collidable;
         Representation * representation;    // the character that represents this tile
         std::string description;      // the description of the tile
-        static int tiletype;
+        int tiletype;
         TCODColor* color;
-
 
         BaseTileType() ;
 
@@ -48,7 +47,6 @@ class WarpTileType : public BaseTileType
         int warpX, warpY;       // where you warp to in the destination map
 
         WarpTileType();
-    ;
 };
 
 
