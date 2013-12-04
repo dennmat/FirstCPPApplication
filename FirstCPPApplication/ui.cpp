@@ -8,6 +8,8 @@
 #include "inventory.h"
 #include "equipment.h"
 #include "combat.h"
+#include "attribute_container.h"
+#include "attribute.h"
 
 Ui::Ui()
 {
@@ -86,7 +88,7 @@ void Ui::draw_ui_sidebar()
 
     //player stats
     ui_sidebar_con->print(0, 2, "PLAYER NAME %s", this->game->player->GetNameC());
-    ui_sidebar_con->print(0, 3, "PLAYER HP %d", this->game->player->combat->cur_hp);
+    ui_sidebar_con->print(0, 3, "PLAYER HP %d", this->game->player->attrs->health->current_val);
 
     //mouse stats
     ui_sidebar_con->print(0, 5, "MOUSE X Y" );

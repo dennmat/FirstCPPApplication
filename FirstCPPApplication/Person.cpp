@@ -10,6 +10,8 @@
 #include "equipment.h"
 #include "Representation.h"
 #include "tile.h"	
+#include "attribute.h"
+#include "attribute_container.h"
 #include "combat.h"
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name){
@@ -30,8 +32,8 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     is_fighter = true;
 
-    combat = new Combat;
-    combat->assign_to_master(this);
+    combat = new Combat("temp name", 50, this, 't' );
+    //combat->assign_to_master(this);
     has_live_combat = true;
 
     my_tile = NULL;
@@ -60,7 +62,7 @@ Person::Person()
 
     is_fighter = true;
 
-    combat = new Combat;
+    combat = new Combat("temp2 name", 25, this, 't');
     combat->assign_to_master(this);
     has_live_combat = true;
 

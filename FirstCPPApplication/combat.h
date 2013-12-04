@@ -15,8 +15,6 @@ class Combat
         std::string default_name;
     public:
         // std::string name;
-        int max_hp;
-        int cur_hp;
         Person* master;
         char representation;
 
@@ -24,8 +22,8 @@ class Combat
         bool was_attacked;
         std::vector<Combat*> * attackers;
 
-        Combat (std::string name, int max_hp, char representation = 'p');
-        Combat::Combat();
+        Combat (std::string name, int max_hp, Person* master, char representation = 'p' );
+        //Combat::Combat();
         // Combat::Init();
         void Combat::Attack(Combat* Combat_target, int dmg);
         void Combat::TakeDamage(Combat* Combat_attacker, int dmg);

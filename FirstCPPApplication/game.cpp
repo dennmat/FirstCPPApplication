@@ -23,6 +23,8 @@
 #include "tile.h"	
 #include "combat.h"
 #include "ui.h"
+#include "attribute_container.h"
+#include "attribute.h"
 
 
 
@@ -239,6 +241,9 @@ void Game::mainloop()
 
         //draw libtcon to screen
         TCODConsole::flush();
+
+        cout << player->attrs->health->current_val << endl;
+        //cout << player->combat->cur_hp << endl;
 
         this->tick_count++;
         // printf("ticks: %d \r", tick_count);

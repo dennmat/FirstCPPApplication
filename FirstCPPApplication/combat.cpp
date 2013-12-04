@@ -18,28 +18,30 @@ void Combat::printout(){
 
     cout << "\nCombat PRINTOUT" << endl;
     //cout << "NAME: " << name << endl;
-    cout << "MAX HP: " << max_hp << endl;
+    cout << "MAX HP: " << this->master->attrs->health->max_val << endl;
 
 };
 
-Combat::Combat(){
-    default_name = "Nameless Combat";
-    //name = default_name;
-
-    representation = 'p';
-
-    master = NULL;
-    is_dead = false;
-    was_attacked = false;
-
-    attackers = new std::vector<Combat*>;
-};
+//Combat::Combat(){
+//    default_name = "Nameless Combat";
+//    //name = default_name;
+//
+//    representation = 'p';
+//
+//    max_hp = NULL;
+//    cur_hp = NULL;
+//    master = NULL;
+//    is_dead = false;
+//    was_attacked = false;
+//
+//    attackers = new std::vector<Combat*>;
+//};
 
 void Combat::assign_to_master(Person* master)
 {
     this->master = master;
-    this->max_hp = this->master->attrs->health->max_val;
-    this->cur_hp = this->master->attrs->health->current_val;
+    // this->max_hp = (this->master->attrs->health->max_val);
+    // this->cur_hp = (this->master->attrs->health->current_val);
 
     //if (name == default_name)
     //{
@@ -54,15 +56,17 @@ void Combat::assign_to_master(Person* master)
     //};
 };
 
-Combat::Combat(string name, int max_hp, char representation ){
-    //name = name;
-    cur_hp = max_hp;
-    max_hp = max_hp;
+Combat::Combat(string name, int max_hp, Person* master, char representation)
+{
+   //name = name;
 
-    representation = representation;
+   // this->cur_hp = max_hp;
+   // this->max_hp = max_hp;
 
-    master = NULL;
-    is_dead = false;
+   representation = representation;
+
+   master = NULL;
+   is_dead = false;
 
 };
 
@@ -121,8 +125,8 @@ Combat* Combat::GetLastAttacker()
 void Combat::TakeDamage(Combat* Combat_attacker, int dmg){
 
     printf("About to take %d damage! ", dmg);
-    printf("with %d hp.\n", cur_hp);
-    cur_hp-=dmg;
+    printf("with %d hp.\n", this->master->attrs->health->current_val);
+    (this->master->attrs->health->current_val)-=dmg;
     //cout << name << " at " << cur_hp << " health left!" << endl << endl;
 
     //save attacker in history
@@ -146,7 +150,7 @@ void Combat::TakeDamage(Combat* Combat_attacker, int dmg){
 };
 
 bool Combat::CheckDeath(){
-    if (cur_hp <= 0  && !is_dead)
+    if (&this->master->attrs->health->current_val <= 0  && !is_dead)
     {
         is_dead = true;
     }
