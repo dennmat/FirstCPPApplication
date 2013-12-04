@@ -66,6 +66,7 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
 
+    new_pers->representation->fg_color = &(TCODColor)(TCODColor::darkGreen);
     //if ( !Combat_name.empty() )
     //{
     //    new_pers->Combat->name = Combat_name;
@@ -105,16 +106,15 @@ void  Game::initialize_enemies(){
 
 };
 
-Person*  Game::initialize_player(){
+Person*  Game::initialize_player()
+{
 
-    player = new Person( "Josh", 23, 3, 3, '@', "");
+    player = new Person("Josh", 23, 3, 3, '@', "PLAYER ONE");
     player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     delete player->thinker;
     player->thinker = NULL;
 
-    vector<vector<Tile>> * poop = this->current_map->tileVector;
-    Tile * next_tile = &(*poop)[player->x][player->y];
-    //Tile * next_tile = &current_map->tileArray[player->x + (player->y*current_map->width)];
+    Tile* next_tile = this->current_map->getTileAt(player->x, player->y);
     player->putPerson(next_tile, player->x, player->y);
 
     return player;

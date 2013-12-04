@@ -33,7 +33,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     is_fighter = true;
 
     combat = new Combat("temp name", 50, this, 't' );
-    //combat->assign_to_master(this);
+    combat->assign_to_master(this);
     has_live_combat = true;
 
     my_tile = NULL;

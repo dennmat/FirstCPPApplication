@@ -68,6 +68,9 @@ Combat::Combat(string name, int max_hp, Person* master, char representation)
    master = NULL;
    is_dead = false;
 
+   attackers = new std::vector<Combat*>;
+   was_attacked = false;
+
 };
 
 void Combat::update(Game* game)
