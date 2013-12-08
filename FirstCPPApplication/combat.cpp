@@ -133,9 +133,9 @@ void Combat::TakeDamage(Combat* Combat_attacker, int dmg){
     //cout << name << " at " << cur_hp << " health left!" << endl << endl;
 
     //save attacker in history
-    RememberAttacker(Combat_attacker);
+    this->RememberAttacker(Combat_attacker);
 
-    if (CheckDeath()){
+    if (this->CheckDeath()){
         printf("I've died!\n");
         //make position unblocked
         if (master != NULL)
@@ -153,7 +153,7 @@ void Combat::TakeDamage(Combat* Combat_attacker, int dmg){
 };
 
 bool Combat::CheckDeath(){
-    if (&this->master->attrs->health->current_val <= 0  && !is_dead)
+    if (this->master->attrs->health->current_val <= 0  && !is_dead)
     {
         is_dead = true;
     }

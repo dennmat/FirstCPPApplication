@@ -242,7 +242,7 @@ void Game::mainloop()
         //draw libtcon to screen
         TCODConsole::flush();
 
-        cout << player->attrs->health->current_val << endl;
+        // cout << player->attrs->health->current_val << endl;
         //cout << player->combat->cur_hp << endl;
 
         this->tick_count++;
