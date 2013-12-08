@@ -39,6 +39,7 @@ class Representation : public Object
         Representation();
         TCODColor* createColorFromRGB(int r, int g, int b);
         void getRGBFromColor(int& r, int& g, int& b, TCODColor color);
+        void setFGColor(TCODColor color, bool set_fg, bool set_temp, bool set_orig);
 
 };
 

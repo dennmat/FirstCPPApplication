@@ -66,7 +66,8 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
 
-    new_pers->representation->fg_color = &(TCODColor)(TCODColor::darkGreen);
+    // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
+    new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
     //if ( !Combat_name.empty() )
     //{
     //    new_pers->Combat->name = Combat_name;
@@ -110,7 +111,8 @@ Person*  Game::initialize_player()
 {
 
     player = new Person("Josh", 23, 3, 3, '@', "PLAYER ONE");
-    player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
+    // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
+    player->representation->setFGColor(TCODColor::celadon, true, true, true);
     delete player->thinker;
     player->thinker = NULL;
 

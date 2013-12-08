@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Representation.h"
 
+#include <iostream>
+
 #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
 void Representation::getRGBFromColor(int& r, int& g, int& b, TCODColor color)
@@ -14,6 +16,26 @@ TCODColor* Representation::createColorFromRGB(int r, int g, int b)
 {
     TCODColor* myColor = new TCODColor(r, g, b);
     return myColor;
+
+};
+
+void Representation::setFGColor(TCODColor color, bool set_fg, bool set_temp, bool set_orig)
+{
+    int r,b,g;
+    this->getRGBFromColor(r, g, b, color);
+    if (set_fg)
+    {
+        this->fg_color = this->createColorFromRGB(r, g, b);
+    };
+    if (set_temp)
+    {
+        this->temp_fg_color = this->createColorFromRGB(r, g, b);
+    };
+    if (set_orig)
+    {
+        this->orig_fg_color = this->createColorFromRGB(r, g, b);
+    };
+    std::cout << "rbg: " << r << g << b << std::endl;
 
 };
 
