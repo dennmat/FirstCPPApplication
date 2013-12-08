@@ -2,7 +2,6 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-
 #include <Windows.h>
 
 #include "libtcod.hpp"
@@ -27,9 +26,6 @@
 #include "attribute.h"
 #include "enemies\troll.h"
 #include "enemies\skeleton.h"
-
-
-
 
 void Game:: buildworld()
 {
@@ -140,8 +136,9 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(this->create_person("first", 99, 20, 2, 'a', "First Person"));
+    enemies.push_back(this->create_person("first", 99, 20, 2, 'p', "First Person"));
     enemies.push_back(this->create_troll("second", 66, 4, 9, 'T', "Second, Troll"));
+    enemies.push_back(this->create_skeleton("third", 33, 14, 9, 's', "Third, Skeleton"));
 
 };
 
