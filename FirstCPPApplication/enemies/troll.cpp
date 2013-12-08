@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "libtcod.hpp"
+
 #include "Person.h"
 #include "thinker.h"
 #include "inventory.h"
@@ -25,6 +27,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr, std::string com
     Representation * new_repr =   new Representation;
     this->representation = new_repr;
     this->representation->repr = repr;
+    this->representation->setFGColor(TCODColor::darkGreen, true, true, true);
 
     Inventory* inventory =   new Inventory;
     this->inventory = inventory;

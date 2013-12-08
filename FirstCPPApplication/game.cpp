@@ -60,17 +60,9 @@ void Game:: buildworld()
 Person * Game::create_person(string name, int age, int x, int y, char repr, 
         string Combat_name)
 {
-
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
-
-    // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
-    new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
-    //if ( !Combat_name.empty() )
-    //{
-    //    new_pers->Combat->name = Combat_name;
-    //};
-
+    new_pers->representation->setFGColor(TCODColor::lighterFlame, true, true, true);
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);
@@ -105,8 +97,7 @@ Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr,
     //build the Person
     Skeleton * new_pers = new Skeleton(name, age, x, y, repr, Combat_name);
 
-    // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
-    new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
+    new_pers->representation->setFGColor(TCODColor::white, true, true, true);
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);

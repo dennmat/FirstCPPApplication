@@ -5,6 +5,8 @@
 
 #include "Person.h"
 
+#include "libtcod.hpp"
+
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"
@@ -25,6 +27,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     Representation * new_repr =   new Representation;
     this->representation = new_repr;
     this->representation->repr = repr;
+    this->representation->setFGColor(TCODColor::lighterFlame, true, true, true);
 
     Inventory* inventory =   new Inventory;
     this->inventory = inventory;
