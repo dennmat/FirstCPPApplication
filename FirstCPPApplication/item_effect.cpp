@@ -39,46 +39,75 @@ bool ItemEffect::already_applied(Actor* actor)
     //it again
     auto it = std::find(this->applied_to->begin(), this->applied_to->end(), actor);
 
-    return  it == this->applied_to->end();
+    return  it != this->applied_to->end();
 
     // The thing is that I need to sort out how to apply the item's effects to
     // the actor once, because if it gets reapplied they might be invincible or
     // gaining way too much health for ever.
     //TODO TODO TODO
 
+};
 
+void ItemEffect::mark_applied_to(Actor* actor)
+{
+    auto it = std::find(this->applied_to->begin(), this->applied_to->end(), actor);
+
+    if ( it != this->applied_to->end() )
+    {
+        //do nothing because it already exists in the vector
+    }
+    else
+    {
+        this->applied_to->push_back(actor);
+    };
 };
 
 void ItemEffect::ApplyHealthEffects(Actor* actor)
 {
-    actor->attrs->health->AddToCurrentVal(this->health_current_val);
-    actor->attrs->health->AddToMaxVal(this->health_max_val);
-    actor->attrs->health->AddToRegenRate(this->health_regen_rate);
-    actor->attrs->health->AddToRegenInterval(this->health_regen_interval);
+    if (! this->already_applied(actor))
+    {
+        actor->attrs->health->AddToCurrentVal(this->health_current_val);
+        actor->attrs->health->AddToMaxVal(this->health_max_val);
+        actor->attrs->health->AddToRegenRate(this->health_regen_rate);
+        actor->attrs->health->AddToRegenInterval(this->health_regen_interval);
+        this->mark_applied_to(actor);
+    }
 };
 
 void ItemEffect::ApplyManaEffects(Actor* actor)
 {
-    actor->attrs->mana->AddToCurrentVal(this->mana_current_val);
-    actor->attrs->mana->AddToMaxVal(this->mana_max_val);
-    actor->attrs->mana->AddToRegenRate(this->mana_regen_rate);
-    actor->attrs->mana->AddToRegenInterval(this->mana_regen_interval);
+    if (! this->already_applied(actor))
+    {
+        actor->attrs->mana->AddToCurrentVal(this->mana_current_val);
+        actor->attrs->mana->AddToMaxVal(this->mana_max_val);
+        actor->attrs->mana->AddToRegenRate(this->mana_regen_rate);
+        actor->attrs->mana->AddToRegenInterval(this->mana_regen_interval);
+        this->mark_applied_to(actor);
+    }
 };
 
 void ItemEffect::ApplyArmorEffects(Actor* actor)
 {
-    actor->attrs->armor->AddToCurrentVal(this->armor_current_val);
-    actor->attrs->armor->AddToMaxVal(this->armor_max_val);
-    actor->attrs->armor->AddToRegenRate(this->armor_regen_rate);
-    actor->attrs->armor->AddToRegenInterval(this->armor_regen_interval);
+    if (! this->already_applied(actor))
+    {
+        actor->attrs->armor->AddToCurrentVal(this->armor_current_val);
+        actor->attrs->armor->AddToMaxVal(this->armor_max_val);
+        actor->attrs->armor->AddToRegenRate(this->armor_regen_rate);
+        actor->attrs->armor->AddToRegenInterval(this->armor_regen_interval);
+        this->mark_applied_to(actor);
+    }
 };
 
 void ItemEffect::ApplyDamageEffects(Actor* actor)
 {
-    actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
-    actor->attrs->damage->AddToMaxVal(this->damage_max_val);
-    actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
-    actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
+    if (! this->already_applied(actor))
+    {
+        actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
+        actor->attrs->damage->AddToMaxVal(this->damage_max_val);
+        actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
+        actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
+        this->mark_applied_to(actor);
+    }
 
 };
 

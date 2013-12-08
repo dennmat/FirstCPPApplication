@@ -51,6 +51,7 @@ class ItemEffect
         void RemoveDamageEffects(Actor* actor);
 
         bool already_applied(Actor* actor);
+        void mark_applied_to(Actor* actor);
 };
 
 #endif

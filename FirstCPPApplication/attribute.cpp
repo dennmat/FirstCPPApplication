@@ -51,7 +51,6 @@ void Attribute::AddToCurrentVal(int difference)
 {
     if (difference != 0)
     {
-
         this->current_val += difference;
     };
 
