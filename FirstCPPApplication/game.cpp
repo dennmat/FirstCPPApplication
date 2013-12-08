@@ -26,6 +26,7 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "enemies\troll.h"
+#include "enemies\skeleton.h"
 
 
 
@@ -92,11 +93,24 @@ Troll * Game::create_troll(string name, int age, int x, int y, char repr,
 
     // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
     new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
-    //if ( !Combat_name.empty() )
-    //{
-    //    new_pers->Combat->name = Combat_name;
-    //};
 
+    //put it on the map somewhere
+    Tile * next_tile = current_map->getTileAt(x,y);
+    new_pers->putPerson(next_tile, x, y);
+
+    return new_pers;
+
+};
+
+Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr, 
+        string Combat_name)
+{
+
+    //build the Person
+    Skeleton * new_pers = new Skeleton(name, age, x, y, repr, Combat_name);
+
+    // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
+    new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);

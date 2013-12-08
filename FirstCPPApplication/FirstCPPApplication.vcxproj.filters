@@ -251,6 +251,9 @@
     <ClInclude Include="enemies\troll.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="enemies\skeleton.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -317,6 +320,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="enemies\troll.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="enemies\skeleton.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>

@@ -14,6 +14,7 @@ class Person;
 class Combat;
 class Actor;
 class Troll;
+class Skeleton;
 class Item;
 
 class Ui;
@@ -64,6 +65,7 @@ class Game
 
         Person * create_person(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
         Troll * create_troll(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+        Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
 
 
         void mainloop();
