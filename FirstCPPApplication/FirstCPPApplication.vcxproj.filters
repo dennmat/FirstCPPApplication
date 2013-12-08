@@ -16,6 +16,12 @@
     <Filter Include="Resource Files\libtcod">
       <UniqueIdentifier>{50707b0a-d39c-4a7d-9c7a-f0fe3ec29b89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{13f1fc9e-787d-4d87-9825-4b87c8ffa04c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{0df4149e-4c28-4fde-b250-5b33d1e4751b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -242,6 +248,9 @@
     <ClInclude Include="slots_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enemies\troll.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -306,6 +315,9 @@
     </ClCompile>
     <ClCompile Include="Representation.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemies\troll.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

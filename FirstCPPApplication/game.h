@@ -13,6 +13,7 @@ class Tile;
 class Person;
 class Combat;
 class Actor;
+class Troll;
 class Item;
 
 class Ui;
@@ -62,6 +63,7 @@ class Game
         void  Game::initialize_items();
 
         Person * create_person(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+        Troll * create_troll(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
 
 
         void mainloop();

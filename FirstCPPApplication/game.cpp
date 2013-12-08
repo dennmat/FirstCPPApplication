@@ -25,6 +25,7 @@
 #include "ui.h"
 #include "attribute_container.h"
 #include "attribute.h"
+#include "enemies\troll.h"
 
 
 
@@ -82,6 +83,29 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 
 };
 
+Troll * Game::create_troll(string name, int age, int x, int y, char repr, 
+        string Combat_name)
+{
+
+    //build the Person
+    Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
+
+    // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
+    new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
+    //if ( !Combat_name.empty() )
+    //{
+    //    new_pers->Combat->name = Combat_name;
+    //};
+
+
+    //put it on the map somewhere
+    Tile * next_tile = current_map->getTileAt(x,y);
+    new_pers->putPerson(next_tile, x, y);
+
+    return new_pers;
+
+};
+
 //creates a bunch of items on the map
 void  Game::initialize_items(){
 
@@ -102,8 +126,8 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's Combat"));
-    enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's Combat"));
+    enemies.push_back(this->create_person("first", 99, 20, 2, 'a', "First Person"));
+    enemies.push_back(this->create_troll("second", 66, 4, 9, 'T', "Second, Troll"));
 
 };
 

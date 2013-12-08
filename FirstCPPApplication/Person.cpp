@@ -14,7 +14,8 @@
 #include "attribute_container.h"
 #include "combat.h"
 
-Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name){
+Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name)
+{
     this->name = name;
     this->age = age;
     this->x = x;
