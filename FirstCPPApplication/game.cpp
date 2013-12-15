@@ -26,11 +26,7 @@
 #include "attribute.h"
 #include "enemies\troll.h"
 #include "enemies\skeleton.h"
-
-enum GameStates {
-    GameplayState,
-    MenuState,
-} ;
+#include "gamestate.h"
 
 void Game:: buildworld()
 {
@@ -272,6 +268,7 @@ void Game::mainloop()
                 //draw the UI
                 draw_ui();
                 break;
+
             case GameStates::MenuState:
                 std::cout << "in menu state" << std::endl;
                 break;

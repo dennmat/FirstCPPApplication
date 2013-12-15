@@ -254,6 +254,9 @@
     <ClInclude Include="enemies\skeleton.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -324,6 +327,9 @@
     </ClCompile>
     <ClCompile Include="enemies\skeleton.cpp">
       <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="gamestate.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

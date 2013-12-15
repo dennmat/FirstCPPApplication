@@ -3,10 +3,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <Vector>
 // #include "input.h"
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
-#include <Vector>
+#include "gamestate.h"
+
 
 class Map;
 class Tile;
@@ -19,7 +21,6 @@ class Item;
 
 class Ui;
 
-extern enum GameStates; 
 
 class Game
 {
