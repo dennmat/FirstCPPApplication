@@ -48,7 +48,7 @@ void Thinker::update(Game* game)
             {
 
                 //if the path destination isn't adj to the player make a new path
-                cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << endl;
+                // cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << endl;
                 delete master->l_path;
                 master->l_path = NULL;
             }

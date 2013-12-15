@@ -27,6 +27,11 @@
 #include "enemies\troll.h"
 #include "enemies\skeleton.h"
 
+enum GameStates {
+    GameplayState,
+    MenuState,
+} ;
+
 void Game:: buildworld()
 {
 
@@ -62,7 +67,6 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
 {
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
-    new_pers->representation->setFGColor(TCODColor::lighterFlame, true, true, true);
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);
@@ -80,7 +84,6 @@ Troll * Game::create_troll(string name, int age, int x, int y, char repr,
     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
 
     // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
-    new_pers->representation->setFGColor(TCODColor::darkGreen, true, true, true);
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);
@@ -97,7 +100,6 @@ Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr,
     //build the Person
     Skeleton * new_pers = new Skeleton(name, age, x, y, repr, Combat_name);
 
-    new_pers->representation->setFGColor(TCODColor::white, true, true, true);
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(x,y);
@@ -171,6 +173,8 @@ Game::Game()
 
     last_cmd = "not set";
 
+    this->current_state = GameStates::GameplayState;
+
 };
 
 void Game::update()
@@ -181,7 +185,7 @@ void Game::update()
     for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
         Actor* enemy = enemies.at(i);
-        cout << "\t" << enemy->name << "is updating" << endl;
+        // cout << "\t" << enemy->name << "is updating" << endl;
         enemy->update(this);
         // printf("updating\n");
     }
@@ -197,8 +201,6 @@ void Game::draw_ui()
 {
     this->ui->draw_ui();
 };
-
-
 
 void Game::mainloop()
 {
@@ -234,47 +236,55 @@ void Game::mainloop()
     bool tick_printed = true;
     while ( !TCODConsole::isWindowClosed() ) {
 
-        if (incr_turn)
-        {
-            turn_count++;
-            printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
-            incr_turn = false;
-        }
-
-        // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
         TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
-        if (key_evt.c != NULL ){
-            incr_turn = process_key_event(this, key_evt, player);
-        };
-
-        process_mouse_event(this, mouse_evt, player);
-
-        //AIs update
-        if (incr_turn == true)
+        switch(this->current_state)
         {
-            std::vector<Actor*>* ais = player->actors_in_sight;
-            for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
-                cout << "Actor in sight: " << (*it)->GetNameC() << endl;
-            }
-            update();
+            case GameStates::GameplayState : 
+                if (incr_turn)
+                {
+                    turn_count++;
+                    printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
+                    incr_turn = false;
+                }
+
+                // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
+                if (key_evt.c != NULL ){
+                    incr_turn = process_key_event(this, key_evt, player);
+                };
+
+                process_mouse_event(this, mouse_evt, player);
+
+                //AIs update
+                if (incr_turn == true)
+                {
+                    std::vector<Actor*>* ais = player->actors_in_sight;
+                    for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
+                        // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
+                    }
+                    update();
+                }
+
+                update_ui();
+
+                //draw the map to libtconsole
+                current_map->draw(this);
+
+                //draw the UI
+                draw_ui();
+                break;
+            case GameStates::MenuState:
+                std::cout << "in menu state" << std::endl;
+                break;
         }
 
-        update_ui();
+                //draw libtcon to screen
+                TCODConsole::flush();
 
-        //draw the map to libtconsole
-        current_map->draw(this);
+                // cout << player->attrs->health->current_val << endl;
+                //cout << player->combat->cur_hp << endl;
 
-        //draw the UI
-        draw_ui();
-
-        //draw libtcon to screen
-        TCODConsole::flush();
-
-        // cout << player->attrs->health->current_val << endl;
-        //cout << player->combat->cur_hp << endl;
-
-        this->tick_count++;
-        // printf("ticks: %d \r", tick_count);
+                this->tick_count++;
+                // printf("ticks: %d \r", tick_count);
     }
 
     std::cout << "Hit enter to exit" << std::endl;

@@ -35,7 +35,7 @@ void Representation::setFGColor(TCODColor color, bool set_fg, bool set_temp, boo
     {
         this->orig_fg_color = this->createColorFromRGB(r, g, b);
     };
-    std::cout << "rbg: " << r << g << b << std::endl;
+    // std::cout << "rbg: " << r << g << b << std::endl;
 
 };
 

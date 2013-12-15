@@ -19,11 +19,14 @@ class Item;
 
 class Ui;
 
+extern enum GameStates; 
+
 class Game
 {
     public:
         Person* player;     //the PC
         Ui* ui;
+        GameStates current_state;
 
         //player input
         TCOD_key_t key_evt;
