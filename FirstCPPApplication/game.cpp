@@ -278,11 +278,15 @@ void Game::mainloop()
                 // clear the screen
                 TCODConsole::root->clear();
 
+                int inv_title_x = this->screen_w/2;
+                TCOD_bkgnd_flag_t bkgnd_flag = TCODConsole::root->getBackgroundFlag();
+                TCODConsole::root->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER,  "Inventory Screen");
+
                 // draw the list of items equipped on the player
                 vector<Item*>* v  = player->inventory->items;
-                int i = 0;
+                int i = 5;
                 for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
-                    TCODConsole::root->print(0, i, (*it)->name.c_str());
+                    TCODConsole::root->print(3, i, (*it)->name.c_str());
                     i++;
                 }
 
