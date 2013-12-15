@@ -351,7 +351,7 @@ int Map::draw(Game *theGame)
                     TCODColor* tile_temp_col = the_tile->tile->representation->temp_bg_color;
                     TCODColor* tile_orig_col = the_tile->tile->representation->bg_color;
 
-                    TCODConsole::root->putChar(x, y, the_char );
+                    TCODConsole::root->putChar(x, y, the_char);
                     //if the temp colour isnt the original color
                     if ( tile_temp_col != tile_orig_col) {
                         the_bg_color = tile_temp_col;
@@ -361,13 +361,12 @@ int Map::draw(Game *theGame)
                     else 
                     {
                         the_fg_color = the_tile->tile->representation->fg_color;
-                    }
+                    };
+
                     if (the_tile->check_for_items())
                     {
                         // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
                         the_char = the_tile->inventory->items->back()->repr->repr;
-                        
-
                     };
                 };
 

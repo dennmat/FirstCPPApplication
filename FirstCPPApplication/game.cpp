@@ -115,7 +115,10 @@ void  Game::initialize_items(){
     Item* item = new Item();
     next_tile->place_item_down(item);
     items.push_back(item);
+
     Item* item2 = new Item();
+    item2->name = "Item of Holding";
+    item2->description = "You can hold this item";
     player->inventory->add_item(item2);
     // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's Combat"));
     // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's Combat"));
@@ -271,6 +274,19 @@ void Game::mainloop()
 
             case GameStates::MenuState:
                 std::cout << "in menu state" << std::endl;
+
+                // clear the screen
+                TCODConsole::root->clear();
+
+                // draw the list of items equipped on the player
+                vector<Item*>* v  = player->inventory->items;
+                int i = 0;
+                for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
+                    TCODConsole::root->print(0, i, (*it)->name.c_str());
+                    i++;
+                }
+
+                // let them choose one to look at 
                 break;
         }
 

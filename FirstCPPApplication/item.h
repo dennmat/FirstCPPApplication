@@ -18,7 +18,6 @@ class Item
         std::string description;
         std::string name;
 
-
         ItemEffect* item_effect;
         Representation* repr;
         Item();
