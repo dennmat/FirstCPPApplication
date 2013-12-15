@@ -6,6 +6,7 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "actor.h"
+#include "utils.h"
 
 ItemEffect::ItemEffect()
 {
@@ -144,4 +145,33 @@ void ItemEffect::RemoveDamageEffects(Actor* actor)
 };
 
 
+std::string ItemEffect::c_str()
+{
+
+    std::string result = "";
+    std::vector<std::string> string_vec;
+
+    string_vec.push_back(std::to_string((long double)this->health_current_val));
+    string_vec.push_back(std::to_string((long double)this->health_max_val));
+    string_vec.push_back(std::to_string((long double)this->health_regen_rate));
+    string_vec.push_back(std::to_string((long double)this->health_regen_interval));
+
+    string_vec.push_back(std::to_string((long double)this->mana_current_val));
+    string_vec.push_back(std::to_string((long double)this->mana_max_val));
+    string_vec.push_back(std::to_string((long double)this->mana_regen_rate));
+    string_vec.push_back(std::to_string((long double)this->mana_regen_interval));
+
+    string_vec.push_back(std::to_string((long double)this->armor_current_val));
+    string_vec.push_back(std::to_string((long double)this->armor_max_val));
+    string_vec.push_back(std::to_string((long double)this->armor_regen_rate));
+    string_vec.push_back(std::to_string((long double)this->armor_regen_interval));
+
+    string_vec.push_back(std::to_string((long double)this->damage_current_val));
+    string_vec.push_back(std::to_string((long double)this->damage_max_val));
+    string_vec.push_back(std::to_string((long double)this->damage_regen_rate));
+    string_vec.push_back(std::to_string((long double)this->damage_regen_interval));
+
+    return StringJoin(string_vec, '\n');
+
+};
 

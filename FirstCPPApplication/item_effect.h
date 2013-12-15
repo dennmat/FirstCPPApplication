@@ -3,6 +3,7 @@
 #define ITEM_EFFECT_H
 
 #include <vector>
+#include <iostream>
 
 class Actor;
 class Person;
@@ -52,6 +53,8 @@ class ItemEffect
 
         bool already_applied(Actor* actor);
         void mark_applied_to(Actor* actor);
+
+        std::string c_str();
 };
 
 #endif

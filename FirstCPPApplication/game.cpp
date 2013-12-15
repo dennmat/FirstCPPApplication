@@ -27,6 +27,7 @@
 #include "enemies\troll.h"
 #include "enemies\skeleton.h"
 #include "gamestate.h"
+#include "item_effect.h"
 
 void Game:: buildworld()
 {
@@ -287,6 +288,8 @@ void Game::mainloop()
                 int i = 5;
                 for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
                     TCODConsole::root->print(3, i, (*it)->name.c_str());
+                    i++;
+                    TCODConsole::root->print(3, i, (*it)->item_effect->c_str().c_str());
                     i++;
                 }
 
