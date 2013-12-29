@@ -89,6 +89,8 @@ directions_t direction_pressed(TCOD_key_t key)
     spec_movemap[TCODK_KP1] = directions_t::SW;
     spec_movemap[TCODK_KP4] = directions_t::W;
 
+    spec_movemap[TCODK_KP5] = directions_t::X;
+
     // char_movemap[TCODK_KP7] = directions_t::NW;
     char_movemap['n'] = directions_t::N;
     // char_movemap[TCODK_KP9] = directions_t::NE;
@@ -241,6 +243,15 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
         { 
             return true;
         }
+    }
+    else if( direction == directions_t::X)
+    {
+        cout << "WAITING" << endl;
+        // player->is_moving_left = true;
+        // if(the_game->current_map->attackMovePlayer(player, -1, 0) )
+        // { 
+            return true;
+        // }
     };
 
 
