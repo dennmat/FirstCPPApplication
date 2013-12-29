@@ -7,6 +7,7 @@
 //#include "Person.h"
 
 class Person; 
+class Actor; 
 class Game;
 
 class Combat 
@@ -15,7 +16,7 @@ class Combat
         std::string default_name;
     public:
         // std::string name;
-        Person* master;
+        Actor* master;
         char representation;
 
         bool is_dead;

@@ -10,6 +10,7 @@
 #include "Person.h"
 #include "attribute_container.h"
 #include "attribute.h"
+#include "Actor.h"
 
 using namespace std;
 
@@ -89,27 +90,27 @@ void Combat::update(Game* game)
     };
 };
 
-void Combat::Attack(Combat* Combat_target, int dmg){
-    //cout << "About to attack " << (*Combat_target).name << endl;
-    Combat_target->TakeDamage(this, dmg);
+void Combat::Attack(Combat* combat_target, int dmg){
+    //cout << "About to attack " << (*combat_target).name << endl;
+    combat_target->TakeDamage(this, dmg);
 
-    bool is_target_dead = Combat_target->CheckDeath();
+    bool is_target_dead = combat_target->CheckDeath();
     if (is_target_dead){
         printf("Hahaa!, you're dead bro, that's got to feel bad.\n");
     };
 };
 
-void Combat::RememberAttacker(Combat* Combat_attacker, bool mark_the_attk=true)
+void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
 {
     if (mark_the_attk == true) { was_attacked = true; };
 
-    if(std::find(attackers->begin(), attackers->end(), Combat_attacker) != attackers->end()) 
+    if(std::find(attackers->begin(), attackers->end(), combat_attacker) != attackers->end()) 
     {
         // printf("I've already been attacked by you.\n");
     }
     else 
     {
-        attackers->push_back(Combat_attacker);
+        attackers->push_back(combat_attacker);
         // printf("Oh hi, you're new.\n");
     }
 
@@ -125,7 +126,7 @@ Combat* Combat::GetLastAttacker()
     return assailant;
 };
 
-void Combat::TakeDamage(Combat* Combat_attacker, int dmg){
+void Combat::TakeDamage(Combat* combat_attacker, int dmg){
 
     printf("About to take %d damage! ", dmg);
     printf("with %d hp.\n", this->master->attrs->health->current_val);
@@ -133,7 +134,7 @@ void Combat::TakeDamage(Combat* Combat_attacker, int dmg){
     //cout << name << " at " << cur_hp << " health left!" << endl << endl;
 
     //save attacker in history
-    this->RememberAttacker(Combat_attacker);
+    this->RememberAttacker(combat_attacker);
 
     if (this->CheckDeath()){
         printf("I've died!\n");

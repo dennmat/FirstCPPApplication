@@ -43,7 +43,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     // spec_movemap[TCODK_KP4] = 
 
     // char_movemap[TCODK_KP7] = basic_cmds_t::NW;
-    char_movemap['m'] = basic_cmds_t::OpenInventory;
+    char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap[','] = basic_cmds_t::Pickup;
 
     if (key.vk == TCODK_CHAR) 
