@@ -116,6 +116,23 @@ void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
 
 };
 
+void Combat::Die()
+{
+        printf("I've died!\n");
+        //make position unblocked
+        if (master != NULL)
+        {
+            //make the master's tile no longer occupied by him
+            master->putPerson(NULL, NULL, NULL);
+            //TODO: replace by corpse
+        }
+        else if (master == NULL)
+        {
+            printf("I've no master\n");
+        };
+
+};
+
 Combat* Combat::GetLastAttacker()
 {
     cout << "*** Retaliation ***" << endl;
@@ -137,18 +154,7 @@ void Combat::TakeDamage(Combat* combat_attacker, int dmg){
     this->RememberAttacker(combat_attacker);
 
     if (this->CheckDeath()){
-        printf("I've died!\n");
-        //make position unblocked
-        if (master != NULL)
-        {
-            //make the master's tile no longer occupied by him
-            master->putPerson(NULL, NULL, NULL);
-            //TODO: replace by corpse
-        }
-        else if (master == NULL)
-        {
-            printf("I've no master\n");
-        };
+        this->Die();
 
     };
 };

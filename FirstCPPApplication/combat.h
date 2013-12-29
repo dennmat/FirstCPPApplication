@@ -24,15 +24,16 @@ class Combat
         std::vector<Combat*> * attackers;
 
         Combat (std::string name, int max_hp, Person* master, char representation = 'p' );
-        //Combat::Combat();
-        // Combat::Init();
+
         void Combat::Attack(Combat* Combat_target, int dmg);
         void Combat::TakeDamage(Combat* Combat_attacker, int dmg);
-        void printout();
         bool Combat::CheckDeath();
         void Combat::RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
+        void Combat::Die();
         Combat* Combat::GetLastAttacker();
         void Combat::update(Game* game);
         void Combat::assign_to_master(Person* master);
+
+        void printout();
 };
 #endif
