@@ -24,8 +24,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     this->y = y;
 
     //set its representation, aka color and char
-    Representation * new_repr =   new Representation;
-    this->representation = new_repr;
+    this->representation = new Representation;
     this->representation->repr = repr;
     this->representation->setFGColor(TCODColor::lighterFlame, true, true, true);
 
@@ -46,9 +45,9 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
 };
 
-Person::Person()
+Person::Person() : Actor()
 {
-    this->name = "Unnamed";
+    this->name = "Unset Person name";
     this->age = 80085;
     this->x = 10;
     this->y = 10;
@@ -59,12 +58,9 @@ Person::Person()
     is_active = true;
 
     //set its representation, aka color and char
-    Representation * new_repr =   new Representation;
-    this->representation = new_repr;
     this->representation->repr = '~';
 
     Inventory* inventory =   new Inventory;
-    this->inventory = inventory;
     this->equipment = new Equipment;
     this->equipment->master = this;
 
@@ -75,7 +71,6 @@ Person::Person()
     has_live_combat = true;
 
     my_tile = NULL;
-    l_path = NULL;
 };
 
 Person::~Person(){

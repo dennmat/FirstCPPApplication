@@ -17,27 +17,27 @@ using namespace std;
 
 Actor::Actor()
 {
-    l_path = NULL;
-    name = "Unset Actor name";
+    this->name = "Unset Actor name";
 
-    representation = new Representation;
-    inventory = new Inventory;
-    attrs = new AttributeContainer;
-    attrs->owner = this;
+    this->representation = new Representation;
+    this->inventory = new Inventory;
+    this->attrs = new AttributeContainer;
+    this->attrs->owner = this;
 
-    actors_in_sight = new std::vector<Actor*>;
+    this->actors_in_sight = new std::vector<Actor*>;
 
-    thinker = new Thinker;
-    thinker->master = this;
+    this->thinker = new Thinker;
+    this->thinker->master = this;
 
-    is_active = true;
+    this->is_active = true;
 
-    is_moving_left = false;
-    is_moving_right = false;
-    is_moving_up = false;
-    is_moving_down = false;
+    this->is_moving_left = false;
+    this->is_moving_right = false;
+    this->is_moving_up = false;
+    this->is_moving_down = false;
 
-    has_attacked = false;
+    this->l_path = NULL;
+    this->has_attacked = false;
 };
 
 void Actor::resetIsMoving()
