@@ -30,6 +30,8 @@ Actor::Actor()
     thinker = new Thinker;
     thinker->master = this;
 
+    is_active = true;
+
     is_moving_left = false;
     is_moving_right = false;
     is_moving_up = false;
@@ -118,5 +120,14 @@ void Actor::pickUpItem(Item* item)
 bool Actor::has_attributes()
 {
     return this->attrs != NULL;
+};
+
+void Actor::Die()
+{
+    //make the master's tile no longer occupied by him
+    //drop corpse on floor
+
+    //remove master from ai update list
+    this->putPerson(NULL, NULL, NULL);
 };
 

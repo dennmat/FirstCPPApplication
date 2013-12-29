@@ -42,6 +42,8 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     my_tile = NULL;
 
+    is_active = true;
+
 };
 
 Person::Person()
@@ -53,6 +55,8 @@ Person::Person()
 
     this->dest_x = -1;
     this->dest_y = -1;
+
+    is_active = true;
 
     //set its representation, aka color and char
     Representation * new_repr =   new Representation;

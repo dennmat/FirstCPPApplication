@@ -258,9 +258,9 @@ void Game::mainloop()
                 if (incr_turn == true)
                 {
                     std::vector<Actor*>* ais = player->actors_in_sight;
-                    for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
+                    // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
                         // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
-                    }
+                    // }
                     update();
                 }
 

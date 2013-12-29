@@ -96,7 +96,7 @@ void Combat::Attack(Combat* combat_target, int dmg){
 
     bool is_target_dead = combat_target->CheckDeath();
     if (is_target_dead){
-        printf("Hahaa!, you're dead bro, that's got to feel bad.\n");
+        printf("Hahaa!, you're dead, that's got to feel bad.\n");
     };
 };
 
@@ -122,13 +122,11 @@ void Combat::Die()
         //make position unblocked
         if (master != NULL)
         {
-            //make the master's tile no longer occupied by him
-            master->putPerson(NULL, NULL, NULL);
-            //TODO: replace by corpse
+            master->Die();
         }
         else if (master == NULL)
         {
-            printf("I've no master\n");
+            printf("I've no master so he's not going to die, is he?\n");
         };
 
 };

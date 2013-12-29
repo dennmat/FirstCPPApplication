@@ -32,12 +32,14 @@ class Actor : public Object
 
         AttributeContainer* attrs;
         bool has_attributes();
+        bool is_active;
 
         TCODPath* l_path;
 
         int x,y;
         int dest_x, dest_y;
         Tile * my_tile;
+        
 
         bool is_moving_left;
         bool is_moving_right;
@@ -55,6 +57,8 @@ class Actor : public Object
         const char* GetNameC();
 
         virtual void update(Game* game) = 0;
+
+        void Die();
 
         bool IsActorInSight(Actor * actor);
         void ActorInSight(int x, int y, Actor * actor);
