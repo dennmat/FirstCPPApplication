@@ -55,7 +55,6 @@ Person::Person() : Actor()
     this->dest_x = -1;
     this->dest_y = -1;
 
-    is_active = true;
 
     //set its representation, aka color and char
     this->representation->repr = '~';

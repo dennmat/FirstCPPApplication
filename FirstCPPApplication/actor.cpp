@@ -128,6 +128,7 @@ void Actor::Die()
     //drop corpse on floor
 
     //remove master from ai update list
+    this->is_active = false;
     this->putPerson(NULL, NULL, NULL);
 };
 

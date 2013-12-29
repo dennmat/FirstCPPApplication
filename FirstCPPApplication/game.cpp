@@ -186,7 +186,10 @@ void Game::update()
     {
         Actor* enemy = enemies.at(i);
         // cout << "\t" << enemy->name << "is updating" << endl;
-        enemy->update(this);
+        if (enemy->is_active)
+        {
+            enemy->update(this);
+        };
         // printf("updating\n");
     }
     cout << "\t" << "done updating" << endl;
@@ -259,7 +262,7 @@ void Game::mainloop()
                 {
                     std::vector<Actor*>* ais = player->actors_in_sight;
                     // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
-                        // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
+                    // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
                     // }
                     update();
                 }
@@ -297,14 +300,14 @@ void Game::mainloop()
                 break;
         }
 
-                //draw libtcon to screen
-                TCODConsole::flush();
+        //draw libtcon to screen
+        TCODConsole::flush();
 
-                // cout << player->attrs->health->current_val << endl;
-                //cout << player->combat->cur_hp << endl;
+        // cout << player->attrs->health->current_val << endl;
+        //cout << player->combat->cur_hp << endl;
 
-                this->tick_count++;
-                // printf("ticks: %d \r", tick_count);
+        this->tick_count++;
+        // printf("ticks: %d \r", tick_count);
     }
 
     std::cout << "Hit enter to exit" << std::endl;
