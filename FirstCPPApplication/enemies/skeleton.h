@@ -1,7 +1,7 @@
 #ifndef SKELETON_H
 #define SKELETON_H
 
-#include "Person.h"
+#include <actors\Person.h>
 
 class Skeleton : public Person
 {

@@ -5,7 +5,7 @@
 #include "item_effect.h"
 #include "attribute_container.h"
 #include "attribute.h"
-#include "actor.h"
+#include <actors/actor.h>
 #include "utils.h"
 
 ItemEffect::ItemEffect()

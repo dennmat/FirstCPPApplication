@@ -3,7 +3,7 @@
 #include "ui.h"
 
 #include "game.h"
-#include "person.h"
+#include <actors\Person.h>
 #include "utils.h"
 #include "inventory.h"
 #include "equipment.h"

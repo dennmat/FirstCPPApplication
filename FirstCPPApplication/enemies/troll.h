@@ -1,7 +1,7 @@
 #ifndef TROLL_H
 #define TROLL_H
 
-#include "Person.h"
+#include <actors\Person.h>
 
 class Troll : public Person
 {

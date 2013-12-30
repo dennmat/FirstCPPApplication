@@ -2,7 +2,7 @@
 
 
 #include "attribute_container.h"
-#include "actor.h"
+#include <actors/actor.h>
 #include "attribute.h"
 
 

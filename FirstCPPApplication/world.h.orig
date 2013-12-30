@@ -5,7 +5,7 @@
 // linker only tried to read it once, and won't show
 // duplicate function definition errors
 
-#include "Person.h"
+#include <actors\Person.h>
 
 /***************************** world.h ******************************
 *	Written by														*

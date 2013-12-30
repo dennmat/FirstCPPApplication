@@ -8,7 +8,7 @@
 
 #include "game.h"
 
-#include "Person.h"
+#include <actors/person.h>
 #include "map.h"
 #include "FirstCPPApplication.h"
 #include "utils.h"

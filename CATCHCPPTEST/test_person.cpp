@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "catch.hpp"
 
-#include "Person.h"
+#include <actors\Person.h>
 
 TEST_CASE( "actors are tested", "[idk actors]" ) {
     Person* pers = new Person;

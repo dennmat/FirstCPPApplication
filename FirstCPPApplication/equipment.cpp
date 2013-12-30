@@ -4,7 +4,7 @@
 
 #include "equipment.h"
 #include "item.h"
-#include "actor.h"
+#include <actors/actor.h>
 #include "item_effect.h"
 
 Slot::Slot(slots_t type, Equipment* equipment)

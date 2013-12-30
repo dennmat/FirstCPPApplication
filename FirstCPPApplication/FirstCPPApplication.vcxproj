@@ -223,7 +223,8 @@
     <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="actor.cpp" />
+    <ClCompile Include="actors\actor.cpp" />
+    <ClCompile Include="actors\Person.cpp" />
     <ClCompile Include="attribute.cpp" />
     <ClCompile Include="attribute_container.cpp" />
     <ClCompile Include="build.cpp" />
@@ -238,7 +239,6 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="item_effect.cpp" />
-    <ClCompile Include="Person.cpp" />
     <ClCompile Include="Representation.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">

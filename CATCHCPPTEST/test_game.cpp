@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "game.h"
-#include "Person.h"
+#include <actors\Person.h>
 #include "Representation.h"
 #include "tile.h"	
 #include "combat.h"

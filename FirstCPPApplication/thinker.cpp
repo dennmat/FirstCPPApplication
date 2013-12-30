@@ -6,7 +6,7 @@
 
 #include "libtcod.hpp"
 #include "map.h"
-#include "Person.h"
+#include <actors\Person.h>
 #include "game.h"
 #include "Representation.h"
 #include "tile.h"	

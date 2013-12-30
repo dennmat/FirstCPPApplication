@@ -11,7 +11,7 @@
 
 #include "input.h"
 #include "game.h"
-#include "Person.h"
+#include <actors\Person.h>
 #include "map.h"
 #include "utils.h"
 #include "inventory.h"

@@ -7,10 +7,10 @@
 #include <vector>
 
 #include "combat.h"
-#include "Person.h"
 #include "attribute_container.h"
+#include <actors\Person.h>
+#include <actors\actor.h>
 #include "attribute.h"
-#include "Actor.h"
 
 using namespace std;
 

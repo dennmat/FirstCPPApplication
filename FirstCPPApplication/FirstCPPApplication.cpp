@@ -12,7 +12,7 @@
 #include "FirstCPPApplication.h"
 
 #include "utils.h"
-#include "Person.h"
+#include <actors\Person.h>
 #include "combat.h"
 #include "map.h"
 #include "game.h"

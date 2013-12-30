@@ -6,7 +6,7 @@
 
 #include "libtcod.hpp"
 
-#include "Person.h"
+#include <actors/person.h>
 #include "thinker.h"
 #include "inventory.h"
 #include "equipment.h"

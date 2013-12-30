@@ -3,8 +3,8 @@
 #define COMBAT_H
 #include <sstream>
 #include <vector>
-// #include "actor.h"
-//#include "Person.h"
+// #include <actors/actor.h>
+// #include <actors\Person.h>
 
 class Person; 
 class Actor; 

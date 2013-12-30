@@ -8,7 +8,7 @@
 
 #include "map.h"
 #include "Room.h"
-#include "Person.h"
+#include <actors\Person.h>
 #include "game.h"
 #include "item.h"
 #include "inventory.h"

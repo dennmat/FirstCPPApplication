@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Enemies">
       <UniqueIdentifier>{0df4149e-4c28-4fde-b250-5b33d1e4751b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Actors">
+      <UniqueIdentifier>{82bf1ca1-0e52-4b51-991d-69e393d1b147}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actors">
+      <UniqueIdentifier>{e53e244a-03fa-4f38-a4c8-7b27a837acb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -44,9 +50,6 @@
     <ClInclude Include="FirstCPPApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Person.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,9 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="actor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="item.h">
@@ -257,15 +257,18 @@
     <ClInclude Include="gamestate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="actor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FirstCPPApplication.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
@@ -278,9 +281,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="map.cpp">
@@ -330,6 +330,12 @@
     </ClCompile>
     <ClCompile Include="gamestate.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="actors\Person.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="actors\actor.cpp">
+      <Filter>Source Files\Actors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
