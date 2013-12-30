@@ -11,7 +11,7 @@ class Tile;
 
 class Equipment;
 
-#include "slots_t.h"
+#include <enums\slots_t.h>
 // enum slots_t : unsigned int {
 //     Head, 
 //     Ear,

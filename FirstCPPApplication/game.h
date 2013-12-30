@@ -7,7 +7,7 @@
 // #include "input.h"
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
-#include "gamestate.h"
+#include <enums\gamestate.h>
 
 
 class Map;

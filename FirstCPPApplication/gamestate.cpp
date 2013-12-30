@@ -1,2 +1,2 @@
 #include "stdafx.h"
-#include "gamestate.h"
+#include <enums\gamestate.h>

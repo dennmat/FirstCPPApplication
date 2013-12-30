@@ -4,7 +4,7 @@
 #include <string>
 
 // #include "equipment.h"
-#include "slots_t.h"
+#include <enums\slots_t.h>
 
 class Representation;
 class Slot;

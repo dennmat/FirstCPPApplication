@@ -26,7 +26,7 @@
 #include "attribute.h"
 #include "enemies\troll.h"
 #include "enemies\skeleton.h"
-#include "gamestate.h"
+#include <enums\gamestate.h>
 #include "item_effect.h"
 
 void Game:: buildworld()

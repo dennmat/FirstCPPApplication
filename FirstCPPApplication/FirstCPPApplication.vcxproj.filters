@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Actors">
       <UniqueIdentifier>{e53e244a-03fa-4f38-a4c8-7b27a837acb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enums">
+      <UniqueIdentifier>{1f2357a4-bb66-4fd1-89fb-91b1d7bf9807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -245,23 +248,23 @@
     <ClInclude Include="combat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="slots_t.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="enemies\troll.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="enemies\skeleton.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="gamestate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="actor.h">
       <Filter>Header Files\Actors</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="slots_t.h">
+      <Filter>Header Files\Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
