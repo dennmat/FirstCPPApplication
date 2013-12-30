@@ -58,6 +58,7 @@ class Actor : public Object
 
         virtual void update(Game* game) = 0;
 
+        Item* Actor::CreateCorpse();
         void Die();
 
         bool IsActorInSight(Actor * actor);

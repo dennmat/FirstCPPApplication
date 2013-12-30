@@ -3,6 +3,8 @@
 #include <string>
 #include <algorithm>
 
+#include "libtcod_cpp_hpp\libtcod.hpp"
+
 #include "actor.h"
 
 #include "thinker.h"
@@ -12,6 +14,7 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include "Representation.h"
+#include "item.h"
 
 using namespace std;
 
@@ -122,10 +125,22 @@ bool Actor::has_attributes()
     return this->attrs != NULL;
 };
 
+Item* Actor::CreateCorpse()
+{
+    Item* corpse = new Item;
+    corpse->repr->repr = '%';
+    corpse->repr->setFGColor(*this->representation->fg_color, true, false, true);
+
+    return corpse;
+
+};
+
 void Actor::Die()
 {
     //make the master's tile no longer occupied by him
     //drop corpse on floor
+    Item* corpse = this->CreateCorpse();
+    this->my_tile->place_item_down(corpse);
 
     //remove master from ai update list
     this->is_active = false;

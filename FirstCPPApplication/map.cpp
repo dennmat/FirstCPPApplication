@@ -366,7 +366,9 @@ int Map::draw(Game *theGame)
                     if (the_tile->check_for_items())
                     {
                         // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
-                        the_char = the_tile->inventory->items->back()->repr->repr;
+                        Item* back_item =the_tile->inventory->items->back(); 
+                        the_char = back_item->repr->repr;
+                        the_fg_color = back_item->repr->fg_color;
                     };
                 };
 
