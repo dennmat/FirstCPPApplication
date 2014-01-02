@@ -254,17 +254,17 @@
     <ClInclude Include="enemies\skeleton.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="actor.h">
-      <Filter>Header Files\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Person.h">
-      <Filter>Header Files\Actors</Filter>
-    </ClInclude>
     <ClInclude Include="gamestate.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
     <ClInclude Include="slots_t.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="actors\actor.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="actors\Person.h">
+      <Filter>Header Files\Actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

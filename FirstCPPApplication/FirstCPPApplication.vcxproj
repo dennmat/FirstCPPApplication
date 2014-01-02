@@ -147,7 +147,8 @@
     <None Include="world.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="actor.h" />
+    <ClInclude Include="actors\actor.h" />
+    <ClInclude Include="actors\Person.h" />
     <ClInclude Include="attribute.h" />
     <ClInclude Include="attribute_container.h" />
     <ClInclude Include="build.h" />
@@ -210,7 +211,6 @@
     <ClInclude Include="libtcod_cpp_hpp\zip.h" />
     <ClInclude Include="libtcod_cpp_hpp\zip.hpp" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="Person.h" />
     <ClInclude Include="Representation.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="slots_t.h" />

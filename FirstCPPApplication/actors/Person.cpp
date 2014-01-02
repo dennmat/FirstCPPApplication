@@ -18,6 +18,7 @@
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name)
 {
+    this->cls_name = "Person";
     this->name = name;
     this->age = age;
     this->x = x;
@@ -47,6 +48,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
 Person::Person() : Actor()
 {
+    this->cls_name = "Person";
     this->name = "Unset Person name";
     this->age = 80085;
     this->x = 10;

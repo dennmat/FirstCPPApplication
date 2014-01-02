@@ -18,6 +18,7 @@
 
 Troll::Troll(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
 {
+    this->cls_name = "Troll";
     // this->name = name;
     // this->age = age;
     // this->x = x;
@@ -41,5 +42,8 @@ Troll::Troll(std::string name, int age, int x, int y, char repr, std::string com
     // has_live_combat = true;
 
     // my_tile = NULL;
+
+    this->attrs->health->max_val = 1;
+    this->attrs->health->current_val = 1;
 
 };

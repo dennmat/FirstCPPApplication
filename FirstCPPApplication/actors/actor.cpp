@@ -20,6 +20,7 @@ using namespace std;
 
 Actor::Actor()
 {
+    this->cls_name = "Actor";
     this->name = "Unset Actor name";
 
     this->representation = new Representation;
@@ -130,6 +131,9 @@ Item* Actor::CreateCorpse()
     Item* corpse = new Item;
     corpse->repr->repr = '%';
     corpse->repr->setFGColor(*this->representation->fg_color, true, false, true);
+    
+    corpse->name =  this->cls_name + "corpse";
+
 
     return corpse;
 

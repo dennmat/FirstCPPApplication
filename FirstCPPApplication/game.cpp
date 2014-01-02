@@ -222,7 +222,7 @@ void Game::mainloop()
     bool incr_turn  = false;
     turn_count = 1;
 
-    fps_limit = 60;
+    this->fps_limit = 60;
 
     current_map->draw(this);
     TCODSystem::setFps(fps_limit);
@@ -230,7 +230,7 @@ void Game::mainloop()
     //draw the map to libtconsole
     current_map->draw(this);
     //draw the UI
-    draw_ui();
+    this->draw_ui();
 
     //draw libtcon to screen
     TCODConsole::flush();
@@ -242,7 +242,7 @@ void Game::mainloop()
         TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
         switch(this->current_state)
         {
-            case GameStates::GameplayState : 
+            case GameStates::GameplayState: 
                 if (incr_turn)
                 {
                     turn_count++;
@@ -273,7 +273,7 @@ void Game::mainloop()
                 current_map->draw(this);
 
                 //draw the UI
-                draw_ui();
+                this->draw_ui();
                 break;
 
             case GameStates::MenuState:
