@@ -97,6 +97,16 @@ void Combat::Attack(Combat* combat_target, int dmg){
     bool is_target_dead = combat_target->CheckDeath();
     if (is_target_dead){
         printf("Hahaa!, you're dead, that's got to feel bad.\n");
+        //get opponents exp value
+        int exp_to_gain = combat_target->master->xp_value;
+        //add it to the master's exp
+        this->master->xp += exp_to_gain;
+        // calc if level up
+        if (this->master->xp % 100 == 0)
+        {
+            this->master->level++;
+            cout << "NEW LEVEL IS: " << this->master->level << endl;
+        };
     };
 };
 

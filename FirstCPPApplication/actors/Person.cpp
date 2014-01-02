@@ -24,6 +24,10 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     this->x = x;
     this->y = y;
 
+    this->xp = 0;
+    this->xp_value = 10;
+    this->level = 1;
+
     //set its representation, aka color and char
     this->representation = new Representation;
     this->representation->repr = repr;

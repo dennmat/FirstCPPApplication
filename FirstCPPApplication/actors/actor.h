@@ -39,6 +39,10 @@ class Actor : public Object
         int x,y;
         int dest_x, dest_y;
         Tile * my_tile;
+
+        int xp;
+        int level;
+        int xp_value;
         
 
         bool is_moving_left;

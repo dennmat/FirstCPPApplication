@@ -18,6 +18,7 @@
 
 Skeleton::Skeleton(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
 {
+    this->xp_value = 100;
     // this->name = name;
     // this->age = age;
     // this->x = x;

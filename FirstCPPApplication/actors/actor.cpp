@@ -23,6 +23,10 @@ Actor::Actor()
     this->cls_name = "Actor";
     this->name = "Unset Actor name";
 
+    this->xp = 0;
+    this->xp_value = 10;
+    this->level = 1;
+
     this->representation = new Representation;
     this->inventory = new Inventory;
     this->attrs = new AttributeContainer;
