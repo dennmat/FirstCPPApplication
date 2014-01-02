@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
+#include <vector>
 #include "ui.h"
 
 #include "game.h"
@@ -10,6 +11,8 @@
 #include "combat.h"
 #include "attribute_container.h"
 #include "attribute.h"
+#include "item.h"
+#include "item_effect.h"
 
 Ui::Ui()
 {
@@ -21,6 +24,11 @@ Ui::Ui()
     this->tick_threshold = 50;
 
     this->tick_checking_against = this->tick_threshold;
+};
+
+void Ui::update_inventory_ui()
+{
+
 };
 
 void Ui::update_ui()
@@ -129,4 +137,26 @@ void Ui::draw_ui_msg()
     //draw ui console to root
     TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, this->game->screen_h-ui_msg_h);
     delete ui_msg_con;
+};
+
+
+void Ui::draw_inventory_ui()
+{
+    // clear the screen
+    TCODConsole::root->clear();
+
+    int inv_title_x = this->game->screen_w/2;
+    TCOD_bkgnd_flag_t bkgnd_flag = TCODConsole::root->getBackgroundFlag();
+    TCODConsole::root->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER, "Inventory Screen");
+
+    // draw the list of items equipped on the player
+    std::vector<Item*>* v  = this->game->player->inventory->items;
+    int i = 5;
+    for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
+        TCODConsole::root->print(3, i, (*it)->name.c_str());
+        i++;
+        TCODConsole::root->print(3, i, (*it)->item_effect->c_str().c_str());
+        i++;
+    }
+
 };

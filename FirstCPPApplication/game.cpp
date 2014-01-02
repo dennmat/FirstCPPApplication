@@ -197,12 +197,28 @@ void Game::update()
 
 void Game::update_ui()
 {
-    this->ui->update_ui();
+    switch(this->current_state)
+    {
+        case GameStates::GameplayState: 
+            this->ui->update_ui();
+            break;
+        case GameStates::MenuState:
+            this->ui->update_inventory_ui();
+            break;
+    };
 }
 
 void Game::draw_ui()
 {
-    this->ui->draw_ui();
+    switch(this->current_state)
+    {
+        case GameStates::GameplayState: 
+            this->ui->draw_ui();
+            break;
+        case GameStates::MenuState:
+            this->ui->draw_inventory_ui();
+            break;
+    };
 };
 
 void Game::mainloop()
@@ -264,13 +280,13 @@ void Game::mainloop()
                     // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
                     // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
                     // }
-                    update();
+                    this->update();
                 }
 
-                update_ui();
+                this->update_ui();
 
                 //draw the map to libtconsole
-                current_map->draw(this);
+                this->current_map->draw(this);
 
                 //draw the UI
                 this->draw_ui();
@@ -279,22 +295,8 @@ void Game::mainloop()
             case GameStates::MenuState:
                 std::cout << "in menu state" << std::endl;
 
-                // clear the screen
-                TCODConsole::root->clear();
+                this->draw_ui();
 
-                int inv_title_x = this->screen_w/2;
-                TCOD_bkgnd_flag_t bkgnd_flag = TCODConsole::root->getBackgroundFlag();
-                TCODConsole::root->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER,  "Inventory Screen");
-
-                // draw the list of items equipped on the player
-                vector<Item*>* v  = player->inventory->items;
-                int i = 5;
-                for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
-                    TCODConsole::root->print(3, i, (*it)->name.c_str());
-                    i++;
-                    TCODConsole::root->print(3, i, (*it)->item_effect->c_str().c_str());
-                    i++;
-                }
 
                 // let them choose one to look at 
                 break;

@@ -25,11 +25,13 @@ class Ui
         int ui_sidebar_h;
 
         void update_ui();
+        void update_inventory_ui();
 
         void draw_ui();
         void draw_ui_msg();
         void draw_ui_sidebar();
 
+        void Ui::draw_inventory_ui();
 };
 
 #endif
