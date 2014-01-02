@@ -267,7 +267,7 @@ void Game::mainloop()
                 }
 
                 // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
-                if (key_evt.c != NULL ){
+                if (key_evt.c != NULL && key_evt.pressed == 1 ){
                     incr_turn = process_key_event(this, key_evt, player);
                 };
 
@@ -290,10 +290,14 @@ void Game::mainloop()
 
                 //draw the UI
                 this->draw_ui();
+
                 break;
 
             case GameStates::MenuState:
                 std::cout << "in menu state" << std::endl;
+                if (key_evt.c != NULL ){
+                    incr_turn = process_key_event(this, key_evt, player);
+                };
 
                 this->draw_ui();
 

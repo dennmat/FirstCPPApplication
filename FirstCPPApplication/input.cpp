@@ -377,25 +377,42 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     bool incr_turn = false;
     int current_tile = player->x+(player->y*(the_game->current_map->width));
 
-    if(is_request_move_cmd(request))
-    {
-        incr_turn = process_movement(the_game, request, player);
-    }
+        switch(the_game->current_state)
+        {
+            case GameStates::GameplayState: 
 
-    else if (is_request_basic_cmd(request))
-    {
-        incr_turn = process_basic_cmd(the_game, request, player);
-    }
+                if(is_request_move_cmd(request))
+                {
+                    incr_turn = process_movement(the_game, request, player);
+                }
 
-    else if(request.c == 'q')
-    {
-        cout << "Goodbye now" << endl;
-        exit(1);
-    }
-    else
-    {
-        cout << endl << "command not found: " << char_to_str(request.c) << endl;
-        cout << "Try 'help' for list of commands" << endl;
-    }
-    return incr_turn;
+                else if (is_request_basic_cmd(request))
+                {
+                    incr_turn = process_basic_cmd(the_game, request, player);
+                }
+
+                else if(request.c == 'q' && request.pressed == 1)
+                {
+                    cout << "Goodbye now" << endl;
+                    exit(1);
+                }
+                else
+                {
+                    cout << endl << "command not found: " << char_to_str(request.c) << endl;
+                    cout << "Try 'help' for list of commands" << endl;
+                }
+
+                break;
+            case GameStates::MenuState:
+                if (request.c == 'q' && request.pressed == 1)
+                {
+                    cout << "Back to the game." << endl;
+                    the_game->current_state = GameStates::GameplayState;
+                }
+
+                break;
+        }
+
+        return incr_turn;
+
 };
