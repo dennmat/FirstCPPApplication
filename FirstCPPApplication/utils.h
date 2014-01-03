@@ -15,7 +15,7 @@ std::string ask_for_str(std::string msg, std::string default_str="STRING");
 
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 std::vector<std::string> StringSplit(std::string input_str, char delim);
-std::string StringJoin(std::vector<std::string> string_vector, char delim);
+std::string StringJoin(std::vector<std::string> string_vector, char delim, bool remove_empty = false);
 
 std::string get_exe_path();
 std::string get_data_path();

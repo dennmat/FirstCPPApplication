@@ -145,33 +145,76 @@ void ItemEffect::RemoveDamageEffects(Actor* actor)
 };
 
 
-std::string ItemEffect::c_str()
+std::string ItemEffect::full_str()
 {
 
     std::string result = "";
     std::vector<std::string> string_vec;
 
-    string_vec.push_back(std::to_string((long double)this->health_current_val));
-    string_vec.push_back(std::to_string((long double)this->health_max_val));
-    string_vec.push_back(std::to_string((long double)this->health_regen_rate));
-    string_vec.push_back(std::to_string((long double)this->health_regen_interval));
+    string_vec.push_back("HCV: "+std::to_string((long double)this->health_current_val));
+    string_vec.push_back("HMV: "+std::to_string((long double)this->health_max_val));
+    string_vec.push_back("HRR: "+std::to_string((long double)this->health_regen_rate));
+    string_vec.push_back("HRI: "+std::to_string((long double)this->health_regen_interval));
 
-    string_vec.push_back(std::to_string((long double)this->mana_current_val));
-    string_vec.push_back(std::to_string((long double)this->mana_max_val));
-    string_vec.push_back(std::to_string((long double)this->mana_regen_rate));
-    string_vec.push_back(std::to_string((long double)this->mana_regen_interval));
+    string_vec.push_back("MCV: "+std::to_string((long double)this->mana_current_val));
+    string_vec.push_back("MMV: "+std::to_string((long double)this->mana_max_val));
+    string_vec.push_back("MRR: "+std::to_string((long double)this->mana_regen_rate));
+    string_vec.push_back("MRI: "+std::to_string((long double)this->mana_regen_interval));
 
-    string_vec.push_back(std::to_string((long double)this->armor_current_val));
-    string_vec.push_back(std::to_string((long double)this->armor_max_val));
-    string_vec.push_back(std::to_string((long double)this->armor_regen_rate));
-    string_vec.push_back(std::to_string((long double)this->armor_regen_interval));
+    string_vec.push_back("ACV: "+std::to_string((long double)this->armor_current_val));
+    string_vec.push_back("AMV: "+std::to_string((long double)this->armor_max_val));
+    string_vec.push_back("ARR: "+std::to_string((long double)this->armor_regen_rate));
+    string_vec.push_back("ARI: "+std::to_string((long double)this->armor_regen_interval));
 
-    string_vec.push_back(std::to_string((long double)this->damage_current_val));
-    string_vec.push_back(std::to_string((long double)this->damage_max_val));
-    string_vec.push_back(std::to_string((long double)this->damage_regen_rate));
-    string_vec.push_back(std::to_string((long double)this->damage_regen_interval));
+    string_vec.push_back("DCV: "+std::to_string((long double)this->damage_current_val));
+    string_vec.push_back("DMV: "+std::to_string((long double)this->damage_max_val));
+    string_vec.push_back("DRR: "+std::to_string((long double)this->damage_regen_rate));
+    string_vec.push_back("DRI: "+std::to_string((long double)this->damage_regen_interval));
 
-    return StringJoin(string_vec, '\n');
+    return StringJoin(string_vec, '\n', false);
+
+};
+
+std::string ItemEffect::small_convert(std::string prefix, long double val)
+{
+    if (val != 0)
+    {
+        return prefix + std::to_string(val);
+    }
+    else
+    {
+        return "";
+    };
+
+};
+
+std::string ItemEffect::line_str()
+{
+
+    std::string result = "";
+    std::vector<std::string> string_vec;
+
+    string_vec.push_back(this->small_convert("HCV: ", (long double)this->health_current_val));
+    string_vec.push_back(this->small_convert("HMV: ", (long double)this->health_max_val));
+    string_vec.push_back(this->small_convert("HRR: ", (long double)this->health_regen_rate));
+    string_vec.push_back(this->small_convert("HRI: ", (long double)this->health_regen_interval));
+
+    string_vec.push_back(this->small_convert("MCV: ", (long double)this->mana_current_val));
+    string_vec.push_back(this->small_convert("MMV: ", (long double)this->mana_max_val));
+    string_vec.push_back(this->small_convert("MRR: ", (long double)this->mana_regen_rate));
+    string_vec.push_back(this->small_convert("MRI: ", (long double)this->mana_regen_interval));
+
+    string_vec.push_back(this->small_convert("ACV: ", (long double)this->armor_current_val));
+    string_vec.push_back(this->small_convert("AMV: ", (long double)this->armor_max_val));
+    string_vec.push_back(this->small_convert("ARR: ", (long double)this->armor_regen_rate));
+    string_vec.push_back(this->small_convert("ARI: ", (long double)this->armor_regen_interval));
+
+    string_vec.push_back(this->small_convert("DCV: ", (long double)this->damage_current_val));
+    string_vec.push_back(this->small_convert("DMV: ", (long double)this->damage_max_val));
+    string_vec.push_back(this->small_convert("DRR: ", (long double)this->damage_regen_rate));
+    string_vec.push_back(this->small_convert("DRI: ", (long double)this->damage_regen_interval));
+
+    return StringJoin(string_vec, '|', true);
 
 };
 

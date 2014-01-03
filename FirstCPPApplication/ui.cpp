@@ -155,7 +155,7 @@ void Ui::draw_inventory_ui()
     for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
         TCODConsole::root->print(3, i, (*it)->name.c_str());
         i++;
-        TCODConsole::root->print(3, i, (*it)->item_effect->c_str().c_str());
+        TCODConsole::root->print(3, i, (*it)->item_effect->line_str().c_str());
         i++;
     }
 

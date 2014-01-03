@@ -54,7 +54,9 @@ class ItemEffect
         bool already_applied(Actor* actor);
         void mark_applied_to(Actor* actor);
 
-        std::string c_str();
+        std::string ItemEffect::small_convert(std::string prefix, long double val);
+        std::string full_str();
+        std::string ItemEffect::line_str();
 };
 
 #endif

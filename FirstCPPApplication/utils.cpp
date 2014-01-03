@@ -39,7 +39,7 @@ std::vector<std::string> StringSplit(std::string input_str, char delim)
     return parts;
 };
 
-std::string StringJoin(std::vector<std::string> string_vector, char delim)
+std::string StringJoin(std::vector<std::string> string_vector, char delim, bool remove_empty)
 {
     std::string out_string;
     std::vector<std::string>::iterator it = string_vector.begin();
@@ -53,7 +53,17 @@ std::string StringJoin(std::vector<std::string> string_vector, char delim)
     out_string+=*it;
     ++it;
     for(it; it != string_vector.end(); ++it){
-        out_string+=(delim+*it);
+        if (remove_empty == true)
+        {
+            if (*it != "")
+            {
+                out_string+=(delim+*it);
+            };
+        }
+        else
+        {
+            out_string+=(delim+*it);
+        };
     }  
 
     return out_string;
@@ -125,7 +135,7 @@ std::string get_data_path()
     data+=kPathSeparator;
     exesplit.push_back(data);
 
-    return StringJoin(exesplit, kPathSeparator);
+    return StringJoin(exesplit, kPathSeparator, false);
 };
 
 std::string get_exe_path() 
