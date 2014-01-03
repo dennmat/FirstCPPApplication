@@ -10,13 +10,16 @@ std::string ToUpper(std::string data);
 
 void print_str_array(std::string msg_list[], int len);
 
+//old asking for inputs
 int ask_for_int(std::string msg, int default_int=0);
 std::string ask_for_str(std::string msg, std::string default_str="STRING");
 
+//splitting and joining
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 std::vector<std::string> StringSplit(std::string input_str, char delim);
 std::string StringJoin(std::vector<std::string> string_vector, char delim, bool remove_empty = false);
 
+//getting various paths
 std::string get_exe_path();
 std::string get_data_path();
 std::string get_images_path();

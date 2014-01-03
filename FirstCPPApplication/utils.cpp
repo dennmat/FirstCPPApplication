@@ -55,7 +55,7 @@ std::string StringJoin(std::vector<std::string> string_vector, char delim, bool 
     for(it; it != string_vector.end(); ++it){
         if (remove_empty == true)
         {
-            if (*it != "")
+            if (*it != "") //only add the ones that aren't empty strings
             {
                 out_string+=(delim+*it);
             };

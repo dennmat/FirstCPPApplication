@@ -33,6 +33,62 @@ ItemEffect::ItemEffect()
     this->applied_to = new std::vector<Actor*>;
 };
 
+void ItemEffect::set_all_vals_to(int new_val)
+{
+    this->health_current_val = new_val;
+    this->health_max_val = new_val;
+    this->health_regen_rate = new_val;
+    this->health_regen_interval = new_val; 
+
+    this->mana_current_val = new_val;
+    this->mana_max_val = new_val;
+    this->mana_regen_rate = new_val;
+    this->mana_regen_interval = new_val; 
+
+    this->armor_current_val = new_val;
+    this->armor_max_val = new_val;
+    this->armor_regen_rate = new_val;
+    this->armor_regen_interval = new_val; 
+
+    this->damage_current_val = new_val;
+    this->damage_max_val = new_val;
+    this->damage_regen_rate = new_val;
+    this->damage_regen_interval = new_val; 
+
+};
+
+void ItemEffect::set_health_vals_to(int new_val)
+{
+    this->health_current_val = new_val;
+    this->health_max_val = new_val;
+    this->health_regen_rate = new_val;
+    this->health_regen_interval = new_val; 
+};
+
+void ItemEffect::set_mana_vals_to(int new_val)
+{
+    this->mana_current_val = new_val;
+    this->mana_max_val = new_val;
+    this->mana_regen_rate = new_val;
+    this->mana_regen_interval = new_val; 
+};
+
+void ItemEffect::set_armor_vals_to(int new_val)
+{
+    this->armor_current_val = new_val;
+    this->armor_max_val = new_val;
+    this->armor_regen_rate = new_val;
+    this->armor_regen_interval = new_val; 
+};
+
+void ItemEffect::set_damage_vals_to(int new_val)
+{
+    this->damage_current_val = new_val;
+    this->damage_max_val = new_val;
+    this->damage_regen_rate = new_val;
+    this->damage_regen_interval = new_val; 
+};
+
 bool ItemEffect::already_applied(Actor* actor)
 {
 

@@ -57,6 +57,12 @@ class ItemEffect
         std::string ItemEffect::small_convert(std::string prefix, long double val);
         std::string full_str();
         std::string ItemEffect::line_str();
+
+        void set_all_vals_to(int new_val);
+        void set_health_vals_to(int new_val);
+        void set_mana_vals_to(int new_val);
+        void set_armor_vals_to(int new_val);
+        void set_damage_vals_to(int new_val);
 };
 
 #endif
