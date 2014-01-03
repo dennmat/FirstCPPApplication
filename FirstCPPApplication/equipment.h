@@ -49,6 +49,7 @@ class Slot
 
 
 };
+
 class Equipment
 {
 
@@ -59,6 +60,7 @@ class Equipment
         ~Equipment();
         Equipment();
         void Update();//apply buffs/debuffs and durability for all equipment
+        bool Equipment::is_item_equipped(Item* item);
 
         Slot* head;
         Slot* earrings;

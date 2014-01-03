@@ -21,6 +21,7 @@ bool Slot::HasRoomFor(Item* item)
 
 };
 
+
 void Slot::AddToSlot(Item* item)
 {
     //if item slot isn't full
@@ -135,6 +136,44 @@ Equipment::Equipment()
     this->off_weapon = new Slot(slots_t::OffHand, this);
 
 };
+
+bool Equipment::is_item_equipped(Item* item)
+{
+    if (
+            this->head->GetEquippedItem() == item ||
+            this->earrings->GetEquippedItem() == item ||
+            this->necklace->GetEquippedItem() == item ||
+
+            this->chest->GetEquippedItem() == item ||
+            this->left_shoulder->GetEquippedItem() == item ||
+            this->right_shoulder->GetEquippedItem() == item ||
+
+            this->left_bracer->GetEquippedItem() == item ||
+            this->right_bracer->GetEquippedItem() == item ||
+
+            this->left_glove->GetEquippedItem() == item ||
+            this->right_glove->GetEquippedItem() == item ||
+
+            this->left_ring_ring->GetEquippedItem() == item ||
+            this->right_ring_ring->GetEquippedItem() == item ||
+            this->left_ring_middle->GetEquippedItem() == item ||
+            this->right_ring_middle->GetEquippedItem() == item ||
+            this->left_ring_index->GetEquippedItem() == item ||
+            this->right_ring_index->GetEquippedItem() == item ||
+
+            this->main_weapon->GetEquippedItem() == item ||
+            this->off_weapon->GetEquippedItem() == item
+            ) 
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    };
+
+};
+
 Equipment::~Equipment()
 {
 

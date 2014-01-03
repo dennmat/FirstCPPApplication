@@ -149,12 +149,21 @@ void Ui::draw_inventory_ui()
     TCOD_bkgnd_flag_t bkgnd_flag = TCODConsole::root->getBackgroundFlag();
     TCODConsole::root->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER, "Inventory Screen");
 
-    // draw the list of items equipped on the player
+    // draw the list of items on the player
     std::vector<Item*>* v  = this->game->player->inventory->items;
     int i = 5;
-    for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) {
-        TCODConsole::root->print(3, i, (*it)->name.c_str());
-        i++;
+    for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
+    {
+        if (this->game->player->equipment->is_item_equipped(*it))
+        {
+            TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
+            TCODConsole::root->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+        }
+        else
+        {
+            TCODConsole::root->print(3, i, (*it)->name.c_str());
+        };
+            i++;
         TCODConsole::root->print(3, i, (*it)->item_effect->line_str().c_str());
         i++;
     }
