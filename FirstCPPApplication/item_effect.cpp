@@ -244,7 +244,7 @@ std::string ItemEffect::small_convert(std::string prefix, long double val)
 
 };
 
-std::string ItemEffect::line_str()
+std::string ItemEffect::oneline_str()
 {
 
     std::string result = "";

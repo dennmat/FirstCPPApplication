@@ -158,7 +158,7 @@ void Ui::draw_inventory_ui()
         is_chosen = (*it) == this->chosen_item;
         if (this->game->player->equipment->is_item_equipped(*it))
         {
-            if (is_chosen == true)
+            if (is_chosen)
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
             }
@@ -170,10 +170,18 @@ void Ui::draw_inventory_ui()
         }
         else
         {
-            TCODConsole::root->print(3, i, (*it)->name.c_str());
+            if (is_chosen)
+            {
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+            }
+            else
+            {
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
+            };
+            TCODConsole::root->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         };
             i++;
-        TCODConsole::root->print(3, i, (*it)->item_effect->line_str().c_str());
+        TCODConsole::root->print(3, i, (*it)->item_effect->oneline_str().c_str());
         i++;
     }
 
