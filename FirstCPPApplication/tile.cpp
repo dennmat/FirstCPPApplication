@@ -53,18 +53,15 @@ void Tile::drawColorsToRoot(TCODColor* fg_color, TCODColor* bg_color)
 void Tile::setKnown(bool is_known)
 {
     this->_is_known = is_known;
-    // cout << "is known" << endl;
 };
 
 void Tile::place_item_down(Item* item)
 {
     this->inventory->add_item(item);
-
 };
 void Tile::pick_up_item(Item* item)
 {
     this->inventory->remove_item(item);
-
 };
 
 void Tile::makeOccupied(Actor* the_actor)
@@ -147,7 +144,6 @@ Tile* Tile::getTileAtRelative(int x, int y)
 
         return NULL;
     };
-
 };
 
 Tile* Tile::getTopLeftTile()

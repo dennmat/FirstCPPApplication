@@ -145,9 +145,13 @@ void Ui::draw_inventory_ui()
     // clear the screen
     TCODConsole::root->clear();
 
+    ui_inv_w = this->game->screen_w;
+    ui_inv_h = 10;
+    TCODConsole *ui_inv_con = new TCODConsole(ui_inv_w, ui_inv_h);
+
     int inv_title_x = this->game->screen_w/2;
-    TCOD_bkgnd_flag_t bkgnd_flag = TCODConsole::root->getBackgroundFlag();
-    TCODConsole::root->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER, "Inventory Screen");
+    TCOD_bkgnd_flag_t bkgnd_flag = ui_inv_con->getBackgroundFlag();
+    ui_inv_con->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER, "Inventory Screen");
 
     // draw the list of items on the player
     std::vector<Item*>* v  = this->game->player->inventory->items;
@@ -166,7 +170,7 @@ void Ui::draw_inventory_ui()
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
             };
-            TCODConsole::root->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+            ui_inv_con->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         }
         else
         {
@@ -178,11 +182,14 @@ void Ui::draw_inventory_ui()
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
             };
-            TCODConsole::root->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+            ui_inv_con->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         };
             i++;
-        TCODConsole::root->print(3, i, (*it)->item_effect->oneline_str().c_str());
+        ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());
         i++;
     }
+
+    TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
+    delete ui_inv_con;
 
 };

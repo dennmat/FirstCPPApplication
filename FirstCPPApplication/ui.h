@@ -20,6 +20,8 @@ class Ui
 
         Ui();
 
+        int ui_inv_w;
+        int ui_inv_h;
         int ui_msg_w;
         int ui_msg_h;
         int ui_sidebar_w;
