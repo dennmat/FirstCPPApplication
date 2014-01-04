@@ -137,7 +137,7 @@ Item* Actor::CreateCorpse()
     corpse->repr->repr = '%';
     corpse->repr->setFGColor(*this->representation->fg_color, true, false, true);
     
-    corpse->name =  this->cls_name + "corpse";
+    corpse->name =  this->cls_name + " corpse";
     corpse->item_effect->set_all_vals_to(0);
     corpse->item_effect->health_regen_interval=1;
     corpse->item_effect->health_regen_rate=1;

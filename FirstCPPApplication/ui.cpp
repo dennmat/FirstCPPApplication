@@ -16,6 +16,8 @@
 
 Ui::Ui()
 {
+    this->chosen_item = NULL;
+
     this->turn_checking_against = 1;
     this->last_turn_noted = 1;
 
@@ -42,12 +44,10 @@ void Ui::update_ui()
     };
     if (this->last_turn_noted != this->turn_checking_against)
     {
-
         //if turn was changed less than 300 ticks ago, make the turn count red
         if (this->game->tick_count < this->tick_checking_against)
         {
-
-            unsigned long long int difference = this->tick_checking_against - this->game->tick_count ;
+            unsigned long long int difference = this->tick_checking_against - this->game->tick_count;
             if (difference >= 0)
             {
                 if (difference > this->tick_threshold)
@@ -152,11 +152,20 @@ void Ui::draw_inventory_ui()
     // draw the list of items on the player
     std::vector<Item*>* v  = this->game->player->inventory->items;
     int i = 5;
+    bool is_chosen;
     for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
+        is_chosen = (*it) == this->chosen_item;
         if (this->game->player->equipment->is_item_equipped(*it))
         {
-            TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
+            if (is_chosen == true)
+            {
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+            }
+            else
+            {
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
+            };
             TCODConsole::root->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         }
         else

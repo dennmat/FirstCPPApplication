@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include <cstdlib>
 #include <algorithm>
+#include <unordered_map>
 
 #include <windows.h>
 
@@ -18,6 +19,7 @@
 #include "Representation.h"
 #include "tile.h"	
 #include "equipment.h"
+#include "ui.h"
 
 using namespace std;
 
@@ -250,7 +252,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
         // player->is_moving_left = true;
         // if(the_game->current_map->attackMovePlayer(player, -1, 0) )
         // { 
-            return true;
+        return true;
         // }
     };
 
@@ -377,42 +379,70 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     bool incr_turn = false;
     int current_tile = player->x+(player->y*(the_game->current_map->width));
 
-        switch(the_game->current_state)
-        {
-            case GameStates::GameplayState: 
+    switch(the_game->current_state)
+    {
+        case GameStates::GameplayState: 
 
-                if(is_request_move_cmd(request))
-                {
-                    incr_turn = process_movement(the_game, request, player);
-                }
+            if(is_request_move_cmd(request))
+            {
+                incr_turn = process_movement(the_game, request, player);
+            }
 
-                else if (is_request_basic_cmd(request))
-                {
-                    incr_turn = process_basic_cmd(the_game, request, player);
-                }
+            else if (is_request_basic_cmd(request))
+            {
+                incr_turn = process_basic_cmd(the_game, request, player);
+            }
 
-                else if(request.c == 'q' && request.pressed == 1)
-                {
-                    cout << "Goodbye now" << endl;
-                    exit(1);
-                }
-                else
-                {
-                    cout << endl << "command not found: " << char_to_str(request.c) << endl;
-                    cout << "Try 'help' for list of commands" << endl;
-                }
+            else if(request.c == 'q' && request.pressed == 1)
+            {
+                cout << "Goodbye now" << endl;
+                exit(1);
+            }
+            else
+            {
+                cout << endl << "command not found: " << char_to_str(request.c) << endl;
+                cout << "Try 'help' for list of commands" << endl;
+            }
 
-                break;
-            case GameStates::MenuState:
-                if (request.c == 'q' && request.pressed == 1)
-                {
-                    cout << "Back to the game." << endl;
-                    the_game->current_state = GameStates::GameplayState;
-                }
+            break;
 
-                break;
-        }
+        case GameStates::MenuState:
+            if (request.c == 'q' && request.pressed == 1)
+            {
+                cout << "Back to the game." << endl;
+                the_game->ui->chosen_item = NULL;
+                the_game->current_state = GameStates::GameplayState;
+            }
 
-        return incr_turn;
+            //generate keys for the appropriate items
+            typedef std::unordered_map<char, Item*> keypair_t;
+            keypair_t item_map;
+            typedef std::pair<char, Item*> keypair;
+
+            char key = 'a';
+
+            std::vector<Item*>* items = the_game->player->inventory->items;
+            for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
+            {
+                item_map.insert(keypair(key, (*it)));
+                key++;
+            };
+
+            //choose item
+            auto it = item_map.find(request.c);
+            if (it != item_map.end())
+            {
+                the_game->ui->chosen_item = it->second;
+                // std::cout << "FREAKOUT\n\n\n" << std::endl;
+            };
+
+            //display info of chosen item
+
+            //equip chosen item
+
+            break;
+    }
+
+    return incr_turn;
 
 };

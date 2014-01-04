@@ -4,6 +4,7 @@
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
+class Item;
 class Game;
 
 class Ui
@@ -23,6 +24,8 @@ class Ui
         int ui_msg_h;
         int ui_sidebar_w;
         int ui_sidebar_h;
+
+        Item* chosen_item;
 
         void update_ui();
         void update_inventory_ui();

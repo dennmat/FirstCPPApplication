@@ -53,6 +53,7 @@ class Game
         bool buildmode;
         Tile *clipboard;
 
+
         std::string last_cmd;
 
         Game();
