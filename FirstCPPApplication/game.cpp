@@ -216,7 +216,7 @@ void Game::draw_ui()
             this->ui->draw_ui();
             break;
         case GameStates::MenuState:
-            this->ui->draw_inventory_ui();
+            this->ui->draw_inventory_main();
             break;
     };
 };

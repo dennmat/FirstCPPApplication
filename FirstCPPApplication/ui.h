@@ -22,6 +22,9 @@ class Ui
 
         int ui_inv_w;
         int ui_inv_h;
+        int ui_inv_msg_w;
+        int ui_inv_msg_h;
+
         int ui_msg_w;
         int ui_msg_h;
         int ui_sidebar_w;
@@ -36,7 +39,9 @@ class Ui
         void draw_ui_msg();
         void draw_ui_sidebar();
 
-        void Ui::draw_inventory_ui();
+        void draw_inventory_ui();
+        void draw_inventory_main();
+        void draw_inventory_msg();
 };
 
 #endif

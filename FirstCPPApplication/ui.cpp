@@ -140,6 +140,12 @@ void Ui::draw_ui_msg()
 };
 
 
+void Ui::draw_inventory_main()
+{
+    this->draw_inventory_ui();
+    this->draw_inventory_msg();
+};
+
 void Ui::draw_inventory_ui()
 {
     // clear the screen
@@ -184,7 +190,8 @@ void Ui::draw_inventory_ui()
             };
             ui_inv_con->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         };
-            i++;
+        i++;
+
         ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());
         i++;
     }
@@ -192,4 +199,23 @@ void Ui::draw_inventory_ui()
     TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
     delete ui_inv_con;
 
+};
+
+void Ui::draw_inventory_msg()
+{
+    ui_inv_msg_w = this->game->screen_w;
+    ui_inv_msg_h = 10;
+    TCODConsole *ui_inv_msg_con = new TCODConsole(ui_inv_msg_w, ui_inv_msg_h);
+
+    //reset ui console to default
+    TCODColor ui_inv_msg_color(12,12,12);
+    ui_inv_msg_con->setDefaultBackground(ui_inv_msg_color);
+    ui_inv_msg_con->clear();
+
+    //draw the message text
+    ui_inv_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
+
+    //draw ui console to root
+    TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, this->game->screen_h-ui_inv_msg_h);
+    delete ui_inv_msg_con;
 };
