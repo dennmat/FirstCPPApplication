@@ -223,6 +223,12 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     else if( action == inventory_items_active_t::DropItem )
     {
         std::cout << "DROP ITEM" << std::endl;
+        Item* item = the_game->ui->chosen_item;
+        the_game->ui->chosen_item = NULL;
+        the_game->ui->item_active = false;
+        player->inventory->remove_item(item);
+        player->my_tile->place_item_down(item);
+
     }
     else if( action == inventory_items_active_t::EscapeMenuItem )
     {
