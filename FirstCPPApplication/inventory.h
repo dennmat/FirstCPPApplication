@@ -3,10 +3,14 @@
 
 class Item;
 class Tile;
+class Actor;
 
 class Inventory
 {
     public:
+    
+        Actor* master;
+
         std::vector<Item*>* items;
 
         void add_item(Item*);
@@ -14,7 +18,7 @@ class Inventory
         int get_count();
         Inventory();
 
-        void Inventory::drop_item(Item* item, Tile* tile);
+        void drop_item(Item* item);
 
 };
 

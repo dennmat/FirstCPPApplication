@@ -4,11 +4,13 @@
 
 #include "inventory.h"
 #include "item.h"
+#include "actors\actor.h"
 #include "tile.h"
 
 Inventory::Inventory()
 {
     this->items = new std::vector<Item*>;
+    this->master = NULL;
 };
 
 void Inventory::add_item(Item* item)
@@ -33,10 +35,10 @@ void Inventory::remove_item(Item* item)
     };
 };
 
-void Inventory::drop_item(Item* item, Tile* tile)
+void Inventory::drop_item(Item* item)
 {
     this->remove_item(item);
-    tile->place_item_down(item);
+    this->master->my_tile->place_item_down(item);
 
 };
 

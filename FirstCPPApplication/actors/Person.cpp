@@ -35,6 +35,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     Inventory* inventory =   new Inventory;
     this->inventory = inventory;
+    this->inventory->master = this;
     this->equipment = new Equipment;
     this->equipment->master = this;
 
@@ -66,6 +67,8 @@ Person::Person() : Actor()
     this->representation->repr = '~';
 
     Inventory* inventory =   new Inventory;
+    this->inventory = inventory;
+    this->inventory->master = this;
     this->equipment = new Equipment;
     this->equipment->master = this;
 

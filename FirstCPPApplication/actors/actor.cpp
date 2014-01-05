@@ -30,6 +30,7 @@ Actor::Actor()
 
     this->representation = new Representation;
     this->inventory = new Inventory;
+    this->inventory->master = this;
     this->attrs = new AttributeContainer;
     this->attrs->owner = this;
 
