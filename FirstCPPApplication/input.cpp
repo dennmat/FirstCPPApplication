@@ -72,7 +72,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 
 enum inventory_items_active_t {
     ExamineItem, EquipItem,
-    DropItem,
+    DropItem, EscapeMenuItem,
     NO_MATCHING_ITEMS_ACTIVE
 };
 
@@ -81,7 +81,7 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
     std::map<int, inventory_items_active_t> spec_invitemactivemap; //Keypad, punctuation
     std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
 // 
-//     spec_invitemactivemap[TCODK_KP7] = inventory_items_active_t::NW;
+    spec_invitemactivemap[TCODK_ESCAPE] = inventory_items_active_t::EscapeMenuItem;
 //     spec_invitemactivemap[TCODK_KP8] = inventory_items_active_t::N;
 //     spec_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
 //     spec_invitemactivemap[TCODK_KP6] = inventory_items_active_t::E;
@@ -95,6 +95,7 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
     // char_invitemactivemap[TCODK_KP7] = inventory_items_active_t::NW;
     // char_invitemactivemap['n'] = inventory_items_active_t::N;
     // char_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
+    // char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem; //TODO add a regular input handler for regular inventory mode
     char_invitemactivemap['e'] = inventory_items_active_t::ExamineItem;
     // char_invitemactivemap[TCODK_KP3] = inventory_items_active_t::SE;
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
@@ -219,9 +220,14 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     {
         std::cout << "EXAMINE ITEM" << std::endl;
     }
-    if( action == inventory_items_active_t::DropItem )
+    else if( action == inventory_items_active_t::DropItem )
     {
         std::cout << "DROP ITEM" << std::endl;
+    }
+    else if( action == inventory_items_active_t::EscapeMenuItem )
+    {
+        the_game->ui->item_active = false;
+        std::cout << "Escape back to regular inventory mode" << std::endl;
     }
 
     return false;
