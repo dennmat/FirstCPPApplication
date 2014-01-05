@@ -3,6 +3,7 @@
 #include "item.h"
 #include "Representation.h"
 #include "item_effect.h"
+#include "actors/actor.h"
 
 Item::Item()
 {
@@ -12,4 +13,10 @@ Item::Item()
 
     this->name = "A Nameless Item";
     this->description = "A Descriptionless Item";
+};
+
+
+void Item::use(Actor* target)
+{
+    this->item_effect->ApplyAllEffects(target);
 };

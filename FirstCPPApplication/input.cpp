@@ -20,6 +20,7 @@
 #include "tile.h"	
 #include "equipment.h"
 #include "ui.h"
+#include "item.h"
 
 using namespace std;
 
@@ -73,6 +74,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 enum inventory_items_active_t {
     ExamineItem, EquipItem,
     DropItem, EscapeMenuItem,
+    UseItem,
     NO_MATCHING_ITEMS_ACTIVE
 };
 
@@ -96,10 +98,10 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
     // char_invitemactivemap['n'] = inventory_items_active_t::N;
     // char_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
     // char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem; //TODO add a regular input handler for regular inventory mode
-    char_invitemactivemap['e'] = inventory_items_active_t::ExamineItem;
+    char_invitemactivemap['x'] = inventory_items_active_t::ExamineItem;
     // char_invitemactivemap[TCODK_KP3] = inventory_items_active_t::SE;
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
-    // char_invitemactivemap[TCODK_KP1] = inventory_items_active_t::SW;
+    char_invitemactivemap['e'] = inventory_items_active_t::UseItem;
     char_invitemactivemap['w'] = inventory_items_active_t::EquipItem;
 
     if (key.vk == TCODK_CHAR) 
@@ -228,8 +230,19 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
         the_game->ui->item_active = false;
 
         player->inventory->drop_item(item);
-
     }
+
+    else if( action == inventory_items_active_t::UseItem )
+    {
+        std::cout << "Using item" << std::endl;
+        the_game->ui->chosen_item->use(the_game->player);
+    }
+
+    else if( action == inventory_items_active_t::EquipItem )
+    {
+        std::cout << "Equipping item" << std::endl;
+    }
+
     else if( action == inventory_items_active_t::EscapeMenuItem )
     {
         the_game->ui->item_active = false;

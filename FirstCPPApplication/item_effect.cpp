@@ -119,6 +119,14 @@ void ItemEffect::mark_applied_to(Actor* actor)
     };
 };
 
+void ItemEffect::ApplyAllEffects(Actor* actor)
+{
+    this->ApplyHealthEffects(actor);
+    this->ApplyManaEffects(actor);
+    this->ApplyArmorEffects(actor);
+    this->ApplyDamageEffects(actor);
+};
+
 void ItemEffect::ApplyHealthEffects(Actor* actor)
 {
     if (! this->already_applied(actor))
@@ -166,6 +174,14 @@ void ItemEffect::ApplyDamageEffects(Actor* actor)
         this->mark_applied_to(actor);
     }
 
+};
+
+void ItemEffect::RemoveAllEffects(Actor* actor)
+{
+    this->RemoveHealthEffects(actor);
+    this->RemoveManaEffects(actor);
+    this->RemoveArmorEffects(actor);
+    this->RemoveDamageEffects(actor);
 };
 
 void ItemEffect::RemoveHealthEffects(Actor* actor)

@@ -9,6 +9,7 @@
 class Representation;
 class Slot;
 class ItemEffect;
+class Actor;
 
 // enum slots_t : unsigned int;
 
@@ -20,7 +21,9 @@ class Item
 
         ItemEffect* item_effect;
         Representation* repr;
+
         Item();
+        void use(Actor* target);
 
         slots_t slot_type;
 

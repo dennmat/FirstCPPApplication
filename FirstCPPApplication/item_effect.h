@@ -42,10 +42,13 @@ class ItemEffect
         std::vector<Actor*>* applied_to;
 
         ItemEffect();
+        void ApplyAllEffects(Actor* actor);
         void ApplyHealthEffects(Actor* actor);
         void ApplyManaEffects(Actor* actor);
         void ApplyArmorEffects(Actor* actor);
         void ApplyDamageEffects(Actor* actor);
+
+        void RemoveAllEffects(Actor* actor);
         void RemoveHealthEffects(Actor* actor);
         void RemoveManaEffects(Actor* actor);
         void RemoveArmorEffects(Actor* actor);

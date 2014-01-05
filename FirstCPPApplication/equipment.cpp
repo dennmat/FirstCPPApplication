@@ -32,7 +32,6 @@ void Slot::AddToSlot(Item* item)
         //add item to slot
         std::cout << "added item to slot" << std::endl;
         this->equipped_item = item;
-
     }
     else
     {
@@ -68,6 +67,7 @@ void Slot::remove_item_effect()
     if (master != NULL && master->has_attributes(), this->equipped_item != NULL)
     {
         //apply appropriate health mana damage armor changes
+
         this->equipped_item->item_effect->RemoveHealthEffects(master);
         this->equipped_item->item_effect->RemoveManaEffects(master);
         this->equipped_item->item_effect->RemoveArmorEffects(master);
