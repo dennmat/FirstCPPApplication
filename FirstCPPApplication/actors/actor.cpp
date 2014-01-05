@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
@@ -17,7 +18,6 @@
 #include "item.h"
 #include "item_effect.h"
 
-using namespace std;
 
 Actor::Actor()
 {
@@ -71,7 +71,7 @@ const char* Actor::GetNameC()
 bool Actor::IsActorInSight(Actor * actor)
 {
 
-    vector<Actor*>::iterator aisItr;
+    std::vector<Actor*>::iterator aisItr;
     aisItr = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
     if (aisItr != this->actors_in_sight->end()) { return true; }
     else { return false; }
@@ -101,11 +101,11 @@ void Actor::putPerson( Tile * next_tile, int new_x, int new_y)
     }
     else if (next_tile == NULL)
     {
-        cout << "next tile is null" << endl;
+        std::cout << "next tile is null" << std::endl;
     }
     else
     {
-        cout << "else, this shouldn't be a possiblity" << endl;
+        std::cout << "else, this shouldn't be a possiblity" << std::endl;
     }
 
     if (new_x != -1 && new_y != -1)

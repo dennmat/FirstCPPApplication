@@ -13,6 +13,8 @@ Slot::Slot(slots_t type, Equipment* equipment)
     this->equipment = equipment;
     this->equipped_item = NULL;
 
+    this->equipment->slots->push_back(this);
+
 };
 
 bool Slot::HasRoomFor(Item* item)
@@ -110,6 +112,7 @@ bool Slot::CanFitInSlot(Item* item)
 Equipment::Equipment()
 {
     this->master = NULL;
+    this->slots = new std::vector<Slot*>;
 
     this->head = new Slot(slots_t::Head, this);
     this->earrings = new Slot(slots_t::Ear, this);
@@ -134,6 +137,11 @@ Equipment::Equipment()
 
     this->main_weapon = new Slot(slots_t::MainHand, this);
     this->off_weapon = new Slot(slots_t::OffHand, this);
+
+};
+
+void Equipment::unequip_item(Item* item)
+{
 
 };
 

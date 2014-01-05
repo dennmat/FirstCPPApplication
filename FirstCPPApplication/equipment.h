@@ -8,22 +8,12 @@ class Person;
 class Item;
 class Inventory;
 class Tile;
+class vector;
 
 class Equipment;
 
 #include <enums\slots_t.h>
-// enum slots_t : unsigned int {
-//     Head, 
-//     Ear,
-//     Neck,
-//     Chest,
-//     Shoulders,
-//     Forearms,
-//     Hands,
-//     Fingers,
-//     MainHand,
-//     OffHand
-// };
+#include <vector>
 
 
 class Slot
@@ -60,7 +50,10 @@ class Equipment
         ~Equipment();
         Equipment();
         void Update();//apply buffs/debuffs and durability for all equipment
-        bool Equipment::is_item_equipped(Item* item);
+        bool is_item_equipped(Item* item);
+        void unequip_item(Item* item);
+
+        std::vector<Slot*>* slots;
 
         Slot* head;
         Slot* earrings;

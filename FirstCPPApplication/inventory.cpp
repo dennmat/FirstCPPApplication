@@ -6,6 +6,7 @@
 #include "item.h"
 #include "actors\actor.h"
 #include "tile.h"
+#include "equipment.h"
 
 Inventory::Inventory()
 {
@@ -27,6 +28,10 @@ void Inventory::add_item(Item* item)
 
 void Inventory::remove_item(Item* item)
 {
+    if (this->master->equipment->is_item_equipped(item))
+    {
+        this->master->equipment->unequip_item(item);
+    };
     //check for item in list, if its not, remove it 
     auto it = std::find(this->items->begin(), this->items->end(), item);
     if (it != this->items->end())
