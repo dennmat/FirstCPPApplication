@@ -142,6 +142,15 @@ Equipment::Equipment()
 
 void Equipment::unequip_item(Item* item)
 {
+    for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); ++it)
+    {
+        if ((*it)->GetEquippedItem() == item)
+        {
+            (*it)->RemoveFromSlot();
+            std::cout << "removed from slot" << std::endl;
+        }
+
+    };
 
 };
 

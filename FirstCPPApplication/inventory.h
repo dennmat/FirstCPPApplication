@@ -4,6 +4,7 @@
 class Item;
 class Tile;
 class Actor;
+class Object;
 
 class Inventory
 {

@@ -5,6 +5,7 @@
 #include "inventory.h"
 #include "item.h"
 #include "actors\actor.h"
+#include "object.h"
 #include "tile.h"
 #include "equipment.h"
 
@@ -28,7 +29,7 @@ void Inventory::add_item(Item* item)
 
 void Inventory::remove_item(Item* item)
 {
-    if (this->master->equipment->is_item_equipped(item))
+    if (this->master != NULL && this->master->equipment->is_item_equipped(item))
     {
         this->master->equipment->unequip_item(item);
     };
@@ -43,7 +44,10 @@ void Inventory::remove_item(Item* item)
 void Inventory::drop_item(Item* item)
 {
     this->remove_item(item);
-    this->master->my_tile->place_item_down(item);
+    if (master != NULL)
+    {
+        this->master->my_tile->place_item_down(item);
+    };
 
 };
 
