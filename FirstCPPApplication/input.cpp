@@ -432,6 +432,14 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             auto it = item_map.find(request.c);
             if (it != item_map.end())
             {
+                if (the_game->ui->chosen_item == it->second)
+                {
+                    the_game->ui->item_active = true;
+                }
+                else
+                {
+                    the_game->ui->item_active = false;
+                };
                 the_game->ui->chosen_item = it->second;
                 // std::cout << "FREAKOUT\n\n\n" << std::endl;
             };

@@ -31,6 +31,7 @@ class Ui
         int ui_sidebar_h;
 
         Item* chosen_item;
+        bool item_active;
 
         void update_ui();
         void update_inventory_ui();
@@ -42,6 +43,9 @@ class Ui
         void draw_inventory_ui();
         void draw_inventory_main();
         void draw_inventory_msg();
+
+        bool item_is_chosen();
+
 };
 
 #endif

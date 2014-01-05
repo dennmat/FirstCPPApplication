@@ -17,6 +17,7 @@
 Ui::Ui()
 {
     this->chosen_item = NULL;
+    this->item_active = false;
 
     this->turn_checking_against = 1;
     this->last_turn_noted = 1;
@@ -213,9 +214,15 @@ void Ui::draw_inventory_msg()
     ui_inv_msg_con->clear();
 
     //draw the message text
-    ui_inv_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
+    ui_inv_msg_con->print(0, 0, "is item chosen? %i", this->game->ui->item_is_chosen());
+    ui_inv_msg_con->print(0, 1, "is item active? %i", this->game->ui->item_active);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, this->game->screen_h-ui_inv_msg_h);
     delete ui_inv_msg_con;
+};
+
+bool Ui::item_is_chosen()
+{
+    return this->chosen_item != NULL;
 };
