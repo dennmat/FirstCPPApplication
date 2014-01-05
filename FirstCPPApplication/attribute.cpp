@@ -120,6 +120,21 @@ void Attribute::RemoveFromRegenInterval(int difference)
 
 };
 
+bool Attribute::CanRegenerate()
+{
+    //TODO add check to see if has enough intervals has been passed
+    return true;
+};
+
+void Attribute::Regenerate()
+{
+    if (this->CanRegenerate())
+    {
+        this->current_val += this->regen_rate;
+    };
+
+};
+
 bool Attribute::CheckIsReady()
 {
     return this->is_ready;

@@ -29,6 +29,10 @@ class Attribute
         virtual void Tick();
         virtual bool CheckIsReady();
 
+        bool CanRegenerate();
+        void Regenerate();
+        
+
         virtual void AddToCurrentVal(int difference);
         virtual void AddToMaxVal(int difference);
         virtual void AddToRegenRate(int difference);

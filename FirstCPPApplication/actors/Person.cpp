@@ -87,8 +87,18 @@ Person::~Person(){
 
 void Person::update(Game* game)
 {
-    //apply item basic item attributes of only equipped items
+    //apply item basic item attributes of only equipped items if they've not
+    //been equipped already
     this->equipment->Update();
+
+    //apply regen
+    this->attrs->RegenerateAll();
+    // this->attrs->health->current_val += this->attrs->health->regen_rate;
+    // this->attrs->mana->current_val += this->attrs->mana->regen_rate;
+    // this->attrs->damage->current_val += this->attrs->damage->regen_rate;
+    // this->attrs->armor->current_val += this->attrs->armor->regen_rate;
+
+    //TODO intervals
 
     if (this->thinker != NULL)
     {

@@ -16,3 +16,34 @@ AttributeContainer::AttributeContainer()
     this->damage = new DamageAttribute;
 };
 
+void AttributeContainer::RegenerateAll()
+{
+    this->RegenerateHealth();
+    this->RegenerateMana();
+    this->RegenerateArmor();
+    this->RegenerateDamage();
+};
+
+void AttributeContainer::RegenerateHealth()
+{
+    this->health->Regenerate();
+
+};
+
+void AttributeContainer::RegenerateMana()
+{
+    this->mana->Regenerate();
+
+};
+
+void AttributeContainer::RegenerateArmor()
+{
+    this->armor->Regenerate();
+
+};
+
+void AttributeContainer::RegenerateDamage()
+{
+    this->damage->Regenerate();
+
+};

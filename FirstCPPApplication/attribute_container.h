@@ -28,6 +28,12 @@ class AttributeContainer
 
         AttributeContainer();
 
+        void RegenerateAll();
+        void RegenerateHealth();
+        void RegenerateMana();
+        void RegenerateArmor();
+        void RegenerateDamage();
+
 };
 
 #endif
