@@ -111,7 +111,6 @@ void  Game::initialize_items(){
 
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(1,1);
-    // new_pers->putPerson(next_tile, x, y);
 
     Item* item = new Item();
     next_tile->place_item_down(item);
@@ -121,8 +120,6 @@ void  Game::initialize_items(){
     item2->name = "Item of Holding";
     item2->description = "You can hold this item";
     player->inventory->add_item(item2);
-    // enemies.push_back(create_person("first", 99, 20, 2, 'a', "first's Combat"));
-    // enemies.push_back(create_person("second", 66, 4, 9, 'b', "second's Combat"));
 
 };
 
@@ -180,7 +177,7 @@ Game::Game()
 void Game::update()
 {
 
-    player->update(this);
+    this->player->update(this);
 
     for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
