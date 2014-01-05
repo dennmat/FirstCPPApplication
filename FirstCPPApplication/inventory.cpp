@@ -4,6 +4,7 @@
 
 #include "inventory.h"
 #include "item.h"
+#include "tile.h"
 
 Inventory::Inventory()
 {
@@ -30,8 +31,15 @@ void Inventory::remove_item(Item* item)
     {
         this->items->erase(it);
     };
+};
+
+void Inventory::drop_item(Item* item, Tile* tile)
+{
+    this->remove_item(item);
+    tile->place_item_down(item);
 
 };
+
 int Inventory::get_count()
 {
     return this->items->size();

@@ -226,8 +226,10 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
         Item* item = the_game->ui->chosen_item;
         the_game->ui->chosen_item = NULL;
         the_game->ui->item_active = false;
-        player->inventory->remove_item(item);
-        player->my_tile->place_item_down(item);
+
+        player->inventory->drop_item(item, player->my_tile);
+        // player->inventory->remove_item(item);
+        // player->my_tile->place_item_down(item);
 
     }
     else if( action == inventory_items_active_t::EscapeMenuItem )
