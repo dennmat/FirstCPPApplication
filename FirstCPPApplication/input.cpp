@@ -70,6 +70,58 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 
 };
 
+enum inventory_items_active_t {
+    ExamineItem, EquipItem,
+    DropItem,
+    NO_MATCHING_ITEMS_ACTIVE
+};
+
+inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
+{
+    std::map<int, inventory_items_active_t> spec_invitemactivemap; //Keypad, punctuation
+    std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
+// 
+//     spec_invitemactivemap[TCODK_KP7] = inventory_items_active_t::NW;
+//     spec_invitemactivemap[TCODK_KP8] = inventory_items_active_t::N;
+//     spec_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
+//     spec_invitemactivemap[TCODK_KP6] = inventory_items_active_t::E;
+//     spec_invitemactivemap[TCODK_KP3] = inventory_items_active_t::SE;
+//     spec_invitemactivemap[TCODK_KP2] = inventory_items_active_t::S;
+//     spec_invitemactivemap[TCODK_KP1] = inventory_items_active_t::SW;
+//     spec_invitemactivemap[TCODK_KP4] = inventory_items_active_t::W;
+// 
+//     spec_invitemactivemap[TCODK_KP5] = inventory_items_active_t::X;
+
+    // char_invitemactivemap[TCODK_KP7] = inventory_items_active_t::NW;
+    // char_invitemactivemap['n'] = inventory_items_active_t::N;
+    // char_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
+    char_invitemactivemap['e'] = inventory_items_active_t::ExamineItem;
+    // char_invitemactivemap[TCODK_KP3] = inventory_items_active_t::SE;
+    char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
+    // char_invitemactivemap[TCODK_KP1] = inventory_items_active_t::SW;
+    char_invitemactivemap['w'] = inventory_items_active_t::EquipItem;
+
+    if (key.vk == TCODK_CHAR) 
+    {
+        auto it = char_invitemactivemap.find(key.c);
+        if(it == char_invitemactivemap.end())
+        {
+            return inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
+        }
+        return it->second;
+    }
+    else
+    {
+        auto it = spec_invitemactivemap.find(key.vk);
+        if(it == spec_invitemactivemap.end())
+        {
+            return inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
+        }
+        return it->second;
+    }
+    // return inventory_items_active_t::N;
+};
+
 enum directions_t {
     NW=0, N, NE,
     W,    X,  E,
@@ -156,6 +208,21 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         the_game->current_state = GameStates::MenuState;
 
     };
+
+    return false;
+};
+
+bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *player)
+{
+    inventory_items_active_t action = inventory_items_active_pressed(request);
+    if( action == inventory_items_active_t::ExamineItem )
+    {
+        std::cout << "EXAMINE ITEM" << std::endl;
+    }
+    if( action == inventory_items_active_t::DropItem )
+    {
+        std::cout << "DROP ITEM" << std::endl;
+    }
 
     return false;
 };
@@ -278,6 +345,11 @@ bool is_request_basic_cmd(TCOD_key_t request)
 bool is_request_move_cmd(TCOD_key_t request)
 {
     return direction_pressed(request) != directions_t::NO_MATCHING_DIRECTION;
+};
+
+bool is_request_inventory_item_active_cmd(TCOD_key_t request)
+{
+    return inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
 };
 
 void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
@@ -411,6 +483,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             {
                 cout << "Back to the game." << endl;
                 the_game->ui->chosen_item = NULL;
+                the_game->ui->item_active = false;
                 the_game->current_state = GameStates::GameplayState;
             }
 
@@ -428,21 +501,33 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                 key++;
             };
 
-            //choose item
-            auto it = item_map.find(request.c);
-            if (it != item_map.end())
+            bool successful_action = true;
+            if (the_game->ui->item_active == false)
             {
-                if (the_game->ui->chosen_item == it->second)
+                //choose item
+                auto it = item_map.find(request.c);
+                if (it != item_map.end())
                 {
-                    the_game->ui->item_active = true;
-                }
-                else
-                {
-                    the_game->ui->item_active = false;
+                    if (the_game->ui->chosen_item == it->second)
+                    {
+                        the_game->ui->item_active = true;
+
+                    }
+                    else
+                    {
+                        the_game->ui->item_active = false;
+                    };
+                    the_game->ui->chosen_item = it->second;
+                    // std::cout << "FREAKOUT\n\n\n" << std::endl;
                 };
-                the_game->ui->chosen_item = it->second;
-                // std::cout << "FREAKOUT\n\n\n" << std::endl;
-            };
+            }
+            else // item_active is true
+            {
+                if(is_request_inventory_item_active_cmd(request))
+                {
+                    successful_action = process_inventory_item_active(the_game, request, player);
+                };
+            }
 
             //display info of chosen item
 

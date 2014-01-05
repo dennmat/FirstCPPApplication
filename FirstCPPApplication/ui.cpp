@@ -153,7 +153,7 @@ void Ui::draw_inventory_ui()
     TCODConsole::root->clear();
 
     ui_inv_w = this->game->screen_w;
-    ui_inv_h = 10;
+    ui_inv_h = this->game->screen_h - 10;
     TCODConsole *ui_inv_con = new TCODConsole(ui_inv_w, ui_inv_h);
 
     int inv_title_x = this->game->screen_w/2;
