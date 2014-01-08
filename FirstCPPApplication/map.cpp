@@ -165,10 +165,10 @@ int Map::build_from_random(int seed)
 
 void Map::build_rect_room(int room_x, int room_y,
         int room_width, int room_height,
-        int door_count)
+        int door_index)
 {
     //create and add the room to the list of vectors
-    Room * room = new Room(room_x, room_y, room_width, room_height, door_count);
+    Room * room = new Room(room_x, room_y, room_width, room_height, door_index);
     this->roomVector->push_back(room);
 
     for(int new_y=0; new_y<room_height; new_y++)

@@ -33,7 +33,7 @@ class Map : public Object
 
         // void add_room(
         void build_rect_room(int room_x, int room_y,
-                int room_width, int room_height, int door_count);
+                int room_width, int room_height, int door_index);
         string description; // default description if tile does not have one
 
         int draw(Game *the_game);
