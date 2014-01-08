@@ -18,12 +18,6 @@
 
 using namespace std;
 
-// bool TCODColor::operator == (const TCODColor  &left, const int &right)
-// {
-//     return true;
-// }
-
-
 Map::Map()
 {
 
@@ -111,7 +105,7 @@ class BspListener : public ITCODBspCallback
                 y=rng->getInt(node->y+1, node->y+node->h-h-1);
                 //map.createRoom(roomNum == 0, x, y, x+w-1, y+h-1);
                 //((Map*)userData)->build_rect_room(x, y, x+w-1, y+h-1, 0);
-                map.build_rect_room(x, y, x+w-1, y+h-1, 0);
+                map.build_rect_room(x, y, x+w-1, y+h-1, 5);
                 //Room(x, y, x+w-1, y+h-1);
                 // if ( roomNum != 0 ) {
                 //     //dig a corridor from last room
@@ -154,12 +148,6 @@ int Map::build_from_random(int seed)
     int room_max_x = 16;
     int room_max_y = 18;
 
-    TCODBsp bsp(0, 0, width, height);
-    bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
-    BspListener listener(*this);
-    bsp.traverseInvertedLevelOrder(&listener, this);
-
-
     while ( i < width*height )
     {
         Tile* this_tile = getTileAt(x, y);
@@ -200,9 +188,16 @@ int Map::build_from_random(int seed)
         i++;
     }
 
-    build_rect_room(10, 10, 10, 10, 3);
-    build_rect_room(50, 30, 5, 10, 5);
-    build_rect_room(0, 5, 5, 3, 7);
+    // build_rect_room(10, 10, 10, 10, 3);
+    // build_rect_room(50, 30, 5, 10, 5);
+    // build_rect_room(0, 5, 5, 3, 7);
+
+
+    TCODBsp bsp(0, 0, width, height);
+    bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
+    BspListener listener(*this);
+    bsp.traverseInvertedLevelOrder(&listener, this);
+
 
     return 1;
 
