@@ -46,12 +46,25 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
         cout << "I'd throw and error but I don't know how yet" << endl;
     }
 
+    // these two ifs cut way the hell down on recursion by eliminating the
+    // need entirely I think
+    if (x > this->width)
+    {
+        x = this->width-1;
+    };
+
+    if (y > this->height)
+    {
+        y = this->height-1;
+    };
+
 
     //try to get the y vector
-    try { temp = &(*tileVector).at(y); }
+    try { temp = &tileVector->at(y); }
     catch ( std::out_of_range& ex )
     {
         ex;
+	std::cout << "recursed" << std::endl;
         return getTileAt(x, y-1, false, x, y);
     };
 
@@ -74,6 +87,50 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     };
 };
 
+class BspListener : public ITCODBspCallback 
+{
+    private:
+        Map& map;
+        int roomNum;
+        int lastx, lasty;
+
+    public:
+        BspListener(Map &map) : map(map), roomNum(0) {};
+        bool visitNode(TCODBsp *node, void *userData)
+        {
+            if (node->isLeaf())
+            {
+                std::cout << "nodes a leaf" << std::endl;
+
+                int x,y,w,h;
+                // dig a room
+                TCODRandom *rng=TCODRandom::getInstance();
+                w=rng->getInt(0, node->w-2);
+                h=rng->getInt(0, node->h-2);
+                x=rng->getInt(node->x+1, node->x+node->w-w-1);
+                y=rng->getInt(node->y+1, node->y+node->h-h-1);
+                //map.createRoom(roomNum == 0, x, y, x+w-1, y+h-1);
+                //((Map*)userData)->build_rect_room(x, y, x+w-1, y+h-1, 0);
+                map.build_rect_room(x, y, x+w-1, y+h-1, 0);
+                //Room(x, y, x+w-1, y+h-1);
+                // if ( roomNum != 0 ) {
+                //     //dig a corridor from last room
+                //         map.dig(lastx,lasty,x+w/2,lasty);
+                //     map.dig(x+w/2,lasty,x+w/2,y+h/2);
+                // }
+
+                lastx=x+w/2;
+                lasty=y+h/2;
+                roomNum++;
+            }
+            else
+            {
+            std::cout << "nodes NOT A  leaf" << std::endl;
+            }
+            return true;
+        };
+};
+
 int Map::build_from_random(int seed)
 {
     width = 60;
@@ -93,6 +150,15 @@ int Map::build_from_random(int seed)
     int i = 0;
     int x = 0;
     int y = 0;
+
+    int room_max_x = 16;
+    int room_max_y = 18;
+
+    TCODBsp bsp(0, 0, width, height);
+    bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
+    BspListener listener(*this);
+    bsp.traverseInvertedLevelOrder(&listener, this);
+
 
     while ( i < width*height )
     {
@@ -116,27 +182,7 @@ int Map::build_from_random(int seed)
             // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
         }
 
-        // if(tileVector[y][x].tiletype == 2)
-        // {
-        //     WarpTileType* warp_tile;
-        //     warp_tile = (WarpTileType*) tileVector[y][x].tile;
-
-        //     getline (myfile,line);
-        //     warp_tile->warpMap = atoi(line.c_str());
-        //     getline (myfile,line);
-        //     warp_tile->warpX = atoi(line.c_str());
-        //     getline (myfile,line);
-        //     warp_tile->warpY = atoi(line.c_str());
-
-        //     getline (myfile,line);
-        //     warp_tile->description = line;
-        // }
-        // else
-        // {
-        // getline (myfile,line);
         this_tile->tile->description = "another desc";
-        // tileVector[y][x].tile->description = line;
-        // }
 
         this_tile->tile_x = x;
         this_tile->tile_y = y;
@@ -175,9 +221,15 @@ void Map::build_rect_room(int room_x, int room_y,
     {
         for(int new_x=0; new_x<room_width;new_x++)
         {
-
+            // std::cout << new_x << " x y " << new_y << std::endl;
             int adj_x = room_x + new_x;
             int adj_y = room_y + new_y;
+
+            //done to save time later on for getTileAt recursion
+            if (adj_y >= this->height)
+            {
+                adj_y = this->height-1;
+            }
 
             //check for outer perimeter
             if (room->isPerimeter(new_x, new_y))
