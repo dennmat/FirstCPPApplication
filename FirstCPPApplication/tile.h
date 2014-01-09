@@ -25,6 +25,7 @@ class BaseRepresentation;
 class TCODColor;
 
 
+class Tile;
 
 class BaseTileType //all tile types must inherit this
 {
@@ -34,6 +35,7 @@ class BaseTileType //all tile types must inherit this
         std::string description;      // the description of the tile
         int tiletype;
         TCODColor* color;
+        Tile* tile;
 
         BaseTileType() ;
 
@@ -61,6 +63,9 @@ class DoorTileType : public BaseTileType
 {
     public: 
         DoorTileType();
+        bool is_open;
+
+        void OpenDoor();
 };
 
 class FloorTileType : public BaseTileType

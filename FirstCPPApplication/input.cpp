@@ -230,8 +230,9 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         //get the door that's on it
         if (door_tile->tiletype == 4) //TODO: make an enum or something for tiletypes
         {
-            std::cout << "there's a door here" << std::endl;
-	    door_tile->map->l_map->setProperties(x, y, true, true);
+            std::cout << "there's a door here, its gon get open" << std::endl;
+            // door_tile->map->l_map->setProperties(x, y, true, true);
+            ((DoorTileType*)door_tile->tile)->OpenDoor();
         }
         else 
         {

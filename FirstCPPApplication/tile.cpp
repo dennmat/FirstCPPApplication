@@ -125,6 +125,7 @@ void Tile::updateTileType(int type )
         cout << type << endl;
         cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
+    this->tile->tile=this;
 
 };
 
@@ -229,9 +230,17 @@ WallTileType::WallTileType() : BaseTileType()
 
 DoorTileType::DoorTileType()  : BaseTileType() 
 {
+    this->is_open = false;
     tiletype = 4;
     representation = new DoorRepresentation; 
 };
+
+void DoorTileType::OpenDoor()
+{
+    this->is_open = true;
+    this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, true, true);
+};
+
 
 FloorTileType::FloorTileType() : BaseTileType() 
 {

@@ -549,6 +549,19 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
         };
     }
 
+    //doors
+    else if (target_tile->tiletype == 4)
+    {
+        if (((DoorTileType*)target_tile->tile)->is_open)
+        {
+            thePerson->putPerson(target_tile, new_x, new_y);
+        }
+        else
+        {
+            std::cout << "that door's closed bro." << std::endl;
+        };
+    }
+
     else
     {
         cout << endl << "invalid move" << endl;
