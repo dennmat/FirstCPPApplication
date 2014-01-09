@@ -146,6 +146,42 @@ Item* Actor::CreateCorpse()
     return corpse;
 };
 
+int* Actor::get_direction_heading()
+{
+    int dir_array[2];
+
+    //handle x coord
+    if (this->is_moving_left)
+    {
+        dir_array[0] = -1;
+    }
+    else if (this->is_moving_right)
+    {
+        dir_array[0] =  1;
+    }
+    else 
+    {
+        dir_array[0] = 0;
+    };
+
+    //handle y coord
+    if (this->is_moving_up)
+    {
+        dir_array[1] = -1;
+    }
+    else if (this->is_moving_down)
+    {
+        dir_array[1] =  1;
+    }
+    else 
+    {
+        dir_array[0] = 0;
+    };
+
+    return dir_array;
+
+};
+
 void Actor::Die()
 {
     //make the master's tile no longer occupied by him
