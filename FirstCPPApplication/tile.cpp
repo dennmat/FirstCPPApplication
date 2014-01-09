@@ -22,7 +22,7 @@ using namespace std;
 
 Tile::Tile()
 {
-    tiletype = 0;
+    type_id = 0;
     _is_occupied = false;
     _is_known = false;
 
@@ -30,7 +30,7 @@ Tile::Tile()
     // items = new std::vector<Item*>;
     inventory = new Inventory;
 
-    updateTileType(tiletype);
+    updateTileType(type_id);
 };
 
 bool Tile::check_for_items() { 
@@ -113,7 +113,7 @@ void Tile::makeUnoccupied(Actor* the_actor)
 
 void Tile::updateTileType(int type )
 {
-    tiletype = type;
+    this->type_id = type;
 
     if (type == 0) { tile = new BaseTileType; }
     else if (type == 1) { tile = new WallTileType; }
@@ -212,26 +212,26 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 
 BaseTileType::BaseTileType() 
 {
-    tiletype = 0;
+    type_id = 0;
     representation = new BaseRepresentation; 
 };
 
 WarpTileType::WarpTileType() : BaseTileType() 
 {
-    tiletype = 2;
+    type_id = 2;
     representation = new WarpRepresentation; 
 };
 
 WallTileType::WallTileType() : BaseTileType() 
 {
-    tiletype = 1;
+    type_id = 1;
     representation = new WallRepresentation;
 };
 
 DoorTileType::DoorTileType()  : BaseTileType() 
 {
     this->is_open = false;
-    tiletype = 4;
+    type_id = 4;
     representation = new DoorRepresentation; 
 };
 
@@ -244,6 +244,6 @@ void DoorTileType::OpenDoor()
 
 FloorTileType::FloorTileType() : BaseTileType() 
 {
-    tiletype = 3;
+    type_id = 3;
     representation = new FloorRepresentation; 
 };

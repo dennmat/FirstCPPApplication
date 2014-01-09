@@ -228,7 +228,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         door_tile = the_game->world->getTileAt(x, y);
 
         //get the door that's on it
-        if (door_tile->tiletype == 4) //TODO: make an enum or something for tiletypes
+        if (door_tile->type_id == 4) //TODO: make an enum or something for type_ids
         {
             std::cout << "there's a door here, its gon get open" << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
@@ -417,10 +417,10 @@ void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
     if(request.c == 'c')
     {
         // do the stuff to make a new tile
-        cout << "tiletype: ";
+        cout << "type_id: ";
         Tile this_tile = the_game->current_map->tileArray[current_tile];
-        cin >> this_tile.tiletype;
-        if(this_tile.tiletype == 2)
+        cin >> this_tile.type_id;
+        if(this_tile.type_id == 2)
         {
             WarpTileType* warp_tile;
             warp_tile = (WarpTileType*) this_tile.tile;
@@ -458,8 +458,8 @@ void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
             {
                 Tile active_tile = the_game->current_map->tileArray[(i*the_game->current_map->width)+j];
                 myfile << active_tile.tile->representation << endl;
-                myfile << active_tile.tiletype << endl;
-                if(active_tile.tiletype == 2)
+                myfile << active_tile.type_id << endl;
+                if(active_tile.type_id == 2)
                 {
                     WarpTileType* warp_tile;
                     warp_tile = (WarpTileType*) active_tile.tile;

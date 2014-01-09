@@ -153,7 +153,7 @@ int Map::build_from_random(int seed)
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
         this_tile->updateTileType(3);
-        if(this_tile->tiletype == 3)
+        if(this_tile->type_id == 3)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
@@ -294,7 +294,7 @@ int Map::build_from_file(string filename)
             tileArray[i].updateTileType(tileType);
 
             // printf("x %i y %i\n", x, y);
-            if(tileArray[i].tiletype == 3)
+            if(tileArray[i].type_id == 3)
             {
                 //light passes though, walkable
                 l_map -> setProperties(x, y, true, true);
@@ -310,7 +310,7 @@ int Map::build_from_file(string filename)
                 // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
             }
 
-            if(tileArray[i].tiletype == 2)
+            if(tileArray[i].type_id == 2)
             {
                 WarpTileType* warp_tile;
                 warp_tile = (WarpTileType*) tileArray[i].tile;
@@ -525,7 +525,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 
     if(new_x < width && new_x > -1 &&
             new_y < height && new_y > -1 &&
-            (target_tile->tiletype == 3 || target_tile->tiletype == 2) &&
+            (target_tile->type_id == 3 || target_tile->type_id == 2) &&
             !target_tile->is_occupied())
     {
         thePerson->has_attacked = false;
@@ -550,7 +550,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     }
 
     //doors
-    else if (target_tile->tiletype == 4)
+    else if (target_tile->type_id == 4)
     {
         if (((DoorTileType*)target_tile->tile)->is_open)
         {

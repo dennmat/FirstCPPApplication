@@ -33,7 +33,7 @@ class BaseTileType //all tile types must inherit this
         bool collidable;
         Representation * representation;    // the character that represents this tile
         std::string description;      // the description of the tile
-        int tiletype;
+        int type_id;
         TCODColor* color;
         Tile* tile;
 
@@ -82,7 +82,7 @@ class Tile : public Object
     public:
     BaseTileType * tile;
     Inventory* inventory;
-    int tiletype;               // type of tile
+    int type_id;               // type of tile
 
     int tile_x;
     int tile_y;
