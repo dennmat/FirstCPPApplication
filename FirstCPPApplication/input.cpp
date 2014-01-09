@@ -220,15 +220,18 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         //get the tile of the direction the player is facing
         Tile* door_tile;
         int* direction = the_game->player->get_direction_heading();
-	int x, y;
-    x = player->x+direction[0];
-    y = player->y+direction[1];
+        int x, y;
+
+        x = player->x+direction[0];
+        y = player->y+direction[1];
+
         door_tile = the_game->world->getTileAt(x, y);
 
         //get the door that's on it
-        if (door_tile->tiletype == 4)
+        if (door_tile->tiletype == 4) //TODO: make an enum or something for tiletypes
         {
             std::cout << "there's a door here" << std::endl;
+	    door_tile->map->l_map->setProperties(x, y, true, true);
         }
         else 
         {
