@@ -220,13 +220,20 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         //get the tile of the direction the player is facing
         Tile* door_tile;
         int* direction = the_game->player->get_direction_heading();
-        door_tile = the_game->world->getTileAt(direction[0], direction[1]);
+	int x, y;
+    x = player->x+direction[0];
+    y = player->y+direction[1];
+        door_tile = the_game->world->getTileAt(x, y);
 
         //get the door that's on it
         if (door_tile->tiletype == 4)
         {
             std::cout << "there's a door here" << std::endl;
         }
+        else 
+        {
+            std::cout << "there's NO DAMN door here" << std::endl;
+        };
         //open the door
     };
 
@@ -280,6 +287,10 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     orig_plr_pos_x = player->x;
     orig_plr_pos_y = player->y;
 
+    player->is_moving_up = false;
+    player->is_moving_down = false;
+    player->is_moving_left = false;
+    player->is_moving_right = false;
     //reset player facing directions
     if (request.pressed == false)
     {

@@ -175,7 +175,7 @@ int* Actor::get_direction_heading()
     }
     else 
     {
-        dir_array[0] = 0;
+        dir_array[1] = 0;
     };
 
     return dir_array;
