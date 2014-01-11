@@ -38,14 +38,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 
     // spec_movemap[','] = basic_cmds_t::Pickup;
     // spec_movemap[TCODK_KP8] = 
-    // spec_movemap[TCODK_KP9] = 
-    // spec_movemap[TCODK_KP6] = 
-    // spec_movemap[TCODK_KP3] = 
-    // spec_movemap[TCODK_KP2] = 
-    // spec_movemap[TCODK_KP1] = 
-    // spec_movemap[TCODK_KP4] = 
 
-    // char_movemap[TCODK_KP7] = basic_cmds_t::NW;
     char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap[','] = basic_cmds_t::Pickup;
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
@@ -68,7 +61,6 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
         }
         return it->second;
     }
-    // return basic_cmds_t::N;
 
 };
 
@@ -85,22 +77,9 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
     std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
 // 
     spec_invitemactivemap[TCODK_ESCAPE] = inventory_items_active_t::EscapeMenuItem;
-//     spec_invitemactivemap[TCODK_KP8] = inventory_items_active_t::N;
-//     spec_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
-//     spec_invitemactivemap[TCODK_KP6] = inventory_items_active_t::E;
-//     spec_invitemactivemap[TCODK_KP3] = inventory_items_active_t::SE;
-//     spec_invitemactivemap[TCODK_KP2] = inventory_items_active_t::S;
-//     spec_invitemactivemap[TCODK_KP1] = inventory_items_active_t::SW;
-//     spec_invitemactivemap[TCODK_KP4] = inventory_items_active_t::W;
-// 
-//     spec_invitemactivemap[TCODK_KP5] = inventory_items_active_t::X;
-
-    // char_invitemactivemap[TCODK_KP7] = inventory_items_active_t::NW;
-    // char_invitemactivemap['n'] = inventory_items_active_t::N;
-    // char_invitemactivemap[TCODK_KP9] = inventory_items_active_t::NE;
-    // char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem; //TODO add a regular input handler for regular inventory mode
+//     spec_invitemactivemap['\''] = inventory_items_active_t::N;
+     
     char_invitemactivemap['x'] = inventory_items_active_t::ExamineItem;
-    // char_invitemactivemap[TCODK_KP3] = inventory_items_active_t::SE;
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
     char_invitemactivemap['e'] = inventory_items_active_t::UseItem;
     char_invitemactivemap['w'] = inventory_items_active_t::EquipItem;
@@ -123,7 +102,6 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
         }
         return it->second;
     }
-    // return inventory_items_active_t::N;
 };
 
 enum directions_t {
