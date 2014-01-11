@@ -25,14 +25,16 @@ class Combat
 
         Combat (std::string name, int max_hp, Person* master, char representation = 'p' );
 
-        void Combat::Attack(Combat* Combat_target, int dmg);
-        void Combat::TakeDamage(Combat* Combat_attacker, int dmg);
-        bool Combat::CheckDeath();
-        void Combat::RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
-        void Combat::Die();
-        Combat* Combat::GetLastAttacker();
-        void Combat::update(Game* game);
-        void Combat::assign_to_master(Person* master);
+        void Attack(Combat* Combat_target, int dmg);
+        void TakeDamage(Combat* Combat_attacker, int dmg);
+        bool CheckDeath();
+        void RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
+        void Die();
+        Combat* GetLastAttacker();
+        void update(Game* game);
+        void assign_to_master(Person* master);
+        void GiveExp(int exp_to_gain);
+        void LevelUp(int levels = 1);
 
         void printout();
 };

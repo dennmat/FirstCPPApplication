@@ -90,23 +90,32 @@ void Combat::update(Game* game)
     };
 };
 
+void Combat::LevelUp(int levels)
+{
+    this->master->level++;
+    cout << "NEW LEVEL IS: " << this->master->level << endl;
+};
+
+void Combat::GiveExp(int exp_to_gain)
+{
+        this->master->xp += exp_to_gain;
+        // calc if level up
+        if (this->master->xp % 100 == 0)
+        {
+            this->LevelUp();
+        };
+};
+
 void Combat::Attack(Combat* combat_target, int dmg){
     //cout << "About to attack " << (*combat_target).name << endl;
     combat_target->TakeDamage(this, dmg);
 
     bool is_target_dead = combat_target->CheckDeath();
     if (is_target_dead){
-        printf("Hahaa!, you're dead, that's got to feel bad.\n");
         //get opponents exp value
         int exp_to_gain = combat_target->master->xp_value;
+        this->GiveExp(exp_to_gain);
         //add it to the master's exp
-        this->master->xp += exp_to_gain;
-        // calc if level up
-        if (this->master->xp % 100 == 0)
-        {
-            this->master->level++;
-            cout << "NEW LEVEL IS: " << this->master->level << endl;
-        };
     };
 };
 

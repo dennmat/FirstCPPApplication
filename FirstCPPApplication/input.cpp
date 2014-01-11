@@ -474,13 +474,13 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     if (request.lbutton_pressed)
     {
         std::cout << "mouse lclicked" << std::endl;
-        Tile* tile = the_game->current_map->getTileAt(request.cx, request.cy);
+        // Tile* tile = the_game->current_map->getTileAt(request.cx, request.cy);
 
-        std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
-        for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
-        {
-            (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
-        };
+        // std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
+        // for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
+        // {
+        //     (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+        // };
     }
 
     return 0;
@@ -553,19 +553,17 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                     if (the_game->ui->chosen_item == it->second)
                     {
                         the_game->ui->item_active = true;
-
                     }
                     else
                     {
                         the_game->ui->item_active = false;
                     };
                     the_game->ui->chosen_item = it->second;
-                    // std::cout << "FREAKOUT\n\n\n" << std::endl;
                 };
             }
             else // item_active is true
             {
-                if(is_request_inventory_item_active_cmd(request))
+                if (is_request_inventory_item_active_cmd(request))
                 {
                     successful_action = process_inventory_item_active(the_game, request, player);
                 };
