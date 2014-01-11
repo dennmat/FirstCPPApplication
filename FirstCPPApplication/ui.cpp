@@ -36,6 +36,8 @@ void Ui::update_inventory_ui()
 
 void Ui::update_ui()
 {
+    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
+
     if (this->turn_checking_against < this->game->turn_count)
     {
         //reset the future time
@@ -57,7 +59,7 @@ void Ui::update_ui()
                     this->tick_turn_changed = this->game->tick_count;
                 };
                 float coef = (float)difference / (float)(this->tick_threshold);
-                TCODColor myColor = TCODColor::lerp ( TCODColor::white, TCODColor::red, coef );
+                TCODColor myColor = TCODColor::lerp ( TCODColor::white, TCODColor(93,93,93), coef );
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, myColor, TCODColor::black);
             }
             else
