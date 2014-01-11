@@ -66,6 +66,8 @@ class DoorTileType : public BaseTileType
         bool is_open;
 
         void OpenDoor();
+        void CloseDoor();
+        void ToggleDoor();
 };
 
 class FloorTileType : public BaseTileType

@@ -27,8 +27,7 @@ using namespace std;
 enum basic_cmds_t {
     Pickup, Drop,
     OpenInventory,
-    Look, OpenDoor,
-    CloseDoor,
+    Look, ActivateDoor,
     NO_MATCHING_BASIC_CMD
 };
 
@@ -49,7 +48,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     // char_movemap[TCODK_KP7] = basic_cmds_t::NW;
     char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap[','] = basic_cmds_t::Pickup;
-    char_movemap['o'] = basic_cmds_t::OpenDoor;
+    char_movemap['o'] = basic_cmds_t::ActivateDoor;
 
     if (key.vk == TCODK_CHAR) 
     {
@@ -214,7 +213,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         the_game->current_state = GameStates::MenuState;
     }
 
-    else if ( basic_cmd == basic_cmds_t::OpenDoor )
+    else if ( basic_cmd == basic_cmds_t::ActivateDoor )
     {
         //determine the door to open
         //get the tile of the direction the player is facing
@@ -232,7 +231,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         {
             std::cout << "there's a door here, its gon get open" << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
-            ((DoorTileType*)door_tile->tile)->OpenDoor();
+            ((DoorTileType*)door_tile->tile)->ToggleDoor();
         }
         else 
         {

@@ -235,6 +235,24 @@ DoorTileType::DoorTileType()  : BaseTileType()
     representation = new DoorRepresentation; 
 };
 
+void DoorTileType::ToggleDoor()
+{
+    if (this->is_open)
+    {
+        this->CloseDoor();
+    }
+    else
+    {
+        this->OpenDoor();
+    };
+}
+
+void DoorTileType::CloseDoor()
+{
+    this->is_open = false;
+    this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, false, false);
+};
+
 void DoorTileType::OpenDoor()
 {
     this->is_open = true;
