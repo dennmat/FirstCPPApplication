@@ -131,6 +131,10 @@ void Attribute::Regenerate()
     if (this->CanRegenerate())
     {
         this->current_val += this->regen_rate;
+        if (this->current_val > this->max_val)
+        {
+            this->current_val = this->max_val;
+        }
     };
 
 };

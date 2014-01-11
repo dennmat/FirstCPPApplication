@@ -147,44 +147,44 @@ Tile* Tile::getTileAtRelative(int x, int y)
     };
 };
 
-Tile* Tile::getTopLeftTile()
+Tile* Tile::getTopLeftTile(int scale)
 {
-    return this->getTileAtRelative(-1, -1);
+    return this->getTileAtRelative(-1*scale, -1*scale);
 };
 
-Tile* Tile::getTopMidTile()
+Tile* Tile::getTopMidTile(int scale)
 {
-    return this->getTileAtRelative(0, -1);
+    return this->getTileAtRelative(0*scale, -1*scale);
 };
 
-Tile* Tile::getTopRigtTile()
+Tile* Tile::getTopRightTile(int scale)
 {
-    return this->getTileAtRelative(1, -1);
+    return this->getTileAtRelative(1*scale, -1*scale);
 };
 
-Tile* Tile::getMidRightTile()
+Tile* Tile::getMidRightTile(int scale)
 {
-    return this->getTileAtRelative(1, 0);
+    return this->getTileAtRelative(1*scale, 0*scale);
 };
 
-Tile* Tile::getBotRightTile()
+Tile* Tile::getBotRightTile(int scale)
 {
-    return this->getTileAtRelative(1, -1);
+    return this->getTileAtRelative(1*scale, -1*scale);
 };
 
-Tile* Tile::getBotMidTile()
+Tile* Tile::getBotMidTile(int scale)
 {
-    return this->getTileAtRelative(0, -1);
+    return this->getTileAtRelative(0*scale, 1*scale);
 };
 
-Tile* Tile::getBotLeftTile()
+Tile* Tile::getBotLeftTile(int scale)
 {
-    return this->getTileAtRelative(-1, -1);
+    return this->getTileAtRelative(-1*scale, -1*scale);
 };
 
-Tile* Tile::getMidLeftTile()
+Tile* Tile::getMidLeftTile(int scale)
 {
-    return this->getTileAtRelative(-1, 0);
+    return this->getTileAtRelative(-1*scale, 0*scale);
 };
 
 vector<Tile*>* Tile::getVacantAdjacentTiles()
@@ -192,7 +192,7 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
     vector<Tile*>* adjacent_tiles = new vector<Tile*>;
     adjacent_tiles->push_back(getTopLeftTile());
     adjacent_tiles->push_back(getTopMidTile());
-    adjacent_tiles->push_back(getTopRigtTile());
+    adjacent_tiles->push_back(getTopRightTile());
     adjacent_tiles->push_back(getMidRightTile());
     adjacent_tiles->push_back(getBotRightTile());
     adjacent_tiles->push_back(getBotMidTile());

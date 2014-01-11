@@ -471,6 +471,22 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     Tile* moused_tile = the_game->current_map->getTileAt(the_game->mouse_evt.cx, the_game->mouse_evt.cy);
     moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
 
+    if (request.lbutton_pressed)
+    {
+        std::cout << "mouse lclicked" << std::endl;
+        Tile* tile = the_game->current_map->getTileAt(request.cx, request.cy);
+        Tile* tmtile, *mltile, *mrtile, *bmtile;
+        tmtile = tile->getTopMidTile();
+        mltile = tile->getMidLeftTile();
+        mrtile = tile->getMidRightTile();
+        bmtile = tile->getBotMidTile();
+
+	tmtile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+	mltile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+	mrtile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+	bmtile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+    }
+
     return 0;
 };
 

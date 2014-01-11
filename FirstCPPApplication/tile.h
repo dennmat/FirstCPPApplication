@@ -117,14 +117,14 @@ class Tile : public Object
     Tile* getTileAtRelative(int x, int y);
     std::vector<Tile*>* getVacantAdjacentTiles();
 
-    Tile* getTopLeftTile();
-    Tile* getTopMidTile();
-    Tile* getTopRigtTile();
-    Tile* getMidRightTile();
-    Tile* getBotRightTile();
-    Tile* getBotMidTile();
-    Tile* getBotLeftTile();
-    Tile* getMidLeftTile();
+    Tile* getTopLeftTile(int scale = 1);
+    Tile* getTopMidTile(int scale = 1);
+    Tile* getTopRightTile(int scale = 1);
+    Tile* getMidRightTile(int scale = 1);
+    Tile* getBotRightTile(int scale = 1);
+    Tile* getBotMidTile(int scale = 1);
+    Tile* getBotLeftTile(int scale = 1);
+    Tile* getMidLeftTile(int scale = 1);
 };
 
 #endif

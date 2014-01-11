@@ -94,7 +94,7 @@ class BspListener : public ITCODBspCallback
         {
             if (node->isLeaf())
             {
-                std::cout << "nodes a leaf" << std::endl;
+                // std::cout << "nodes a leaf" << std::endl;
 
                 int x,y,w,h;
                 // dig a room
@@ -119,7 +119,7 @@ class BspListener : public ITCODBspCallback
             }
             else
             {
-            std::cout << "nodes NOT A  leaf" << std::endl;
+            // std::cout << "nodes NOT A  leaf" << std::endl;
             }
             return true;
         };
