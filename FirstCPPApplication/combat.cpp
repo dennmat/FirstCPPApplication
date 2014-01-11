@@ -5,21 +5,25 @@
 #include <cstdlib>
 #include <algorithm>
 #include <vector>
+#include <string>
+
+#include <libtcod.hpp>
 
 #include "combat.h"
 #include "attribute_container.h"
 #include <actors\Person.h>
 #include <actors\actor.h>
 #include "attribute.h"
+#include "tile.h"
+#include <Representation.h>
 
-using namespace std;
 
 
 void Combat::printout(){
 
-    cout << "\nCombat PRINTOUT" << endl;
+    std::cout << "\nCombat PRINTOUT" << std::endl;
     //cout << "NAME: " << name << endl;
-    cout << "MAX HP: " << this->master->attrs->health->max_val << endl;
+    std::cout << "MAX HP: " << this->master->attrs->health->max_val << std::endl;
 
 };
 
@@ -57,7 +61,7 @@ void Combat::assign_to_master(Person* master)
     //};
 };
 
-Combat::Combat(string name, int max_hp, Person* master, char representation)
+Combat::Combat(std::string name, int max_hp, Person* master, char representation)
 {
    //name = name;
 
@@ -93,7 +97,16 @@ void Combat::update(Game* game)
 void Combat::LevelUp(int levels)
 {
     this->master->level++;
-    cout << "NEW LEVEL IS: " << this->master->level << endl;
+    std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
+
+    Tile* tile = this->master->my_tile;
+
+    std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
+    for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
+    {
+        (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::gold);
+    };
+    std::cout << "just exploded with color for a frame" << std::endl;
 };
 
 void Combat::GiveExp(int exp_to_gain)
@@ -114,8 +127,8 @@ void Combat::Attack(Combat* combat_target, int dmg){
     if (is_target_dead){
         //get opponents exp value
         int exp_to_gain = combat_target->master->xp_value;
-        this->GiveExp(exp_to_gain);
         //add it to the master's exp
+        this->GiveExp(exp_to_gain);
     };
 };
 
@@ -152,7 +165,7 @@ void Combat::Die()
 
 Combat* Combat::GetLastAttacker()
 {
-    cout << "*** Retaliation ***" << endl;
+    std::cout << "*** Retaliation ***" << std::endl;
     Combat * assailant;
     assailant = attackers->back();
     // cout << "attacker: " << assailant->name << endl;

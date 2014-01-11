@@ -474,13 +474,6 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     if (request.lbutton_pressed)
     {
         std::cout << "mouse lclicked" << std::endl;
-        // Tile* tile = the_game->current_map->getTileAt(request.cx, request.cy);
-
-        // std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
-        // for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
-        // {
-        //     (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
-        // };
     }
 
     return 0;

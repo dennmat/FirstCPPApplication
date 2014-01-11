@@ -178,6 +178,17 @@ void Game::update()
 {
 
     this->player->update(this);
+    //explode while level 2
+    // if (this->player->level == 2)
+    // {
+    //     Tile* tile = this->player->my_tile;
+
+    //     std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
+    //     for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
+    //     {
+    //         (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+    //     };
+    // }
 
     for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
     {
