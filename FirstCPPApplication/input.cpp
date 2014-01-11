@@ -475,16 +475,12 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     {
         std::cout << "mouse lclicked" << std::endl;
         Tile* tile = the_game->current_map->getTileAt(request.cx, request.cy);
-        Tile* tmtile, *mltile, *mrtile, *bmtile;
-        tmtile = tile->getTopMidTile();
-        mltile = tile->getMidLeftTile();
-        mrtile = tile->getMidRightTile();
-        bmtile = tile->getBotMidTile();
 
-	tmtile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
-	mltile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
-	mrtile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
-	bmtile->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+        std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
+        for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
+        {
+            (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
+        };
     }
 
     return 0;
@@ -492,11 +488,6 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
 
 bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 {
-    //store the last command, or use it if its needed
-    // if (request == ""){
-    //     request = the_game->last_cmd;
-    // }
-    // the_game->last_cmd = request;
 
     //determine if movement command
     bool incr_turn = false;

@@ -169,7 +169,7 @@ Tile* Tile::getMidRightTile(int scale)
 
 Tile* Tile::getBotRightTile(int scale)
 {
-    return this->getTileAtRelative(1*scale, -1*scale);
+    return this->getTileAtRelative(1*scale, 1*scale);
 };
 
 Tile* Tile::getBotMidTile(int scale)
@@ -179,7 +179,7 @@ Tile* Tile::getBotMidTile(int scale)
 
 Tile* Tile::getBotLeftTile(int scale)
 {
-    return this->getTileAtRelative(-1*scale, -1*scale);
+    return this->getTileAtRelative(-1*scale, 1*scale);
 };
 
 Tile* Tile::getMidLeftTile(int scale)
@@ -187,18 +187,25 @@ Tile* Tile::getMidLeftTile(int scale)
     return this->getTileAtRelative(-1*scale, 0*scale);
 };
 
-vector<Tile*>* Tile::getVacantAdjacentTiles()
+vector<Tile*>* Tile::getAdjacentTiles(int scale)
 {
     vector<Tile*>* adjacent_tiles = new vector<Tile*>;
-    adjacent_tiles->push_back(getTopLeftTile());
-    adjacent_tiles->push_back(getTopMidTile());
-    adjacent_tiles->push_back(getTopRightTile());
-    adjacent_tiles->push_back(getMidRightTile());
-    adjacent_tiles->push_back(getBotRightTile());
-    adjacent_tiles->push_back(getBotMidTile());
-    adjacent_tiles->push_back(getBotLeftTile());
-    adjacent_tiles->push_back(getMidLeftTile());
+    adjacent_tiles->push_back(getTopLeftTile(scale));
+    adjacent_tiles->push_back(getTopMidTile(scale));
+    adjacent_tiles->push_back(getTopRightTile(scale));
+    adjacent_tiles->push_back(getMidRightTile(scale));
+    adjacent_tiles->push_back(getBotRightTile(scale));
+    adjacent_tiles->push_back(getBotMidTile(scale));
+    adjacent_tiles->push_back(getBotLeftTile(scale));
+    adjacent_tiles->push_back(getMidLeftTile(scale));
 
+    return adjacent_tiles;
+
+};
+
+vector<Tile*>* Tile::getVacantAdjacentTiles()
+{
+    vector<Tile*>* adjacent_tiles = this->getAdjacentTiles();
     //remove all adjacent null tile ptrs
     adjacent_tiles->erase(
             std::remove_if(
