@@ -95,9 +95,25 @@ void Ui::draw_ui_sidebar()
     //draw the message text
     ui_sidebar_con->print(0, 0, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->game->turn_count, TCOD_COLCTRL_STOP);
 
-    //player stats
+    //  player stats
+    //generate a color for the percent of players' cur hp to max hp between red and green
+    float player_hp_percent = (float)this->game->player->attrs->health->current_val / (float)this->game->player->attrs->health->max_val;
+    TCODColor player_hp_color = TCODColor::lerp ( TCODColor::red, TCODColor::green, player_hp_percent);
+    if (player_hp_percent >= 1.0)
+    {
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+    }
+    else if (player_hp_percent <= 0)
+    {
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
+    }
+    else
+    {
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, player_hp_color, TCODColor::black);
+    };
+
     ui_sidebar_con->print(0, 2, "PLAYER NAME %s", this->game->player->GetNameC());
-    ui_sidebar_con->print(0, 3, "PLAYER HP %d", this->game->player->attrs->health->current_val);
+    ui_sidebar_con->print(0, 3, "PLAYER HP %c%d%c", TCOD_COLCTRL_1, this->game->player->attrs->health->current_val, TCOD_COLCTRL_STOP);
 
     //mouse stats
     ui_sidebar_con->print(0, 5, "MOUSE X Y" );

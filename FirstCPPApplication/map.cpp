@@ -157,17 +157,12 @@ int Map::build_from_random(int seed)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
-
-            // printf("see through ");
-            // printf("this should be true: %s\n", BoolToString(l_map->isWalkable(x, y)));
         }
 
         else 
         {
             //light does NOT pass through nor is walkable
             l_map -> setProperties(x, y, false, false);
-            // printf("NOT see through ");
-            // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
         }
 
         this_tile->tile->description = "another desc";
@@ -175,7 +170,6 @@ int Map::build_from_random(int seed)
         this_tile->tile_x = x;
         this_tile->tile_y = y;
 
-        // printf("x: %i, y: %i\n", x, y);
         if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
         {
             y++;
