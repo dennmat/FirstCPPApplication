@@ -145,8 +145,8 @@ int Map::build_from_random(int seed)
     int x = 0;
     int y = 0;
 
-    int room_max_x = 10;
-    int room_max_y = 12;
+    int room_min_x = 6;
+    int room_min_y = 10;
 
     while ( i < width*height )
     {
@@ -194,7 +194,7 @@ int Map::build_from_random(int seed)
 
 
     TCODBsp bsp(0, 0, width, height);
-    bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
+    bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 5.5f, 1.5f);
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
