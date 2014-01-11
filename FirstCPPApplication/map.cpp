@@ -145,8 +145,8 @@ int Map::build_from_random(int seed)
     int x = 0;
     int y = 0;
 
-    int room_max_x = 16;
-    int room_max_y = 18;
+    int room_max_x = 10;
+    int room_max_y = 12;
 
     while ( i < width*height )
     {
@@ -229,16 +229,13 @@ void Map::build_rect_room(int room_x, int room_y,
             //check for outer perimeter
             if (room->isPerimeter(new_x, new_y))
             {
-                getTileAt(adj_x, adj_y)->updateTileType(1);
+                getTileAt(adj_x, adj_y)->updateTileType(1); //for wall
                 l_map -> setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
-                // room->_current_door_number++;
-                // if (room->_current_door_number == room->_door_number_limit )
-                // if (new_x == 3 && new_y == 0)
                 if (room->checkDoorCount())
                 {
-                    getTileAt(adj_x, adj_y)->updateTileType(4);
+                    getTileAt(adj_x, adj_y)->updateTileType(4); //for door
                     l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
@@ -246,8 +243,8 @@ void Map::build_rect_room(int room_x, int room_y,
             //everything else
             else 
             {
-                getTileAt(adj_x, adj_y)->updateTileType(2);
-                l_map -> setProperties(adj_x, adj_y, false, false);
+                getTileAt(adj_x, adj_y)->updateTileType(3); //for floor
+                l_map -> setProperties(adj_x, adj_y, true, true);
             }
 
         }
