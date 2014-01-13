@@ -28,6 +28,7 @@
 #include "enemies\skeleton.h"
 #include <enums\gamestate.h>
 #include "item_effect.h"
+#include "Room.h"
 
 void Game:: buildworld()
 {
@@ -46,6 +47,7 @@ void Game:: buildworld()
 
 
         world = new Map;
+        world->the_game = this;
         world[0].build_from_random(0);
     }
     else
@@ -56,6 +58,34 @@ void Game:: buildworld()
         MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
         exit(EXIT_FAILURE);
     };
+
+    this->current_map = world;
+
+    bool is_troll = true;
+    for (std::vector<Room*>::iterator it = this->world->roomVector->begin(); it != this->world->roomVector->end(); ++it)
+    {
+        //place a troll in the middle of the room
+        //it-
+        int troll_x, troll_y;
+        troll_x = ((*it)->width / 2) + (*it)->x; 
+        troll_y = ((*it)->height / 2) + (*it)->y;
+        if (is_troll)
+        {
+            Troll* troll = this->create_troll("random troll", 88, troll_x, troll_y, 'T', "troll combat");
+            is_troll = false;
+            this->enemies.push_back(troll);
+            cout << "created troll" << endl;
+        }
+        else
+        {
+            Skeleton* skeleton = this->create_skeleton("random skeleton", 88, troll_x, troll_y, 's', "skeleton combat");
+            is_troll = true;
+            this->enemies.push_back(skeleton);
+            cout << "created skelly" << endl;
+        }
+    }
+
+
 }
 
 //creates a person and places them on the current map
@@ -83,7 +113,7 @@ Troll * Game::create_troll(string name, int age, int x, int y, char repr,
     // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
 
     //put it on the map somewhere
-    Tile * next_tile = current_map->getTileAt(x,y);
+    Tile * next_tile = this->current_map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;

@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <cstdlib>
 #include "libtcod.hpp"
+#include <vector>
 
 #include "map.h"
 #include "Room.h"
@@ -14,6 +15,7 @@
 #include "inventory.h"
 #include "Representation.h"
 #include "tile.h"
+#include "enemies\troll.h"
 
 
 using namespace std;
@@ -22,6 +24,10 @@ Map::Map()
 {
 
     this->roomVector = new vector<Room*>;
+    this->the_game = NULL;
+
+    this->width = NULL;
+    this->height = NULL;
 
 }
 
@@ -253,6 +259,8 @@ void Map::build_rect_room(int room_x, int room_y,
 
         }
     }
+
+
 
 };
 

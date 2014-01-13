@@ -31,6 +31,8 @@ class Map : public Object
         int build_from_file(string filename);
         int build_from_random(int seed);
 
+        Game* the_game;
+
         // void add_room(
         void build_rect_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);
