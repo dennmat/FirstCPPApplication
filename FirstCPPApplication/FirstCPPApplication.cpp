@@ -20,11 +20,57 @@
 
 using namespace std;
 
+std::string random_msg()
+{
+	static const std::string msg_array[] = {
+        "Nhthfg Oheaf Erq vf zhfvp",
+        "Fyrrcvat va gur Genva Lneq vf n terng fbat",
+        "Vs lbhe tnzr unf tencuvpf, punaprf ner vg'f abg n ebthryvxr",
+        "Crbcyr ner zrna",
+        "Vs lbh'er rnfvyl bssraqrq fgrre pyrne bs guvf tnzr",
+        "fb rqtl",
+        "Guvf tnzr znl pbagnva napubivrf",
+        "Gryy zr V'z gnyy, bar zber gvzr",
+        "Fnsrgl, V snegrq",
+        "Cerggl fher lbhe onfrzrag vf unhagrq",
+        "OFGQLB",
+        "Fbzr gvzrf, V trg fnq",
+        "Jura jvyy gur sberfg fcrnx?",
+        "V jnf znqr gb jnvg sbe lbh",
+        "Yrg zl jbeqf or lbhe jbeqf",
+        "Qebc vg naq cbc vg",
+        "Purpx lbhe cevivyrtr"
+
+
+        "Cercner gb qvr!"
+    };
+    // std::vector<std::string> msg_vector;
+    TCODRandom *rng=TCODRandom::getInstance();
+    int index = rng->getInt(0, sizeof(msg_array)/sizeof(*msg_array)-1);
+    return msg_array[index];
+};
+
+std::string ROT13(std::string source)
+{
+	std::string transformed;
+	for (size_t i = 0; i < source.size(); ++i) {
+		if (isalpha(source[i])) {
+			if ((tolower(source[i]) - 'a') < 13)
+				transformed.append(1, source[i] + 13);
+			else
+				transformed.append(1, source[i] - 13);
+		} else {
+			transformed.append(1, source[i]);
+		}
+	}
+	return transformed;
+}
 
 void WelcomeMessage(){
+
     printf("\t\tWELCOME TO THE GAME!\n");
     printf("\t\t********************\n");
-    printf("\n\t\t   Prepare to die!\n\n");
+    printf("\n\t\t%s\n\n", ROT13(random_msg()).c_str());
 
     printf("Most importantly, ignore the instructions that aren't the right ones. \n");
     printf("NSWE or num pad to move\n");

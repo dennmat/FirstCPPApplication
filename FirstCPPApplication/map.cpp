@@ -74,7 +74,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     catch ( std::out_of_range& ex )
     {
         ex;
-        std::cout << "recursed" << std::endl;
+        std::cout << "getTileAt recursed" << std::endl;
         return getTileAt(x, y-1, false, x, y);
     };
 
