@@ -521,6 +521,12 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                 the_game->ui->item_active = false;
                 the_game->current_state = GameStates::GameplayState;
             }
+            else
+            {
+                cout << endl << "command not found: " << char_to_str(request.c) << endl;
+                cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << endl;
+                cout << "press again to select. once it's activated, press e to use" << endl;
+            }
 
             //generate keys for the appropriate items
             typedef std::unordered_map<char, Item*> keypair_t;
