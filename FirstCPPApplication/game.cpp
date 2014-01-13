@@ -71,13 +71,13 @@ void Game:: buildworld()
         troll_y = ((*it)->height / 2) + (*it)->y;
         if (is_troll)
         {
-            Troll* troll = this->create_troll("random troll", 88, troll_x, troll_y, 'T', "troll combat");
+            Troll* troll = this->create_troll("random troll", 34, troll_x, troll_y, 'T', "troll combat");
             is_troll = false;
             this->enemies.push_back(troll);
         }
         else
         {
-            Skeleton* skeleton = this->create_skeleton("random skeleton", 88, troll_x, troll_y, 's', "skeleton combat");
+            Skeleton* skeleton = this->create_skeleton("random skeleton", 92, troll_x, troll_y, 's', "skeleton combat");
             is_troll = true;
             this->enemies.push_back(skeleton);
         }
