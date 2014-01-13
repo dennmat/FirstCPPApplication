@@ -135,16 +135,15 @@ Tile* Tile::getTileAtRelative(int x, int y)
     int new_x = this->tile_x + x;
     int new_y = this->tile_y + y;
 
-    if (new_x <= this->map->width && new_x >= 0 
-            && new_y <= this->map->height && new_y >= 0)
-    {
+    //if (new_x <= this->map->width && new_x >= 0 
+    //        && new_y <= this->map->height && new_y >= 0)
+    //{
         return this->map->getTileAt(new_x, new_y);
-    }
-
-    else {
-
-        return NULL;
-    };
+    //}
+    //else 
+    //{
+    //    return NULL;
+    //};
 };
 
 Tile* Tile::getTopLeftTile(int scale)

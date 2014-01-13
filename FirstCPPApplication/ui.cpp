@@ -36,6 +36,9 @@ void Ui::update_inventory_ui()
 
 void Ui::update_ui()
 {
+
+
+    // all of this is to update the turn counter
     TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
 
     if (this->turn_checking_against < this->game->turn_count)

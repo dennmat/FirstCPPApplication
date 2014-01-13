@@ -34,7 +34,17 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 {
     vector<Tile> * temp;
 
-    if (!is_original_pos && (x < 0 || y < 0 ) )
+    if (!is_original_pos && x < 0  )
+    {
+        x = 0;
+    };
+
+    if (!is_original_pos && y < 0  )
+    {
+        y = 0;
+    };
+
+    if (!is_original_pos && (x < 0 || y < 0 ) ) // this shouldnt ever happen now
     { 
         cout << "can't find a tile here.";
         cout << "I'd throw and error but I don't know how yet" << endl;
@@ -58,7 +68,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     catch ( std::out_of_range& ex )
     {
         ex;
-	std::cout << "recursed" << std::endl;
+        std::cout << "recursed" << std::endl;
         return getTileAt(x, y-1, false, x, y);
     };
 
@@ -119,7 +129,7 @@ class BspListener : public ITCODBspCallback
             }
             else
             {
-            // std::cout << "nodes NOT A  leaf" << std::endl;
+                // std::cout << "nodes NOT A  leaf" << std::endl;
             }
             return true;
         };

@@ -508,7 +508,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             else
             {
                 cout << endl << "command not found: " << char_to_str(request.c) << endl;
-                cout << "Try 'help' for list of commands" << endl;
+                cout << "nswe or numpad to move, i to open inventory, q to quit, o to open doors" << endl;
             }
 
             break;
