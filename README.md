@@ -2,6 +2,8 @@
 
 This is a Roguelike made with Libtcod, and is also my first experience using C++.
 
+Currently, you can kill monsters, open doors, pick items up, and eat corpses for better health regeneration.
+
 It's too early to have a distinct direction for the game, but I want to be able to say its 'finished', so what I'd like to add for now is:
 
 * 3 items of all slot types
@@ -10,6 +12,5 @@ It's too early to have a distinct direction for the game, but I want to be able 
 * levelling and experience
 * finally, some sort of over the top stat tracking
 
-There's a screenshot in the directory
 
-https://github.com/tankorsmash/FirstCPPApplication/blob/master/Screenshot_28Nov2013.png
+![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/Screenshot_12Jan2014.png)
