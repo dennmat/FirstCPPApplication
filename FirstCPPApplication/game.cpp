@@ -74,14 +74,12 @@ void Game:: buildworld()
             Troll* troll = this->create_troll("random troll", 88, troll_x, troll_y, 'T', "troll combat");
             is_troll = false;
             this->enemies.push_back(troll);
-            cout << "created troll" << endl;
         }
         else
         {
             Skeleton* skeleton = this->create_skeleton("random skeleton", 88, troll_x, troll_y, 's', "skeleton combat");
             is_troll = true;
             this->enemies.push_back(skeleton);
-            cout << "created skelly" << endl;
         }
     }
 
