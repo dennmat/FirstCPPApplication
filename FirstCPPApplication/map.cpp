@@ -112,16 +112,26 @@ class BspListener : public ITCODBspCallback
             {
                 // std::cout << "nodes a leaf" << std::endl;
 
-                int x,y,w,h;
+                int room_x,room_y,room_w,room_h;
+                int room_min_size = 6;
                 // dig a room
                 TCODRandom *rng=TCODRandom::getInstance();
-                w=rng->getInt(0, node->w-2);
-                h=rng->getInt(0, node->h-2);
-                x=rng->getInt(node->x+1, node->x+node->w-w-1);
-                y=rng->getInt(node->y+1, node->y+node->h-h-1);
+                room_w=rng->getInt(room_min_size, node->w-2);
+                // room_w = 2;
+                // room_h = 2;
+                room_h=rng->getInt(room_min_size, node->h-2);
+
+                room_x=rng->getInt(node->x+1, node->x+node->w-(room_w-1));
+                room_y=rng->getInt(node->y+1, node->y+node->h-(room_h-1));
+
+                // std::cout << "room_x: " << room_x << std::endl;
+                // std::cout << "room_y: " << room_y << std::endl;
+                // std::cout << "room_w: " << room_w << std::endl;
+                // std::cout << "room_h: " << room_h << std::endl;
+                // std::cout << std::endl;
                 //map.createRoom(roomNum == 0, x, y, x+w-1, y+h-1);
                 //((Map*)userData)->build_rect_room(x, y, x+w-1, y+h-1, 0);
-                map.build_rect_room(x, y, x+w-1, y+h-1, 5);
+                map.build_rect_room(room_x, room_y, room_w, room_h, 5);
                 //Room(x, y, x+w-1, y+h-1);
                 // if ( roomNum != 0 ) {
                 //     //dig a corridor from last room
@@ -129,8 +139,8 @@ class BspListener : public ITCODBspCallback
                 //     map.dig(x+w/2,lasty,x+w/2,y+h/2);
                 // }
 
-                lastx=x+w/2;
-                lasty=y+h/2;
+                lastx=room_x+room_w/2;
+                lasty=room_y+room_h/2;
                 roomNum++;
             }
             else
@@ -161,8 +171,8 @@ int Map::build_from_random(int seed)
     int x = 0;
     int y = 0;
 
-    int room_min_x = 6;
-    int room_min_y = 10;
+    int room_max_x = 12;
+    int room_max_y = 6;
 
     while ( i < width*height )
     {
@@ -203,8 +213,8 @@ int Map::build_from_random(int seed)
     // build_rect_room(0, 5, 5, 3, 7);
 
 
-    TCODBsp bsp(0, 0, width, height);
-    bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 5.5f, 1.5f);
+    TCODBsp bsp(0, 0, 60, 40);
+    bsp.splitRecursive(NULL, 4, room_max_x, room_max_y, 1.5f, 1.5f);
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
@@ -233,7 +243,14 @@ void Map::build_rect_room(int room_x, int room_y,
             //done to save time later on for getTileAt recursion
             if (adj_y >= this->height)
             {
-                adj_y = this->height-1;
+                break;
+                adj_y = this->height-2;
+            }
+
+            if (adj_y >= this->width)
+            {
+                break;
+                adj_y = this->width-2;
             }
 
             //check for outer perimeter
@@ -382,7 +399,8 @@ int Map::draw(Game *theGame)
             // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
-            if (l_map->isInFov(x, y))
+            // if (l_map->isInFov(x, y))
+            if (true)
             {
                 the_tile->setKnown(true);
 
