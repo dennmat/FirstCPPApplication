@@ -62,7 +62,7 @@ void Thinker::update(Game* game)
 
         if (master->l_path == NULL)
         {
-            // cout << "Building Path" << endl;
+            cout << "Building Path" << endl;
             master->l_path = new TCODPath(map->l_map);
 
             //set the master's destination to above the player
@@ -96,8 +96,14 @@ void Thinker::update(Game* game)
             // cout << "IMNA ATTACK THE PLAYER" << endl;
             //retaliate
             Combat* assailant = game->player->combat;
-            ((Person*)master)->combat->Attack(assailant, 1);
+            vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
+            if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(),
+                        assailant->master->my_tile) != adjacent_tiles->end())
+            {
+                std::cout << "adjacent" << std::endl;
+                ((Person*)master)->combat->Attack(assailant, 1);
 
+            };
 
             //calm the combat down
             ((Person*)master)->combat->was_attacked = false;
