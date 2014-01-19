@@ -16,6 +16,7 @@
 #include "Representation.h"
 #include "tile.h"
 #include "enemies\troll.h"
+#include "debug_options.h"
 
 
 using namespace std;
@@ -399,7 +400,7 @@ int Map::draw(Game *theGame)
             // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
-            if (l_map->isInFov(x, y))
+            if (theGame->debug_opts->all_vision || l_map->isInFov(x, y))
             // if (true)
             {
                 the_tile->setKnown(true);

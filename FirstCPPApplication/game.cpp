@@ -29,6 +29,7 @@
 #include <enums\gamestate.h>
 #include "item_effect.h"
 #include "Room.h"
+#include "debug_options.h"
 
 void Game:: buildworld()
 {
@@ -180,6 +181,7 @@ Game::Game()
 {
     ui = new Ui;
     ui->game = this;
+    this->debug_opts = new DebugOptions;
 
     screen_w = 80; //the average RL resolution
     screen_h = 50;

@@ -153,6 +153,7 @@
     <ClInclude Include="attribute_container.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="combat.h" />
+    <ClInclude Include="debug_options.h" />
     <ClInclude Include="enemies\skeleton.h" />
     <ClInclude Include="enemies\troll.h" />
     <ClInclude Include="equipment.h" />

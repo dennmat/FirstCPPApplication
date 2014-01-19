@@ -18,6 +18,7 @@ class Actor;
 class Troll;
 class Skeleton;
 class Item;
+class DebugOptions;
 
 class Ui;
 
@@ -28,6 +29,7 @@ class Game
         Person* player;     //the PC
         Ui* ui;
         GameStates current_state;
+        DebugOptions* debug_opts;
 
         //player input
         TCOD_key_t key_evt;
