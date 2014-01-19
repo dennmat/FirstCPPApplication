@@ -33,6 +33,7 @@ class AttributeContainer
         void RegenerateMana();
         void RegenerateArmor();
         void RegenerateDamage();
+        void Update();
 
 };
 

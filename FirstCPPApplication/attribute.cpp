@@ -19,7 +19,8 @@ void Attribute::Update()
 
     if (this->CheckIsReady())
     {
-        this->AddToCurrentVal(this->regen_rate);
+        this->Regenerate();
+        // this->AddToCurrentVal(this->regen_rate);
     };
 
 };
@@ -35,13 +36,14 @@ void Attribute::Tick()
         return;
     };
 
-    if (this->tick < this->regen_interval)
+    if (this->tick <= this->regen_interval)
     {
         this->tick += 1;
         this->is_ready = false;
     }
     else
     {
+        this->tick = 0;
         this->is_ready = true;
     };
 
@@ -148,6 +150,7 @@ HealthAttribute::HealthAttribute() : Attribute()
 {
     this->max_val = 100;
     this->current_val = this->max_val;
+    this->regen_interval = 3;
 
 };
 

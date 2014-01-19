@@ -49,26 +49,18 @@ std::string StringJoin(std::vector<std::string> string_vector, char delim, bool 
         return "";
     }
 
+    //remove empty strings
     if (remove_empty == true)
     {
-        string_vector.erase(std::remove(string_vector.begin(), string_vector.end(), ""), string_vector.end());
+        string_vector.erase(std::remove(string_vector.begin(),
+                    string_vector.end(), ""), string_vector.end());
     }
 
     //add the first part of the vector, so that there's no leading delimiter
     out_string+=*it;
     ++it;
     for(it; it != string_vector.end(); ++it){
-        // if (remove_empty == true)
-        // {
-        //     if (*it != "") //only add the ones that aren't empty strings
-        //     {
-        //         out_string+=(delim+*it);
-        //     };
-        // }
-        // else
-        // {
         out_string+=(delim+*it);
-        // };
     }  
 
     return out_string;

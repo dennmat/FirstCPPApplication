@@ -92,11 +92,7 @@ void Person::update(Game* game)
     this->equipment->Update();
 
     //apply regen
-    this->attrs->RegenerateAll();
-    // this->attrs->health->current_val += this->attrs->health->regen_rate;
-    // this->attrs->mana->current_val += this->attrs->mana->regen_rate;
-    // this->attrs->damage->current_val += this->attrs->damage->regen_rate;
-    // this->attrs->armor->current_val += this->attrs->armor->regen_rate;
+    this->attrs->Update();
 
     //TODO intervals
 
