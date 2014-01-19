@@ -399,8 +399,8 @@ int Map::draw(Game *theGame)
             // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
-            // if (l_map->isInFov(x, y))
-            if (true)
+            if (l_map->isInFov(x, y))
+            // if (true)
             {
                 the_tile->setKnown(true);
 
@@ -476,10 +476,10 @@ int Map::draw(Game *theGame)
             };
 
             //TODO Debug walkable
-            // if (the_tile->map->l_map->isWalkable(the_tile->tile_x, the_tile->tile_y) == false)
-            {
-                //         TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
-            }
+            //  if (the_tile->map->l_map->isWalkable(the_tile->tile_x, the_tile->tile_y) == false)
+            // {
+            //              TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
+            // }
             // cout << "final white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl << endl;
         }

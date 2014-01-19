@@ -479,6 +479,15 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     return 0;
 };
 
+bool process_debug_event(Game* the_game, TCOD_key_t request, Person *player)
+{
+    if (request.vk == TCODK_F2)
+    {
+        exit(1);
+    };
+
+};
+
 bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 {
 
@@ -489,6 +498,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     switch(the_game->current_state)
     {
         case GameStates::GameplayState: 
+
 
             if(is_request_move_cmd(request))
             {

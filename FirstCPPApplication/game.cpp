@@ -305,7 +305,11 @@ void Game::mainloop()
                 // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
                     incr_turn = process_key_event(this, key_evt, player);
-                };
+                }
+                if (key_evt.pressed == 1)
+                {
+                    process_debug_event(this, key_evt, player);
+                }
 
                 process_mouse_event(this, mouse_evt, player);
 

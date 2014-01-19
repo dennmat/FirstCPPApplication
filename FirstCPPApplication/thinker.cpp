@@ -94,13 +94,13 @@ void Thinker::update(Game* game)
         if (path_size == 0)
         {
             // cout << "IMNA ATTACK THE PLAYER" << endl;
-            //retaliate
+            //attack the player if he's in range (aka adjacent tile)
             Combat* assailant = game->player->combat;
             vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
             if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(),
                         assailant->master->my_tile) != adjacent_tiles->end())
             {
-                std::cout << "adjacent" << std::endl;
+                // std::cout << "adjacent" << std::endl;
                 ((Person*)master)->combat->Attack(assailant, 1);
 
             };
