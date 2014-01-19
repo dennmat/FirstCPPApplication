@@ -286,7 +286,7 @@ std::string ItemEffect::oneline_str()
     string_vec.push_back(this->small_convert("DRR: ", (long double)this->damage_regen_rate));
     string_vec.push_back(this->small_convert("DRI: ", (long double)this->damage_regen_interval));
 
-    return StringJoin(string_vec, '|', true);
+    return StringJoin(string_vec, ' ', true);
 
 };
 

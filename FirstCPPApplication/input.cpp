@@ -180,7 +180,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
             //TODO:open ui for item pickup to choose which item
             Item* item = player->my_tile->inventory->items->back();
             player->pickUpItem(item);
-            player->equipment->chest->AddToSlot(item);
+            // player->equipment->chest->AddToSlot(item);
 
             return true;
 
