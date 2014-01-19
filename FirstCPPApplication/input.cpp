@@ -21,6 +21,7 @@
 #include "equipment.h"
 #include "ui.h"
 #include "item.h"
+#include "debug_options.h"
 
 using namespace std;
 
@@ -486,6 +487,10 @@ bool process_debug_event(Game* the_game, TCOD_key_t request, Person *player)
         exit(1);
     };
 
+    if (request.vk == TCODK_F3)
+    {
+        the_game->debug_opts->all_vision = !the_game->debug_opts->all_vision;
+    }
 };
 
 bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)

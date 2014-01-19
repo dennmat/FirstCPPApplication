@@ -10,7 +10,7 @@ class DebugOptions
 
         DebugOptions() 
         {
-            all_vision = true;
+            all_vision = false;
         };
 };
 
