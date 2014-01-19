@@ -72,13 +72,13 @@ void Game:: buildworld()
         troll_y = ((*it)->height / 2) + (*it)->y;
         if (is_troll)
         {
-            Troll* troll = this->create_troll("random troll", 34, troll_x, troll_y, 'T', "troll combat");
+            Troll* troll = this->create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat");
             is_troll = false;
             this->enemies.push_back(troll);
         }
         else
         {
-            Skeleton* skeleton = this->create_skeleton("random skeleton", 92, troll_x, troll_y, 's', "skeleton combat");
+            Skeleton* skeleton = this->create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', "skeleton combat");
             is_troll = true;
             this->enemies.push_back(skeleton);
         }
@@ -155,9 +155,9 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(this->create_person("first", 99, 20, 2, 'p', "First Person"));
-    enemies.push_back(this->create_troll("second", 66, 4, 9, 'T', "Second, Troll"));
-    enemies.push_back(this->create_skeleton("third", 33, 14, 9, 's', "Third, Skeleton"));
+    enemies.push_back(this->create_person("First", 99, 20, 2, 'p', "First Person"));
+    enemies.push_back(this->create_troll("Second", 66, 4, 9, 'T', "Second, Troll"));
+    enemies.push_back(this->create_skeleton("Third", 33, 14, 9, 's', "Third, Skeleton"));
 
 };
 
@@ -230,7 +230,7 @@ void Game::update()
         };
         // printf("updating\n");
     }
-    cout << "\t" << "done updating" << endl;
+    // cout << "\t" << "done updating" << endl;
 };
 
 void Game::update_ui()

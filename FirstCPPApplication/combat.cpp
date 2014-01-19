@@ -175,10 +175,11 @@ Combat* Combat::GetLastAttacker()
 
 void Combat::TakeDamage(Combat* combat_attacker, int dmg){
 
-    printf("About to take %d damage! ", dmg);
-    printf("with %d hp.\n", this->master->attrs->health->current_val);
     (this->master->attrs->health->current_val)-=dmg;
-    //cout << name << " at " << cur_hp << " health left!" << endl << endl;
+    std::cout << this->master->name;
+    std::cout << " took " << dmg << " damage! ";
+    std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
+    std::cout << std::endl;
 
     //save attacker in history
     this->RememberAttacker(combat_attacker);
