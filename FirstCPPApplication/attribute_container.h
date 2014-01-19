@@ -3,6 +3,8 @@
 #define ATTRIBUTE_CONTAINER_H
 
 
+#include <string>
+
 // class Representation;
 // class Tile;
 // class Thinker;
@@ -33,7 +35,9 @@ class AttributeContainer
         void RegenerateMana();
         void RegenerateArmor();
         void RegenerateDamage();
+
         void Update();
+        std::string PrettyPrint();
 
 };
 
