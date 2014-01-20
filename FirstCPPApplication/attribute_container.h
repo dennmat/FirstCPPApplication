@@ -4,6 +4,7 @@
 
 
 #include <string>
+#include <vector>
 
 // class Representation;
 // class Tile;
@@ -38,6 +39,7 @@ class AttributeContainer
 
         void Update();
         std::string PrettyPrint();
+		std::vector<std::string> AttributeContainer::PrettyVector();
 
 };
 

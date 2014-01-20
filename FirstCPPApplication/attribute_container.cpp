@@ -58,9 +58,8 @@ void AttributeContainer::RegenerateDamage()
 
 };
 
-std::string AttributeContainer::PrettyPrint()
+std::vector<std::string> AttributeContainer::PrettyVector()
 {
-
     std::string result = "";
     std::vector<std::string> string_vec;
 
@@ -84,6 +83,13 @@ std::string AttributeContainer::PrettyPrint()
     string_vec.push_back("DRR: "+std::to_string((long double)this->damage->regen_rate));
     string_vec.push_back("DRI: "+std::to_string((long double)this->damage->regen_interval));
 
-    return StringJoin(string_vec, '\n', false);
+    return string_vec;
+};
+
+std::string AttributeContainer::PrettyPrint()
+{
+
+
+    return StringJoin(this->PrettyVector(), '\n', false);
 
 };

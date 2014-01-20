@@ -135,7 +135,25 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_con->print(1, 10, "%s", BoolToString(this->game->player->is_moving_down, false));
 
     //draw player inventory info
+    ui_sidebar_con->print(0, 12, "Items in inventory:");
     ui_sidebar_con->print(0, 13, "%d", this->game->player->inventory->get_count());
+
+    int initial_y = 15;
+    int y = initial_y;
+    std::vector<std::string> player_attrs = this->game->player->attrs->PrettyVector();
+    for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
+    {
+        ui_sidebar_con->print(0, y, "%s", (it->c_str()));
+        ++y;
+
+        //add a space between the 4 types of attrs
+        if ((y - (initial_y-1)) % 5 == 0)
+        {
+            ui_sidebar_con->print(0, y, " ");
+            y++;
+        }
+
+    };
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, this->game->screen_w-ui_sidebar_w, 0 );
