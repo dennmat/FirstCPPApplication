@@ -125,14 +125,10 @@ class BspListener : public ITCODBspCallback
                 room_x=rng->getInt(node->x+1, node->x+node->w-(room_w-1));
                 room_y=rng->getInt(node->y+1, node->y+node->h-(room_h-1));
 
-                // std::cout << "room_x: " << room_x << std::endl;
-                // std::cout << "room_y: " << room_y << std::endl;
-                // std::cout << "room_w: " << room_w << std::endl;
-                // std::cout << "room_h: " << room_h << std::endl;
-                // std::cout << std::endl;
-                //map.createRoom(roomNum == 0, x, y, x+w-1, y+h-1);
-                //((Map*)userData)->build_rect_room(x, y, x+w-1, y+h-1, 0);
-                map.build_rect_room(room_x, room_y, room_w, room_h, 5);
+                int perimeter = room_w*2 + room_h * 2 - 4;
+                int door_index = rng->getInt(0, perimeter);
+                map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+
                 //Room(x, y, x+w-1, y+h-1);
                 // if ( roomNum != 0 ) {
                 //     //dig a corridor from last room
@@ -215,7 +211,7 @@ int Map::build_from_random(int seed)
 
 
     TCODBsp bsp(0, 0, 60, 40);
-    bsp.splitRecursive(NULL, 4, room_max_x, room_max_y, 1.5f, 1.5f);
+    bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
@@ -400,8 +396,8 @@ int Map::draw(Game *theGame)
             // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
-            if (theGame->debug_opts->all_vision || l_map->isInFov(x, y))
-            // if (true)
+            // if (theGame->debug_opts->all_vision || l_map->isInFov(x, y))
+            if (true)
             {
                 the_tile->setKnown(true);
 
