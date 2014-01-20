@@ -93,7 +93,6 @@ void Attribute::RemoveFromCurrentVal(int difference)
 {
     if (difference != 0)
     {
-
         this->current_val -= difference;
     };
 
@@ -126,15 +125,15 @@ void Attribute::RemoveFromRegenInterval(int difference)
 
 };
 
-bool Attribute::CanRegenerate()
-{
-    //TODO add check to see if has enough intervals has been passed
-    return true;
-};
+// bool Attribute::CanRegenerate()
+// {
+//     //TODO add check to see if has enough intervals has been passed
+//     return true;
+// };
 
 void Attribute::Regenerate()
 {
-    if (this->CanRegenerate())
+    if (this->CheckIsReady())
     {
         this->current_val += this->regen_rate;
         if (this->current_val > this->max_val)

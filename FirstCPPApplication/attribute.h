@@ -29,7 +29,7 @@ class Attribute
         virtual void Tick();
         virtual bool CheckIsReady();
 
-        bool CanRegenerate();
+        // bool CanRegenerate();
         void Regenerate();
         
 
