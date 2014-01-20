@@ -66,10 +66,12 @@ void Game:: buildworld()
     for (std::vector<Room*>::iterator it = this->world->roomVector->begin(); it != this->world->roomVector->end(); ++it)
     {
         //place a troll in the middle of the room
-        //it-
         int troll_x, troll_y;
-        troll_x = ((*it)->width / 2) + (*it)->x; 
-        troll_y = ((*it)->height / 2) + (*it)->y;
+        // troll_x = ((*it)->width / 2) + (*it)->x; 
+        // troll_y = ((*it)->height / 2) + (*it)->y;
+        TCODRandom *rng = TCODRandom::getInstance();
+        troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+        troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
         if (is_troll)
         {
             Troll* troll = this->create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat");

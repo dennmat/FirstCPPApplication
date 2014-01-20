@@ -63,18 +63,18 @@ void Combat::assign_to_master(Person* master)
 
 Combat::Combat(std::string name, int max_hp, Person* master, char representation)
 {
-   //name = name;
+    //name = name;
 
-   // this->cur_hp = max_hp;
-   // this->max_hp = max_hp;
+    // this->cur_hp = max_hp;
+    // this->max_hp = max_hp;
 
-   representation = representation;
+    representation = representation;
 
-   master = NULL;
-   is_dead = false;
+    master = NULL;
+    is_dead = false;
 
-   attackers = new std::vector<Combat*>;
-   was_attacked = false;
+    attackers = new std::vector<Combat*>;
+    was_attacked = false;
 
 };
 
@@ -111,12 +111,12 @@ void Combat::LevelUp(int levels)
 
 void Combat::GiveExp(int exp_to_gain)
 {
-        this->master->xp += exp_to_gain;
-        // calc if level up
-        if (this->master->xp % 100 == 0)
-        {
-            this->LevelUp();
-        };
+    this->master->xp += exp_to_gain;
+    // calc if level up
+    if (this->master->xp % 100 == 0)
+    {
+        this->LevelUp();
+    };
 };
 
 void Combat::Attack(Combat* combat_target, int dmg){
@@ -150,16 +150,16 @@ void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
 
 void Combat::Die()
 {
-        printf("I've died!\n");
-        //make position unblocked
-        if (master != NULL)
-        {
-            master->Die();
-        }
-        else if (master == NULL)
-        {
-            printf("I've no master so he's not going to die, is he?\n");
-        };
+    printf("I've died!\n");
+    //make position unblocked
+    if (master != NULL)
+    {
+        master->Die();
+    }
+    else if (master == NULL)
+    {
+        printf("I've no master so he's not going to die, is he?\n");
+    };
 
 };
 
@@ -173,9 +173,11 @@ Combat* Combat::GetLastAttacker()
     return assailant;
 };
 
-void Combat::TakeDamage(Combat* combat_attacker, int dmg){
+void Combat::TakeDamage(Combat* combat_attacker, int dmg)
+{
 
     (this->master->attrs->health->current_val)-=dmg;
+
     std::cout << this->master->name;
     std::cout << " took " << dmg << " damage! ";
     std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
@@ -184,13 +186,14 @@ void Combat::TakeDamage(Combat* combat_attacker, int dmg){
     //save attacker in history
     this->RememberAttacker(combat_attacker);
 
-    if (this->CheckDeath()){
+    if (this->CheckDeath())
+    {
         this->Die();
-
     };
 };
 
-bool Combat::CheckDeath(){
+bool Combat::CheckDeath()
+{
     if (this->master->attrs->health->current_val <= 0  && !is_dead)
     {
         is_dead = true;

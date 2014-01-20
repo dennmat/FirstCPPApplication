@@ -62,7 +62,7 @@ void Thinker::update(Game* game)
 
         if (master->l_path == NULL)
         {
-            cout << "Building Path" << endl;
+            //cout << "Building Path" << endl;
             master->l_path = new TCODPath(map->l_map);
 
             //set the master's destination to above the player

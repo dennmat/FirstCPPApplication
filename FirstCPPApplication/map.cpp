@@ -202,11 +202,6 @@ int Map::build_from_random(int seed)
         i++;
     }
 
-    // build_rect_room(10, 10, 10, 10, 3);
-    // build_rect_room(50, 30, 5, 10, 5);
-    // build_rect_room(0, 5, 5, 3, 7);
-
-
     TCODBsp bsp(0, 0, 60, 40);
     bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
     BspListener listener(*this);
@@ -264,6 +259,7 @@ void Map::build_rect_room(int room_x, int room_y,
             else 
             {
                 getTileAt(adj_x, adj_y)->updateTileType(3); //for floor
+                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //for door
                 l_map -> setProperties(adj_x, adj_y, true, true);
             }
 
