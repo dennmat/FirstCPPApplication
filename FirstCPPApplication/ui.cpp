@@ -140,9 +140,12 @@ void Ui::draw_ui_sidebar()
 
     int initial_y = 15;
     int y = initial_y;
+    int ci = 0;
+    TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
     std::vector<std::string> player_attrs = this->game->player->attrs->PrettyVector();
     for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
     {
+        ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
         ui_sidebar_con->print(0, y, "%s", (it->c_str()));
         ++y;
 
@@ -151,6 +154,7 @@ void Ui::draw_ui_sidebar()
         {
             ui_sidebar_con->print(0, y, " ");
             y++;
+            ci++;
         }
 
     };
