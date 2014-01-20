@@ -54,6 +54,10 @@ void Attribute::AddToCurrentVal(int difference)
     if (difference != 0)
     {
         this->current_val += difference;
+        if (this->current_val > this->max_val)
+        {
+            this->current_val = this->max_val;
+        };
     };
 
 };

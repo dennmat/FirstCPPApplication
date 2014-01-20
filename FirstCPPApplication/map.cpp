@@ -116,16 +116,14 @@ class BspListener : public ITCODBspCallback
                 int room_x,room_y,room_w,room_h;
                 int room_min_size = 6;
                 // dig a room
-                TCODRandom *rng=TCODRandom::getInstance();
-                room_w=rng->getInt(room_min_size, node->w-2);
-                // room_w = 2;
-                // room_h = 2;
-                room_h=rng->getInt(room_min_size, node->h-2);
+                TCODRandom *rng = TCODRandom::getInstance();
 
-                room_x=rng->getInt(node->x+1, node->x+node->w-(room_w-1));
-                room_y=rng->getInt(node->y+1, node->y+node->h-(room_h-1));
+                room_w = rng->getInt(room_min_size, node->w-2);
+                room_h = rng->getInt(room_min_size, node->h-2);
+                room_x = rng->getInt(node->x+1, node->x+node->w-(room_w-1));
+                room_y = rng->getInt(node->y+1, node->y+node->h-(room_h-1));
 
-                int perimeter = room_w*2 + room_h * 2 - 4;
+                int perimeter = room_w*2 + room_h*2 - 4;
                 int door_index = rng->getInt(0, perimeter);
                 map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
 
@@ -156,7 +154,6 @@ int Map::build_from_random(int seed)
     //the default tile description
     description = "poppycock";
 
-    // tileArray = new Tile[width*height];
     tileVector = new vector<vector<Tile>>;
     tileVector->resize(height);
     for(int ix = 0; ix < height; ++ix)
@@ -215,7 +212,6 @@ int Map::build_from_random(int seed)
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
-
     return 1;
 
 };
@@ -240,13 +236,13 @@ void Map::build_rect_room(int room_x, int room_y,
             //done to save time later on for getTileAt recursion
             if (adj_y >= this->height)
             {
-                break;
+                // break;
                 adj_y = this->height-2;
             }
 
             if (adj_y >= this->width)
             {
-                break;
+                // break;
                 adj_y = this->width-2;
             }
 
@@ -396,8 +392,8 @@ int Map::draw(Game *theGame)
             // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
-            // if (theGame->debug_opts->all_vision || l_map->isInFov(x, y))
-            if (true)
+            if (theGame->debug_opts->all_vision || l_map->isInFov(x, y))
+            // if (true)
             {
                 the_tile->setKnown(true);
 
