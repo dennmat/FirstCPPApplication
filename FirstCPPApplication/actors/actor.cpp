@@ -200,6 +200,7 @@ void Actor::Die()
         dropped_item->name =   "A sword";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->item_effect->damage_current_val = 10;
+        dropped_item->item_effect->damage_max_val = 10;
     };
 
     this->my_tile->place_item_down(dropped_item);

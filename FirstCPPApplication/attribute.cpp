@@ -177,8 +177,8 @@ ArmorAttribute::ArmorAttribute() : Attribute()
 
 DamageAttribute::DamageAttribute() : Attribute()
 {
-    this->max_val = 5;
-    this->current_val = this->max_val;
+    this->max_val = 99999;
+    this->current_val = 10;
 
     this->regen_rate = 0;
 

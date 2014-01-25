@@ -297,7 +297,7 @@ void ItemEffect::ApplyAllEffects(Actor* actor)
 
 void ItemEffect::ApplyHealthEffects(Actor* actor)
 {
-    if (! this->already_applied_mana(actor))
+    if (! this->already_applied_health(actor))
     {
         actor->attrs->health->AddToCurrentVal(this->health_current_val);
         actor->attrs->health->AddToMaxVal(this->health_max_val);
@@ -335,12 +335,17 @@ void ItemEffect::ApplyDamageEffects(Actor* actor)
 {
     if (! this->already_applied_damage(actor))
     {
+        std::cout << "applying damage effects" << std::endl;
         actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
         actor->attrs->damage->AddToMaxVal(this->damage_max_val);
         actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
         actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
         this->mark_applied_damage(actor);
     }
+    else
+    {
+        std::cout << "already applied damage effects" << std::endl;
+    };
 
 };
 

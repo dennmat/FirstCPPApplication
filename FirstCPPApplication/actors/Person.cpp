@@ -112,5 +112,5 @@ void Person::update(Game* game)
 
 void Person::attack(Actor * target)
 {
-    combat->Attack(((Person*)target)->combat, 10); //shit will happen if the target isn't a Person
+    combat->Attack(((Person*)target)->combat, this->attrs->damage->current_val); //shit will happen if the target isn't a Person
 };
