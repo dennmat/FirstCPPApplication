@@ -86,6 +86,7 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
     char_invitemactivemap['u'] = inventory_items_active_t::UseItem;
     char_invitemactivemap['e'] = inventory_items_active_t::EquipItem;
     char_invitemactivemap['y'] = inventory_items_active_t::UnequipItem;
+    char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem;
 
     if (key.vk == TCODK_CHAR) 
     {
@@ -541,7 +542,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             break;
 
         case GameStates::MenuState:
-            if (request.c == 'q' && request.pressed == 1)
+            if (request.c == 'q' && request.pressed == 1 && the_game->ui->item_active == false)
             {
                 cout << "Back to the game." << endl;
                 the_game->ui->chosen_item = NULL;

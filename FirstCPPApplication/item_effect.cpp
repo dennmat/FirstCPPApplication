@@ -335,18 +335,12 @@ void ItemEffect::ApplyDamageEffects(Actor* actor)
 {
     if (! this->already_applied_damage(actor))
     {
-        std::cout << "applying damage effects" << std::endl;
         actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
         actor->attrs->damage->AddToMaxVal(this->damage_max_val);
         actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
         actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
         this->mark_applied_damage(actor);
     }
-    else
-    {
-        std::cout << "already applied damage effects" << std::endl;
-    };
-
 };
 
 void ItemEffect::RemoveAllEffects(Actor* actor)

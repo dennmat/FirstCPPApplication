@@ -198,10 +198,15 @@ void Actor::Die()
         dropped_item = new Item;
         dropped_item->repr->repr = '/';
         dropped_item->repr->setFGColor(*this->representation->fg_color, true, false, true);
-        dropped_item->name =   "A sword";
+        dropped_item->name = "A sword";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->item_effect->damage_current_val = 10;
-        dropped_item->item_effect->damage_max_val = 10;
+        dropped_item->slot_type = slots_t::MainHand;
+
+        //sword damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int damage = rng->getInt(5, 15, 10);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
     };
 
     this->my_tile->place_item_down(dropped_item);

@@ -206,6 +206,7 @@ void Ui::draw_inventory_ui()
     // draw the list of items on the player
     std::vector<Item*>* v  = this->game->player->inventory->items;
     int i = 5;
+    char key = 'a';
     bool is_chosen;
     for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
@@ -220,7 +221,7 @@ void Ui::draw_inventory_ui()
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
             };
-            ui_inv_con->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+            ui_inv_con->print(3, i, "%c- %c%s%c", key, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         }
         else
         {
@@ -232,12 +233,15 @@ void Ui::draw_inventory_ui()
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
             };
-            ui_inv_con->print(3, i, "%c%s%c", TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+            ui_inv_con->print(3, i, "%c- %c%s%c", key, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         };
         i++;
 
         ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());
         i++;
+
+        key++;
+        
     }
 
     TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);

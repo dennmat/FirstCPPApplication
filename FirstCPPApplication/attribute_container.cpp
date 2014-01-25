@@ -88,8 +88,5 @@ std::vector<std::string> AttributeContainer::PrettyVector()
 
 std::string AttributeContainer::PrettyPrint()
 {
-
-
     return StringJoin(this->PrettyVector(), '\n', false);
-
 };
