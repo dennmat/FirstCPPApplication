@@ -30,7 +30,7 @@ ItemEffect::ItemEffect()
     this->damage_regen_rate = 0;
     this->damage_regen_interval = 0; 
 
-    this->applied_to = new std::vector<Actor*>;
+    this->actors_applied_to = new std::vector<applied_to_s*>;
 };
 
 void ItemEffect::set_all_vals_to(int new_val)
@@ -89,35 +89,203 @@ void ItemEffect::set_damage_vals_to(int new_val)
     this->damage_regen_interval = new_val; 
 };
 
-bool ItemEffect::already_applied(Actor* actor)
+bool ItemEffect::already_applied_health(Actor* actor)
 {
 
-    //if actor in list of people this item's already applied to, no reason to do
-    //it again
-    auto it = std::find(this->applied_to->begin(), this->applied_to->end(), actor);
-
-    return  it != this->applied_to->end();
-
-    // The thing is that I need to sort out how to apply the item's effects to
-    // the actor once, because if it gets reapplied they might be invincible or
-    // gaining way too much health for ever.
-    //TODO TODO TODO
-
-};
-
-void ItemEffect::mark_applied_to(Actor* actor)
-{
-    auto it = std::find(this->applied_to->begin(), this->applied_to->end(), actor);
-
-    if ( it != this->applied_to->end() )
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
     {
-        //do nothing because it already exists in the vector
-    }
-    else
-    {
-        this->applied_to->push_back(actor);
+        if ((*it)->actor == actor)
+        {
+            return ((*it)->health.all);
+        };
+
     };
 };
+
+bool ItemEffect::already_applied_mana(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            return (*it)->mana.all;
+        };
+
+    };
+};
+
+bool ItemEffect::already_applied_armor(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            return ((*it)->armor.all);
+        };
+
+    };
+};
+
+bool ItemEffect::already_applied_damage(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            return ((*it)->damage.all);
+        };
+
+    };
+};
+
+bool ItemEffect::already_applied_all(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            return ((*it)->health.all && (*it)->mana.all && (*it)->armor.all  && (*it)->damage.all );
+        };
+
+    };
+
+    //if actor in list of people this item's already applied to, no reason to do
+    // //it again
+    // auto it = std::find(this->actors_applied_to->begin(), this->actors_applied_to->end(), actor);
+
+    // return  it != this->actors_applied_to->end();
+
+    // // The thing is that I need to sort out how to apply the item's effects to
+    // // the actor once, because if it gets reapplied they might be invincible or
+    // // gaining way too much health for ever.
+    // //TODO TODO TODO
+
+};
+
+
+void ItemEffect::mark_applied_health(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+           ((*it)->health.all = true);
+        };
+
+    };
+};
+
+void ItemEffect::mark_applied_mana(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+           ((*it)->mana.all = true);
+        };
+
+    };
+};
+
+void ItemEffect::mark_applied_armor(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+           ((*it)->armor.all = true);
+        };
+
+    };
+};
+
+void ItemEffect::mark_applied_damage(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+           ((*it)->damage.all = true);
+        };
+
+    };
+};
+
+void ItemEffect::mark_applied_all(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+           ((*it)->health.all = true);
+           ((*it)->mana.all = true);
+           ((*it)->armor.all = true);
+           ((*it)->damage.all = true);
+        };
+
+    };
+};
+
+
+//void ItemEffect::mark_applied_all(Actor* actor)
+//{
+//    //loop through the actors_applied_to vector and find one with the actor
+//    //passed in
+//    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+//    for (it; it != this->actors_applied_to->end(); ++it)
+//    {
+//        if ((*it)->actor == actor)
+//        {
+//           ((*it)->all = true);
+//        };
+//
+//    };
+
+    // auto it = std::find(this->actors_applied_to->begin(), this->actors_applied_to->end(), actor);
+
+    // if ( it != this->actors_applied_to->end() )
+    // {
+    //     //do nothing because it already exists in the vector
+    // }
+    // else
+    // {
+    //     this->actors_applied_to->push_back(actor);
+    // };
+//};
 
 void ItemEffect::ApplyAllEffects(Actor* actor)
 {
@@ -129,49 +297,49 @@ void ItemEffect::ApplyAllEffects(Actor* actor)
 
 void ItemEffect::ApplyHealthEffects(Actor* actor)
 {
-    if (! this->already_applied(actor))
+    if (! this->already_applied_mana(actor))
     {
         actor->attrs->health->AddToCurrentVal(this->health_current_val);
         actor->attrs->health->AddToMaxVal(this->health_max_val);
         actor->attrs->health->AddToRegenRate(this->health_regen_rate);
         actor->attrs->health->AddToRegenInterval(this->health_regen_interval);
-        this->mark_applied_to(actor);
+        this->mark_applied_health(actor);
     }
 };
 
 void ItemEffect::ApplyManaEffects(Actor* actor)
 {
-    if (! this->already_applied(actor))
+    if (! this->already_applied_mana(actor))
     {
         actor->attrs->mana->AddToCurrentVal(this->mana_current_val);
         actor->attrs->mana->AddToMaxVal(this->mana_max_val);
         actor->attrs->mana->AddToRegenRate(this->mana_regen_rate);
         actor->attrs->mana->AddToRegenInterval(this->mana_regen_interval);
-        this->mark_applied_to(actor);
+        this->mark_applied_mana(actor);
     }
 };
 
 void ItemEffect::ApplyArmorEffects(Actor* actor)
 {
-    if (! this->already_applied(actor))
+    if (! this->already_applied_armor(actor))
     {
         actor->attrs->armor->AddToCurrentVal(this->armor_current_val);
         actor->attrs->armor->AddToMaxVal(this->armor_max_val);
         actor->attrs->armor->AddToRegenRate(this->armor_regen_rate);
         actor->attrs->armor->AddToRegenInterval(this->armor_regen_interval);
-        this->mark_applied_to(actor);
+        this->mark_applied_armor(actor);
     }
 };
 
 void ItemEffect::ApplyDamageEffects(Actor* actor)
 {
-    if (! this->already_applied(actor))
+    if (! this->already_applied_damage(actor))
     {
         actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
         actor->attrs->damage->AddToMaxVal(this->damage_max_val);
         actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
         actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
-        this->mark_applied_to(actor);
+        this->mark_applied_damage(actor);
     }
 
 };

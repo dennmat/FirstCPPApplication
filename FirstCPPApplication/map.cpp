@@ -259,8 +259,7 @@ void Map::build_rect_room(int room_x, int room_y,
             else 
             {
                 getTileAt(adj_x, adj_y)->updateTileType(3); //for floor
-                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //for door
-                l_map -> setProperties(adj_x, adj_y, true, true);
+                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
             }
 
         }

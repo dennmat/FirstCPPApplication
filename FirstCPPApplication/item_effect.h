@@ -15,6 +15,24 @@ class Tile;
 class Item;
 class Attribute;
 
+struct type_applied_s 
+{
+    bool current_val;
+    bool max_val;
+    bool regen_rate;
+    bool interval;
+    bool all;
+};
+
+struct applied_to_s 
+{
+    type_applied_s health;
+    type_applied_s mana;
+    type_applied_s armor;
+    type_applied_s damage;
+    Actor* actor;
+};
+
 class ItemEffect
 {
     public:
@@ -39,7 +57,8 @@ class ItemEffect
         int damage_regen_rate;
         int damage_regen_interval; 
 
-        std::vector<Actor*>* applied_to;
+        applied_to_s  applied_to;
+        std::vector<applied_to_s*>* actors_applied_to;
 
         ItemEffect();
         void ApplyAllEffects(Actor* actor);
@@ -54,8 +73,17 @@ class ItemEffect
         void RemoveArmorEffects(Actor* actor);
         void RemoveDamageEffects(Actor* actor);
 
-        bool already_applied(Actor* actor);
-        void mark_applied_to(Actor* actor);
+        bool already_applied_all(Actor* actor);
+        bool already_applied_health(Actor* actor);
+        bool already_applied_mana(Actor* actor);
+        bool already_applied_armor(Actor* actor);
+        bool already_applied_damage(Actor* actor);
+
+        void mark_applied_all(Actor* actor);
+        void mark_applied_health(Actor* actor);
+        void mark_applied_mana(Actor* actor);
+        void mark_applied_armor(Actor* actor);
+        void mark_applied_damage(Actor* actor);
 
         std::string ItemEffect::small_convert(std::string prefix, long double val);
         std::string full_str();

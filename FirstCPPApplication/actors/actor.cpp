@@ -185,9 +185,24 @@ int* Actor::get_direction_heading()
 void Actor::Die()
 {
     //make the master's tile no longer occupied by him
-    //drop corpse on floor
-    Item* corpse = this->CreateCorpse();
-    this->my_tile->place_item_down(corpse);
+    //drop corpse on floor or another item
+    TCODRandom *rng = TCODRandom::getInstance();
+    Item* dropped_item;
+    if (rng->getInt(0, 10) % 2 == 0)
+    {
+        dropped_item = this->CreateCorpse();
+    }
+    else
+    {
+        dropped_item = new Item;
+        dropped_item->repr->repr = '/';
+        dropped_item->repr->setFGColor(*this->representation->fg_color, true, false, true);
+        dropped_item->name =   "A sword";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->item_effect->damage_current_val = 10;
+    };
+
+    this->my_tile->place_item_down(dropped_item);
 
     //remove master from ai update list
     this->is_active = false;
