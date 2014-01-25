@@ -32,6 +32,8 @@ void Slot::AddToSlot(Item* item)
         //add item to slot
         std::cout << "added item to slot" << std::endl;
         this->equipped_item = item;
+        // this->equipped_item->item_effect->ApplyAllEffects(this->equipment->master);
+        this->apply_item_effect();
     }
     else
     {
@@ -140,6 +142,29 @@ Equipment::Equipment()
 
 };
 
+void Equipment::equip_item(Item* item)
+{
+    //get item slot type
+    slots_t slot_type = item->slot_type;
+
+    //check if slot is empty
+    for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); ++it)
+    {
+        if ( (*it)->type == slot_type )
+        {
+            if ( (*it)->HasRoomFor(item) )
+            {
+                //put in slot 
+                (*it)->AddToSlot(item);
+                break;
+            }
+        }
+    }
+
+    // NOTE DOESNT apply item effects
+
+};
+
 void Equipment::unequip_item(Item* item)
 {
     for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); ++it)
@@ -222,28 +247,28 @@ Equipment::~Equipment()
 
 void Equipment::Update()
 {
-    //apply buffs/debuffs and durability for all equipment
-    this->head->apply_item_effect();
-    this->earrings->apply_item_effect();
-    this->necklace->apply_item_effect();
+    // //apply buffs/debuffs and durability for all equipment
+    // this->head->apply_item_effect();
+    // this->earrings->apply_item_effect();
+    // this->necklace->apply_item_effect();
 
-    this->chest->apply_item_effect();
-    this->left_shoulder->apply_item_effect();
-    this->right_shoulder->apply_item_effect();
+    // this->chest->apply_item_effect();
+    // this->left_shoulder->apply_item_effect();
+    // this->right_shoulder->apply_item_effect();
 
-    this->left_bracer->apply_item_effect();
-    this->right_bracer->apply_item_effect();
+    // this->left_bracer->apply_item_effect();
+    // this->right_bracer->apply_item_effect();
 
-    this->left_glove->apply_item_effect();
-    this->right_glove->apply_item_effect();
+    // this->left_glove->apply_item_effect();
+    // this->right_glove->apply_item_effect();
 
-    this->left_ring_ring->apply_item_effect();
-    this->right_ring_ring->apply_item_effect();
-    this->left_ring_middle->apply_item_effect();
-    this->right_ring_middle->apply_item_effect();
-    this->left_ring_index->apply_item_effect();
-    this->right_ring_index->apply_item_effect();
+    // this->left_ring_ring->apply_item_effect();
+    // this->right_ring_ring->apply_item_effect();
+    // this->left_ring_middle->apply_item_effect();
+    // this->right_ring_middle->apply_item_effect();
+    // this->left_ring_index->apply_item_effect();
+    // this->right_ring_index->apply_item_effect();
 
-    this->main_weapon->apply_item_effect();
-    this->off_weapon->apply_item_effect();
+    // this->main_weapon->apply_item_effect();
+    // this->off_weapon->apply_item_effect();
 };

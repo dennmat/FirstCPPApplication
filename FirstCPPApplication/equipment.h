@@ -18,11 +18,11 @@ class Equipment;
 
 class Slot
 {
-    slots_t type;
-    Item* equipped_item;
-    Equipment* equipment;
-
     public:
+        slots_t type;
+        Item* equipped_item;
+        Equipment* equipment;
+
         Slot(slots_t type, Equipment* equipment);
         void Update();
 
@@ -46,12 +46,13 @@ class Equipment
     public:
 
         Actor* master;
-        
+
         ~Equipment();
         Equipment();
         void Update();//apply buffs/debuffs and durability for all equipment
         bool is_item_equipped(Item* item);
         void unequip_item(Item* item);
+        void equip_item(Item* item);
 
         std::vector<Slot*>* slots;
 

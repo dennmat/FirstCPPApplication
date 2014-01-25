@@ -112,5 +112,6 @@ void Person::update(Game* game)
 
 void Person::attack(Actor * target)
 {
-    combat->Attack(((Person*)target)->combat, this->attrs->damage->current_val); //shit will happen if the target isn't a Person
+    //only Persons and children have combats
+    combat->Attack(((Person*)target)->combat, this->attrs->damage->current_val); 
 };

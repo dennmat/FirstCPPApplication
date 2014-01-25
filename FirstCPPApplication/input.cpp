@@ -66,7 +66,8 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 };
 
 enum inventory_items_active_t {
-    ExamineItem, EquipItem,
+    ExamineItem,
+    EquipItem, UnequipItem,
     DropItem, EscapeMenuItem,
     UseItem,
     NO_MATCHING_ITEMS_ACTIVE
@@ -82,8 +83,9 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
      
     char_invitemactivemap['x'] = inventory_items_active_t::ExamineItem;
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
-    char_invitemactivemap['e'] = inventory_items_active_t::UseItem;
-    char_invitemactivemap['w'] = inventory_items_active_t::EquipItem;
+    char_invitemactivemap['u'] = inventory_items_active_t::UseItem;
+    char_invitemactivemap['e'] = inventory_items_active_t::EquipItem;
+    char_invitemactivemap['y'] = inventory_items_active_t::UnequipItem;
 
     if (key.vk == TCODK_CHAR) 
     {
@@ -225,6 +227,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
 bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *player)
 {
     inventory_items_active_t action = inventory_items_active_pressed(request);
+
     if( action == inventory_items_active_t::ExamineItem )
     {
         std::cout << "EXAMINE ITEM" << std::endl;
@@ -247,7 +250,16 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
 
     else if( action == inventory_items_active_t::EquipItem )
     {
+        the_game->ui->chosen_item->equip(the_game->player);
+        the_game->player->equipment->equip_item(the_game->ui->chosen_item);
         std::cout << "Equipping item" << std::endl;
+    }
+
+    else if( action == inventory_items_active_t::UnequipItem )
+    {
+        the_game->ui->chosen_item->unequip(the_game->player);
+        the_game->player->equipment->unequip_item(the_game->ui->chosen_item);
+        std::cout << "Unequipping item" << std::endl;
     }
 
     else if( action == inventory_items_active_t::EscapeMenuItem )

@@ -19,11 +19,16 @@ class Item
         std::string description;
         std::string name;
 
+        bool usable;
+        bool equippable;
+
         ItemEffect* item_effect;
         Representation* repr;
 
         Item();
         void use(Actor* target);
+        void equip(Actor* target);
+        void unequip(Actor* target);
 
         slots_t slot_type;
 
