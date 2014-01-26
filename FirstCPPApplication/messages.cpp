@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <iostream>
 #include <string>
 #include "messages.h"
 #include <vector>
@@ -8,7 +9,30 @@
 MessageHandler::MessageHandler()
 {
     this->msg_list = std::vector<Message*>();
+    Message* msg = new Message;
+    msg->content = "Welcome to BiochRL++";
+    msg->vlist = "";
+    this->msg_list.push_back(msg);
 };
+
+void MessageHandler::New(Message* message)
+{
+
+ //   if (this->msg_list.size() == 0)
+	//{
+	//return;
+	//};
+    Message* last_msg = this->msg_list.back();
+    if (last_msg->content.c_str() == message->content.c_str() && last_msg->vlist == message->vlist && this->msg_list.size() != 0)
+    {
+        last_msg->count += 1;
+        std::cout << "msg already existed, incrementing count" << std::endl;
+    }
+    else
+    {
+        this->msg_list.push_back(message);
+    }
+}
 
 void MessageHandler::draw(TCODConsole* console)
 {
@@ -18,7 +42,8 @@ void MessageHandler::draw(TCODConsole* console)
     int y = 0;
     for (it; it != this->msg_list.rend(); ++it)
     {
-        console->print(x, y, (*it)->content.c_str(), (*it)->vlist);
+        std::cout << "drawing message" << std::endl;
+        console->print(x, y, ((*it)->content+" (%d)").c_str(), (*it)->vlist, (*it)->count);
         y++;
     };
 
@@ -28,6 +53,7 @@ void Message::Init()
 {
     this->content = "Unspecified content";
     this->vlist = NULL;
+    this->count = 0;
 };
 
 Message::Message()
@@ -35,10 +61,17 @@ Message::Message()
     this->Init();
 };
 
-Message::Message(std::string content, ...) 
+Message::Message(MessageHandler* handler, std::string content, ...) 
 {
+    handler->New(this);
+
     this->Init();
 
     this->content = content;
     this->vlist = vlist;
 };
+
+//std::string Message::Prerender()
+//{
+//    return "";
+//}
