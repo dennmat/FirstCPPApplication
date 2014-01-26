@@ -30,6 +30,7 @@
 #include "item_effect.h"
 #include "Room.h"
 #include "debug_options.h"
+#include "messages.h"
 
 void Game:: buildworld()
 {

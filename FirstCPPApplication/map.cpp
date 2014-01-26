@@ -17,7 +17,7 @@
 #include "tile.h"
 #include "enemies\troll.h"
 #include "debug_options.h"
-
+#include "messages.h"
 
 using namespace std;
 
@@ -510,6 +510,7 @@ int Map::draw(Game *theGame)
 
 
 
+    Message("help me %s", "Ben you're my only hope");
     return 1;
 }
 

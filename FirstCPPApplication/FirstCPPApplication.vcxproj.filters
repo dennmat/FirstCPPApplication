@@ -269,6 +269,9 @@
     <ClInclude Include="debug_options.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="messages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -342,6 +345,9 @@
     </ClCompile>
     <ClCompile Include="actors\actor.cpp">
       <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="messages.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

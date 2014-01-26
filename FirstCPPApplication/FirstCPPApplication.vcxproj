@@ -211,6 +211,7 @@
     <ClInclude Include="libtcod_cpp_hpp\wrappers.h" />
     <ClInclude Include="libtcod_cpp_hpp\zip.h" />
     <ClInclude Include="libtcod_cpp_hpp\zip.hpp" />
+    <ClInclude Include="messages.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="Representation.h" />
     <ClInclude Include="Room.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="item_effect.cpp" />
+    <ClCompile Include="messages.cpp" />
     <ClCompile Include="Representation.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">

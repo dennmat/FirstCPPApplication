@@ -3,6 +3,7 @@
 #define UI_H
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
+#include "messages.h"
 
 class Item;
 class Game;
@@ -17,6 +18,7 @@ class Ui
         unsigned long long int tick_checking_against;
     public:
         Game* game;
+        MessageHandler msg_handler;
 
         Ui();
 

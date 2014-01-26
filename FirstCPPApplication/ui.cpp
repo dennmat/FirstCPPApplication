@@ -13,6 +13,7 @@
 #include "attribute.h"
 #include "item.h"
 #include "item_effect.h"
+#include "messages.h"
 
 Ui::Ui()
 {
@@ -27,6 +28,7 @@ Ui::Ui()
     this->tick_threshold = 50;
 
     this->tick_checking_against = this->tick_threshold;
+    this->msg_handler = MessageHandler();
 };
 
 void Ui::update_inventory_ui()
@@ -176,7 +178,10 @@ void Ui::draw_ui_msg()
     ui_msg_con->clear();
 
     //draw the message text
-    ui_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
+    // ui_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
+    auto message = new Message( "TURN COUNT %d", this->game->turn_count);
+    this->msg_handler.msg_list.push_back(message);
+    this->msg_handler.draw(ui_msg_con);
 
     //draw ui console to root
     TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, this->game->screen_h-ui_msg_h);
