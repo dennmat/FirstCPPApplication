@@ -179,7 +179,7 @@ void Ui::draw_ui_msg()
 
     //draw the message text
     // ui_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
-    new Message(&this->msg_handler, "TURN COUNT %d", this->game->turn_count);
+    new Message(&this->msg_handler, "TURN COUNT %d%d%d", 123, this->game->turn_count, 321);
 
     this->msg_handler.draw(ui_msg_con);
 
