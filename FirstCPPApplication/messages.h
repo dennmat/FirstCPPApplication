@@ -22,7 +22,7 @@ class Message
 {
     public:
         std::string content;
-        va_list vlist;
+        // va_list vlist;
         int count;
 
         Message();
