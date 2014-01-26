@@ -256,12 +256,14 @@ void DoorTileType::ToggleDoor()
 void DoorTileType::CloseDoor()
 {
     this->is_open = false;
+    this->representation->repr = '+';
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, false, false);
 };
 
 void DoorTileType::OpenDoor()
 {
     this->is_open = true;
+    this->representation->repr = '=';
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, true, true);
 };
 

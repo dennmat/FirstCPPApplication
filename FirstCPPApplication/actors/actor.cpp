@@ -189,11 +189,27 @@ void Actor::Die()
     //drop corpse on floor or another item
     TCODRandom *rng = TCODRandom::getInstance();
     Item* dropped_item;
-    if (rng->getInt(0, 10) % 2 == 0)
+    int result = rng->getInt(0, 100);
+    if (result % 2 == 0)
     {
         dropped_item = this->CreateCorpse();
     }
-    else
+    else if (result % 3 == 0)
+    {
+        dropped_item = new Item;
+        dropped_item->repr->repr = '&';
+        dropped_item->repr->setFGColor(*this->representation->fg_color, true, false, true);
+        dropped_item->name = "Chainmail";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::Chest;
+
+        //sword damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(1, 5, 2);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+    }
+    else 
     {
         dropped_item = new Item;
         dropped_item->repr->repr = '/';
@@ -207,7 +223,7 @@ void Actor::Die()
         int damage = rng->getInt(5, 15, 10);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
-    };
+    }
 
     this->my_tile->place_item_down(dropped_item);
 

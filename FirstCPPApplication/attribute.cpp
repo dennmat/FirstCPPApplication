@@ -169,10 +169,14 @@ ManaAttribute::ManaAttribute() : Attribute()
 
 ArmorAttribute::ArmorAttribute() : Attribute()
 {
-    this->max_val = 1;
-    this->current_val = this->max_val;
+    this->max_val = 99999;
+    this->current_val = 1;
 
     this->regen_rate = 0;
+    // this->max_val = 1;
+    // this->current_val = this->max_val;
+
+    // this->regen_rate = 0;
 };
 
 DamageAttribute::DamageAttribute() : Attribute()
