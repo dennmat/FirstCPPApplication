@@ -68,22 +68,28 @@ void Game:: buildworld()
     {
         //place a troll in the middle of the room
         int troll_x, troll_y;
-        // troll_x = ((*it)->width / 2) + (*it)->x; 
-        // troll_y = ((*it)->height / 2) + (*it)->y;
         TCODRandom *rng = TCODRandom::getInstance();
-        troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
-        troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+        int enemy_count = rng->getInt(1, 5);
         if (is_troll)
         {
-            Troll* troll = this->create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat");
-            is_troll = false;
-            this->enemies.push_back(troll);
+
+            for (int i = 0; i <= enemy_count; i++)
+            {
+                troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+                troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                this->enemies.push_back( this->create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat"));
+                is_troll = false;
+            }
         }
         else
         {
-            Skeleton* skeleton = this->create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', "skeleton combat");
-            is_troll = true;
-            this->enemies.push_back(skeleton);
+            for (int i = 0; i <= enemy_count; i++)
+            {
+                troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+                troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                this->enemies.push_back(this->create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', "skeleton combat"));
+                is_troll = true;
+            }
         }
     }
 

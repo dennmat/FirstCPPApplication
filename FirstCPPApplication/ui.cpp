@@ -238,6 +238,7 @@ void Ui::draw_inventory_ui()
         is_chosen = (*it) == this->chosen_item;
         is_active = this->item_active;
 
+        //TODO: Clean the shit out of this whole thing
         if (this->game->player->equipment->is_item_equipped(*it))
         {
             if (is_chosen)
