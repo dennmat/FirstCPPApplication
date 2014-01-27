@@ -517,10 +517,22 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
     {
         case GameStates::GameplayState: 
 
-
             if(is_request_move_cmd(request))
             {
                 incr_turn = process_movement(the_game, request, player);
+                if (incr_turn)
+                {
+                    int item_count = player->my_tile->inventory->get_count();
+                    if (item_count > 0)
+                    {
+                        std::string msg_str = (item_count == 1) ? "An item is on the ground" : "%d items are on the ground";
+                        Message* msg = new Message(the_game->ui->msg_handler, msg_str, item_count);
+                    }
+                    else 
+                    {
+                        Message* msg = new Message(the_game->ui->msg_handler, "Nothing on the ground");
+                    }
+                };
             }
 
             else if (is_request_basic_cmd(request))

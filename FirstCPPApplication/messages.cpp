@@ -23,18 +23,14 @@ void MessageHandler::new_msg(Message* message)
 
 
     Message* last_msg = this->msg_list.back();
-    //compare vlists
-    bool vlists_equal = false;
+    //compare messages to see if the count should increment
+    bool same_msg = false;
     if (message->content == last_msg->content)
 	{
-        vlists_equal = true;
-	}
-    else
-	{
-        vlists_equal = false;
+        same_msg = true;
 	}
 
-    if (vlists_equal && this->msg_list.size() != 0)
+    if (same_msg && this->msg_list.size() != 0)
         //if (last_msg->content.c_str() == message->content.c_str() && last_msg->vlist == message->vlist && this->msg_list.size() != 0)
     {
         last_msg->count += 1;
@@ -57,7 +53,7 @@ void MessageHandler::draw(TCODConsole* console)
         // va_list ap;
         // va_start(ap, (*it)->content);
         //std::cout << "drawing message" << std::endl;
-        if ((*it)->count != 0)
+        if ((*it)->count > 1)
         {
             console->print(x, y, ((*it)->content+" (%d)").c_str(), (*it)->count);
         }

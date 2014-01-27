@@ -306,7 +306,7 @@ void Game::mainloop()
                 if (incr_turn)
                 {
                     turn_count++;
-                    new Message(this->ui->msg_handler, "TURN: %d", this->turn_count);
+                    //new Message(this->ui->msg_handler, "TURN: %d", this->turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
                     incr_turn = false;
                 }
