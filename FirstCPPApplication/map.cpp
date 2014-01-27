@@ -509,9 +509,6 @@ int Map::draw(Game *theGame)
     // cout << tile_description;
     // cout << endl << endl;
 
-
-
-    //Message(the_game->ui->msg_handler.msg_list, "help me %s", "Ben you're my only hope");
     return 1;
 }
 

@@ -15,7 +15,7 @@
 #include "item_effect.h"
 #include "messages.h"
 
-Ui::Ui()
+ Ui::Ui()
 {
     this->chosen_item = NULL;
     this->item_active = false;
@@ -28,7 +28,27 @@ Ui::Ui()
     this->tick_threshold = 50;
 
     this->tick_checking_against = this->tick_threshold;
-    this->msg_handler = MessageHandler();
+    this->msg_handler = new MessageHandler;
+    this->msg_handler->game = this->game;
+};
+
+Ui::Ui(Game* game)
+{
+    this->chosen_item = NULL;
+    this->item_active = false;
+
+    this->turn_checking_against = 1;
+    this->last_turn_noted = 1;
+
+    this->tick_turn_changed = 0;
+
+    this->tick_threshold = 50;
+
+    this->tick_checking_against = this->tick_threshold;
+    this->msg_handler = new MessageHandler;
+
+    this->game = game;
+    this->msg_handler->game = this->game;
 };
 
 void Ui::update_inventory_ui()
@@ -179,9 +199,9 @@ void Ui::draw_ui_msg()
 
     //draw the message text
     // ui_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
-    new Message(&this->msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->game->turn_count, TCOD_COLCTRL_STOP);
+    // new Message(&this->msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->game->turn_count, TCOD_COLCTRL_STOP);
 
-    this->msg_handler.draw(ui_msg_con);
+    this->msg_handler->draw(ui_msg_con);
 
     //draw ui console to root
     TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, this->game->screen_h-ui_msg_h);

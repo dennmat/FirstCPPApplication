@@ -6,14 +6,16 @@
 #include <libtcod.hpp>
 
 class Message;
+class Game;
 
 class MessageHandler
 {
     public:
-    std::vector<Message*> msg_list;
-    void draw(TCODConsole* console);
-    void New(Message* message);
-    MessageHandler();
+        Game* game;
+        std::vector<Message*> msg_list;
+        void draw(TCODConsole* console);
+        void new_msg(Message* message);
+        MessageHandler();
 
 
 };
@@ -24,6 +26,7 @@ class Message
         std::string content;
         // va_list vlist;
         int count;
+        double long turn;
 
         Message();
         Message(MessageHandler* handler, std::string content, ...);

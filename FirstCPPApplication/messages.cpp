@@ -6,6 +6,7 @@
 #include <stdarg.h>
 
 #include <libtcod.hpp>
+#include "game.h"
 
 MessageHandler::MessageHandler()
 {
@@ -17,29 +18,13 @@ MessageHandler::MessageHandler()
     this->msg_list.push_back(msg);
 };
 
-void MessageHandler::New(Message* message)
+void MessageHandler::new_msg(Message* message)
 {
 
 
     Message* last_msg = this->msg_list.back();
     //compare vlists
     bool vlists_equal = false;
-    // va_list new_list = message->vlist;
-    // va_list old_list = last_msg->vlist;
-    // if (new_list == old_list || (new_list == NULL && old_list == NULL))
-    // {
-    //     vlists_equal = true;
-    // };
-
-    // char* x = new char[999*32];
-    // char* y = new char[999*32];
-    // sprintf(x, message->content.c_str(), message->vlist);
-    // sprintf(y, last_msg->content.c_str(), last_msg->vlist);
-    // if (x == y)
-    // {
-    //     vlists_equal = true;
-    // };
-
     if (message->content == last_msg->content)
 	{
         vlists_equal = true;
@@ -48,11 +33,6 @@ void MessageHandler::New(Message* message)
 	{
         vlists_equal = false;
 	}
-
-
-
-
-
 
     if (vlists_equal && this->msg_list.size() != 0)
         //if (last_msg->content.c_str() == message->content.c_str() && last_msg->vlist == message->vlist && this->msg_list.size() != 0)
@@ -76,7 +56,7 @@ void MessageHandler::draw(TCODConsole* console)
     {
         // va_list ap;
         // va_start(ap, (*it)->content);
-        std::cout << "drawing message" << std::endl;
+        //std::cout << "drawing message" << std::endl;
         if ((*it)->count != 0)
         {
             console->print(x, y, ((*it)->content+" (%d)").c_str(), (*it)->count);
@@ -96,6 +76,7 @@ void Message::Init()
     this->content = "Unspecified %s";
     // this->vlist = "content";
     this->count = 0;
+    this->turn = 0;
 };
 
 Message::Message()
@@ -117,7 +98,8 @@ Message::Message(MessageHandler* handler, std::string content, ...)
     // this->vlist = vlist;
     va_end(ap);
 
-    handler->New(this);
+    handler->new_msg(this);
+    this->turn = handler->game->turn_count;
 };
 
 //std::string Message::Prerender()

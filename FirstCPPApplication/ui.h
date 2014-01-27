@@ -18,9 +18,10 @@ class Ui
         unsigned long long int tick_checking_against;
     public:
         Game* game;
-        MessageHandler msg_handler;
+        MessageHandler* msg_handler;
 
         Ui();
+		Ui::Ui(Game* game);
 
         int ui_inv_w;
         int ui_inv_h;

@@ -182,7 +182,7 @@ Person*  Game::initialize_player()
 
 Game::Game()
 {
-    ui = new Ui;
+    ui = new Ui(this);
     ui->game = this;
     this->debug_opts = new DebugOptions;
 
@@ -284,6 +284,9 @@ void Game::mainloop()
     current_map->draw(this);
     TCODSystem::setFps(fps_limit);
 
+    new Message(this->ui->msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->turn_count, TCOD_COLCTRL_STOP);
+        //
+
     //draw the map to libtconsole
     current_map->draw(this);
     //draw the UI
@@ -303,6 +306,7 @@ void Game::mainloop()
                 if (incr_turn)
                 {
                     turn_count++;
+                    new Message(this->ui->msg_handler, "TURN: %d", this->turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
                     incr_turn = false;
                 }
