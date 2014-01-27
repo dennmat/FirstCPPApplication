@@ -57,7 +57,7 @@ void MessageHandler::draw(TCODConsole* console)
         //std::cout << "drawing message" << std::endl;
         if ((*it)->count > 0)
         {
-            console->print(x, y, ((*it)->content+" (%d)").c_str(), (*it)->count);
+            console->print(x, y, ((*it)->content+" (x%d)").c_str(), (*it)->count);
         }
         else 
         {

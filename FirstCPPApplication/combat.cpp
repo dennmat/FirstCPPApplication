@@ -99,6 +99,12 @@ void Combat::LevelUp(int levels)
     this->master->level++;
     std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
 
+    this->master->attrs->health->current_val+=10;
+    this->master->attrs->health->max_val+=10;
+
+    this->master->attrs->damage->current_val+=3;
+    this->master->attrs->damage->max_val+=3;
+
     Tile* tile = this->master->my_tile;
 
     std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);

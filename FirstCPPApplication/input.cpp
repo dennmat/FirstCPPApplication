@@ -232,6 +232,7 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     if( action == inventory_items_active_t::ExamineItem )
     {
         std::cout << "EXAMINE ITEM" << std::endl;
+        return true;
     }
     else if( action == inventory_items_active_t::DropItem )
     {
@@ -241,12 +242,14 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
         the_game->ui->item_active = false;
 
         player->inventory->drop_item(item);
+        return true;
     }
 
     else if( action == inventory_items_active_t::UseItem )
     {
         std::cout << "Using item" << std::endl;
         the_game->ui->chosen_item->use(the_game->player);
+        return true;
     }
 
     else if( action == inventory_items_active_t::EquipItem )
@@ -254,6 +257,7 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
         the_game->ui->chosen_item->equip(the_game->player);
         the_game->player->equipment->equip_item(the_game->ui->chosen_item);
         std::cout << "Equipping item" << std::endl;
+        return true;
     }
 
     else if( action == inventory_items_active_t::UnequipItem )
@@ -261,6 +265,7 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
         the_game->ui->chosen_item->unequip(the_game->player);
         the_game->player->equipment->unequip_item(the_game->ui->chosen_item);
         std::cout << "Unequipping item" << std::endl;
+        return true;
     }
 
     else if( action == inventory_items_active_t::EscapeMenuItem )
@@ -268,6 +273,7 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
         the_game->ui->item_active = false;
         the_game->ui->chosen_item = false;
         std::cout << "Escape back to regular inventory mode" << std::endl;
+        return true;
     }
 
     return false;
@@ -562,12 +568,6 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                 the_game->ui->item_active = false;
                 the_game->current_state = GameStates::GameplayState;
             }
-            else
-            {
-                cout << endl << "command not found: " << char_to_str(request.c) << endl;
-                cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << endl;
-                cout << "press again to select. once it's activated, press e to use" << endl;
-            }
 
             //generate keys for the appropriate items
             typedef std::unordered_map<char, Item*> keypair_t;
@@ -606,7 +606,14 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                 if (is_request_inventory_item_active_cmd(request))
                 {
                     successful_action = process_inventory_item_active(the_game, request, player);
-                };
+                }
+                else 
+                {
+                    cout << endl << "command not found: " << char_to_str(request.c) << endl;
+                    cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << endl;
+                    cout << "press again to select. once it's activated, press u to use" << endl;
+                    cout << "e to equip, y to unequip, d to drop" << endl;
+                }
             }
 
             //display info of chosen item

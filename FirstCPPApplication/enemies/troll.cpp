@@ -30,7 +30,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr, std::string com
     // this->representation = new_repr;
     // this->representation->repr = repr;
     TCODRandom* rnd = TCODRandom::getInstance();
-    float variant = rnd->getFloat(6.0f, 10.0f);
+    float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::darkGreen * (variant/10.0f), true, true, true);
 
