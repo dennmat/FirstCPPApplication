@@ -48,10 +48,12 @@ void MessageHandler::draw(TCODConsole* console)
     std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin();
     int x = 0;
     int y = 0;
+    TCODColor default_color = console->getDefaultForeground();
     for (it; it != this->msg_list.rend(); ++it)
     {
-        // va_list ap;
-        // va_start(ap, (*it)->content);
+	float coef = ((float)y)/10.0f;
+        TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
+        console->setDefaultForeground(new_color);
         //std::cout << "drawing message" << std::endl;
         if ((*it)->count > 1)
         {
@@ -62,7 +64,8 @@ void MessageHandler::draw(TCODConsole* console)
             console->print(x, y, (*it)->content.c_str());
         };
         y++;
-        // va_end(ap);
+
+        if (y > 10) break; //don't need to loop over all messages
     };
 
 };
