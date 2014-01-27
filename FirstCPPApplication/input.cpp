@@ -266,6 +266,7 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     else if( action == inventory_items_active_t::EscapeMenuItem )
     {
         the_game->ui->item_active = false;
+        the_game->ui->chosen_item = false;
         std::cout << "Escape back to regular inventory mode" << std::endl;
     }
 

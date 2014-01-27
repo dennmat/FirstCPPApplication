@@ -55,7 +55,7 @@ void MessageHandler::draw(TCODConsole* console)
         TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
         console->setDefaultForeground(new_color);
         //std::cout << "drawing message" << std::endl;
-        if ((*it)->count > 1)
+        if ((*it)->count > 0)
         {
             console->print(x, y, ((*it)->content+" (%d)").c_str(), (*it)->count);
         }

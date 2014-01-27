@@ -198,7 +198,7 @@ void Actor::Die()
     {
         dropped_item = new Item;
         dropped_item->repr->repr = '&';
-        dropped_item->repr->setFGColor(*this->representation->fg_color, true, false, true);
+        dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->name = "Chainmail";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Chest;
@@ -213,7 +213,7 @@ void Actor::Die()
     {
         dropped_item = new Item;
         dropped_item->repr->repr = '/';
-        dropped_item->repr->setFGColor(*this->representation->fg_color, true, false, true);
+        dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->name = "A sword";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::MainHand;

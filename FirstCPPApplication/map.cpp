@@ -523,7 +523,8 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     //check to make sure the target tile's position would be valid
     if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     {
-        cout << "invalid move" << endl;
+        cout << "invalid move fool" << endl;
+	new Message(this->the_game->ui->msg_handler, "Leave the outer limits alone");
         return false;
     }
 
@@ -579,6 +580,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     else
     {
         cout << endl << "invalid move" << endl;
+	new Message(this->the_game->ui->msg_handler, "That's probably a wall.");
         if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         {
             cout << target_tile->tile->description << endl;

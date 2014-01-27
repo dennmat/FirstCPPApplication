@@ -232,15 +232,24 @@ void Ui::draw_inventory_ui()
     std::vector<Item*>* v  = this->game->player->inventory->items;
     int i = 5;
     char key = 'a';
-    bool is_chosen;
+    bool is_chosen, is_active;
     for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
         is_chosen = (*it) == this->chosen_item;
+        is_active = this->item_active;
+
         if (this->game->player->equipment->is_item_equipped(*it))
         {
             if (is_chosen)
             {
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+                if (is_active)
+                {
+                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::blue, TCODColor::black);
+                }
+                else 
+                {
+                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::green, TCODColor::black);
+                }
             }
             else
             {
@@ -252,7 +261,14 @@ void Ui::draw_inventory_ui()
         {
             if (is_chosen)
             {
+                if (is_active)
+                {
+                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::yellow, TCODColor::black);
+                }
+                else
+                {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+                }
             }
             else
             {
@@ -266,7 +282,7 @@ void Ui::draw_inventory_ui()
         i++;
 
         key++;
-        
+
     }
 
     TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
