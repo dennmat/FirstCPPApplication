@@ -25,6 +25,8 @@ Actor::Actor()
     this->name = "Unset Actor name";
 
     this->xp = 0;
+    this->xp_this_level = 0;
+    this->xp_required = 100;
     this->xp_value = 10;
     this->level = 1;
 

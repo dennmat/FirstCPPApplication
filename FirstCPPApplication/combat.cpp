@@ -96,6 +96,9 @@ void Combat::update(Game* game)
 
 void Combat::LevelUp(int levels)
 {
+    //reset, accounting for left over exp
+    this->master->xp_this_level = this->master->xp_required - this->master->xp_this_level;
+
     this->master->level++;
     std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
 
@@ -118,8 +121,9 @@ void Combat::LevelUp(int levels)
 void Combat::GiveExp(int exp_to_gain)
 {
     this->master->xp += exp_to_gain;
+    this->master->xp_this_level += exp_to_gain;
     // calc if level up
-    if (this->master->xp % 100 == 0)
+    if (this->master->xp_this_level > this->master->xp_required)
     {
         this->LevelUp();
     };

@@ -41,6 +41,9 @@ class Actor : public Object
         Tile * my_tile;
 
         int xp;
+        int xp_this_level;
+        int xp_required;
+
         int level;
         int xp_value;
         

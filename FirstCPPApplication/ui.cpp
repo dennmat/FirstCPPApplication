@@ -115,6 +115,7 @@ void Ui::draw_ui_sidebar()
 
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
+    TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();
     ui_sidebar_con->setDefaultBackground(ui_sidebar_color);
     ui_sidebar_con->clear();
 
@@ -181,6 +182,19 @@ void Ui::draw_ui_sidebar()
 
     };
 
+    y++;
+
+    // experience bar
+    ui_sidebar_con->setDefaultForeground(ui_sidebar_fore);
+    std::string left_exp = ">", right_exp = "";
+    float left_int = ((float)(this->game->player->xp_this_level) / this->game->player->xp_required)*8 ;
+    left_exp.append(left_int, '-');
+    float right_int = (((float)this->game->player->xp_required - this->game->player->xp_this_level) / this->game->player->xp_required)*8;
+    right_exp.append(right_int, '-');
+    right_exp.append(1, '>');
+    ui_sidebar_con->print(0, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
+
+
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, this->game->screen_w-ui_sidebar_w, 0 );
     delete ui_sidebar_con;
@@ -198,9 +212,6 @@ void Ui::draw_ui_msg()
     ui_msg_con->clear();
 
     //draw the message text
-    // ui_msg_con->print(0, 0, "TURN COUNT %d", this->game->turn_count);
-    // new Message(&this->msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->game->turn_count, TCOD_COLCTRL_STOP);
-
     this->msg_handler->draw(ui_msg_con);
 
     //draw ui console to root
