@@ -24,7 +24,14 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     this->x = x;
     this->y = y;
 
+    if (name == "Josh")
+	{
+	std::cout << "ASDASDS" << std::endl;
+	}
+
     this->xp = 0;
+    this->xp_this_level = 0;
+    this->xp_required = 100;
     this->xp_value = 10;
     this->level = 1;
 

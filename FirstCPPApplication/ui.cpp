@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "ui.h"
+//#include <cmath>
 
 #include "game.h"
 #include <actors\Person.h>
@@ -186,12 +187,24 @@ void Ui::draw_ui_sidebar()
 
     // experience bar
     ui_sidebar_con->setDefaultForeground(ui_sidebar_fore);
-    std::string left_exp = ">", right_exp = "";
-    float left_int = ((float)(this->game->player->xp_this_level) / this->game->player->xp_required)*8 ;
-    left_exp.append(left_int, '-');
-    float right_int = (((float)this->game->player->xp_required - this->game->player->xp_this_level) / this->game->player->xp_required)*8;
-    right_exp.append(right_int, '-');
+
+    std::string left_exp = ">";
+    std::string right_exp = "";
+    float left_percent = ((float)(this->game->player->xp_this_level)) / this->game->player->xp_required ;
+    if (left_percent < 0) left_percent = 0.0f;
+
+    float right_raw = ((float)this->game->player->xp_required - (float)this->game->player->xp_this_level);
+    float right_percent = right_raw / (float)this->game->player->xp_required;
+    if (right_percent < 0) right_percent = 0.0f;
+
+    int left_count = floor(left_percent * (float)8);
+    int right_count = floor(right_percent * (float)8);
+    if (left_count + right_count < 8) right_count++;
+
+    left_exp.append(left_count, '-');
+    right_exp.append(right_count, '-');
     right_exp.append(1, '>');
+
     ui_sidebar_con->print(0, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
 
 
