@@ -47,6 +47,7 @@ class Game
 
         static int fps_limit; //how many frames do you want to refresh at a second
 
+        static TCODConsole* game_console;
         static Map *world;
         static Map *current_map;
         static int current_map_index;

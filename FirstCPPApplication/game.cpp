@@ -41,6 +41,7 @@ int Game::screen_h = 50;
 int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
+TCODConsole* Game::game_console = new TCODConsole(Game::screen_w, Game::screen_h);
 
 std::string Game::last_cmd = "not set";
 

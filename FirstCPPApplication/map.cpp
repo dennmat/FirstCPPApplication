@@ -81,7 +81,8 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 
     //try to get the tile from the x vector in the y vector
     // and sense an message if the position isn't the same as the original position
-    try {
+    try 
+    {
         temp->at(x);
         // if (!is_original_pos)
         // {
@@ -397,7 +398,7 @@ int Map::draw()
                     //check for item first, so it'll get drawn over by actors
                     if (the_tile->check_for_items())
                     {
-                        // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
+                        // Game::game_console->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
                         the_char = the_tile->inventory->items->back()->repr->repr;
                     };
                     Game::player->ActorInSight(x, y, the_tile->occupant);
@@ -413,7 +414,7 @@ int Map::draw()
                     TCODColor* tile_temp_col = the_tile->tile->representation->temp_bg_color;
                     TCODColor* tile_orig_col = the_tile->tile->representation->bg_color;
 
-                    TCODConsole::root->putChar(x, y, the_char);
+                    Game::game_console->putChar(x, y, the_char);
                     //if the temp colour isnt the original color
                     if ( tile_temp_col != tile_orig_col) {
                         the_bg_color = tile_temp_col;
@@ -427,7 +428,7 @@ int Map::draw()
 
                     if (the_tile->check_for_items())
                     {
-                        // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
+                        // Game::game_console->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
                         Item* back_item =the_tile->inventory->items->back(); 
                         the_char = back_item->repr->repr;
                         the_fg_color = back_item->repr->fg_color;
@@ -441,9 +442,9 @@ int Map::draw()
                 {
                 };
 
-                TCODConsole::root->putChar(x, y, the_char);
-                TCODConsole::root->setCharForeground(x, y, *the_fg_color);
-                TCODConsole::root->setCharBackground(x, y, *the_bg_color);
+                Game::game_console->putChar(x, y, the_char);
+                Game::game_console->setCharForeground(x, y, *the_fg_color);
+                Game::game_console->setCharBackground(x, y, *the_bg_color);
 
 
             }
@@ -453,13 +454,13 @@ int Map::draw()
                 if (the_tile->is_known() == true)
                 {
                     char the_char = the_tile->tile->representation->repr;
-                    TCODConsole::root->putChar(x, y, the_char);
-                    TCODConsole::root->setCharBackground(x, y, *(the_tile->tile->representation->bg_color) * TCODColor::darkGrey);
-                    TCODConsole::root->setCharForeground(x, y, *(the_tile->tile->representation->fg_color) * TCODColor::darkGrey);
+                    Game::game_console->putChar(x, y, the_char);
+                    Game::game_console->setCharBackground(x, y, *(the_tile->tile->representation->bg_color) * TCODColor::darkGrey);
+                    Game::game_console->setCharForeground(x, y, *(the_tile->tile->representation->fg_color) * TCODColor::darkGrey);
                 }
                 else {
-                    TCODConsole::root->setCharBackground(x, y, TCODColor::black);
-                    TCODConsole::root->setCharForeground(x, y, TCODColor::black);
+                    Game::game_console->setCharBackground(x, y, TCODColor::black);
+                    Game::game_console->setCharForeground(x, y, TCODColor::black);
                 }
             };
 
@@ -507,6 +508,8 @@ int Map::draw()
     string tile_description = (pers_desc != "none" ?  pers_desc : description);
     // cout << tile_description;
     // cout << endl << endl;
+
+    TCODConsole::root->blit(Game::game_console, 0, 0, Game::screen_w, Game::screen_h, TCODConsole::root, 0, 0);
 
     return 1;
 }
