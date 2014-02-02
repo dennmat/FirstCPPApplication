@@ -34,7 +34,7 @@ void MessageHandler::new_msg(Message* message)
         //if (last_msg->content.c_str() == message->content.c_str() && last_msg->vlist == message->vlist && this->msg_list.size() != 0)
     {
         last_msg->count += 1;
-        std::cout << "msg already existed, incrementing count" << std::endl;
+        //std::cout << "msg already existed, incrementing count" << std::endl;
     }
     else
     {

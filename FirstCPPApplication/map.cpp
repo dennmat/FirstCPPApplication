@@ -41,12 +41,12 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 {
     vector<Tile> * temp;
 
-    if (!is_original_pos && x < 0  )
+    if (x < 0  )
     {
         x = 0;
     };
 
-    if (!is_original_pos && y < 0  )
+    if ( y < 0  )
     {
         y = 0;
     };
@@ -59,12 +59,12 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 
     // these two ifs cut way the hell down on recursion by eliminating the
     // need entirely I think
-    if (x > this->width)
+    if (x >= this->width)
     {
         x = this->width-1;
     };
 
-    if (y > this->height)
+    if (y >= this->height)
     {
         y = this->height-1;
     };
