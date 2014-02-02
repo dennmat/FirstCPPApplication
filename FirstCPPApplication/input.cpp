@@ -279,6 +279,55 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     return false;
 };
 
+void move_camera(int dir_x, int dir_y)
+{
+    //if player moves within 5 spaces of the edge of the map, scroll the camera 
+    //so that they're no longer within 5 spaces
+
+    // camera checks player position relative to camera
+    // then checks camera position relative to world
+    // if player 5< spaces from cam limits move camera so that player has 5>
+    // spaces assuming camera has that much space
+    int cam_x2 = Game::camera_x + Game::camera_w;
+    int cam_y2 = Game::camera_y + Game::camera_h;
+
+    //relative player pos
+    int plr_x = Game::player->x - Game::camera_x;
+    int plr_y = Game::player->y - Game::camera_y;
+
+    int border_threshold = 5;
+                std::cout << "cam w" << Game::camera_w << std::endl;
+
+    if (plr_x <= 5 || plr_x >= (Game::camera_w -5))
+    {
+        //adjust camera horizontally
+        if (plr_x <= 5) 
+        {
+            Game::camera_x -= 1;
+            std::cout << "x left" << std::endl;
+        }
+        else 
+        {
+            Game::camera_x += 1;
+            std::cout << "x right" << std::endl;
+        };
+    };
+    if (plr_y <= 5 || plr_y >= (Game::camera_h -5))
+    {
+        //adjust camera vertically
+        if (plr_y >= 5) 
+        {
+            Game::camera_y += 1;
+            std::cout << "y down" << std::endl;
+        }
+        else 
+        {
+            Game::camera_y -= 1;
+            std::cout << "y up" << std::endl;
+        };
+    };
+};
+
 //returns whether or not the player has moved
 bool process_movement(TCOD_key_t request, Person *player)
 {
@@ -306,6 +355,7 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_up = true;
         if(Game::current_map->attackMovePlayer(player, 0, -1) )
         { 
+            move_camera(0, -1);
             return true;
         }
     }
@@ -315,6 +365,7 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_right = true;
         if(Game::current_map->attackMovePlayer(player, 1, -1) )
         { 
+            move_camera(1, -1);
             return true;
         }
     }
@@ -323,15 +374,15 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_down = true;
         if(Game::current_map->attackMovePlayer(player, 0, 1) )
         { 
+            move_camera(0, 1);
             return true;
         }
     }
     else if( direction == directions_t::SE)
     {
-        player->is_moving_right = true;
-        player->is_moving_down = true;
         if(Game::current_map->attackMovePlayer(player, 1, 1) )
         {
+            move_camera(1, 1);
             return true;
         }
     }
@@ -340,6 +391,8 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_right = true;
         if(Game::current_map->attackMovePlayer(player, 1, 0) )
         {
+            move_camera(1, 0);
+
             return true;
         }
     }
@@ -349,6 +402,8 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_down = true;
         if(Game::current_map->attackMovePlayer(player, -1, 1) )
         { 
+            move_camera(-1, 1);
+
             return true;
         }
     }
@@ -358,6 +413,8 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_up = true;
         if(Game::current_map->attackMovePlayer(player, -1, -1) )
         { 
+            move_camera(-1, -1);
+
             return true;
         }
     }
@@ -366,6 +423,8 @@ bool process_movement(TCOD_key_t request, Person *player)
         player->is_moving_left = true;
         if(Game::current_map->attackMovePlayer(player, -1, 0) )
         { 
+            move_camera(-1, 0);
+
             return true;
         }
     }

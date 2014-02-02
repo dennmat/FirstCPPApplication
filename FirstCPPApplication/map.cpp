@@ -149,8 +149,8 @@ class BspListener : public ITCODBspCallback
 
 int Map::build_from_random(int seed)
 {
-    width = 60;
-    height = 40;
+    width = Game::map_width;
+    height = Game::map_height;
     l_map = new TCODMap(width, height);
     //the default tile description
     description = "poppycock";
@@ -203,7 +203,7 @@ int Map::build_from_random(int seed)
         i++;
     }
 
-    TCODBsp bsp(0, 0, 60, 40);
+    TCODBsp bsp(0, 0, width, height);
     bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
@@ -509,7 +509,9 @@ int Map::draw()
     // cout << tile_description;
     // cout << endl << endl;
 
-    TCODConsole::root->blit(Game::game_console, 0, 0, Game::screen_w, Game::screen_h, TCODConsole::root, 0, 0);
+    //draw the game_console to root, taking from where the camera is looking at
+    TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
+            Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
 
     return 1;
 }

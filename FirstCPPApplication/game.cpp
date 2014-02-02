@@ -38,6 +38,14 @@ DebugOptions* Game::debug_opts = new DebugOptions;
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
+int Game::map_width = 60;
+int Game::map_height = 40;
+
+int Game::camera_w = Game::map_width;
+int Game::camera_h = Game::map_height;
+int Game::camera_x = 0;
+int Game::camera_y = 0;
+
 int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
@@ -388,6 +396,7 @@ void Game::mainloop()
 
         //draw libtcon to screen
         TCODConsole::flush();
+        TCODConsole::root->clear();
 
         // cout << player->attrs->health->current_val << endl;
         //cout << player->combat->cur_hp << endl;

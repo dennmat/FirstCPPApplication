@@ -42,6 +42,14 @@ class Game
         static int screen_w;
         static int screen_h;
 
+        static int map_width;
+        static int map_height;
+
+        static int camera_w;
+        static int camera_h;
+        static int camera_x;
+        static int camera_y;
+
         static unsigned long int turn_count;
         static unsigned long long int tick_count;
 
