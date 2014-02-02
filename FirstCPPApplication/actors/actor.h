@@ -64,7 +64,7 @@ class Actor : public Object
         std::string GetName();
         const char* GetNameC();
 
-        virtual void update(Game* game) = 0;
+        virtual void update() = 0;
 
         Item* Actor::CreateCorpse();
         void Die();

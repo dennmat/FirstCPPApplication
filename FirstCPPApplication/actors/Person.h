@@ -28,6 +28,6 @@ class Person : public Actor
         ~Person();
 
         void attack(Actor * target);
-        void update(Game* game);
+        void update();
 };
 #endif

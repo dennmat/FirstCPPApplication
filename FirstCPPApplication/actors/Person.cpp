@@ -92,7 +92,7 @@ Person::~Person(){
     //TODO: safely remove Combat
 };
 
-void Person::update(Game* game)
+void Person::update()
 {
     //apply item basic item attributes of only equipped items if they've not
     //been equipped already
@@ -105,11 +105,11 @@ void Person::update(Game* game)
 
     if (this->thinker != NULL)
     {
-        thinker->update(game);
+        thinker->update();
 
         //Combat UPDATE
         if (has_live_combat == true) {
-            combat->update(game);
+            combat->update();
         }
         else {
             printf("no combat\n");

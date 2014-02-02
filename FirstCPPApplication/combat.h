@@ -31,7 +31,7 @@ class Combat
         void RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
         void Die();
         Combat* GetLastAttacker();
-        void update(Game* game);
+        void update();
         void assign_to_master(Person* master);
         void GiveExp(int exp_to_gain);
         void LevelUp(int levels = 1);

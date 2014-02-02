@@ -78,7 +78,7 @@ Combat::Combat(std::string name, int max_hp, Person* master, char representation
 
 };
 
-void Combat::update(Game* game)
+void Combat::update()
 {
     if (was_attacked == true)
     {

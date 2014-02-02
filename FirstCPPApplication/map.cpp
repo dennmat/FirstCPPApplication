@@ -26,7 +26,6 @@ Map::Map()
 {
 
     this->roomVector = new vector<Room*>;
-    this->the_game = NULL;
 
     this->width = NULL;
     this->height = NULL;
@@ -370,11 +369,11 @@ int Map::build_from_file(string filename)
     return 1;
 }
 
-int Map::draw(Game *theGame)
+int Map::draw()
 {
     int x,y;
 
-    l_map->computeFov(theGame->player->x, theGame->player->y, 10, true, FOV_SHADOW);
+    l_map->computeFov(Game::player->x, Game::player->y, 10, true, FOV_SHADOW);
 
     for(x=0; x<width;x++)
     {
@@ -388,7 +387,7 @@ int Map::draw(Game *theGame)
             // cout << "initial white and black" << endl;
             // cout << the_fg_color << endl << the_bg_color << endl;
 
-            if (theGame->debug_opts->all_vision || l_map->isInFov(x, y))
+            if (Game::debug_opts->all_vision || l_map->isInFov(x, y))
             // if (true)
             {
                 the_tile->setKnown(true);
@@ -401,7 +400,7 @@ int Map::draw(Game *theGame)
                         // TCODConsole::root->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
                         the_char = the_tile->inventory->items->back()->repr->repr;
                     };
-                    theGame->player->ActorInSight(x, y, the_tile->occupant);
+                    Game::player->ActorInSight(x, y, the_tile->occupant);
 
                     the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
@@ -475,7 +474,7 @@ int Map::draw(Game *theGame)
     }
 
     //TODO debug pathing
-    // std::vector<Actor*>* ais = theGame->player->actors_in_sight;
+    // std::vector<Actor*>* ais = Game::player->actors_in_sight;
     // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
     //     char the_char = (*it)->representation->repr;
     //     TCODConsole::root->putChar((*it)->dest_x, (*it)->dest_y,the_char);
@@ -499,7 +498,7 @@ int Map::draw(Game *theGame)
     // cout << endl << endl;
     // cout << "Tile Description:" << endl;
 
-    Person  * thePerson = theGame->player;
+    Person  * thePerson = Game::player;
     //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
     BaseTileType * person_tile = getTileAt(thePerson->x, thePerson->y)->tile;
 

@@ -26,56 +26,55 @@ class Ui;
 class Game
 {
     public:
-        Person* player;     //the PC
-        // Ui* ui;
-        GameStates current_state;
-        DebugOptions* debug_opts;
+        static Person* player;     //the PC
+        //static Ui* ui;
+        static GameStates current_state;
+        static DebugOptions* debug_opts;
 
-        //player input
-        TCOD_key_t key_evt;
-        TCOD_mouse_t mouse_evt;
+        static TCOD_key_t key_evt;
+        static TCOD_mouse_t mouse_evt;
 
-        int enemies_size ;   //don't really know how else to get the size of the
-        // enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
-        std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
-        std::vector<Item*> items;  //later, this will be an array of all the enemies 
+        static int enemies_size ;   //don't really know how else to get the size of the
+        // static enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
+        static std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
+        static std::vector<Item*> items;  //later, this will be an array of all the enemies 
 
-        int screen_w;
-        int screen_h;
+        static int screen_w;
+        static int screen_h;
 
-        unsigned long int turn_count;
-        unsigned long long int tick_count;
+        static unsigned long int turn_count;
+        static unsigned long long int tick_count;
 
-        int fps_limit; //how many frames do you want to refresh at a second
+        static int fps_limit; //how many frames do you want to refresh at a second
 
-        Map *world;
-        Map *current_map;
-        int current_map_index;
+        static Map *world;
+        static Map *current_map;
+        static int current_map_index;
 
-        bool buildmode;
-        Tile *clipboard;
-
-
-        std::string last_cmd;
-
-        Game();
-        void buildworld();
-        void update();
-
-        void update_ui();
-
-        void draw_ui();
-
-        Person*  initialize_player();
-        void  initialize_enemies();
-        void  Game::initialize_items();
-
-        Person * create_person(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
-        Troll * create_troll(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
-        Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+        static bool buildmode;
+        static Tile *clipboard;
 
 
-        void mainloop();
+        static std::string last_cmd;
+
+        // Game();
+        static void buildworld();
+        static void update();
+
+        static void update_ui();
+
+        static void draw_ui();
+
+        static Person*  initialize_player();
+        static void  initialize_enemies();
+        static void  Game::initialize_items();
+
+        static Person * create_person(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+        static Troll * create_troll(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+        static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+
+
+        static void mainloop();
 };
 
 #endif

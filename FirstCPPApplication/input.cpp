@@ -161,7 +161,7 @@ directions_t direction_pressed(TCOD_key_t key)
     // return directions_t::N;
 };
 
-bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
+bool process_basic_cmd(TCOD_key_t request, Person *player)
 {
     basic_cmds_t basic_cmd = basic_cmd_pressed(request);
 
@@ -192,7 +192,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
 
     else if ( basic_cmd == basic_cmds_t::OpenInventory )
     {
-        the_game->current_state = GameStates::MenuState;
+        Game::current_state = GameStates::MenuState;
     }
 
     else if ( basic_cmd == basic_cmds_t::ActivateDoor )
@@ -200,13 +200,13 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
         //determine the door to open
         //get the tile of the direction the player is facing
         Tile* door_tile;
-        int* direction = the_game->player->get_direction_heading();
+        int* direction = Game::player->get_direction_heading();
         int x, y;
 
         x = player->x+direction[0];
         y = player->y+direction[1];
 
-        door_tile = the_game->world->getTileAt(x, y);
+        door_tile = Game::world->getTileAt(x, y);
 
         //get the door that's on it
         if (door_tile->type_id == 4) //TODO: make an enum or something for type_ids
@@ -225,7 +225,7 @@ bool process_basic_cmd(Game* the_game, TCOD_key_t request, Person *player)
     return false;
 };
 
-bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *player)
+bool process_inventory_item_active(TCOD_key_t request, Person *player)
 {
     inventory_items_active_t action = inventory_items_active_pressed(request);
 
@@ -248,22 +248,22 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     else if( action == inventory_items_active_t::UseItem )
     {
         std::cout << "Using item" << std::endl;
-        Ui::chosen_item->use(the_game->player);
+        Ui::chosen_item->use(Game::player);
         return true;
     }
 
     else if( action == inventory_items_active_t::EquipItem )
     {
-        Ui::chosen_item->equip(the_game->player);
-        the_game->player->equipment->equip_item(Ui::chosen_item);
+        Ui::chosen_item->equip(Game::player);
+        Game::player->equipment->equip_item(Ui::chosen_item);
         std::cout << "Equipping item" << std::endl;
         return true;
     }
 
     else if( action == inventory_items_active_t::UnequipItem )
     {
-        Ui::chosen_item->unequip(the_game->player);
-        the_game->player->equipment->unequip_item(Ui::chosen_item);
+        Ui::chosen_item->unequip(Game::player);
+        Game::player->equipment->unequip_item(Ui::chosen_item);
         std::cout << "Unequipping item" << std::endl;
         return true;
     }
@@ -280,10 +280,10 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
 };
 
 //returns whether or not the player has moved
-bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
+bool process_movement(TCOD_key_t request, Person *player)
 {
-    Map *world = the_game->world;
-    bool buildmode = the_game->buildmode;
+    Map *world = Game::world;
+    bool buildmode = Game::buildmode;
 
     int orig_plr_pos_x, orig_plr_pos_y;
     orig_plr_pos_x = player->x;
@@ -304,7 +304,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     if( direction == directions_t::N )
     {
         player->is_moving_up = true;
-        if(the_game->current_map->attackMovePlayer(player, 0, -1) )
+        if(Game::current_map->attackMovePlayer(player, 0, -1) )
         { 
             return true;
         }
@@ -313,7 +313,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     {
         player->is_moving_up = true;
         player->is_moving_right = true;
-        if(the_game->current_map->attackMovePlayer(player, 1, -1) )
+        if(Game::current_map->attackMovePlayer(player, 1, -1) )
         { 
             return true;
         }
@@ -321,7 +321,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     else if( direction == directions_t::S )
     {
         player->is_moving_down = true;
-        if(the_game->current_map->attackMovePlayer(player, 0, 1) )
+        if(Game::current_map->attackMovePlayer(player, 0, 1) )
         { 
             return true;
         }
@@ -330,7 +330,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     {
         player->is_moving_right = true;
         player->is_moving_down = true;
-        if(the_game->current_map->attackMovePlayer(player, 1, 1) )
+        if(Game::current_map->attackMovePlayer(player, 1, 1) )
         {
             return true;
         }
@@ -338,7 +338,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     else if( direction == directions_t::E)
     {
         player->is_moving_right = true;
-        if(the_game->current_map->attackMovePlayer(player, 1, 0) )
+        if(Game::current_map->attackMovePlayer(player, 1, 0) )
         {
             return true;
         }
@@ -347,7 +347,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     {
         player->is_moving_left = true;
         player->is_moving_down = true;
-        if(the_game->current_map->attackMovePlayer(player, -1, 1) )
+        if(Game::current_map->attackMovePlayer(player, -1, 1) )
         { 
             return true;
         }
@@ -356,7 +356,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     {
         player->is_moving_left = true;
         player->is_moving_up = true;
-        if(the_game->current_map->attackMovePlayer(player, -1, -1) )
+        if(Game::current_map->attackMovePlayer(player, -1, -1) )
         { 
             return true;
         }
@@ -364,7 +364,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     else if( direction == directions_t::W)
     {
         player->is_moving_left = true;
-        if(the_game->current_map->attackMovePlayer(player, -1, 0) )
+        if(Game::current_map->attackMovePlayer(player, -1, 0) )
         { 
             return true;
         }
@@ -373,7 +373,7 @@ bool process_movement(Game* the_game, TCOD_key_t request, Person *player)
     {
         cout << "WAITING" << endl;
         // player->is_moving_left = true;
-        // if(the_game->current_map->attackMovePlayer(player, -1, 0) )
+        // if(Game::current_map->attackMovePlayer(player, -1, 0) )
         // { 
         return true;
         // }
@@ -408,15 +408,15 @@ bool is_request_inventory_item_active_cmd(TCOD_key_t request)
     return inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
 };
 
-void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
+void process_buildmode(TCOD_key_t request, int current_tile)
 {
-    Map *world = the_game->world;
-    bool buildmode = the_game->buildmode;
+    Map *world = Game::world;
+    bool buildmode = Game::buildmode;
     if(request.c == 'c')
     {
         // do the stuff to make a new tile
         cout << "type_id: ";
-        Tile this_tile = the_game->current_map->tileArray[current_tile];
+        Tile this_tile = Game::current_map->tileArray[current_tile];
         cin >> this_tile.type_id;
         if(this_tile.type_id == 2)
         {
@@ -446,15 +446,15 @@ void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
         myfile.open (filename);
         int i,j;
 
-        // Map this_map = the_game->current_map;
-        myfile << the_game->current_map->width << endl;
-        myfile << the_game->current_map->height << endl;  
-        myfile << the_game->current_map->description << endl;  
+        // Map this_map = Game::current_map;
+        myfile << Game::current_map->width << endl;
+        myfile << Game::current_map->height << endl;  
+        myfile << Game::current_map->description << endl;  
 
-        for(i=0; i<the_game->current_map->height; i++)
-            for(j=0; j<the_game->current_map->width; j++)
+        for(i=0; i<Game::current_map->height; i++)
+            for(j=0; j<Game::current_map->width; j++)
             {
-                Tile active_tile = the_game->current_map->tileArray[(i*the_game->current_map->width)+j];
+                Tile active_tile = Game::current_map->tileArray[(i*Game::current_map->width)+j];
                 myfile << active_tile.tile->representation << endl;
                 myfile << active_tile.type_id << endl;
                 if(active_tile.type_id == 2)
@@ -474,22 +474,22 @@ void process_buildmode(Game* the_game, TCOD_key_t request, int current_tile)
     else if(request.c == 'o')
     {
         // Copy a tile
-        the_game->clipboard = &the_game->current_map->tileArray[current_tile];
+        Game::clipboard = &Game::current_map->tileArray[current_tile];
     }
 
     else if(request.c == 'p')
     {
         // paste a tile
-        the_game->current_map->tileArray[current_tile] = *the_game->clipboard;
+        Game::current_map->tileArray[current_tile] = *Game::clipboard;
     }
 
 };
 
-bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
+bool process_mouse_event(TCOD_mouse_t request, Person *player)
 {
 
     //set the foreground color to red for the tile the mouse is on
-    Tile* moused_tile = the_game->current_map->getTileAt(the_game->mouse_evt.cx, the_game->mouse_evt.cy);
+    Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx, Game::mouse_evt.cy);
     moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
 
     if (request.lbutton_pressed)
@@ -500,7 +500,7 @@ bool process_mouse_event(Game * the_game, TCOD_mouse_t request, Person *player)
     return 0;
 };
 
-bool process_debug_event(Game* the_game, TCOD_key_t request, Person *player)
+bool process_debug_event(TCOD_key_t request, Person *player)
 {
     if (request.vk == TCODK_F2)
     {
@@ -509,24 +509,24 @@ bool process_debug_event(Game* the_game, TCOD_key_t request, Person *player)
 
     if (request.vk == TCODK_F3)
     {
-        the_game->debug_opts->all_vision = !the_game->debug_opts->all_vision;
+        Game::debug_opts->all_vision = !Game::debug_opts->all_vision;
     }
 };
 
-bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
+bool process_key_event(TCOD_key_t request, Person *player)
 {
 
     //determine if movement command
     bool incr_turn = false;
-    int current_tile = player->x+(player->y*(the_game->current_map->width));
+    int current_tile = player->x+(player->y*(Game::current_map->width));
 
-    switch(the_game->current_state)
+    switch(Game::current_state)
     {
         case GameStates::GameplayState: 
 
             if(is_request_move_cmd(request))
             {
-                incr_turn = process_movement(the_game, request, player);
+                incr_turn = process_movement(request, player);
                 if (incr_turn)
                 {
                     int item_count = player->my_tile->inventory->get_count();
@@ -544,7 +544,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 
             else if (is_request_basic_cmd(request))
             {
-                incr_turn = process_basic_cmd(the_game, request, player);
+                incr_turn = process_basic_cmd(request, player);
             }
 
             else if(request.c == 'q' && request.pressed == 1)
@@ -566,7 +566,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                 cout << "Back to the game." << endl;
                 Ui::chosen_item = NULL;
                 Ui::item_active = false;
-                the_game->current_state = GameStates::GameplayState;
+                Game::current_state = GameStates::GameplayState;
             }
 
             //generate keys for the appropriate items
@@ -576,7 +576,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
 
             char key = 'a';
 
-            std::vector<Item*>* items = the_game->player->inventory->items;
+            std::vector<Item*>* items = Game::player->inventory->items;
             for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
             {
                 item_map.insert(keypair(key, (*it)));
@@ -605,7 +605,7 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             {
                 if (is_request_inventory_item_active_cmd(request))
                 {
-                    successful_action = process_inventory_item_active(the_game, request, player);
+                    successful_action = process_inventory_item_active(request, player);
                 }
                 else 
                 {

@@ -13,7 +13,7 @@ class Thinker
 
     public:
     Actor* master;
-        void update(Game* game);
+        void update();
         Thinker();
 
 };

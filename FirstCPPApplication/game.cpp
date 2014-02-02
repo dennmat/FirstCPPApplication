@@ -32,6 +32,22 @@
 #include "debug_options.h"
 #include "messages.h"
 
+    // Ui::game = this;
+DebugOptions* Game::debug_opts = new DebugOptions;
+
+int Game::screen_w = 80; //the average RL resolution
+int Game::screen_h = 50;
+
+int Game::enemies_size = 255; //hardcoded
+bool Game::buildmode = false;
+
+int Game::fps_limit= 120; //default
+
+
+std::string Game::last_cmd = "not set";
+
+GameStates Game::current_state = GameStates::GameplayState;
+
 void Game:: buildworld()
 {
 
@@ -49,7 +65,7 @@ void Game:: buildworld()
 
 
         world = new Map;
-        world->the_game = this;
+        //world->the_game = this;
         world[0].build_from_random(0);
     }
     else
@@ -61,10 +77,10 @@ void Game:: buildworld()
         exit(EXIT_FAILURE);
     };
 
-    this->current_map = world;
+    Game::current_map = world;
 
     bool is_troll = true;
-    for (std::vector<Room*>::iterator it = this->world->roomVector->begin(); it != this->world->roomVector->end(); ++it)
+    for (std::vector<Room*>::iterator it = Game::world->roomVector->begin(); it != Game::world->roomVector->end(); ++it)
     {
         //place a troll in the middle of the room
         int troll_x, troll_y;
@@ -77,7 +93,7 @@ void Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                this->enemies.push_back( this->create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat"));
+                Game::enemies.push_back( Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat"));
                 is_troll = false;
             }
         }
@@ -87,7 +103,7 @@ void Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                this->enemies.push_back(this->create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', "skeleton combat"));
+                Game::enemies.push_back(Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', "skeleton combat"));
                 is_troll = true;
             }
         }
@@ -121,7 +137,7 @@ Troll * Game::create_troll(string name, int age, int x, int y, char repr,
     // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
 
     //put it on the map somewhere
-    Tile * next_tile = this->current_map->getTileAt(x,y);
+    Tile * next_tile = Game::current_map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;
@@ -164,9 +180,9 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(this->create_person("First", 99, 20, 2, 'p', "First Person"));
-    enemies.push_back(this->create_troll("Second", 66, 4, 9, 'T', "Second, Troll"));
-    enemies.push_back(this->create_skeleton("Third", 33, 14, 9, 's', "Third, Skeleton"));
+    enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', "First Person"));
+    enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', "Second, Troll"));
+    enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', "Third, Skeleton"));
 
 };
 
@@ -180,48 +196,48 @@ Person*  Game::initialize_player()
     delete player->thinker;
     player->thinker = NULL;
 
-    Tile* next_tile = this->current_map->getTileAt(player->x, player->y);
+    Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     player->putPerson(next_tile, player->x, player->y);
 
     return player;
 
 };
 
-Game::Game()
-{
-    // ui = new Ui(this);
-    Ui::game = this;
-    this->debug_opts = new DebugOptions;
-
-    screen_w = 80; //the average RL resolution
-    screen_h = 50;
-
-    enemies_size = 255; //hardcoded
-    buildmode = false;
-
-    fps_limit= 120; //default
-
-    buildworld();
-    current_map = world; //I'm not so sure about this, but it solved the mem issue
-
-    initialize_player(); //created the Person player
-    initialize_enemies(); // create the enemies
-    initialize_items(); // create the items
-
-    last_cmd = "not set";
-
-    this->current_state = GameStates::GameplayState;
-
-};
+// Game::Game()
+// {
+//     // ui = new Ui(this);
+//     Ui::game = this;
+//     Game::debug_opts = new DebugOptions;
+// 
+//     screen_w = 80; //the average RL resolution
+//     screen_h = 50;
+// 
+//     enemies_size = 255; //hardcoded
+//     buildmode = false;
+// 
+//     fps_limit= 120; //default
+// 
+//     buildworld();
+//     current_map = world; //I'm not so sure about this, but it solved the mem issue
+// 
+//     initialize_player(); //created the Person player
+//     initialize_enemies(); // create the enemies
+//     initialize_items(); // create the items
+// 
+//     last_cmd = "not set";
+// 
+//     Game::current_state = GameStates::GameplayState;
+// 
+// };
 
 void Game::update()
 {
 
-    this->player->update(this);
+    Game::player->update();
     //explode while level 2
-    // if (this->player->level == 2)
+    // if (Game::player->level == 2)
     // {
-    //     Tile* tile = this->player->my_tile;
+    //     Tile* tile = Game::player->my_tile;
 
     //     std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
     //     for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
@@ -236,7 +252,7 @@ void Game::update()
         // cout << "\t" << enemy->name << "is updating" << endl;
         if (enemy->is_active)
         {
-            enemy->update(this);
+            enemy->update();
         };
         // printf("updating\n");
     }
@@ -245,7 +261,7 @@ void Game::update()
 
 void Game::update_ui()
 {
-    switch(this->current_state)
+    switch(Game::current_state)
     {
         case GameStates::GameplayState: 
             Ui::update_ui();
@@ -258,7 +274,7 @@ void Game::update_ui()
 
 void Game::draw_ui()
 {
-    switch(this->current_state)
+    switch(Game::current_state)
     {
         case GameStates::GameplayState: 
             Ui::draw_ui();
@@ -286,48 +302,48 @@ void Game::mainloop()
     bool incr_turn  = false;
     turn_count = 1;
 
-    this->fps_limit = 60;
+    Game::fps_limit = 60;
 
-    current_map->draw(this);
+    current_map->draw();
     TCODSystem::setFps(fps_limit);
 
-    new Message(Ui::msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->turn_count, TCOD_COLCTRL_STOP);
+    new Message(Ui::msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Game::turn_count, TCOD_COLCTRL_STOP);
         //
 
     //draw the map to libtconsole
-    current_map->draw(this);
+    current_map->draw();
     //draw the UI
-    this->draw_ui();
+    Game::draw_ui();
 
     //draw libtcon to screen
     TCODConsole::flush();
 
-    this->tick_count = 1;
+    Game::tick_count = 1;
     bool tick_printed = true;
     while ( !TCODConsole::isWindowClosed() ) {
 
         TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
-        switch(this->current_state)
+        switch(Game::current_state)
         {
             case GameStates::GameplayState: 
                 if (incr_turn)
                 {
                     turn_count++;
-                    //new Message(Ui::msg_handler, "TURN: %d", this->turn_count);
+                    //new Message(Ui::msg_handler, "TURN: %d", Game::turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
                     incr_turn = false;
                 }
 
                 // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = process_key_event(this, key_evt, player);
+                    incr_turn = process_key_event(key_evt, player);
                 }
                 if (key_evt.pressed == 1)
                 {
-                    process_debug_event(this, key_evt, player);
+                    process_debug_event(key_evt, player);
                 }
 
-                process_mouse_event(this, mouse_evt, player);
+                process_mouse_event(mouse_evt, player);
 
                 //AIs update
                 if (incr_turn == true)
@@ -336,26 +352,26 @@ void Game::mainloop()
                     // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
                     // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
                     // }
-                    this->update();
+                    Game::update();
                 }
 
-                this->update_ui();
+                Game::update_ui();
 
                 //draw the map to libtconsole
-                this->current_map->draw(this);
+                Game::current_map->draw();
 
                 //draw the UI
-                this->draw_ui();
+                Game::draw_ui();
 
                 break;
 
             case GameStates::MenuState:
                 // std::cout << "in menu state" << std::endl;
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = process_key_event(this, key_evt, player);
+                    incr_turn = process_key_event(key_evt, player);
                 };
 
-                this->draw_ui();
+                Game::draw_ui();
 
 
                 // let them choose one to look at 
@@ -368,7 +384,7 @@ void Game::mainloop()
         // cout << player->attrs->health->current_val << endl;
         //cout << player->combat->cur_hp << endl;
 
-        this->tick_count++;
+        Game::tick_count++;
         // printf("ticks: %d \r", tick_count);
     }
 

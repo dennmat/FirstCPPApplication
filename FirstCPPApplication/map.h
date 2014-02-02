@@ -31,14 +31,14 @@ class Map : public Object
         int build_from_file(string filename);
         int build_from_random(int seed);
 
-        Game* the_game;
+        // Game* the_game;
 
         // void add_room(
         void build_rect_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);
         string description; // default description if tile does not have one
 
-        int draw(Game *the_game);
+        int draw();
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
