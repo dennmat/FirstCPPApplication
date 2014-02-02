@@ -1,4 +1,5 @@
 #pragma once
+#pragma comment (lib, "FirstCPPApplication.lib")
 #ifndef UI_H
 #define UI_H
 
@@ -10,45 +11,61 @@ class Game;
 
 class Ui
 {
-    private:
-        unsigned long long int tick_threshold;
-        unsigned long long int tick_turn_changed;
-        unsigned long long int last_turn_noted;
-        unsigned long long int turn_checking_against;
-        unsigned long long int tick_checking_against;
+    // private:
     public:
-        Game* game;
-        MessageHandler* msg_handler;
+        static unsigned long long int tick_threshold;
+        static unsigned long long int tick_turn_changed;
+        static unsigned long long int last_turn_noted;
+        static unsigned long long int turn_checking_against;
+        static unsigned long long int tick_checking_against;
+        static Game* game;
+        static MessageHandler* msg_handler;
 
-        Ui();
-		Ui::Ui(Game* game);
+        // Ui();
+		// Ui::Ui(Game* game);
 
-        int ui_inv_w;
-        int ui_inv_h;
-        int ui_inv_msg_w;
-        int ui_inv_msg_h;
+        static int ui_inv_w;
+        static int ui_inv_h;
+        static int ui_inv_msg_w;
+        static int ui_inv_msg_h;
 
-        int ui_msg_w;
-        int ui_msg_h;
-        int ui_sidebar_w;
-        int ui_sidebar_h;
+        static int ui_msg_w;
+        static int ui_msg_h;
+        static int ui_sidebar_w;
+        static int ui_sidebar_h;
 
-        Item* chosen_item;
-        bool item_active;
+        static Item* chosen_item;
+        static bool item_active;
 
-        void update_ui();
-        void update_inventory_ui();
+        static void update_ui();
+        static void update_inventory_ui();
 
-        void draw_ui();
-        void draw_ui_msg();
-        void draw_ui_sidebar();
+        static void draw_ui();
+        static void draw_ui_msg();
+        static void draw_ui_sidebar();
 
-        void draw_inventory_ui();
-        void draw_inventory_main();
-        void draw_inventory_msg();
+        static void draw_inventory_ui();
+        static void draw_inventory_main();
+        static void draw_inventory_msg();
 
-        bool item_is_chosen();
+        static bool item_is_chosen();
 
 };
+// 
+//     Item* Ui::chosen_item = NULL;
+    // bool Ui::item_active = false;
+
+    // unsigned long long int Ui::turn_checking_against = 1;
+    // unsigned long long int Ui::last_turn_noted = 1;
+
+    // unsigned long long int Ui::tick_turn_changed = 0;
+
+    // unsigned long long int Ui::tick_threshold = 50;
+
+    // unsigned long long int Ui::tick_checking_against = Ui::tick_threshold;
+//     MessageHandler* Ui::msg_handler = new MessageHandler;
+
+    // Ui::game = game;
+    // Ui::msg_handler->game = Ui::game;
 
 #endif

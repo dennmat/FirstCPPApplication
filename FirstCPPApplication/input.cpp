@@ -237,9 +237,9 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     else if( action == inventory_items_active_t::DropItem )
     {
         std::cout << "DROP ITEM" << std::endl;
-        Item* item = the_game->ui->chosen_item;
-        the_game->ui->chosen_item = NULL;
-        the_game->ui->item_active = false;
+        Item* item = Ui::chosen_item;
+        Ui::chosen_item = NULL;
+        Ui::item_active = false;
 
         player->inventory->drop_item(item);
         return true;
@@ -248,30 +248,30 @@ bool process_inventory_item_active(Game* the_game, TCOD_key_t request, Person *p
     else if( action == inventory_items_active_t::UseItem )
     {
         std::cout << "Using item" << std::endl;
-        the_game->ui->chosen_item->use(the_game->player);
+        Ui::chosen_item->use(the_game->player);
         return true;
     }
 
     else if( action == inventory_items_active_t::EquipItem )
     {
-        the_game->ui->chosen_item->equip(the_game->player);
-        the_game->player->equipment->equip_item(the_game->ui->chosen_item);
+        Ui::chosen_item->equip(the_game->player);
+        the_game->player->equipment->equip_item(Ui::chosen_item);
         std::cout << "Equipping item" << std::endl;
         return true;
     }
 
     else if( action == inventory_items_active_t::UnequipItem )
     {
-        the_game->ui->chosen_item->unequip(the_game->player);
-        the_game->player->equipment->unequip_item(the_game->ui->chosen_item);
+        Ui::chosen_item->unequip(the_game->player);
+        the_game->player->equipment->unequip_item(Ui::chosen_item);
         std::cout << "Unequipping item" << std::endl;
         return true;
     }
 
     else if( action == inventory_items_active_t::EscapeMenuItem )
     {
-        the_game->ui->item_active = false;
-        the_game->ui->chosen_item = false;
+        Ui::item_active = false;
+        Ui::chosen_item = false;
         std::cout << "Escape back to regular inventory mode" << std::endl;
         return true;
     }
@@ -533,11 +533,11 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
                     if (item_count > 0)
                     {
                         std::string msg_str = (item_count == 1) ? "An item is on the ground" : "%d items are on the ground";
-                        Message* msg = new Message(the_game->ui->msg_handler, msg_str, item_count);
+                        Message* msg = new Message(Ui::msg_handler, msg_str, item_count);
                     }
                     else 
                     {
-                        Message* msg = new Message(the_game->ui->msg_handler, "Nothing on the ground");
+                        Message* msg = new Message(Ui::msg_handler, "Nothing on the ground");
                     }
                 };
             }
@@ -561,11 +561,11 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             break;
 
         case GameStates::MenuState:
-            if (request.c == 'q' && request.pressed == 1 && the_game->ui->item_active == false)
+            if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
             {
                 cout << "Back to the game." << endl;
-                the_game->ui->chosen_item = NULL;
-                the_game->ui->item_active = false;
+                Ui::chosen_item = NULL;
+                Ui::item_active = false;
                 the_game->current_state = GameStates::GameplayState;
             }
 
@@ -584,21 +584,21 @@ bool process_key_event(Game* the_game, TCOD_key_t request, Person *player)
             };
 
             bool successful_action = true;
-            if (the_game->ui->item_active == false)
+            if (Ui::item_active == false)
             {
                 //choose item
                 auto it = item_map.find(request.c);
                 if (it != item_map.end())
                 {
-                    if (the_game->ui->chosen_item == it->second)
+                    if (Ui::chosen_item == it->second)
                     {
-                        the_game->ui->item_active = true;
+                        Ui::item_active = true;
                     }
                     else
                     {
-                        the_game->ui->item_active = false;
+                        Ui::item_active = false;
                     };
-                    the_game->ui->chosen_item = it->second;
+                    Ui::chosen_item = it->second;
                 };
             }
             else // item_active is true

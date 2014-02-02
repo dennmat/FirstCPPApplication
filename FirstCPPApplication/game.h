@@ -27,7 +27,7 @@ class Game
 {
     public:
         Person* player;     //the PC
-        Ui* ui;
+        // Ui* ui;
         GameStates current_state;
         DebugOptions* debug_opts;
 

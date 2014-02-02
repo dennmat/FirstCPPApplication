@@ -189,8 +189,8 @@ Person*  Game::initialize_player()
 
 Game::Game()
 {
-    ui = new Ui(this);
-    ui->game = this;
+    // ui = new Ui(this);
+    Ui::game = this;
     this->debug_opts = new DebugOptions;
 
     screen_w = 80; //the average RL resolution
@@ -248,10 +248,10 @@ void Game::update_ui()
     switch(this->current_state)
     {
         case GameStates::GameplayState: 
-            this->ui->update_ui();
+            Ui::update_ui();
             break;
         case GameStates::MenuState:
-            this->ui->update_inventory_ui();
+            Ui::update_inventory_ui();
             break;
     };
 }
@@ -261,10 +261,10 @@ void Game::draw_ui()
     switch(this->current_state)
     {
         case GameStates::GameplayState: 
-            this->ui->draw_ui();
+            Ui::draw_ui();
             break;
         case GameStates::MenuState:
-            this->ui->draw_inventory_main();
+            Ui::draw_inventory_main();
             break;
     };
 };
@@ -291,7 +291,7 @@ void Game::mainloop()
     current_map->draw(this);
     TCODSystem::setFps(fps_limit);
 
-    new Message(this->ui->msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->turn_count, TCOD_COLCTRL_STOP);
+    new Message(Ui::msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, this->turn_count, TCOD_COLCTRL_STOP);
         //
 
     //draw the map to libtconsole
@@ -313,7 +313,7 @@ void Game::mainloop()
                 if (incr_turn)
                 {
                     turn_count++;
-                    //new Message(this->ui->msg_handler, "TURN: %d", this->turn_count);
+                    //new Message(Ui::msg_handler, "TURN: %d", this->turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
                     incr_turn = false;
                 }
