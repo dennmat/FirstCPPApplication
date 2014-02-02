@@ -19,10 +19,7 @@ class Ui
         static unsigned long long int turn_checking_against;
         static unsigned long long int tick_checking_against;
         static Game* game;
-        static MessageHandler* msg_handler;
-
-        // Ui();
-		// Ui::Ui(Game* game);
+        static MessageHandler* msg_handler_main;
 
         static int ui_inv_w;
         static int ui_inv_h;
@@ -51,21 +48,5 @@ class Ui
         static bool item_is_chosen();
 
 };
-// 
-//     Item* Ui::chosen_item = NULL;
-    // bool Ui::item_active = false;
-
-    // unsigned long long int Ui::turn_checking_against = 1;
-    // unsigned long long int Ui::last_turn_noted = 1;
-
-    // unsigned long long int Ui::tick_turn_changed = 0;
-
-    // unsigned long long int Ui::tick_threshold = 50;
-
-    // unsigned long long int Ui::tick_checking_against = Ui::tick_threshold;
-//     MessageHandler* Ui::msg_handler = new MessageHandler;
-
-    // Ui::game = game;
-    // Ui::msg_handler->game = Ui::game;
 
 #endif

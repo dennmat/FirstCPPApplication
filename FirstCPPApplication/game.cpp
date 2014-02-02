@@ -32,7 +32,7 @@
 #include "debug_options.h"
 #include "messages.h"
 
-    // Ui::game = this;
+// Ui::game = this;
 DebugOptions* Game::debug_opts = new DebugOptions;
 
 int Game::screen_w = 80; //the average RL resolution
@@ -40,42 +40,28 @@ int Game::screen_h = 50;
 
 int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
-
 int Game::fps_limit= 120; //default
-//int Game::tick_count = 1;
-
 
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
 
-         Person* Game::player = NULL;     //the PC
-        // Ui* ui;
-         //GameStates current_state = NULL;
-         //DebugOptions* Game::debug_opts = NULL;
+Person* Game::player = NULL;     //the PC
 
-         TCOD_key_t Game::key_evt;
-         TCOD_mouse_t Game::mouse_evt ;
+TCOD_key_t Game::key_evt;
+TCOD_mouse_t Game::mouse_evt ;
 
-         //int Game::enemies_size = NULL ;   //don't really know how else to get the size of the
-        //  enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
-         std::vector<Actor*> Game::enemies = std::vector<Actor*>();  //later, this will be an array of all the enemies 
-         std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an array of all the enemies 
+std::vector<Actor*> Game::enemies = std::vector<Actor*>();  //later, this will be an array of all the enemies 
+std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an array of all the enemies 
 
-         //int Game::screen_w = NULL;
-         //int Game::screen_h = NULL;
+unsigned long int Game::turn_count = NULL;
+unsigned long long int Game::tick_count = NULL;
 
-         unsigned long int Game::turn_count = NULL;
-         unsigned long long int Game::tick_count = NULL;
+Map* Game::world = NULL;
+Map* Game::current_map = NULL;
+int Game::current_map_index = NULL;
+Tile* Game::clipboard = NULL;
 
-         //int Game::fps_limit = NULL; //how many frames do you want to refresh at a second
-
-         Map* Game::world = NULL;
-         Map* Game::current_map = NULL;
-         int Game::current_map_index = NULL;
-
-         //bool Game::buildmode = NULL;
-         Tile* Game::clipboard = NULL;
 void Game:: buildworld()
 {
 
@@ -90,7 +76,6 @@ void Game:: buildworld()
         // get width
         getline (myfile,line);
         num_of_worlds = atoi(line.c_str());
-
 
         world = new Map;
         //world->the_game = this;
@@ -136,8 +121,6 @@ void Game:: buildworld()
             }
         }
     }
-
-
 }
 
 //creates a person and places them on the current map
@@ -152,17 +135,13 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;
-
 };
 
 Troll * Game::create_troll(string name, int age, int x, int y, char repr, 
         string Combat_name)
 {
-
     //build the Person
     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
-
-    // new_pers->representation->fg_color = getRGBFromColor(TCODColor::darkGreen);
 
     //put it on the map somewhere
     Tile * next_tile = Game::current_map->getTileAt(x,y);
@@ -335,8 +314,8 @@ void Game::mainloop()
     current_map->draw();
     TCODSystem::setFps(fps_limit);
 
-    new Message(Ui::msg_handler, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Game::turn_count, TCOD_COLCTRL_STOP);
-        //
+    new Message(Ui::msg_handler_main, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Game::turn_count, TCOD_COLCTRL_STOP);
+    //
 
     //draw the map to libtconsole
     current_map->draw();
@@ -357,7 +336,7 @@ void Game::mainloop()
                 if (incr_turn)
                 {
                     turn_count++;
-                    //new Message(Ui::msg_handler, "TURN: %d", Game::turn_count);
+                    //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
                     incr_turn = false;
                 }

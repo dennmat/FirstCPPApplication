@@ -533,11 +533,11 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     if (item_count > 0)
                     {
                         std::string msg_str = (item_count == 1) ? "An item is on the ground" : "%d items are on the ground";
-                        Message* msg = new Message(Ui::msg_handler, msg_str, item_count);
+                        Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
                     }
                     else 
                     {
-                        Message* msg = new Message(Ui::msg_handler, "Nothing on the ground");
+                        Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground");
                     }
                 };
             }

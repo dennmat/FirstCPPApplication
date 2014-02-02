@@ -16,7 +16,7 @@
 #include "item_effect.h"
 #include "messages.h"
 
-// MessageHandler* Ui::msg_handler = new MessageHandler;
+// MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
     Game* Ui::game = game;
 
@@ -40,7 +40,7 @@
         int Ui::ui_sidebar_w = 0;
         int Ui::ui_sidebar_h = 0;
 
-    MessageHandler* Ui::msg_handler = new MessageHandler;
+    MessageHandler* Ui::msg_handler_main = new MessageHandler;
 //  Ui::Ui()
 // {
 //     Ui::chosen_item = NULL;
@@ -54,8 +54,8 @@
 //     Ui::tick_threshold = 50;
 // 
 //     Ui::tick_checking_against = Ui::tick_threshold;
-//     Ui::msg_handler = new MessageHandler;
-//     Ui::msg_handler->game = Ui::game;
+//     Ui::msg_handler_main = new MessageHandler;
+//     Ui::msg_handler_main->game = Ui::game;
 // };
 // 
 // Ui::Ui(Game* game)
@@ -71,10 +71,10 @@
 //     Ui::tick_threshold = 50;
 // 
 //     Ui::tick_checking_against = Ui::tick_threshold;
-//     Ui::msg_handler = new MessageHandler;
+//     Ui::msg_handler_main = new MessageHandler;
 // 
 //     Ui::game = game;
-//     Ui::msg_handler->game = Ui::game;
+//     Ui::msg_handler_main->game = Ui::game;
 // };
 
 void Ui::update_inventory_ui()
@@ -250,7 +250,7 @@ void Ui::draw_ui_msg()
     ui_msg_con->clear();
 
     //draw the message text
-    Ui::msg_handler->draw(ui_msg_con);
+    Ui::msg_handler_main->draw(ui_msg_con);
 
     //draw ui console to root
     TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h);
