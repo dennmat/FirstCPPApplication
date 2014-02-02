@@ -42,12 +42,40 @@ int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
 
 int Game::fps_limit= 120; //default
+//int Game::tick_count = 1;
 
 
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
 
+         Person* Game::player = NULL;     //the PC
+        // Ui* ui;
+         //GameStates current_state = NULL;
+         //DebugOptions* Game::debug_opts = NULL;
+
+         TCOD_key_t Game::key_evt;
+         TCOD_mouse_t Game::mouse_evt ;
+
+         //int Game::enemies_size = NULL ;   //don't really know how else to get the size of the
+        //  enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
+         std::vector<Actor*> Game::enemies = std::vector<Actor*>();  //later, this will be an array of all the enemies 
+         std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an array of all the enemies 
+
+         //int Game::screen_w = NULL;
+         //int Game::screen_h = NULL;
+
+         unsigned long int Game::turn_count = NULL;
+         unsigned long long int Game::tick_count = NULL;
+
+         //int Game::fps_limit = NULL; //how many frames do you want to refresh at a second
+
+         Map* Game::world = NULL;
+         Map* Game::current_map = NULL;
+         int Game::current_map_index = NULL;
+
+         //bool Game::buildmode = NULL;
+         Tile* Game::clipboard = NULL;
 void Game:: buildworld()
 {
 
@@ -318,7 +346,7 @@ void Game::mainloop()
     //draw libtcon to screen
     TCODConsole::flush();
 
-    Game::tick_count = 1;
+    // Game::tick_count = 1;
     bool tick_printed = true;
     while ( !TCODConsole::isWindowClosed() ) {
 
