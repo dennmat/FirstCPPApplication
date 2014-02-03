@@ -73,11 +73,11 @@ void MessageHandler::draw(TCODConsole* console)
 {
     //go through the latest messages and draw them until there's no more room
     std::vector<std::string> string_list = this->PrerenderMessages(10);
-    std::vector<std::string>::reverse_iterator it = string_list.rbegin();
+    std::vector<std::string>::iterator it = string_list.begin();
     int x = 0;
     int y = 0;
     TCODColor default_color = console->getDefaultForeground();
-    for (it; it != string_list.rend(); ++it)
+    for (it; it != string_list.end(); ++it)
     {
         float coef = ((float)y)/10.0f;
         TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
