@@ -38,18 +38,21 @@ DebugOptions* Game::debug_opts = new DebugOptions;
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
-int Game::map_width = 60;
-int Game::map_height = 40;
+int Game::map_width = 160;
+int Game::map_height = 140;
 
-int Game::camera_w = Game::map_width;
-int Game::camera_h = Game::map_height;
+int Game::view_width = 60;
+int Game::view_height = 40;
+
+int Game::camera_w = Game::view_width;
+int Game::camera_h = Game::view_height;
 int Game::camera_x = 0;
 int Game::camera_y = 0;
 
 int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
-TCODConsole* Game::game_console = new TCODConsole(Game::screen_w, Game::screen_h);
+TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_height);
 
 std::string Game::last_cmd = "not set";
 

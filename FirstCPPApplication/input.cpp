@@ -296,34 +296,63 @@ void move_camera(int dir_x, int dir_y)
     int plr_y = Game::player->y - Game::camera_y;
 
     int border_threshold = 5;
-                std::cout << "cam w" << Game::camera_w << std::endl;
+    std::cout << "cam w" << Game::camera_w << std::endl;
 
-    if (plr_x <= 5 || plr_x >= (Game::camera_w -5))
+    int change = 1;
+    if (plr_x <= border_threshold || plr_x >= (Game::camera_w -border_threshold))
     {
         //adjust camera horizontally
-        if (plr_x <= 5) 
+        if (plr_x <= border_threshold) 
         {
-            Game::camera_x -= 1;
-            std::cout << "x left" << std::endl;
+            if (Game::camera_x - change >= (0))
+            {
+                Game::camera_x -= 1;
+                std::cout << "x left" << std::endl;
+            }
+            else
+            {
+                std::cout << "x NOT left" << std::endl;
+            }
         }
         else 
         {
-            Game::camera_x += 1;
-            std::cout << "x right" << std::endl;
+            if (cam_x2 + change <= (Game::map_width))
+            {
+                Game::camera_x += 1;
+                std::cout << "x right" << std::endl;
+            }
+            else
+            {
+                std::cout << "x NOT right" << std::endl;
+            }
         };
     };
-    if (plr_y <= 5 || plr_y >= (Game::camera_h -5))
+    if (plr_y <= border_threshold || plr_y >= (Game::camera_h -border_threshold))
     {
         //adjust camera vertically
-        if (plr_y >= 5) 
+        if (plr_y <= border_threshold) 
         {
-            Game::camera_y += 1;
-            std::cout << "y down" << std::endl;
+            if (Game::camera_y - change >= (0 ))
+            {
+                Game::camera_y -= 1;
+                std::cout << "y up" << std::endl;
+            }
+            else
+            {
+                std::cout << "y NOT up" << std::endl;
+            }
         }
         else 
         {
-            Game::camera_y -= 1;
-            std::cout << "y up" << std::endl;
+            if (cam_y2 + change <= (Game::map_height))
+            {
+                Game::camera_y += 1;
+                std::cout << "y down" << std::endl;
+            }
+            else
+            {
+                std::cout << "y NOT down" << std::endl;
+            }
         };
     };
 };

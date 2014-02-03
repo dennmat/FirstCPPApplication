@@ -44,6 +44,8 @@ class Game
 
         static int map_width;
         static int map_height;
+        static int view_width;
+        static int view_height;
 
         static int camera_w;
         static int camera_h;
