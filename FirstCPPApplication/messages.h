@@ -31,7 +31,7 @@ class Message
         double long turn;
 
         Message();
-        Message(MessageHandler* handler, std::string content, ...);
+        Message(MessageHandler* handler, char msg_type, std::string content, ...);
         void Init();
 
 
