@@ -42,7 +42,7 @@ void MessageHandler::new_msg(Message* message)
     }
 }
 
-void MessageHandler::draw(TCODConsole* console)
+void MessageHandler::draw_raw(TCODConsole* console)
 {
     //go through the latest messages and draw them until there's no more room
     std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin();
@@ -51,10 +51,9 @@ void MessageHandler::draw(TCODConsole* console)
     TCODColor default_color = console->getDefaultForeground();
     for (it; it != this->msg_list.rend(); ++it)
     {
-	float coef = ((float)y)/10.0f;
+        float coef = ((float)y)/10.0f;
         TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
         console->setDefaultForeground(new_color);
-        //std::cout << "drawing message" << std::endl;
         if ((*it)->count > 0)
         {
             console->print(x, y, ((*it)->content+" (x%d)").c_str(), (*it)->count);
@@ -69,6 +68,65 @@ void MessageHandler::draw(TCODConsole* console)
     };
 
 };
+
+void MessageHandler::draw(TCODConsole* console)
+{
+    //go through the latest messages and draw them until there's no more room
+    std::vector<std::string> string_list = this->PrerenderMessages(10);
+    std::vector<std::string>::reverse_iterator it = string_list.rbegin();
+    int x = 0;
+    int y = 0;
+    TCODColor default_color = console->getDefaultForeground();
+    for (it; it != string_list.rend(); ++it)
+    {
+        float coef = ((float)y)/10.0f;
+        TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
+        console->setDefaultForeground(new_color);
+            console->print(x, y, (it)->c_str());
+         y++;
+
+        if (y > 10) break; //don't need to loop over all messages
+    };
+
+};
+
+//goes through all the vectors of this turn and creates a std::string of the
+//ones that share a turn
+std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
+{
+    // if (Game::turn_count < turn_limit) 
+    // {
+    //     turn_limit = Game::turn_count;
+    // }
+    std::vector<std::string> prerendered_msgs = std::vector<std::string>();
+    std::vector<Message*>::iterator it = this->msg_list.begin();
+
+    std::string prerendered_single = "";
+    int current_turn = Game::turn_count;
+    bool appended_to = false;
+    for (it; it != this->msg_list.end(); ++it)
+    {
+        if ((*it)->turn != current_turn) 
+        {
+            current_turn--;
+            prerendered_msgs.push_back(prerendered_single);
+            prerendered_single.clear();
+            appended_to = true;
+        }
+        else
+        {
+        prerendered_single.append((*it)->content);
+        appended_to = false;
+        };
+
+        // if (current_turn <= turn_limit) { break; }
+    };
+    if (!appended_to)
+    {
+    prerendered_msgs.push_back(prerendered_single);
+    }
+    return prerendered_msgs;
+}
 
 void Message::Init()
 {
@@ -101,7 +159,3 @@ Message::Message(MessageHandler* handler, std::string content, ...)
     this->turn = handler->game->turn_count;
 };
 
-//std::string Message::Prerender()
-//{
-//    return "";
-//}
