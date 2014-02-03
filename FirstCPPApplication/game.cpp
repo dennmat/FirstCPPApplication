@@ -32,7 +32,7 @@
 #include "debug_options.h"
 #include "messages.h"
 
-// Ui::game = this;
+// Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
 
 int Game::screen_w = 80; //the average RL resolution
@@ -73,6 +73,9 @@ Map* Game::world = NULL;
 Map* Game::current_map = NULL;
 int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
+
+
+
 
 void Game:: buildworld()
 {
@@ -313,6 +316,7 @@ void Game::mainloop()
     // cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
     TCODConsole::setKeyboardRepeat(500, 1);
+
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
 

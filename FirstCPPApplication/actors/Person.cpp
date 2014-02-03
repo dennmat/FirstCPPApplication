@@ -15,6 +15,9 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include "combat.h"
+#include "messages.h"
+#include "game.h"
+#include "ui.h"
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name)
 {
@@ -26,7 +29,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     if (name == "Josh")
 	{
-	std::cout << "ASDASDS" << std::endl;
+    new Message(Ui::msg_handler_main, "Creating the Josh player");
 	}
 
     this->xp = 0;

@@ -627,6 +627,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     {
                         Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground");
                     }
+                        Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
                 };
             }
 

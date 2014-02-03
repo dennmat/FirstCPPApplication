@@ -75,7 +75,7 @@ void Message::Init()
     this->content = "Unspecified %s";
     // this->vlist = "content";
     this->count = 0;
-    this->turn = 0;
+    this->turn = Game::turn_count;
 };
 
 Message::Message()

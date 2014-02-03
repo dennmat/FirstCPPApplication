@@ -141,7 +141,22 @@ class BspListener : public ITCODBspCallback
             }
             else
             {
-                // std::cout << "nodes NOT A  leaf" << std::endl;
+                std::cout << "nodes NOT A  leaf" << std::endl;
+                Tile* tile;
+                TCODRandom *rng = TCODRandom::getInstance();
+                int x, y;
+                for (int i = 0; i < 16; i++)
+                {
+                    x = rng->getInt(node->x+1, node->x+node->w -3);
+                    y = rng->getInt(node->y+1, node->y+node->h -3);
+                    tile= map.getTileAt(x, y);
+                    if ( tile->tile->type_id == 3)
+                    {
+                        tile->tile->representation->repr = ',';
+                        tile->tile->representation->setFGColor(TCODColor::darkerGrey, true, true, true);
+                        tile->tile->description = "A small stone lays here";
+                    }
+                }
             }
             return true;
         };
@@ -186,7 +201,7 @@ int Map::build_from_random(int seed)
             l_map -> setProperties(x, y, false, false);
         }
 
-        this_tile->tile->description = "another desc";
+        this_tile->tile->description = "Descriptionless tile";
 
         this_tile->tile_x = x;
         this_tile->tile_y = y;
@@ -389,7 +404,7 @@ int Map::draw()
             // cout << the_fg_color << endl << the_bg_color << endl;
 
             if (Game::debug_opts->all_vision || l_map->isInFov(x, y))
-            // if (true)
+                // if (true)
             {
                 the_tile->setKnown(true);
 
@@ -528,7 +543,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     {
         cout << "invalid move fool" << endl;
-	new Message(Ui::msg_handler_main, "Leave the outer limits alone");
+        new Message(Ui::msg_handler_main, "Leave the outer limits alone");
         return false;
     }
 
@@ -584,7 +599,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     else
     {
         cout << endl << "invalid move" << endl;
-	new Message(Ui::msg_handler_main, "That's probably a wall.");
+        new Message(Ui::msg_handler_main, "That's probably a wall.");
         if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         {
             cout << target_tile->tile->description << endl;
