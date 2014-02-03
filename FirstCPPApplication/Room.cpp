@@ -24,7 +24,7 @@ Room::Room(int x, int y, int width, int height, int door_index)
     this->x = x;
     this->y = y;
 
-    this->_door_index_limit = door_index;
+    this->_door_index_limit = door_index/0;
     this->_current_door_index = 0;
 };
 
