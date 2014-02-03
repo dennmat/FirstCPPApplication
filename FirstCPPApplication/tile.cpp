@@ -218,24 +218,28 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 
 BaseTileType::BaseTileType() 
 {
+    this->description = "Another descriptionless tile";
     type_id = 0;
     representation = new BaseRepresentation; 
 };
 
 WarpTileType::WarpTileType() : BaseTileType() 
 {
+    this->description = "A strange color eminates from the ground";
     type_id = 2;
     representation = new WarpRepresentation; 
 };
 
 WallTileType::WallTileType() : BaseTileType() 
 {
+    this->description = "Non descript wall";
     type_id = 1;
     representation = new WallRepresentation;
 };
 
 DoorTileType::DoorTileType()  : BaseTileType() 
 {
+    this->description = "A door, it's probably open, but who can even tell?";
     this->is_open = false;
     type_id = 4;
     representation = new DoorRepresentation; 
@@ -255,6 +259,7 @@ void DoorTileType::ToggleDoor()
 
 void DoorTileType::CloseDoor()
 {
+    this->description = "A door is closed here";
     this->is_open = false;
     this->representation->repr = '+';
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, false, false);
@@ -262,6 +267,7 @@ void DoorTileType::CloseDoor()
 
 void DoorTileType::OpenDoor()
 {
+    this->description = "An open door";
     this->is_open = true;
     this->representation->repr = '=';
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, true, true);
@@ -270,6 +276,7 @@ void DoorTileType::OpenDoor()
 
 FloorTileType::FloorTileType() : BaseTileType() 
 {
+    this->description = "Plain old floor";
     type_id = 3;
     representation = new FloorRepresentation; 
 };

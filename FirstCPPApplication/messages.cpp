@@ -94,7 +94,7 @@ Message::Message(MessageHandler* handler, std::string content, ...)
     char* x = new char[999*32];
     vsprintf(x, content.c_str(), ap);
     this->content = std::string(x);
-    // this->vlist = vlist;
+
     va_end(ap);
 
     handler->new_msg(this);
