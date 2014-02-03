@@ -29,7 +29,15 @@ class Message
         // va_list vlist;
         int count;
         double long turn;
-
+        
+        enum {
+            T_NEUTRAL=0,
+            T_BAD,
+            T_GOOD,
+            T_WARN,
+            T_DOUCHE
+        };
+        
         Message();
         Message(MessageHandler* handler, std::string content, ...);
         void Init();
