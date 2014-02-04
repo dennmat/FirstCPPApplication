@@ -94,37 +94,28 @@ void MessageHandler::draw(TCODConsole* console)
 //ones that share a turn
 std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 {
-    // if (Game::turn_count < turn_limit) 
-    // {
-    //     turn_limit = Game::turn_count;
-    // }
-    std::vector<std::string> prerendered_msgs = std::vector<std::string>();
-    std::vector<Message*>::iterator it = this->msg_list.begin();
-
+    std::vector<std::string> prerendered_msgs;
+    int last_turn = -1;
+    int turn_count = 0;
     std::string prerendered_single = "";
-    int current_turn = Game::turn_count;
-    bool appended_to = false;
-    for (it; it != this->msg_list.end(); ++it)
-    {
-        if ((*it)->turn != current_turn) 
-        {
-            current_turn--;
-            prerendered_msgs.push_back(prerendered_single);
-            prerendered_single.clear();
-            appended_to = true;
-        }
-        else
-        {
-        prerendered_single.append((*it)->content);
-        appended_to = false;
-        };
+    for (std::vector<std::string>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
+         if (turn_count >= 10) break;
 
-        // if (current_turn <= turn_limit) { break; }
-    };
-    if (!appended_to)
-    {
-    prerendered_msgs.push_back(prerendered_single);
+         if (last_turn != (*it)->turn) {
+	     prerendered_single.append((*it)->content);
+	     prerendered_msgs.push_back(prerendered_single);
+	     prerendered_single.clear();
+	     last_turn = (*it)->turn;
+	     turn_count++;
+         } else {
+ 	     prerendered_single.append((*it)->content);
+         }
     }
+
+    if (prerendered_single.size() > 0) {
+        prerendered_msgs.push_back(prerendered_single);
+    }
+
     return prerendered_msgs;
 }
 
