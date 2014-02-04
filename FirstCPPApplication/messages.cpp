@@ -98,7 +98,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     int last_turn = -1;
     int turn_count = 0;
     std::string prerendered_single = "";
-    for (std::vector<std::string>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
+    for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
          if (turn_count >= 10) break;
 
          if (last_turn != (*it)->turn) {
