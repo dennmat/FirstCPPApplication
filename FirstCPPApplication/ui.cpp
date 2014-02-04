@@ -250,7 +250,7 @@ void Ui::draw_ui_msg()
     ui_msg_con->clear();
 
     //draw the message text
-    Ui::msg_handler_main->draw_raw(ui_msg_con);
+    Ui::msg_handler_main->draw(ui_msg_con);
 
     //draw ui console to root
     TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h);

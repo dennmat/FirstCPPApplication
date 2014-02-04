@@ -108,7 +108,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 	     last_turn = (*it)->turn;
 	     turn_count++;
          } else {
- 	     prerendered_single.append((*it)->content);
+ 	     prerendered_single.append((*it)->content+" ");
          }
     }
 
