@@ -24,7 +24,7 @@ using namespace std;
 
 Map::Map()
 {
-
+    this->enemies = vector<Actor*>();
     this->roomVector = new vector<Room*>;
 
     this->width = NULL;

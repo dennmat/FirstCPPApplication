@@ -121,7 +121,7 @@ Map* Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                Game::enemies.push_back( Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', world, "troll combat"));
+                world->enemies.push_back( Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', world, "troll combat"));
                 is_troll = false;
             }
         }
@@ -131,7 +131,7 @@ Map* Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                Game::enemies.push_back(Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', world, "skeleton combat"));
+                world->enemies.push_back(Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', world, "skeleton combat"));
                 is_troll = true;
             }
         }
@@ -203,9 +203,9 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', Game::current_map, "First Person"));
-    enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
-    enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
+    Game::current_map->enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', Game::current_map, "First Person"));
+    Game::current_map->enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
+    Game::current_map->enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
 
 };
 
@@ -269,13 +269,14 @@ void Game::update()
     //     };
     // }
 
-    for (std::vector<Actor*>::size_type i = 0; i != enemies.size(); i++) 
+    for (std::vector<Actor*>::size_type i = 0; i != Game::current_map->enemies.size(); i++) 
     {
-        Actor* enemy = enemies.at(i);
+        Actor* enemy = Game::current_map->enemies.at(i);
         // cout << "\t" << enemy->name << "is updating" << endl;
         if (enemy->is_active)
         {
             enemy->update();
+            // printf("updating ai\n");
         };
         // printf("updating\n");
     }
