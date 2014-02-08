@@ -19,6 +19,12 @@ Thinker::Thinker()
 
 };
 
+Thinker::~Thinker()
+{
+    delete this->master->l_path;
+
+};
+
 void Thinker::update()
 {
 

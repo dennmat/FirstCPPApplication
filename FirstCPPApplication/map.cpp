@@ -107,6 +107,7 @@ class BspListener : public ITCODBspCallback
         int lastx, lasty;
 
     public:
+        static std::stringstream output;
         BspListener(Map &map) : map(map), roomNum(0) {};
         bool visitNode(TCODBsp *node, void *userData)
         {
@@ -141,7 +142,8 @@ class BspListener : public ITCODBspCallback
             }
             else
             {
-                std::cout << "nodes NOT A  leaf" << std::endl;
+                BspListener::output << "nodes NOT A leaf " << std::endl;
+                // std::cout << "nodes NOT A leaf " << std::endl;
                 Tile* tile;
                 TCODRandom *rng = TCODRandom::getInstance();
                 int x, y;
@@ -161,6 +163,7 @@ class BspListener : public ITCODBspCallback
             return true;
         };
 };
+std::stringstream BspListener::output = std::stringstream();
 
 int Map::build_from_random(int seed)
 {
@@ -222,6 +225,8 @@ int Map::build_from_random(int seed)
     bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
+
+    std::cout << "" << BspListener::output.str() << std::endl;
 
     return 1;
 

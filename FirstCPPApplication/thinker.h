@@ -15,6 +15,7 @@ class Thinker
     Actor* master;
         void update();
         Thinker();
+        ~Thinker();
 
 };
 #endif

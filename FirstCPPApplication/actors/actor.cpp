@@ -232,5 +232,12 @@ void Actor::Die()
     //remove master from ai update list
     this->is_active = false;
     this->putPerson(NULL, NULL, NULL);
+
+    //destroy ai
+    if (this->thinker != NULL)
+    {
+        delete this->thinker;
+    };
+
 };
 
