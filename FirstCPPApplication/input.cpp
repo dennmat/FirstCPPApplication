@@ -595,15 +595,21 @@ bool process_debug_event(TCOD_key_t request, Person *player)
         exit(1);
     };
 
+    if (request.vk == TCODK_F3)
+    {
+        Game::debug_opts->all_vision = !Game::debug_opts->all_vision;
+    }
+
     if (request.vk == TCODK_F4)
     {
         auto map = Game::buildworld();
         Game::current_map = map;
     }
 
-    if (request.vk == TCODK_F3)
+    if (request.vk == TCODK_F5)
     {
-        Game::debug_opts->all_vision = !Game::debug_opts->all_vision;
+        //this'll redraw the entire screen incase shit goes black
+		TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 };
 

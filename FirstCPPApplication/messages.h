@@ -26,7 +26,6 @@ class Message
 {
     public:
         std::string content;
-        // va_list vlist;
         int count;
         double long turn;
 
