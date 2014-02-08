@@ -69,7 +69,7 @@ class Game
         static std::string last_cmd;
 
         // Game();
-        static void buildworld();
+        static Map* buildworld();
         static void update();
 
         static void update_ui();
@@ -80,9 +80,9 @@ class Game
         static void  initialize_enemies();
         static void  Game::initialize_items();
 
-        static Person * create_person(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
-        static Troll * create_troll(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
-        static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+        static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        static Troll * create_troll(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
 
 
         static void mainloop();

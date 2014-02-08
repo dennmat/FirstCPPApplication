@@ -17,6 +17,7 @@ class Room;
 class Person;
 class Object;
 class Tile;
+class Actor;
 
 class TCODMap;
 
@@ -27,16 +28,16 @@ class Map : public Object
         Map();
         ~Map();
 
+        std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
+
         int width, height;
+        string description; // default description if tile does not have one
+
         int build_from_file(string filename);
         int build_from_random(int seed);
 
-        // Game* the_game;
-
-        // void add_room(
         void build_rect_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);
-        string description; // default description if tile does not have one
 
         int draw();
         bool attackMovePlayer(Person *thePerson, int x2, int y2);

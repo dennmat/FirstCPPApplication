@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <iostream>
+#include <sstream>
 #include <string>
 #include "messages.h"
 #include <vector>
@@ -26,9 +27,9 @@ void MessageHandler::new_msg(Message* message)
     //compare messages to see if the count should increment
     bool same_msg = false;
     if (message->content == last_msg->content)
-	{
+    {
         same_msg = true;
-	}
+    }
 
     if (same_msg && this->msg_list.size() != 0)
         //if (last_msg->content.c_str() == message->content.c_str() && last_msg->vlist == message->vlist && this->msg_list.size() != 0)
@@ -79,11 +80,20 @@ void MessageHandler::draw(TCODConsole* console)
     TCODColor default_color = console->getDefaultForeground();
     for (it; it != string_list.end(); ++it)
     {
+
+        TCODColor  new_color;
         float coef = ((float)y)/10.0f;
-        TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
+        if (y == 0)
+        {
+            new_color = TCODColor::lightestRed;
+        }
+        else 
+        {
+            new_color = TCODColor::lerp(default_color, TCODColor::darkestGrey, coef);
+        };
         console->setDefaultForeground(new_color);
-            console->print(x, y, (it)->c_str());
-         y++;
+        console->print(x, y, (it)->c_str());
+        y++;
 
         if (y > 10) break; //don't need to loop over all messages
     };
@@ -95,21 +105,24 @@ void MessageHandler::draw(TCODConsole* console)
 std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 {
     std::vector<std::string> prerendered_msgs;
-    int last_turn = -1;
+    int last_turn = Game::turn_count;
     int turn_count = 0;
     std::string prerendered_single = "";
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
-         if (turn_count >= 10) break;
+        if (turn_count >= 10) break;
 
-         if (last_turn != (*it)->turn) {
-	     prerendered_single.append((*it)->content);
-	     prerendered_msgs.push_back(prerendered_single);
-	     prerendered_single.clear();
-	     last_turn = (*it)->turn;
-	     turn_count++;
-         } else {
- 	     prerendered_single.append((*it)->content+" ");
-         }
+        if (last_turn != (*it)->turn) {
+            prerendered_single.append((*it)->content);
+            prerendered_msgs.push_back(prerendered_single);
+            prerendered_single.clear();
+            last_turn = (*it)->turn;
+            turn_count++;
+        } else {
+            std::stringstream ss;
+            ss << (*it)->turn;
+            std::string turn_str = ss.str();
+            prerendered_single.append((*it)->content+" "+ turn_str+" ");
+        }
     }
 
     if (prerendered_single.size() > 0) {

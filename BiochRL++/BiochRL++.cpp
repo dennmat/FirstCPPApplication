@@ -9,7 +9,8 @@
 	//Game the_game;
 int _tmain(int argc, _TCHAR* argv[])
 {
-Game::buildworld();
+auto map = Game::buildworld();
+Game::current_map = map;
 //Map* Game::current_map = world; //I'm not so sure about this, but it solved the mem issue
 
 Game::initialize_player(); //created the Person player

@@ -595,6 +595,12 @@ bool process_debug_event(TCOD_key_t request, Person *player)
         exit(1);
     };
 
+    if (request.vk == TCODK_F4)
+    {
+        auto map = Game::buildworld();
+        Game::current_map = map;
+    }
+
     if (request.vk == TCODK_F3)
     {
         Game::debug_opts->all_vision = !Game::debug_opts->all_vision;
@@ -615,20 +621,6 @@ bool process_key_event(TCOD_key_t request, Person *player)
             if(is_request_move_cmd(request))
             {
                 incr_turn = process_movement(request, player);
-                if (incr_turn)
-                {
-                    int item_count = player->my_tile->inventory->get_count();
-                    if (item_count > 0)
-                    {
-                        std::string msg_str = (item_count == 1) ? "An item is on the ground" : "%d items are on the ground";
-                        Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
-                    }
-                    else 
-                    {
-                        Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground");
-                    }
-                        Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
-                };
             }
 
             else if (is_request_basic_cmd(request))

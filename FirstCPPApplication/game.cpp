@@ -66,7 +66,7 @@ TCOD_mouse_t Game::mouse_evt ;
 std::vector<Actor*> Game::enemies = std::vector<Actor*>();  //later, this will be an array of all the enemies 
 std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an array of all the enemies 
 
-unsigned long int Game::turn_count = NULL;
+unsigned long int Game::turn_count = 1;
 unsigned long long int Game::tick_count = NULL;
 
 Map* Game::world = NULL;
@@ -77,7 +77,7 @@ Tile* Game::clipboard = NULL;
 
 
 
-void Game:: buildworld()
+Map* Game:: buildworld()
 {
 
     cout << get_exe_path() << endl;
@@ -105,7 +105,7 @@ void Game:: buildworld()
         exit(EXIT_FAILURE);
     };
 
-    Game::current_map = world;
+    // Game::current_map = world;
 
     bool is_troll = true;
     for (std::vector<Room*>::iterator it = Game::world->roomVector->begin(); it != Game::world->roomVector->end(); ++it)
@@ -121,7 +121,7 @@ void Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                Game::enemies.push_back( Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', "troll combat"));
+                Game::enemies.push_back( Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', world, "troll combat"));
                 is_troll = false;
             }
         }
@@ -131,43 +131,44 @@ void Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                Game::enemies.push_back(Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', "skeleton combat"));
+                Game::enemies.push_back(Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', world, "skeleton combat"));
                 is_troll = true;
             }
         }
     }
+    return world;
 }
 
 //creates a person and places them on the current map
 Person * Game::create_person(string name, int age, int x, int y, char repr, 
-        string Combat_name)
+        Map* map, string Combat_name)
 {
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
 
     //put it on the map somewhere
-    Tile * next_tile = current_map->getTileAt(x,y);
+    Tile * next_tile = map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;
 };
 
 Troll * Game::create_troll(string name, int age, int x, int y, char repr, 
-        string Combat_name)
+        Map* map, string Combat_name)
 {
     //build the Person
     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
 
     //put it on the map somewhere
-    Tile * next_tile = Game::current_map->getTileAt(x,y);
+    Tile * next_tile = map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;
 
 };
 
-Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr, 
-        string Combat_name)
+Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr,
+        Map* map, string Combat_name)
 {
 
     //build the Person
@@ -175,7 +176,7 @@ Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr,
 
 
     //put it on the map somewhere
-    Tile * next_tile = current_map->getTileAt(x,y);
+    Tile * next_tile = map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;
@@ -202,9 +203,9 @@ void  Game::initialize_items(){
 //creates a bunch of enemies on the map
 void  Game::initialize_enemies(){
 
-    enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', "First Person"));
-    enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', "Second, Troll"));
-    enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', "Third, Skeleton"));
+    enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', Game::current_map, "First Person"));
+    enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
+    enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
 
 };
 
@@ -352,6 +353,21 @@ void Game::mainloop()
                 if (incr_turn)
                 {
                     turn_count++;
+
+                    //this used to be after input was processed but turn hadn't
+                    //been incremented
+                    int item_count = player->my_tile->inventory->get_count();
+                    if (item_count > 0)
+                    {
+                        std::string msg_str = (item_count == 1) ? "An item is on the ground" : "%d items are on the ground";
+                        Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
+                    }
+                    else 
+                    {
+                        Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground");
+                    }
+                        Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
+
                     //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
                     incr_turn = false;
