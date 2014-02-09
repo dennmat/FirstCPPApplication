@@ -120,6 +120,8 @@ void Tile::updateTileType(int type )
     else if (type == 2) { tile = new WarpTileType; }
     else if (type == 3) { tile = new FloorTileType; }
     else if (type == 4) { tile = new DoorTileType; }
+    else if (type == 5) { tile = new StairsDownTileType; }
+    else if (type == 6) { tile = new StairsUpTileType; }
     else 
     {
         cout << type << endl;
@@ -135,15 +137,7 @@ Tile* Tile::getTileAtRelative(int x, int y)
     int new_x = this->tile_x + x;
     int new_y = this->tile_y + y;
 
-    //if (new_x <= this->map->width && new_x >= 0 
-    //        && new_y <= this->map->height && new_y >= 0)
-    //{
-        return this->map->getTileAt(new_x, new_y);
-    //}
-    //else 
-    //{
-    //    return NULL;
-    //};
+    return this->map->getTileAt(new_x, new_y);
 };
 
 Tile* Tile::getTopLeftTile(int scale)
@@ -223,18 +217,18 @@ BaseTileType::BaseTileType()
     representation = new BaseRepresentation; 
 };
 
-WarpTileType::WarpTileType() : BaseTileType() 
-{
-    this->description = "A strange color eminates from the ground";
-    type_id = 2;
-    representation = new WarpRepresentation; 
-};
-
 WallTileType::WallTileType() : BaseTileType() 
 {
     this->description = "Non descript wall";
     type_id = 1;
     representation = new WallRepresentation;
+};
+
+WarpTileType::WarpTileType() : BaseTileType() 
+{
+    this->description = "A strange color eminates from the ground";
+    type_id = 2;
+    representation = new WarpRepresentation; 
 };
 
 DoorTileType::DoorTileType()  : BaseTileType() 
@@ -273,6 +267,19 @@ void DoorTileType::OpenDoor()
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, true, true);
 };
 
+StairsDownTileType::StairsDownTileType() : BaseTileType() 
+{
+    this->description = "Stairs leading downwards";
+    type_id = 5;
+    representation = new StairsDownRepresentation; 
+};
+
+StairsUpTileType::StairsUpTileType() : BaseTileType() 
+{
+    this->description = "Stairs leading upwards";
+    type_id = 6;
+    representation = new StairsUpRepresentation; 
+};
 
 FloorTileType::FloorTileType() : BaseTileType() 
 {

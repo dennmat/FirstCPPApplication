@@ -132,6 +132,32 @@ DoorRepresentation::DoorRepresentation(): Representation()
     orig_fg_color = this->createColorFromRGB(r, g, b);
 };
 
+StairsDownRepresentation::StairsDownRepresentation(): Representation()
+{
+    repr = '>';
+    // fg_color = &static_cast<TCODColor>(TCODColor::lighterSepia);
+    // temp_fg_color = &static_cast<TCODColor>(TCODColor::lighterSepia);
+    // orig_fg_color = &static_cast<TCODColor>(TCODColor::lighterSepia);
+    int r,b,g;
+    this->getRGBFromColor(r, g, b, TCODColor::lighterSepia);
+    fg_color = this->createColorFromRGB(r, g, b);
+    temp_fg_color = this->createColorFromRGB(r, g, b);
+    orig_fg_color = this->createColorFromRGB(r, g, b);
+};
+
+StairsUpRepresentation::StairsUpRepresentation(): Representation()
+{
+    repr = '<';
+    // fg_color = &static_cast<TCODColor>(TCODColor::lighterSepia);
+    // temp_fg_color = &static_cast<TCODColor>(TCODColor::lighterSepia);
+    // orig_fg_color = &static_cast<TCODColor>(TCODColor::lighterSepia);
+    int r,b,g;
+    this->getRGBFromColor(r, g, b, TCODColor::lighterSepia);
+    fg_color = this->createColorFromRGB(r, g, b);
+    temp_fg_color = this->createColorFromRGB(r, g, b);
+    orig_fg_color = this->createColorFromRGB(r, g, b);
+};
+
 FloorRepresentation::FloorRepresentation(): Representation()
 {
     repr = '.';

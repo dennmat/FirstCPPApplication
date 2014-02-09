@@ -16,16 +16,9 @@ class Representation : public Object
         int color_r;
         int color_g;
         int color_b;
-         // TCODColor& _fg_color;
-         // TCODColor& _temp_fg_color;
-         // TCODColor& _orig_fg_color;
 
-         // TCODColor& _bg_color;
-         // TCODColor& _temp_bg_color;
-         // TCODColor& _orig_bg_color;
     public:
         char repr;
-
 
         //temp fg_color for highlighting etc
          TCODColor* fg_color;
@@ -49,14 +42,6 @@ class DeadRepresentation : public Representation
     public:
         DeadRepresentation();
 };
-
-// class FloorRepresentation : public Representation
-// {
-//     FloorRepresentation(){
-//         repr = 'X';
-//         fg_color = TCODColor::black;
-//     };
-// };
 
 class BaseRepresentation : public Representation
 {
@@ -92,6 +77,21 @@ class DoorRepresentation : public Representation
         DoorRepresentation();
 
 };
+
+class StairsDownRepresentation : public Representation
+{
+    public:
+        StairsDownRepresentation();
+
+};
+
+class StairsUpRepresentation : public Representation
+{
+    public:
+        StairsUpRepresentation();
+
+};
+
 class FloorRepresentation : public Representation
 {
     public:

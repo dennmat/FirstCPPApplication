@@ -24,6 +24,8 @@ std::string get_exe_path();
 std::string get_data_path();
 std::string get_images_path();
 
+// template<class T, class T2>
+// bool isInVector<T, T2>(T vect, T2 elem);
 // class T;
 // void stripNullsFromVector(std::vector<T*>* vect);
 

@@ -6,7 +6,9 @@
 #include <cstdlib>
 #include "libtcod.hpp"
 #include <vector>
+#include <algorithm>
 
+#include "utils.h"
 #include "map.h"
 #include "Room.h"
 #include <actors\Person.h>
@@ -75,7 +77,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     catch ( std::out_of_range& ex )
     {
         ex;
-        std::cout << "getTileAt recursed" << std::endl;
+        std::cout << "getTileAt recursed on y" << std::endl;
         return getTileAt(x, y-1, false, x, y);
     };
 
@@ -90,6 +92,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     catch ( std::out_of_range& ex )
     {
         ex;
+        std::cout << "getTileAt recursed on x" << std::endl;
         return getTileAt(x-1, y, false, x, y);
     };
 };
@@ -127,11 +130,16 @@ class BspListener : public ITCODBspCallback
                 lastx=room_x+room_w/2;
                 lasty=room_y+room_h/2;
                 roomNum++;
+
+                Tile* door_tile = map.getTileAt(room_x+1, room_y+1);
+                door_tile->updateTileType(5);
+                map.l_map->setProperties(door_tile->tile_x, door_tile->tile_y, true, true);
             }
             else
             {
                 BspListener::output << "nodes NOT A leaf " << std::endl;
                 // std::cout << "nodes NOT A leaf " << std::endl;
+
                 Tile* tile;
                 TCODRandom *rng = TCODRandom::getInstance();
                 int x, y;
@@ -550,10 +558,12 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     converter << target_tile->is_occupied();
     string bool_string = converter.str();
 
-    if(new_x < width && new_x > -1 &&
-            new_y < height && new_y > -1 &&
-            (target_tile->type_id == 3 || target_tile->type_id == 2) &&
-            !target_tile->is_occupied())
+    int vec[] = {3, 2, 5, 6}; //walkable types of tiles
+    std::vector<int> vec_ints(vec, vec+4);
+    bool in_types = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id)!=vec_ints.end();
+
+    if (new_x < width && new_x > -1 && new_y < height && new_y > -1 &&
+            (in_types) && !target_tile->is_occupied())
     {
         thePerson->has_attacked = false;
         thePerson->putPerson(target_tile, new_x, new_y);

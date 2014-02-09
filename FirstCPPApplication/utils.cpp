@@ -182,3 +182,9 @@ std::string char_to_str(char chr)
 //                 [](T s) { return s == NULL; }),
 //             vect->end());
 // };
+
+// template<class T, class T2>
+// bool isInVector<T, T2>(T vect, T2 elem)
+// {
+// 	return std::find(vect.begin(), vect.end(), elem)!=vect.end();
+// };

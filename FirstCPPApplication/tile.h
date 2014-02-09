@@ -21,6 +21,8 @@ class WarpRepresentation;
 class FloorRepresentation;
 class WallRepresentation;
 class BaseRepresentation;
+class StairsDownRepresentation;
+class StairsUpRepresentation;
 
 class TCODColor;
 
@@ -70,10 +72,22 @@ class DoorTileType : public BaseTileType
         void ToggleDoor();
 };
 
+class StairsDownTileType : public BaseTileType
+{
+    public: 
+        StairsDownTileType();
+};
+
 class FloorTileType : public BaseTileType
 {
     public: 
         FloorTileType();
+};
+
+class StairsUpTileType : public BaseTileType
+{
+    public: 
+        StairsUpTileType();
 };
 
 class Tile : public Object
