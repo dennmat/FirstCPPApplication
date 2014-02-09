@@ -39,7 +39,7 @@ Map::~Map()
 
 Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 {
-    vector<Tile> * temp;
+    vector<Tile> * x_tiles;
 
     if (x < 0  )
     {
@@ -71,7 +71,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 
 
     //try to get the y vector
-    try { temp = &tileVector->at(y); }
+    try { x_tiles = &tileVector->at(y); }
     catch ( std::out_of_range& ex )
     {
         ex;
@@ -83,14 +83,9 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     // and sense an message if the position isn't the same as the original position
     try 
     {
-        temp->at(x);
-        // if (!is_original_pos)
-        // {
-        //     cout << "original position was " << ox << " and ";
-        //     cout << oy << " but setting to " << x << " and " << y;
-        //     cout << " instead." << endl;
-        // }
-        return &(*tileVector)[y][x]; 
+        auto found_tile = &x_tiles->at(x);
+        //auto found_tile2=  &(*tileVector)[y][x]; 
+        return found_tile;
     }
     catch ( std::out_of_range& ex )
     {
@@ -128,13 +123,6 @@ class BspListener : public ITCODBspCallback
                 int perimeter = room_w*2 + room_h*2 - 4;
                 int door_index = rng->getInt(0, perimeter);
                 map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
-
-                //Room(x, y, x+w-1, y+h-1);
-                // if ( roomNum != 0 ) {
-                //     //dig a corridor from last room
-                //         map.dig(lastx,lasty,x+w/2,lasty);
-                //     map.dig(x+w/2,lasty,x+w/2,y+h/2);
-                // }
 
                 lastx=room_x+room_w/2;
                 lasty=room_y+room_h/2;
