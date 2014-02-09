@@ -148,7 +148,7 @@ class BspListener : public ITCODBspCallback
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
                     tile= map.getTileAt(x, y);
-                    if ( tile->tile->type_id == 3)
+                    if ( tile->tile->type_id == TileTypes::FloorTileTypeType)
                     {
                         tile->tile->representation->repr = ',';
                         tile->tile->representation->setFGColor(TCODColor::darkerGrey, true, true, true);
@@ -188,7 +188,7 @@ int Map::build_from_random(int seed)
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
         this_tile->updateTileType(3);
-        if(this_tile->type_id == 3)
+        if(this_tile->type_id == TileTypes::FloorTileTypeType)
         {
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
@@ -325,7 +325,7 @@ int Map::build_from_file(string filename)
             tileArray[i].updateTileType(tileType);
 
             // printf("x %i y %i\n", x, y);
-            if(tileArray[i].type_id == 3)
+            if(tileArray[i].type_id == TileTypes::FloorTileTypeType)
             {
                 //light passes though, walkable
                 l_map -> setProperties(x, y, true, true);
@@ -341,7 +341,7 @@ int Map::build_from_file(string filename)
                 // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
             }
 
-            if(tileArray[i].type_id == 2)
+            if(tileArray[i].type_id == TileTypes::WarpTileTypeType)
             {
                 WarpTileType* warp_tile;
                 warp_tile = (WarpTileType*) tileArray[i].tile;
@@ -587,7 +587,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     }
 
     //doors
-    else if (target_tile->type_id == 4)
+    else if (target_tile->type_id == TileTypes::DoorTileTypeType)
     {
         if (((DoorTileType*)target_tile->tile)->is_open)
         {

@@ -23,7 +23,7 @@ using namespace std;
 
 Tile::Tile()
 {
-    type_id = 0;
+    type_id = TileTypes::BaseTileTypeType;
     _is_occupied = false;
     _is_known = false;
 
