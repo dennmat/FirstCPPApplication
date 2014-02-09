@@ -24,7 +24,7 @@ using namespace std;
 
 Tile::Tile()
 {
-    this->tile = NULL;
+    this->tile = new BaseTileType;
     this->is_deleted = false;
     type_id = TileTypes::BaseTileTypeType;
     _is_occupied = false;
@@ -117,10 +117,12 @@ void Tile::makeUnoccupied(Actor* the_actor)
 
 void Tile::updateTileType(int type )
 {
-    if (this->tile != NULL && this->is_deleted == false) { 
-        delete this->tile;
-        this->is_deleted = true;
-    };
+    // if (this->tile != NULL && this->is_deleted == false) { 
+    //     delete this->tile->representation;
+    //     delete this->tile->color;
+    //     delete this->tile;
+    //     this->is_deleted = true;
+    // };
 
     this->type_id = type;
 
@@ -222,9 +224,10 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 
 BaseTileType::BaseTileType() 
 {
+    this->color = new TCODColor;
     this->description = "Another descriptionless tile";
-    type_id = TileTypes::BaseTileTypeType;
-    representation = new BaseRepresentation; 
+    this->type_id = TileTypes::BaseTileTypeType;
+    this->representation = new BaseRepresentation; 
 };
 
 WallTileType::WallTileType() : BaseTileType() 

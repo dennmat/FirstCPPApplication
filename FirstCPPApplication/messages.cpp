@@ -17,11 +17,11 @@ MessageHandler::MessageHandler()
     //msg->vlist = " ";
     msg->count = 0;
     this->msg_list.push_back(msg);
+    // std::cout << "creating message handler" << std::endl;
 };
 
 void MessageHandler::new_msg(Message* message)
 {
-
 
     Message* last_msg = this->msg_list.back();
     //compare messages to see if the count should increment
@@ -153,7 +153,7 @@ Message::Message(MessageHandler* handler, std::string content, ...)
     va_list ap;
     va_start(ap, content);
 
-    char* x = new char[999*32];
+    char* x = new char[255*32];
     vsprintf(x, content.c_str(), ap);
     this->content = std::string(x);
 

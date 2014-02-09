@@ -187,7 +187,7 @@ int Map::build_from_random(int seed)
     {
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
-        this_tile->updateTileType(3);
+        this_tile->updateTileType(TileTypes::FloorTileTypeType);
         if(this_tile->type_id == TileTypes::FloorTileTypeType)
         {
             //light passes though, walkable

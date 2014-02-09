@@ -5,6 +5,34 @@
 
 #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 
+Representation::~Representation()
+{
+    delete this->fg_color;
+    delete this->temp_fg_color;
+    delete this->orig_fg_color;
+
+    delete this->bg_color;
+    delete this->temp_bg_color;
+    delete this->orig_bg_color;
+};
+
+Representation::Representation()
+{
+    repr = '/';
+
+    int r,b,g;
+    this->getRGBFromColor(r, g, b, TCODColor::white);
+    fg_color = this->createColorFromRGB(r, g, b);
+    temp_fg_color = this->createColorFromRGB(r, g, b);
+    orig_fg_color = this->createColorFromRGB(r, g, b);
+
+    this->getRGBFromColor(r, g, b, TCODColor::black);
+    bg_color = this->createColorFromRGB(r, g, b);
+    temp_bg_color = this->createColorFromRGB(r, g, b);
+    orig_bg_color = this->createColorFromRGB(r, g, b);
+};
+
+
 void Representation::getRGBFromColor(int& r, int& g, int& b, TCODColor color)
 {
     r = color.r;
@@ -37,22 +65,6 @@ void Representation::setFGColor(TCODColor color, bool set_fg, bool set_temp, boo
     };
     // std::cout << "rbg: " << r << g << b << std::endl;
 
-};
-
-Representation::Representation()
-{
-    repr = '/';
-
-    int r,b,g;
-    this->getRGBFromColor(r, g, b, TCODColor::white);
-    fg_color = this->createColorFromRGB(r, g, b);
-    temp_fg_color = this->createColorFromRGB(r, g, b);
-    orig_fg_color = this->createColorFromRGB(r, g, b);
-
-    this->getRGBFromColor(r, g, b, TCODColor::black);
-    bg_color = this->createColorFromRGB(r, g, b);
-    temp_bg_color = this->createColorFromRGB(r, g, b);
-    orig_bg_color = this->createColorFromRGB(r, g, b);
 };
 
 DeadRepresentation::DeadRepresentation(): Representation()

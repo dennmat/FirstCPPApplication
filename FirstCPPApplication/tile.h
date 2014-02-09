@@ -100,50 +100,50 @@ class Tile : public Object
         bool is_deleted;
 
     public:
-    BaseTileType * tile;
-    Inventory* inventory;
-    int type_id;               // type of tile
+        BaseTileType * tile;
+        Inventory* inventory;
+        int type_id;               // type of tile
 
-    int tile_x;
-    int tile_y;
+        int tile_x;
+        int tile_y;
 
-    Map* map; //the map that this tile is on
+        Map* map; //the map that this tile is on
 
-    std::vector<Actor *> * occupants;       // the dude sitting on the tile
-    std::vector<Item *> * items;       // the dude sitting on the tile
-    Actor * occupant;
+        std::vector<Actor *> * occupants;       // the dude sitting on the tile
+        std::vector<Item *> * items;       // the dude sitting on the tile
+        Actor * occupant;
 
-    bool is_occupied() { return this->_is_occupied; };
+        bool is_occupied() { return this->_is_occupied; };
 
-    bool check_for_items();
-    void place_item_down(Item* item);
-    void pick_up_item(Item* item);
+        bool check_for_items();
+        void place_item_down(Item* item);
+        void pick_up_item(Item* item);
 
-    bool is_known() { return this->_is_known; };
-    void setKnown(bool is_known);
+        bool is_known() { return this->_is_known; };
+        void setKnown(bool is_known);
 
-    void drawColorsToRoot(TCODColor* fg_color, TCODColor* bg_color);
+        void drawColorsToRoot(TCODColor* fg_color, TCODColor* bg_color);
 
 
-    Tile(); 
-    ~Tile(){ delete tile; };
+        Tile(); 
+        ~Tile(){ delete tile; };
 
-    void updateTileType(int type = 0);
-    void makeOccupied(Actor* the_actor);
-    void makeUnoccupied(Actor* the_actor);
+        void updateTileType(int type = 0);
+        void makeOccupied(Actor* the_actor);
+        void makeUnoccupied(Actor* the_actor);
 
-    Tile* getTileAtRelative(int x, int y);
-    std::vector<Tile*>* Tile::getAdjacentTiles(int scale = 1);
-    std::vector<Tile*>* getVacantAdjacentTiles();
+        Tile* getTileAtRelative(int x, int y);
+        std::vector<Tile*>* Tile::getAdjacentTiles(int scale = 1);
+        std::vector<Tile*>* getVacantAdjacentTiles();
 
-    Tile* getTopLeftTile(int scale = 1);
-    Tile* getTopMidTile(int scale = 1);
-    Tile* getTopRightTile(int scale = 1);
-    Tile* getMidRightTile(int scale = 1);
-    Tile* getBotRightTile(int scale = 1);
-    Tile* getBotMidTile(int scale = 1);
-    Tile* getBotLeftTile(int scale = 1);
-    Tile* getMidLeftTile(int scale = 1);
+        Tile* getTopLeftTile(int scale = 1);
+        Tile* getTopMidTile(int scale = 1);
+        Tile* getTopRightTile(int scale = 1);
+        Tile* getMidRightTile(int scale = 1);
+        Tile* getBotRightTile(int scale = 1);
+        Tile* getBotMidTile(int scale = 1);
+        Tile* getBotLeftTile(int scale = 1);
+        Tile* getMidLeftTile(int scale = 1);
 };
 
 #endif
