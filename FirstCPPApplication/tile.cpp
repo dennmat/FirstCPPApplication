@@ -9,6 +9,7 @@
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
+#include "game.h"
 #include "tile.h"
 #include "map.h"
 #include "item.h"
@@ -23,6 +24,8 @@ using namespace std;
 
 Tile::Tile()
 {
+    this->tile = NULL;
+    this->is_deleted = false;
     type_id = TileTypes::BaseTileTypeType;
     _is_occupied = false;
     _is_known = false;
@@ -114,6 +117,11 @@ void Tile::makeUnoccupied(Actor* the_actor)
 
 void Tile::updateTileType(int type )
 {
+    if (this->tile != NULL && this->is_deleted == false) { 
+        delete this->tile;
+        this->is_deleted = true;
+    };
+
     this->type_id = type;
 
     if (type == 0) { tile = new BaseTileType; }
@@ -129,6 +137,7 @@ void Tile::updateTileType(int type )
         cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
     this->tile->tile=this;
+    this->is_deleted = false;
 
 };
 
@@ -273,6 +282,13 @@ StairsDownTileType::StairsDownTileType() : BaseTileType()
     this->description = "Stairs leading downwards";
     type_id = TileTypes::StairsDownTileTypeType;
     representation = new StairsDownRepresentation; 
+};
+
+void StairsDownTileType::GoDown()
+{
+    auto map = Game::buildworld();
+    Game::current_map = map;
+
 };
 
 StairsUpTileType::StairsUpTileType() : BaseTileType() 

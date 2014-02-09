@@ -29,6 +29,7 @@ enum basic_cmds_t {
     Pickup, Drop,
     OpenInventory,
     Look, ActivateDoor,
+    DownStairs, UpStairs,
     NO_MATCHING_BASIC_CMD
 };
 
@@ -43,6 +44,8 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap[','] = basic_cmds_t::Pickup;
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
+    char_movemap['>'] = basic_cmds_t::DownStairs;
+    char_movemap['<'] = basic_cmds_t::UpStairs;
 
     if (key.vk == TCODK_CHAR) 
     {
@@ -220,6 +223,20 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
             std::cout << "there's NO DAMN door here" << std::endl;
         };
         //open the door
+    }
+
+    else if ( basic_cmd == basic_cmds_t::DownStairs )
+    {
+        Tile* stair_tile = Game::player->my_tile;
+        if (stair_tile->type_id == TileTypes::StairsDownTileTypeType)
+        {
+            std::cout << "there's a stair down here, its gon go down" << std::endl;
+            ((StairsDownTileType*)stair_tile)->GoDown();
+        }
+        else
+        {
+            std::cout << "There's no stair here" << std::endl;
+        };
     };
 
     return false;

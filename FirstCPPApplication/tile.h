@@ -77,6 +77,7 @@ class StairsDownTileType : public BaseTileType
 {
     public: 
         StairsDownTileType();
+        void GoDown();
 };
 
 class FloorTileType : public BaseTileType
@@ -93,8 +94,10 @@ class StairsUpTileType : public BaseTileType
 
 class Tile : public Object
 {
-    bool _is_occupied;
-    bool _is_known;
+    private:
+        bool _is_occupied;
+        bool _is_known;
+        bool is_deleted;
 
     public:
     BaseTileType * tile;
