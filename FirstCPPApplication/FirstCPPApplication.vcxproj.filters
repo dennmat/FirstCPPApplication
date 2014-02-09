@@ -272,6 +272,9 @@
     <ClInclude Include="messages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enums\tiletypes_t.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

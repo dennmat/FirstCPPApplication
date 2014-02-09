@@ -156,6 +156,7 @@
     <ClInclude Include="debug_options.h" />
     <ClInclude Include="enemies\skeleton.h" />
     <ClInclude Include="enemies\troll.h" />
+    <ClInclude Include="enums\tiletypes_t.h" />
     <ClInclude Include="equipment.h" />
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />

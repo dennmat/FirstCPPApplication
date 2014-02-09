@@ -15,6 +15,7 @@
 #include "inventory.h"
 #include "Representation.h"
 #include "utils.h"
+#include "enums\tiletypes_t.h"
 
 
 
@@ -213,21 +214,21 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 BaseTileType::BaseTileType() 
 {
     this->description = "Another descriptionless tile";
-    type_id = 0;
+    type_id = TileTypes::BaseTileTypeType;
     representation = new BaseRepresentation; 
 };
 
 WallTileType::WallTileType() : BaseTileType() 
 {
     this->description = "Non descript wall";
-    type_id = 1;
+    type_id = TileTypes::WallTileTypeType;
     representation = new WallRepresentation;
 };
 
 WarpTileType::WarpTileType() : BaseTileType() 
 {
     this->description = "A strange color eminates from the ground";
-    type_id = 2;
+    type_id = TileTypes::WarpTileTypeType;
     representation = new WarpRepresentation; 
 };
 
@@ -235,7 +236,7 @@ DoorTileType::DoorTileType()  : BaseTileType()
 {
     this->description = "A door, it's probably open, but who can even tell?";
     this->is_open = false;
-    type_id = 4;
+    type_id = TileTypes::DoorTileTypeType;
     representation = new DoorRepresentation; 
 };
 
@@ -270,20 +271,20 @@ void DoorTileType::OpenDoor()
 StairsDownTileType::StairsDownTileType() : BaseTileType() 
 {
     this->description = "Stairs leading downwards";
-    type_id = 5;
+    type_id = TileTypes::StairsDownTileTypeType;
     representation = new StairsDownRepresentation; 
 };
 
 StairsUpTileType::StairsUpTileType() : BaseTileType() 
 {
     this->description = "Stairs leading upwards";
-    type_id = 6;
+    type_id = TileTypes::StairsUpTileTypeType;
     representation = new StairsUpRepresentation; 
 };
 
 FloorTileType::FloorTileType() : BaseTileType() 
 {
     this->description = "Plain old floor";
-    type_id = 3;
+    type_id = TileTypes::FloorTileTypeType;
     representation = new FloorRepresentation; 
 };
