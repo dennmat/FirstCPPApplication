@@ -261,13 +261,13 @@ void Map::build_rect_room(int room_x, int room_y,
             //check for outer perimeter
             if (room->isPerimeter(new_x, new_y))
             {
-                getTileAt(adj_x, adj_y)->updateTileType(1); //for wall
+                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::WallTileTypeType); //for wall
                 l_map -> setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (room->checkDoorCount())
                 {
-                    getTileAt(adj_x, adj_y)->updateTileType(4); //for door
+                    getTileAt(adj_x, adj_y)->updateTileType(TileTypes::DoorTileTypeType); //for door
                     l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
@@ -275,7 +275,7 @@ void Map::build_rect_room(int room_x, int room_y,
             //everything else
             else 
             {
-                getTileAt(adj_x, adj_y)->updateTileType(3); //for floor
+                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
             }
 
