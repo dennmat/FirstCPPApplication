@@ -7,6 +7,9 @@
 #include "libtcod.hpp"
 #include <vector>
 #include <algorithm>
+#include <exception>
+
+#include <jansson.h>
 
 #include "utils.h"
 #include "map.h"
@@ -163,6 +166,36 @@ std::stringstream BspListener::output = std::stringstream();
 
 int Map::build_from_random(int seed)
 {
+    std::string path = get_data_path()+"testing_jansson.json";
+    ifstream myfile(path);
+    if (!myfile.is_open())
+    {
+        throw std::bad_exception();
+    }
+    stringstream ss;
+    ss << myfile.rdbuf(); 
+
+    json_t* root;
+    json_error_t error;
+    std::string s = ss.str();
+    const char* j_text = s.c_str();
+    root = json_loads(j_text, 0, &error);
+    json_t* text = json_object_get(root, "testing");
+    if (!text)
+    {
+        std::cout << error.text << std::endl;
+        throw std::exception("help");
+    }
+
+
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
+    std::cout << json_string_value(text) << std::endl;
     width = Game::map_width;
     height = Game::map_height;
     l_map = new TCODMap(width, height);

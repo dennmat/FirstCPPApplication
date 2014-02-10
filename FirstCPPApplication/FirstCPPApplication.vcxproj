@@ -147,6 +147,7 @@
     <None Include="world.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Debug\jansson.h" />
     <ClInclude Include="actors\actor.h" />
     <ClInclude Include="actors\Person.h" />
     <ClInclude Include="attribute.h" />
