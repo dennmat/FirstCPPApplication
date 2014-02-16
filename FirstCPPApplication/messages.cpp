@@ -107,24 +107,44 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     std::vector<std::string> prerendered_msgs;
     int last_turn = Game::turn_count;
     int turn_count = 0;
+    int copy_count = 2;
     std::string prerendered_single = "";
+    std::string last_msg = "";
+    std::string new_msg = "";
+
 
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
-        if (turn_count >= 10) break;
+        if (prerendered_msgs.size() >= turn_limit) break;
 
         if (last_turn != (*it)->turn) 
         {
             turn_count++;
-            prerendered_msgs.push_back(prerendered_single);
+            // if its a new message, add it,
+            if (last_msg != prerendered_single)
+            {
+                prerendered_msgs.push_back(prerendered_single);
+                last_msg = prerendered_single;
+                copy_count = 2; //reset
+            }
+            // if its a copy store the original and add in the modded one
+            else
+            {
+                last_msg = prerendered_single;
+                //convert turn number to string and append it
+                std::stringstream ss;
+                ss << copy_count;
+                std::string copy_str = ss.str();
+                copy_count++;
+
+                prerendered_single.append("(x"+copy_str+")");
+                prerendered_msgs.pop_back();
+                prerendered_msgs.push_back(prerendered_single);
+            }
             prerendered_single.clear();
             last_turn = (*it)->turn;
         };
 
-        //convert turn number to string and append it
-        std::stringstream ss;
-        ss << (*it)->turn;
-        std::string turn_str = ss.str();
-        prerendered_single.append(((*it)->content+" "+ turn_str+" "));
+        prerendered_single.append(((*it)->content+" "));
     }
 
     if (prerendered_single.size() > 0) {
