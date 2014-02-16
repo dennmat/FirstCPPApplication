@@ -12,7 +12,7 @@ Item::Item()
     this->item_effect = new ItemEffect;
 
     this->name = "A Nameless Item";
-    this->description = "A Descriptionless Item";
+    this->description = "A Descriptionless Item.";
 
     this->usable = false;
     this->equippable = false;

@@ -17,6 +17,8 @@
 #include "Representation.h"
 #include "item.h"
 #include "item_effect.h"
+#include "ui.h"
+#include "messages.h"
 
 
 Actor::Actor()
@@ -238,6 +240,8 @@ void Actor::Die()
     {
         delete this->thinker;
     };
+
+    new Message(Ui::msg_handler_main, "%s died!", this->name.c_str());
 
 };
 

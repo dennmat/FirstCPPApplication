@@ -358,14 +358,19 @@ void Game::mainloop()
                     //this used to be after input was processed but turn hadn't
                     //been incremented
                     int item_count = player->my_tile->inventory->get_count();
-                    if (item_count > 0)
+                    if (item_count == 1)
                     {
-                        std::string msg_str = (item_count == 1) ? "An item is on the ground" : "%d items are on the ground";
+                        std::string msg_str =  "%s is on the ground.";
+                        Message* msg = new Message(Ui::msg_handler_main, msg_str, player->my_tile->inventory->items->back()->name.c_str());
+                    }
+                    else if (item_count > 1)
+                    {
+                        std::string msg_str = "%d items are on the ground.";
                         Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
                     }
                     else 
                     {
-                        Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground");
+                        Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground.");
                     }
                     Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
 

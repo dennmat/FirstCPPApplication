@@ -16,6 +16,8 @@
 #include "attribute.h"
 #include "tile.h"
 #include <Representation.h>
+#include "ui.h"
+#include "messages.h"
 
 
 
@@ -131,6 +133,7 @@ void Combat::GiveExp(int exp_to_gain)
 
 void Combat::Attack(Combat* combat_target, int dmg){
     //cout << "About to attack " << (*combat_target).name << endl;
+    new Message(Ui::msg_handler_main, "About to attack %s for %d damage", (*combat_target).master->name.c_str(), dmg);
     combat_target->TakeDamage(this, dmg);
 
     bool is_target_dead = combat_target->CheckDeath();

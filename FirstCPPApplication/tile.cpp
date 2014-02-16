@@ -225,7 +225,7 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 BaseTileType::BaseTileType() 
 {
     this->color = new TCODColor;
-    this->description = "Another descriptionless tile";
+    this->description = "Another descriptionless tile.";
     this->type_id = TileTypes::BaseTileTypeType;
     this->representation = new BaseRepresentation; 
 };
