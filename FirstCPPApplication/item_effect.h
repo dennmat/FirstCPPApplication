@@ -14,6 +14,7 @@ class Inventory;
 class Tile;
 class Item;
 class Attribute;
+class TCODColor;
 
 struct type_applied_s 
 {
@@ -87,7 +88,8 @@ class ItemEffect
 
         std::string ItemEffect::small_convert(std::string prefix, long double val);
         std::string full_str();
-        std::string ItemEffect::oneline_str();
+        std::string oneline_str();
+        std::vector<TCODColor> oneline_str_colours();
 
         void set_all_vals_to(int new_val);
         void set_health_vals_to(int new_val);

@@ -189,6 +189,11 @@ void Ui::draw_ui_sidebar()
 
     int initial_y = 15;
     int y = initial_y;
+    Ui::draw_xp(y, ui_sidebar_con, ui_sidebar_fore);
+    y++;
+
+    initial_y = y;
+
     int ci = 0;
     TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
     std::vector<std::string> player_attrs = Ui::game->player->attrs->PrettyVector();
@@ -210,8 +215,23 @@ void Ui::draw_ui_sidebar()
 
     y++;
 
+
+
+    //draw ui console to root
+    TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, Ui::game->screen_w-ui_sidebar_w, 0 );
+    delete ui_sidebar_con;
+};
+
+void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
+{
     // experience bar
     ui_sidebar_con->setDefaultForeground(ui_sidebar_fore);
+
+    ui_sidebar_con->print(0, y, "XP LEVEL %d", Ui::game->player->level);
+    y++;
+
+    ui_sidebar_con->print(0, y, "XP TOTAL %d", Ui::game->player->xp);
+    y++;
 
     std::string left_exp = ">";
     std::string right_exp = "";
@@ -232,12 +252,16 @@ void Ui::draw_ui_sidebar()
     right_exp.append(right_count, '-');
     right_exp.append(1, '>');
 
-    ui_sidebar_con->print(0, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
+    if (left_percent != 1.0f)
+    {
+        ui_sidebar_con->print(0, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
+    }
+    else //fill bar all the way when level max reached
+    {
+        ui_sidebar_con->print(0, y, "%c%s%s%c", TCOD_COLCTRL_1, left_exp.c_str(), right_exp.c_str(), TCOD_COLCTRL_STOP );
+    }
+    y++;
 
-
-    //draw ui console to root
-    TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, Ui::game->screen_w-ui_sidebar_w, 0 );
-    delete ui_sidebar_con;
 };
 
 void Ui::draw_ui_msg()

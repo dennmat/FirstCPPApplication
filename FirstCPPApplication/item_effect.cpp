@@ -7,6 +7,7 @@
 #include "attribute.h"
 #include <actors/actor.h>
 #include "utils.h"
+#include "libtcod.hpp"
 
 ItemEffect::ItemEffect()
 {
@@ -426,6 +427,61 @@ std::string ItemEffect::small_convert(std::string prefix, long double val)
     };
 
 };
+
+std::vector<TCODColor> ItemEffect::oneline_str_colours()
+{
+    TCODColor health_color = TCODColor::green;
+    TCODColor mana_color = TCODColor::blue;
+    TCODColor armor_color = TCODColor::grey;
+    TCODColor damage_color = TCODColor::red;
+    std::vector<TCODColor>  color_vector;   
+    //for each attr in this item effect that isn't 0, return a attr specific
+    //color
+    if (this->health_current_val != 0)
+        color_vector.push_back(health_color);
+    if (this->health_max_val != 0)
+        color_vector.push_back(health_color);
+    if (this->health_regen_rate != 0)
+        color_vector.push_back(health_color);
+    if (this->health_regen_interval != 0)
+        color_vector.push_back(health_color);
+    
+    if (this->mana_current_val != 0)
+        color_vector.push_back(health_color);
+    if (this->mana_max_val != 0)
+        color_vector.push_back(health_color);
+    if (this->mana_regen_rate != 0)
+        color_vector.push_back(health_color);
+    if (this->mana_regen_interval != 0)
+        color_vector.push_back(health_color);
+
+    if (this->armor_current_val != 0)
+        color_vector.push_back(health_color);
+    if (this->armor_max_val != 0)
+        color_vector.push_back(health_color);
+    if (this->armor_regen_rate != 0)
+        color_vector.push_back(health_color);
+    if (this->armor_regen_interval != 0)
+        color_vector.push_back(health_color);
+
+    if (this->damage_current_val != 0)
+        color_vector.push_back(health_color);
+    if (this->damage_max_val != 0)
+        color_vector.push_back(health_color);
+    if (this->damage_regen_rate != 0)
+        color_vector.push_back(health_color);
+    if (this->damage_regen_interval != 0)
+        color_vector.push_back(health_color);
+
+    //color_vector.push_back(TCOD_COLCTRL_STOP);
+    return color_vector;
+    
+};
+
+// std::string ItemEffect::oneline_str()
+// {
+// 
+// };
 
 std::string ItemEffect::oneline_str()
 {
