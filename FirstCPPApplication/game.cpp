@@ -367,7 +367,7 @@ void Game::mainloop()
                     {
                         Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground");
                     }
-                        Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
+                    Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
 
                     //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
                     printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
