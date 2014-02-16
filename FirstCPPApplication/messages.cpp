@@ -92,8 +92,10 @@ void MessageHandler::draw(TCODConsole* console)
             new_color = TCODColor::lerp(default_color, TCODColor::darkestGrey, coef);
         };
         console->setDefaultForeground(new_color);
-        console->print(x, y, (it)->c_str());
-        y++;
+
+        //check width of drawing area and wrap
+        int y_height = console->printRect(x, y, console->getWidth(), console->getHeight(), (it)->c_str());
+        y += y_height;
 
         if (y > 10) break; //don't need to loop over all messages
     };

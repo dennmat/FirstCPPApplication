@@ -372,6 +372,8 @@ void Game::mainloop()
                     {
                         Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground.");
                     }
+
+                    //tile description
                     Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
 
                     //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
@@ -393,10 +395,6 @@ void Game::mainloop()
                 //AIs update
                 if (incr_turn == true)
                 {
-                    //std::vector<Actor*>* ais = player->actors_in_sight;
-                    // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
-                    // cout << "Actor in sight: " << (*it)->GetNameC() << endl;
-                    // }
                     Game::update();
                 }
 
@@ -423,12 +421,9 @@ void Game::mainloop()
                 break;
         }
 
-        //draw libtcon to screen
+        //draw the root console to screen to screen
         TCODConsole::flush();
         TCODConsole::root->clear();
-
-        // cout << player->attrs->health->current_val << endl;
-        //cout << player->combat->cur_hp << endl;
 
         Game::tick_count++;
         // printf("ticks: %d \r", tick_count);
