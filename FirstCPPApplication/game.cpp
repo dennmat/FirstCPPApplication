@@ -80,10 +80,10 @@ Tile* Game::clipboard = NULL;
 Map* Game:: buildworld()
 {
 
-    cout << get_exe_path() << endl;
+    std::cout << get_exe_path() << std::endl;
 
-    string line;
-    ifstream myfile (get_data_path()+"world.txt");
+    std::string line;
+    std::ifstream myfile (get_data_path()+"world.txt");
     int num_of_worlds;
 
     if (myfile.is_open())
@@ -140,8 +140,8 @@ Map* Game:: buildworld()
 }
 
 //creates a person and places them on the current map
-Person * Game::create_person(string name, int age, int x, int y, char repr, 
-        Map* map, string Combat_name)
+Person * Game::create_person(std::string name, int age, int x, int y, char repr, 
+        Map* map, std::string Combat_name)
 {
     //build the Person
     Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
@@ -153,8 +153,8 @@ Person * Game::create_person(string name, int age, int x, int y, char repr,
     return new_pers;
 };
 
-Troll * Game::create_troll(string name, int age, int x, int y, char repr, 
-        Map* map, string Combat_name)
+Troll * Game::create_troll(std::string name, int age, int x, int y, char repr, 
+        Map* map, std::string Combat_name)
 {
     //build the Person
     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
@@ -167,8 +167,8 @@ Troll * Game::create_troll(string name, int age, int x, int y, char repr,
 
 };
 
-Skeleton * Game::create_skeleton(string name, int age, int x, int y, char repr,
-        Map* map, string Combat_name)
+Skeleton * Game::create_skeleton(std::string name, int age, int x, int y, char repr,
+        Map* map, std::string Combat_name)
 {
 
     //build the Person

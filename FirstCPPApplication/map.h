@@ -21,7 +21,6 @@ class Actor;
 
 class TCODMap;
 
-using namespace std;
 class Map : public Object
 {
     public:
@@ -31,9 +30,9 @@ class Map : public Object
         std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
 
         int width, height;
-        string description; // default description if tile does not have one
+        std::string description; // default description if tile does not have one
 
-        int build_from_file(string filename);
+        int build_from_file(std::string filename);
         int build_from_random(int seed);
 
         void build_rect_room(int room_x, int room_y,
@@ -43,8 +42,8 @@ class Map : public Object
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 
         Tile *tileArray;
-        vector< vector<Tile> > *tileVector;
-        vector<Room*> * roomVector;
+        std::vector< std::vector<Tile> > *tileVector;
+        std::vector<Room*> * roomVector;
         // Tile * getTileAt(int x, int y);
         Tile * getTileAt(int x, int y, bool is_original_pos=true, int ox=-1, int oy=-1);
 

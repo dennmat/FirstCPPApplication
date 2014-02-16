@@ -15,6 +15,8 @@
 #include "item.h"
 #include "item_effect.h"
 #include "messages.h"
+#include "map.h"
+#include "tile.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -133,12 +135,26 @@ void Ui::draw_ui()
     draw_ui_sidebar();
 };
 
+void draw_mouse_helpbox()
+{
+    TCODConsole help_con = TCODConsole(50, 3);
+    Tile* mouse_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
+    if (mouse_tile->is_occupied())
+        help_con.print(1, 1, mouse_tile->occupant->name.c_str());
+    else if (mouse_tile->inventory->get_count() > 0)
+        help_con.print(1, 1, mouse_tile->inventory->items->back()->name.c_str());
+    else
+        help_con.print(1, 1, mouse_tile->tile->description.c_str());
+    TCODConsole::root->blit(&help_con, 0, 0, 50, 3, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
+};
+
 void Ui::draw_ui_sidebar()
 {
     ui_sidebar_w = 20;
     ui_sidebar_h = Ui::game->screen_h-ui_msg_h;
     TCODConsole *ui_sidebar_con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
 
+draw_mouse_helpbox();
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
     TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();
