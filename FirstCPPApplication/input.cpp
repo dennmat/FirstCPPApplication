@@ -598,7 +598,7 @@ bool process_mouse_event(TCOD_mouse_t request, Person *player)
 {
 
     //set the foreground color to red for the tile the mouse is on
-    Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx, Game::mouse_evt.cy);
+    Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
     moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
 
     if (request.lbutton_pressed)

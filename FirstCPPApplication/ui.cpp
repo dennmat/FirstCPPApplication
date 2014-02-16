@@ -171,7 +171,7 @@ void Ui::draw_ui_sidebar()
 
     //mouse stats
     ui_sidebar_con->print(0, 5, "MOUSE X Y" );
-    ui_sidebar_con->print(0, 6, "%d %d", Ui::game->mouse_evt.cx, Ui::game->mouse_evt.cy);
+    ui_sidebar_con->print(0, 6, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
 
     //is moving in a direciton
     const char* move_left;
