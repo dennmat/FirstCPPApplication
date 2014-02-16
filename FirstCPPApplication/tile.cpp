@@ -232,14 +232,14 @@ BaseTileType::BaseTileType()
 
 WallTileType::WallTileType() : BaseTileType() 
 {
-    this->description = "Non descript wall";
+    this->description = "Non descript wall.";
     type_id = TileTypes::WallTileTypeType;
     representation = new WallRepresentation;
 };
 
 WarpTileType::WarpTileType() : BaseTileType() 
 {
-    this->description = "A strange color eminates from the ground";
+    this->description = "A strange color eminates from the ground.";
     type_id = TileTypes::WarpTileTypeType;
     representation = new WarpRepresentation; 
 };
@@ -266,7 +266,7 @@ void DoorTileType::ToggleDoor()
 
 void DoorTileType::CloseDoor()
 {
-    this->description = "A door is closed here";
+    this->description = "A door is closed here.";
     this->is_open = false;
     this->representation->repr = '+';
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, false, false);
@@ -274,7 +274,7 @@ void DoorTileType::CloseDoor()
 
 void DoorTileType::OpenDoor()
 {
-    this->description = "An open door";
+    this->description = "An open door.";
     this->is_open = true;
     this->representation->repr = '=';
     this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, true, true);
@@ -282,7 +282,7 @@ void DoorTileType::OpenDoor()
 
 StairsDownTileType::StairsDownTileType() : BaseTileType() 
 {
-    this->description = "Stairs leading downwards";
+    this->description = "Stairs leading downwards.";
     type_id = TileTypes::StairsDownTileTypeType;
     representation = new StairsDownRepresentation; 
 };

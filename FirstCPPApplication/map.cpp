@@ -155,7 +155,7 @@ class BspListener : public ITCODBspCallback
                     {
                         tile->tile->representation->repr = ',';
                         tile->tile->representation->setFGColor(TCODColor::darkerGrey, true, true, true);
-                        tile->tile->description = "A small stone lays here";
+                        tile->tile->description = "A small stone lays here.";
                     }
                 }
             }

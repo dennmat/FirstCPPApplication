@@ -230,12 +230,14 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         Tile* stair_tile = Game::player->my_tile;
         if (stair_tile->type_id == TileTypes::StairsDownTileTypeType)
         {
-            std::cout << "there's a stair down here, its gon go down" << std::endl;
+            //std::cout << "there's a stair down here, its gon go down" << std::endl;
+            new Message(Ui::msg_handler_main,"There's a stair down here, its gon go down to the next floor.");
             ((StairsDownTileType*)stair_tile)->GoDown();
         }
         else
         {
-            std::cout << "There's no stair here" << std::endl;
+            //std::cout << "There's no stair here" << std::endl;
+            new Message(Ui::msg_handler_main,"There's no stair here.");
         };
     };
 
