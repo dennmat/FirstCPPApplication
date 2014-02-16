@@ -217,10 +217,12 @@ void Ui::draw_ui_sidebar()
     std::string right_exp = "";
     float left_percent = ((float)(Ui::game->player->xp_this_level)) / Ui::game->player->xp_required ;
     if (left_percent < 0) left_percent = 0.0f;
+    if (left_percent > 1) left_percent = 1.0f;
 
     float right_raw = ((float)Ui::game->player->xp_required - (float)Ui::game->player->xp_this_level);
     float right_percent = right_raw / (float)Ui::game->player->xp_required;
     if (right_percent < 0) right_percent = 0.0f;
+    if (right_percent > 1) right_percent = 1.0f;
 
     int left_count = floor(left_percent * (float)8);
     int right_count = floor(right_percent * (float)8);

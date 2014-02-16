@@ -426,6 +426,8 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::SE)
     {
+        player->is_moving_down = true;
+        player->is_moving_right = true;
         if(Game::current_map->attackMovePlayer(player, 1, 1) )
         {
             move_camera(1, 1);

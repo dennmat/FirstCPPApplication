@@ -303,7 +303,7 @@ StairsUpTileType::StairsUpTileType() : BaseTileType()
 
 FloorTileType::FloorTileType() : BaseTileType() 
 {
-    this->description = "Plain old floor";
+    this->description = "Plain old floor.";
     type_id = TileTypes::FloorTileTypeType;
     representation = new FloorRepresentation; 
 };
