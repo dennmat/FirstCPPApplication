@@ -108,6 +108,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     int last_turn = Game::turn_count;
     int turn_count = 0;
     std::string prerendered_single = "";
+
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
         if (turn_count >= 10) break;
 
@@ -117,18 +118,13 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
             prerendered_msgs.push_back(prerendered_single);
             prerendered_single.clear();
             last_turn = (*it)->turn;
-            std::stringstream ss;
-            ss << (*it)->turn;
-            std::string turn_str = ss.str();
-            prerendered_single.append(((*it)->content+" "+ turn_str+" "));
-        }
-        else 
-        {
-            std::stringstream ss;
-            ss << (*it)->turn;
-            std::string turn_str = ss.str();
-            prerendered_single.append((*it)->content+" "+ turn_str+" ");
-        }
+        };
+
+        //convert turn number to string and append it
+        std::stringstream ss;
+        ss << (*it)->turn;
+        std::string turn_str = ss.str();
+        prerendered_single.append(((*it)->content+" "+ turn_str+" "));
     }
 
     if (prerendered_single.size() > 0) {
