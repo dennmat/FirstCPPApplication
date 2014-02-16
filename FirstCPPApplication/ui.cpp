@@ -141,7 +141,9 @@ void draw_mouse_helpbox()
     //get help text
     std::string help_text = "";
     Tile* mouse_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
-    if (mouse_tile->is_occupied())
+    if (! mouse_tile->is_known())
+        help_text = "Unknown tile";
+    else if (mouse_tile->is_occupied())
         help_text = mouse_tile->occupant->name;
     else if (mouse_tile->inventory->get_count() > 0)
         help_text = mouse_tile->inventory->items->back()->name;
@@ -155,8 +157,8 @@ void draw_mouse_helpbox()
     int adjusted_w = help_text_width+left_pad+right_pad;
     int adjusted_h = help_text_height+top_pad+bot_pad;
     TCODConsole help_con = TCODConsole(adjusted_w, adjusted_h);
-    //help_con.setDefaultBackground(TCODColor::darkGrey);
-    help_con.setDefaultForeground(TCODColor::grey);
+    if (!mouse_tile->is_known())
+        help_con.setDefaultForeground(TCODColor::grey);
     help_con.clear();
 
     help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
