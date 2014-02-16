@@ -278,6 +278,9 @@
     <ClInclude Include="..\Debug\jansson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="draw_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -353,6 +356,9 @@
       <Filter>Source Files\Actors</Filter>
     </ClCompile>
     <ClCompile Include="messages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

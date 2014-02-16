@@ -17,6 +17,7 @@
 #include "messages.h"
 #include "map.h"
 #include "tile.h"
+#include "draw_utils.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -137,15 +138,31 @@ void Ui::draw_ui()
 
 void draw_mouse_helpbox()
 {
-    TCODConsole help_con = TCODConsole(50, 3);
+    //get help text
+    std::string help_text = "";
     Tile* mouse_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
     if (mouse_tile->is_occupied())
-        help_con.print(1, 1, mouse_tile->occupant->name.c_str());
+        help_text = mouse_tile->occupant->name;
     else if (mouse_tile->inventory->get_count() > 0)
-        help_con.print(1, 1, mouse_tile->inventory->items->back()->name.c_str());
+        help_text = mouse_tile->inventory->items->back()->name;
     else
-        help_con.print(1, 1, mouse_tile->tile->description.c_str());
-    TCODConsole::root->blit(&help_con, 0, 0, 50, 3, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
+        help_text = mouse_tile->tile->description;
+
+    //draw the right sizes
+    int left_pad=1, right_pad=2, top_pad=1, bot_pad=1;
+    int help_text_width = help_text.size()+1;
+    int help_text_height = 3;
+    int adjusted_w = help_text_width+left_pad+right_pad;
+    int adjusted_h = help_text_height+top_pad+bot_pad;
+    TCODConsole help_con = TCODConsole(adjusted_w, adjusted_h);
+    //help_con.setDefaultBackground(TCODColor::darkGrey);
+    help_con.setDefaultForeground(TCODColor::grey);
+    help_con.clear();
+
+    help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
+
+    draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
+    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
 };
 
 void Ui::draw_ui_sidebar()
@@ -154,7 +171,7 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_h = Ui::game->screen_h-ui_msg_h;
     TCODConsole *ui_sidebar_con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
 
-draw_mouse_helpbox();
+    draw_mouse_helpbox();
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
     TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();
