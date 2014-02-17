@@ -25,7 +25,9 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "enemies\troll.h"
+#include "enemies\jackal.h"
 #include "enemies\skeleton.h"
+#include "enemies\ogre.h"
 #include <enums\gamestate.h>
 #include "item_effect.h"
 #include "Room.h"
@@ -183,6 +185,36 @@ Troll * Game::create_troll(std::string name, int age, int x, int y, char repr,
 {
     //build the Person
     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
+
+    //put it on the map somewhere
+    Tile * next_tile = map->getTileAt(x,y);
+    new_pers->putPerson(next_tile, x, y);
+
+    return new_pers;
+
+};
+
+Jackal * Game::create_jackal(std::string name, int age, int x, int y, char repr, 
+        Map* map, std::string Combat_name)
+{
+    //build the Person
+    Jackal * new_pers = new Jackal(name, age, x, y, repr, Combat_name);
+
+    //put it on the map somewhere
+    Tile * next_tile = map->getTileAt(x,y);
+    new_pers->putPerson(next_tile, x, y);
+
+    return new_pers;
+
+};
+
+Ogre * Game::create_ogre(std::string name, int age, int x, int y, char repr,
+        Map* map, std::string Combat_name)
+{
+
+    //build the Person
+    Ogre * new_pers = new Ogre(name, age, x, y, repr, Combat_name);
+
 
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);

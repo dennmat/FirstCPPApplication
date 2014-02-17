@@ -16,7 +16,9 @@ class Person;
 class Combat;
 class Actor;
 class Troll;
+class Jackal;
 class Skeleton;
+class Ogre;
 class Item;
 class DebugOptions;
 
@@ -82,7 +84,9 @@ class Game
 
         static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
         static Troll * create_troll(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        static Jackal * create_jackal(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
         static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        static Ogre * create_ogre(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
 
 
         static void mainloop();
