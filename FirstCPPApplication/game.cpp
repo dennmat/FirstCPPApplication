@@ -348,6 +348,8 @@ Person*  Game::initialize_player()
     player = new Person("Josh", 23, 3, 3, '@', "PLAYER ONE");
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
+    player->attrs->health->current_val=50;
+    player->attrs->health->max_val=50;
     player->attrs->damage->current_val=10;
     delete player->thinker;
     player->thinker = NULL;
