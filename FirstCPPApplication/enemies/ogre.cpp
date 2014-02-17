@@ -18,7 +18,7 @@
 
 Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
 {
-    this->xp_value = 50;
+    this->xp_value = 55;
     // this->name = name;
     // this->age = age;
     // this->x = x;
@@ -32,7 +32,7 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string comba
     TCODRandom* rnd = TCODRandom::getInstance();
     float variant = rnd->getFloat(9.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
-    this->representation->setFGColor(TCODColor::white * (variant/10.0f), true, true, true);
+    this->representation->setFGColor(TCODColor::turquoise * (variant/10.0f), true, true, true);
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;
@@ -47,4 +47,6 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string comba
 
     // my_tile = NULL;
 
+    this->attrs->health->max_val = 100;
+    this->attrs->health->current_val = 100;
 };

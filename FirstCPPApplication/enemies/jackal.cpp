@@ -18,7 +18,7 @@
 
 Jackal::Jackal(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
 {
-    this->xp_value = 10;
+    this->xp_value = 7;
     this->cls_name = "Jackal";
     // this->name = name;
     // this->age = age;
@@ -32,7 +32,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr, std::string c
     TCODRandom* rnd = TCODRandom::getInstance();
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
-    this->representation->setFGColor(TCODColor::darkGreen * (variant/10.0f), true, true, true);
+    this->representation->setFGColor(TCODColor::lightSepia * (variant/10.0f), true, true, true);
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;
@@ -47,7 +47,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr, std::string c
 
     // my_tile = NULL;
 
-    this->attrs->health->max_val = 30;
-    this->attrs->health->current_val = 30;
+    this->attrs->health->max_val = 20;
+    this->attrs->health->current_val = 20;
 
 };

@@ -46,5 +46,7 @@ Skeleton::Skeleton(std::string name, int age, int x, int y, char repr, std::stri
     // has_live_combat = true;
 
     // my_tile = NULL;
+    this->attrs->health->max_val = 80;
+    this->attrs->health->current_val = 80;
 
 };
