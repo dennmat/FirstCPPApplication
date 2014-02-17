@@ -20,6 +20,7 @@ class Item
         std::string name;
 
         bool usable;
+	int uses;
         bool equippable;
 
         ItemEffect* item_effect;

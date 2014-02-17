@@ -4,6 +4,8 @@
 #include "Representation.h"
 #include "item_effect.h"
 #include "actors/actor.h"
+#include "tile.h"
+#include "inventory.h"
 
 Item::Item()
 {
@@ -15,6 +17,7 @@ Item::Item()
     this->description = "A Descriptionless Item.";
 
     this->usable = false;
+    this->uses = 1;
     this->equippable = false;
 };
 
@@ -24,6 +27,12 @@ void Item::use(Actor* target)
     if ( this->usable )
     {
         this->item_effect->ApplyAllEffects(target);
+        this->uses--;
+        if (this->uses <= 0)
+        {
+            target->inventory->remove_item(this);
+	    delete this;
+        }
     }
     else
     {
