@@ -105,8 +105,7 @@ Map* Game:: buildworld()
         exit(EXIT_FAILURE);
     };
 
-    // Game::current_map = world;
-
+    //fill rooms with enemies and monsters
     bool is_troll = true;
     for (std::vector<Room*>::iterator it = Game::world->roomVector->begin(); it != Game::world->roomVector->end(); ++it)
     {
@@ -121,7 +120,19 @@ Map* Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                world->enemies.push_back( Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', world, "troll combat"));
+                Troll* the_troll;
+                if (rng->getInt(1, 100) > 10) 
+                {
+                    the_troll = Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', world, "troll combat");
+                }
+                else //hero
+                {
+                    the_troll = Game::create_troll("Burly Troll", 34, troll_x, troll_y, 'T', world, "Burly troll combat");
+                    the_troll->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
+                    the_troll->attrs->health->current_val+=the_troll->attrs->health->current_val;
+                    the_troll->attrs->health->max_val+=the_troll->attrs->health->max_val;
+                };
+                world->enemies.push_back(the_troll);
                 is_troll = false;
             }
         }
@@ -131,7 +142,21 @@ Map* Game:: buildworld()
             {
                 troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                world->enemies.push_back(Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', world, "skeleton combat"));
+                Skeleton* the_skelly;
+                if (rng->getInt(1, 100) > 10) 
+                {
+                    the_skelly = Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', world, "skeleton combat");
+                }
+                else
+                {
+                    the_skelly = Game::create_skeleton("Strong Skeleton", 92, troll_x, troll_y, 's', world, "strong skeleton combat");
+                    the_skelly->representation->setFGColor(TCODColor::white*(TCODColor::white-TCODColor::darkYellow), true, false, true);
+                    the_skelly->attrs->health->current_val+=the_skelly->attrs->health->current_val;
+                    the_skelly->attrs->health->max_val+=the_skelly->attrs->health->max_val;
+                    the_skelly->attrs->damage->current_val+=the_skelly->attrs->damage->current_val;
+                    the_skelly->attrs->damage->max_val+=the_skelly->attrs->damage->max_val;
+                };
+                world->enemies.push_back(the_skelly);
                 is_troll = true;
             }
         }

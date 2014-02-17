@@ -32,6 +32,8 @@ Actor::Actor()
     this->xp_value = 10;
     this->level = 1;
 
+    this->is_champion = false;
+
     this->representation = new Representation;
     this->inventory = new Inventory;
     this->inventory->master = this;

@@ -281,6 +281,12 @@
     <ClInclude Include="draw_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enemies\jackal.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="enemies\ogre.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -360,6 +366,12 @@
     </ClCompile>
     <ClCompile Include="draw_utils.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemies\jackal.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="enemies\ogre.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

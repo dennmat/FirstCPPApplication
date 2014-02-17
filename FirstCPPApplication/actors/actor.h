@@ -47,6 +47,7 @@ class Actor : public Object
         int level;
         int xp_value;
         
+        bool is_champion;
 
         bool is_moving_left;
         bool is_moving_right;

@@ -29,7 +29,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     if (name == "Josh")
 	{
-    new Message(Ui::msg_handler_main, "Creating the Josh player");
+    new Message(Ui::msg_handler_main, "Creating the Josh player.");
 	}
 
     this->xp = 0;
@@ -37,6 +37,8 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     this->xp_required = 100;
     this->xp_value = 10;
     this->level = 1;
+
+    this->is_champion = false;
 
     //set its representation, aka color and char
     this->representation = new Representation;
