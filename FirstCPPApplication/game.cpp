@@ -77,36 +77,8 @@ int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
 
 
-
-
-Map* Game:: buildworld()
+void Game::fill_world(Map* world)
 {
-
-    std::cout << get_exe_path() << std::endl;
-
-    std::string line;
-    std::ifstream myfile (get_data_path()+"world.txt");
-    int num_of_worlds;
-
-    if (myfile.is_open())
-    {
-        // get width
-        getline (myfile,line);
-        num_of_worlds = atoi(line.c_str());
-
-        world = new Map;
-        //world->the_game = this;
-        world[0].build_from_random(0);
-    }
-    else
-    {
-        TCHAR exepath[MAX_PATH+1];
-        GetModuleFileName(0, exepath, MAX_PATH+1);
-        MessageBox(0, exepath, _T("ERROR"), MB_OK);
-        MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
-        exit(EXIT_FAILURE);
-    };
-
     //fill rooms with enemies and monsters
     bool is_troll = true;
     for (std::vector<Room*>::iterator it = Game::world->roomVector->begin(); it != Game::world->roomVector->end(); ++it)
@@ -163,6 +135,39 @@ Map* Game:: buildworld()
             }
         }
     }
+
+};
+
+
+Map* Game:: buildworld()
+{
+
+    std::cout << get_exe_path() << std::endl;
+
+    std::string line;
+    std::ifstream myfile (get_data_path()+"world.txt");
+    int num_of_worlds;
+
+    if (myfile.is_open())
+    {
+        // get width
+        getline (myfile,line);
+        num_of_worlds = atoi(line.c_str());
+
+        world = new Map;
+        //world->the_game = this;
+        world[0].build_from_random(0);
+    }
+    else
+    {
+        TCHAR exepath[MAX_PATH+1];
+        GetModuleFileName(0, exepath, MAX_PATH+1);
+        MessageBox(0, exepath, _T("ERROR"), MB_OK);
+        MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
+        exit(EXIT_FAILURE);
+    };
+
+    Game::fill_world(world);
     return world;
 }
 

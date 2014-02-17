@@ -80,7 +80,8 @@ class Game
 
         static Person*  initialize_player();
         static void  initialize_enemies();
-        static void  Game::initialize_items();
+        static void  initialize_items();
+        static void fill_world(Map* world);
 
         static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
         static Troll * create_troll(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
