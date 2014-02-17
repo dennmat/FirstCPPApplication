@@ -104,7 +104,7 @@ void Game::fill_world(Map* world)
     // bool is_troll = true;
     for (std::vector<Room*>::iterator it = world->roomVector->begin(); it != world->roomVector->end(); ++it)
     {
-    SpawnTypes spawn_type = get_spawn_type();
+        SpawnTypes spawn_type = get_spawn_type();
         int creature_x, creature_y;
         TCODRandom *rng = TCODRandom::getInstance();
         if (spawn_type == SpawnTypes::TrollSpawn)
@@ -126,6 +126,7 @@ void Game::fill_world(Map* world)
                     the_troll->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
                     the_troll->attrs->health->current_val+=the_troll->attrs->health->current_val;
                     the_troll->attrs->health->max_val+=the_troll->attrs->health->max_val;
+                    the_troll->xp_value= floor(the_troll->xp_value*1.5);
                 };
                 world->enemies.push_back(the_troll);
                 // is_troll = false;
@@ -150,6 +151,7 @@ void Game::fill_world(Map* world)
                     the_jackal->representation->setFGColor(TCODColor::sepia+TCODColor::sepia+TCODColor::darkYellow, true, false, true);
                     the_jackal->attrs->health->current_val+=the_jackal->attrs->health->current_val;
                     the_jackal->attrs->health->max_val+=the_jackal->attrs->health->max_val;
+                    the_jackal->xp_value= floor(the_jackal->xp_value*1.5);
                 };
                 world->enemies.push_back(the_jackal);
                 // is_jackal = false;
@@ -157,32 +159,33 @@ void Game::fill_world(Map* world)
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
-        int enemy_count = rng->getInt(1, 5);
+            int enemy_count = rng->getInt(1, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                Ogre* the_skelly;
+                Ogre* the_ogre;
                 if (rng->getInt(1, 100) > 10) 
                 {
-                    the_skelly = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
+                    the_ogre = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
                 }
                 else
                 {
-                    the_skelly = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
-                    the_skelly->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
-                    the_skelly->attrs->health->current_val+=the_skelly->attrs->health->current_val;
-                    the_skelly->attrs->health->max_val+=the_skelly->attrs->health->max_val;
-                    the_skelly->attrs->damage->current_val+=the_skelly->attrs->damage->current_val;
-                    the_skelly->attrs->damage->max_val+=the_skelly->attrs->damage->max_val;
+                    the_ogre = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
+                    the_ogre->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
+                    the_ogre->attrs->health->current_val+=the_ogre->attrs->health->current_val;
+                    the_ogre->attrs->health->max_val+=the_ogre->attrs->health->max_val;
+                    the_ogre->attrs->damage->current_val+=the_ogre->attrs->damage->current_val;
+                    the_ogre->attrs->damage->max_val+=the_ogre->attrs->damage->max_val;
+                    the_ogre->xp_value = floor(the_ogre->xp_value*1.5);
                 };
-                world->enemies.push_back(the_skelly);
+                world->enemies.push_back(the_ogre);
                 // is_troll = true;
             }
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
-        int enemy_count = rng->getInt(1, 5);
+            int enemy_count = rng->getInt(1, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -200,6 +203,7 @@ void Game::fill_world(Map* world)
                     the_skelly->attrs->health->max_val+=the_skelly->attrs->health->max_val;
                     the_skelly->attrs->damage->current_val+=the_skelly->attrs->damage->current_val;
                     the_skelly->attrs->damage->max_val+=the_skelly->attrs->damage->max_val;
+                    the_skelly->xp_value= the_skelly->xp_value*1.5;
                 };
                 world->enemies.push_back(the_skelly);
                 // is_troll = true;

@@ -140,6 +140,14 @@ Equipment::Equipment()
     this->main_weapon = new Slot(slots_t::MainHand, this);
     this->off_weapon = new Slot(slots_t::OffHand, this);
 
+    this->left_thigh = new Slot(slots_t::Thighs, this);
+    this->right_thigh = new Slot(slots_t::Thighs, this);
+    this->left_shin = new Slot(slots_t::Shins, this);
+    this->right_shin = new Slot(slots_t::Shins, this);
+    this->left_foot = new Slot(slots_t::Feet, this);
+    this->right_foot = new Slot(slots_t::Feet, this);
+    
+
 };
 
 void Equipment::equip_item(Item* item)
@@ -204,7 +212,14 @@ bool Equipment::is_item_equipped(Item* item)
             this->right_ring_index->GetEquippedItem() == item ||
 
             this->main_weapon->GetEquippedItem() == item ||
-            this->off_weapon->GetEquippedItem() == item
+            this->off_weapon->GetEquippedItem() == item ||
+
+            this->left_thigh->GetEquippedItem() == item ||
+            this->right_thigh->GetEquippedItem() == item ||
+            this->left_shin->GetEquippedItem() == item ||
+            this->right_shin->GetEquippedItem() == item ||
+            this->left_foot->GetEquippedItem() == item ||
+            this->right_foot->GetEquippedItem() == item
             ) 
     {
         return true;

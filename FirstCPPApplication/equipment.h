@@ -80,6 +80,13 @@ class Equipment
         Slot* main_weapon;
         Slot* off_weapon;
 
+        Slot* left_thigh;
+        Slot* right_thigh;
+        Slot* left_shin;
+        Slot* right_shin;
+        Slot* left_foot;
+        Slot* right_foot;
+
 };
 
 

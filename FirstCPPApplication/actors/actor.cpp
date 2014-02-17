@@ -196,11 +196,12 @@ void Actor::Die()
     TCODRandom *rng = TCODRandom::getInstance();
     Item* dropped_item;
     int result = rng->getInt(0, 100);
-    if (result % 2 == 0)
+    if (result <= 15)
     {
         dropped_item = this->CreateCorpse();
+        this->my_tile->place_item_down(dropped_item);
     }
-    else if (result % 3 == 0)
+    else if (result <= 25)
     {
         dropped_item = new Item;
         dropped_item->repr->repr = '&';
@@ -214,8 +215,9 @@ void Actor::Die()
         int armor = rng->getInt(1, 5, 2);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
+        this->my_tile->place_item_down(dropped_item);
     }
-    else 
+    else if (result <= 35)
     {
         dropped_item = new Item;
         dropped_item->repr->repr = '/';
@@ -226,12 +228,79 @@ void Actor::Die()
 
         //sword damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-        int damage = rng->getInt(5, 15, 10);
+        int damage = rng->getInt(5, 15, 8);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
+        this->my_tile->place_item_down(dropped_item);
+    }
+    else if (result <= 45)
+    {
+        dropped_item = new Item;
+        dropped_item->repr->repr = ']';
+        dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
+        dropped_item->name = "A shield";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::OffHand;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(1, 5, 3);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+        this->my_tile->place_item_down(dropped_item);
+    }
+    else if (result <= 55)
+    {
+        dropped_item = new Item;
+        dropped_item->repr->repr = '/';
+        dropped_item->repr->setFGColor(TCODColor::darkestSepia, true, false, true);
+        dropped_item->name = "A mace";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::MainHand;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int damage = rng->getInt(1, 5, 3);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+        this->my_tile->place_item_down(dropped_item);
+    }
+    else if (result <= 65)
+    {
+        dropped_item = new Item;
+        dropped_item->repr->repr = '^';
+        dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
+        dropped_item->name = "A helmet";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::Head;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(1, 5, 3);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+        this->my_tile->place_item_down(dropped_item);
+    }
+    else if (result <= 70)
+    {
+        dropped_item = new Item;
+        dropped_item->repr->repr = '|';
+        dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
+        dropped_item->name = "An amulet";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::Neck;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(1, 5, 2);
+        int damage = rng->getInt(1, 5, 2);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+        this->my_tile->place_item_down(dropped_item);
     }
 
-    this->my_tile->place_item_down(dropped_item);
 
     //remove master from ai update list
     this->is_active = false;

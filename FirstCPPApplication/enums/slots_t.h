@@ -12,7 +12,10 @@ enum slots_t : unsigned int {
     Hands,
     Fingers,
     MainHand,
-    OffHand
+    OffHand,
+    Thighs,
+    Shins,
+    Feet,
 };
 
 #endif
