@@ -32,7 +32,7 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string comba
     TCODRandom* rnd = TCODRandom::getInstance();
     float variant = rnd->getFloat(9.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
-    this->representation->setFGColor(TCODColor::turquoise * (variant/10.0f), true, true, true);
+    this->representation->setFGColor(TCODColor::darkestTurquoise * (variant/10.0f), true, true, true);
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;

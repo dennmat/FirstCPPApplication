@@ -77,61 +77,132 @@ int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
 
 
+enum SpawnTypes {
+    TrollSpawn = 1,
+    JackalSpawn,
+    SkeletonSpawn,
+    OgreSpawn
+};
+
+SpawnTypes get_spawn_type()
+{
+    TCODRandom *rng = TCODRandom::getInstance();
+    int dice_roll = rng->getInt(0, 100);
+    if (dice_roll <= 30)
+        return SpawnTypes::TrollSpawn;
+    else if (dice_roll <= 60)
+        return SpawnTypes::JackalSpawn;
+    else if (dice_roll <= 80)
+        return SpawnTypes::SkeletonSpawn;
+    else if (dice_roll <= 100)
+        return SpawnTypes::OgreSpawn;
+};
+
 void Game::fill_world(Map* world)
 {
     //fill rooms with enemies and monsters
-    bool is_troll = true;
-    for (std::vector<Room*>::iterator it = Game::world->roomVector->begin(); it != Game::world->roomVector->end(); ++it)
+    // bool is_troll = true;
+    for (std::vector<Room*>::iterator it = world->roomVector->begin(); it != world->roomVector->end(); ++it)
     {
-        //place a troll in the middle of the room
-        int troll_x, troll_y;
+    SpawnTypes spawn_type = get_spawn_type();
+        int creature_x, creature_y;
         TCODRandom *rng = TCODRandom::getInstance();
-        int enemy_count = rng->getInt(1, 5);
-        if (is_troll)
+        if (spawn_type == SpawnTypes::TrollSpawn)
         {
 
+            int enemy_count = rng->getInt(1, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
-                troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+                creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
                 Troll* the_troll;
                 if (rng->getInt(1, 100) > 10) 
                 {
-                    the_troll = Game::create_troll("Random Troll", 34, troll_x, troll_y, 'T', world, "troll combat");
+                    the_troll = Game::create_troll("Random Troll", 34, creature_x, creature_y, 'T', world, "troll combat");
                 }
                 else //hero
                 {
-                    the_troll = Game::create_troll("Burly Troll", 34, troll_x, troll_y, 'T', world, "Burly troll combat");
+                    the_troll = Game::create_troll("Burly Troll", 34, creature_x, creature_y, 'T', world, "Burly troll combat");
                     the_troll->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
                     the_troll->attrs->health->current_val+=the_troll->attrs->health->current_val;
                     the_troll->attrs->health->max_val+=the_troll->attrs->health->max_val;
                 };
                 world->enemies.push_back(the_troll);
-                is_troll = false;
+                // is_troll = false;
             }
         }
-        else
+        else if (spawn_type == SpawnTypes::JackalSpawn)
         {
+
+            int enemy_count = rng->getInt(1, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                troll_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
-                troll_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
-                Skeleton* the_skelly;
+                creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+                creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                Jackal* the_jackal;
                 if (rng->getInt(1, 100) > 10) 
                 {
-                    the_skelly = Game::create_skeleton("Random Skeleton", 92, troll_x, troll_y, 's', world, "skeleton combat");
+                    the_jackal = Game::create_jackal("Random Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
+                }
+                else //hero
+                {
+                    the_jackal = Game::create_jackal("Burly Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
+                    the_jackal->representation->setFGColor(TCODColor::sepia+TCODColor::sepia+TCODColor::darkYellow, true, false, true);
+                    the_jackal->attrs->health->current_val+=the_jackal->attrs->health->current_val;
+                    the_jackal->attrs->health->max_val+=the_jackal->attrs->health->max_val;
+                };
+                world->enemies.push_back(the_jackal);
+                // is_jackal = false;
+            }
+        }
+        else if (spawn_type == SpawnTypes::OgreSpawn)
+        {
+        int enemy_count = rng->getInt(1, 5);
+            for (int i = 0; i <= enemy_count; i++)
+            {
+                creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+                creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                Ogre* the_skelly;
+                if (rng->getInt(1, 100) > 10) 
+                {
+                    the_skelly = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
                 }
                 else
                 {
-                    the_skelly = Game::create_skeleton("Strong Skeleton", 92, troll_x, troll_y, 's', world, "strong skeleton combat");
-                    the_skelly->representation->setFGColor(TCODColor::white*(TCODColor::white-TCODColor::darkYellow), true, false, true);
+                    the_skelly = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
+                    the_skelly->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
                     the_skelly->attrs->health->current_val+=the_skelly->attrs->health->current_val;
                     the_skelly->attrs->health->max_val+=the_skelly->attrs->health->max_val;
                     the_skelly->attrs->damage->current_val+=the_skelly->attrs->damage->current_val;
                     the_skelly->attrs->damage->max_val+=the_skelly->attrs->damage->max_val;
                 };
                 world->enemies.push_back(the_skelly);
-                is_troll = true;
+                // is_troll = true;
+            }
+        }
+        else if (spawn_type == SpawnTypes::SkeletonSpawn)
+        {
+        int enemy_count = rng->getInt(1, 5);
+            for (int i = 0; i <= enemy_count; i++)
+            {
+                creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
+                creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                Skeleton* the_skelly;
+                if (rng->getInt(1, 100) > 10) 
+                {
+                    the_skelly = Game::create_skeleton("Random Skeleton", 92, creature_x, creature_y, 's', world, "skeleton combat");
+                }
+                else
+                {
+                    the_skelly = Game::create_skeleton("Strong Skeleton", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
+                    the_skelly->representation->setFGColor(TCODColor::white*(TCODColor::darkBlue-TCODColor::darkYellow), true, false, true);
+                    the_skelly->attrs->health->current_val+=the_skelly->attrs->health->current_val;
+                    the_skelly->attrs->health->max_val+=the_skelly->attrs->health->max_val;
+                    the_skelly->attrs->damage->current_val+=the_skelly->attrs->damage->current_val;
+                    the_skelly->attrs->damage->max_val+=the_skelly->attrs->damage->max_val;
+                };
+                world->enemies.push_back(the_skelly);
+                // is_troll = true;
             }
         }
     }
