@@ -56,7 +56,8 @@ void Item::equip(Actor* target)
 {
     if ( this->equippable )
     {
-        this->item_effect->ApplyAllEffects(target);
+        //this doesn't happen here any more
+        // this->item_effect->ApplyAllEffects(target);
     }
     else
     {

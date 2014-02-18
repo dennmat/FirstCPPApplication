@@ -145,6 +145,7 @@ Item* Actor::CreateCorpse()
     corpse->repr->setFGColor(*this->representation->fg_color, true, false, true);
     
     corpse->name =  this->cls_name + " corpse";
+    corpse->slot_type = slots_t::NoSlot;
     corpse->item_effect->set_all_vals_to(0);
     corpse->item_effect->health_regen_interval=1;
     corpse->item_effect->health_regen_rate=1;
@@ -204,6 +205,7 @@ void Actor::Die()
     else if (result <= 25)
     {
         dropped_item = new Item;
+        dropped_item->equippable = true;
         dropped_item->repr->repr = '&';
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->name = "Chainmail";
@@ -220,6 +222,7 @@ void Actor::Die()
     else if (result <= 35)
     {
         dropped_item = new Item;
+        dropped_item->equippable = true;
         dropped_item->repr->repr = '/';
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->name = "A sword";
@@ -236,6 +239,7 @@ void Actor::Die()
     else if (result <= 45)
     {
         dropped_item = new Item;
+        dropped_item->equippable = true;
         dropped_item->repr->repr = ']';
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->name = "A shield";
@@ -252,6 +256,7 @@ void Actor::Die()
     else if (result <= 55)
     {
         dropped_item = new Item;
+        dropped_item->equippable = true;
         dropped_item->repr->repr = '/';
         dropped_item->repr->setFGColor(TCODColor::darkestSepia, true, false, true);
         dropped_item->name = "A mace";
@@ -268,6 +273,7 @@ void Actor::Die()
     else if (result <= 65)
     {
         dropped_item = new Item;
+        dropped_item->equippable = true;
         dropped_item->repr->repr = '^';
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->name = "A helmet";
@@ -284,6 +290,7 @@ void Actor::Die()
     else if (result <= 70)
     {
         dropped_item = new Item;
+        dropped_item->equippable = true;
         dropped_item->repr->repr = '|';
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->name = "An amulet";

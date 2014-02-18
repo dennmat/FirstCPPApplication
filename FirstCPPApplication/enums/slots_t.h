@@ -16,6 +16,7 @@ enum slots_t : unsigned int {
     Thighs,
     Shins,
     Feet,
+    NoSlot
 };
 
 #endif

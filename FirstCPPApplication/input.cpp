@@ -250,12 +250,12 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
 
     if( action == inventory_items_active_t::ExamineItem )
     {
-        std::cout << "EXAMINE ITEM" << std::endl;
+        new Message(Ui::msg_handler_main, "EXAMINE ITEM.");
         return true;
     }
     else if( action == inventory_items_active_t::DropItem )
     {
-        std::cout << "DROP ITEM" << std::endl;
+        new Message(Ui::msg_handler_main, "DROP ITEM.");
         Item* item = Ui::chosen_item;
         Ui::chosen_item = NULL;
         Ui::item_active = false;
@@ -266,7 +266,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
 
     else if( action == inventory_items_active_t::UseItem )
     {
-        std::cout << "Using item" << std::endl;
+        new Message(Ui::msg_handler_main, "Using item.");
         Ui::chosen_item->use(Game::player);
         return true;
     }
@@ -275,7 +275,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::chosen_item->equip(Game::player);
         Game::player->equipment->equip_item(Ui::chosen_item);
-        std::cout << "Equipping item" << std::endl;
+        new Message(Ui::msg_handler_main, "Equipping item.");
         return true;
     }
 
@@ -283,7 +283,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::chosen_item->unequip(Game::player);
         Game::player->equipment->unequip_item(Ui::chosen_item);
-        std::cout << "Unequipping item" << std::endl;
+        new Message(Ui::msg_handler_main, "Unequipping item.");
         return true;
     }
 
@@ -291,7 +291,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::item_active = false;
         Ui::chosen_item = false;
-        std::cout << "Escape back to regular inventory mode" << std::endl;
+        new Message(Ui::msg_handler_main, "Escape back to regular inventory mode.");
         return true;
     }
 
