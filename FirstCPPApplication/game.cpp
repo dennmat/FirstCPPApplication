@@ -332,6 +332,10 @@ void  Game::initialize_items(){
 
     Item* item2 = new Item();
     item2->name = "Item of Holding";
+    item2->item_effect->health_current_val = 1;
+    item2->item_effect->mana_current_val = 1;
+    item2->item_effect->armor_current_val = 1;
+    item2->item_effect->damage_current_val = 1;
     item2->description = "You can hold this item";
     player->inventory->add_item(item2);
 

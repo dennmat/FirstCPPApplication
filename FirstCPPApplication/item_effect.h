@@ -14,7 +14,11 @@ class Inventory;
 class Tile;
 class Item;
 class Attribute;
-class TCODColor;
+
+#include "libtcod.hpp"
+
+// class TCODColor;
+// extern class TCOD_colctrl_t;
 
 struct type_applied_s 
 {
@@ -89,7 +93,8 @@ class ItemEffect
         std::string ItemEffect::small_convert(std::string prefix, long double val);
         std::string full_str();
         std::string oneline_str();
-        std::vector<TCODColor> oneline_str_colours();
+        // std::vector<TCODColor> oneline_str_colours();
+        std::vector<TCOD_colctrl_t> oneline_str_colours();
 
         void set_all_vals_to(int new_val);
         void set_health_vals_to(int new_val);

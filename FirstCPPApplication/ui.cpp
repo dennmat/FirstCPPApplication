@@ -21,29 +21,29 @@
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
-    Game* Ui::game = game;
+Game* Ui::game = game;
 
-    Item* Ui::chosen_item = NULL;
+Item* Ui::chosen_item = NULL;
 
-    bool Ui::item_active = false;
+bool Ui::item_active = false;
 
-    unsigned long long int Ui::turn_checking_against = 1;
-    unsigned long long int Ui::last_turn_noted = 1;
-    unsigned long long int Ui::tick_turn_changed = 0;
-    unsigned long long int Ui::tick_threshold = 50;
-    unsigned long long int Ui::tick_checking_against = Ui::tick_threshold;
+unsigned long long int Ui::turn_checking_against = 1;
+unsigned long long int Ui::last_turn_noted = 1;
+unsigned long long int Ui::tick_turn_changed = 0;
+unsigned long long int Ui::tick_threshold = 50;
+unsigned long long int Ui::tick_checking_against = Ui::tick_threshold;
 
-        int Ui::ui_inv_w = 0;
-        int Ui::ui_inv_h = 0;
-        int Ui::ui_inv_msg_w = 0;
-        int Ui::ui_inv_msg_h = 0;
+int Ui::ui_inv_w = 0;
+int Ui::ui_inv_h = 0;
+int Ui::ui_inv_msg_w = 0;
+int Ui::ui_inv_msg_h = 0;
 
-        int Ui::ui_msg_w = 0;
-        int Ui::ui_msg_h = 0;
-        int Ui::ui_sidebar_w = 0;
-        int Ui::ui_sidebar_h = 0;
+int Ui::ui_msg_w = 0;
+int Ui::ui_msg_h = 0;
+int Ui::ui_sidebar_w = 0;
+int Ui::ui_sidebar_h = 0;
 
-    MessageHandler* Ui::msg_handler_main = new MessageHandler;
+MessageHandler* Ui::msg_handler_main = new MessageHandler;
 //  Ui::Ui()
 // {
 //     Ui::chosen_item = NULL;
@@ -359,7 +359,7 @@ void Ui::draw_inventory_ui()
                 }
                 else 
                 {
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::green, TCODColor::black);
+                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::green, TCODColor::black);
                 }
             }
             else
@@ -378,7 +378,7 @@ void Ui::draw_inventory_ui()
                 }
                 else
                 {
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
                 }
             }
             else
@@ -389,7 +389,10 @@ void Ui::draw_inventory_ui()
         };
         i++;
 
-        ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());
+        // ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());
+        std::string msg = (*it)->item_effect->oneline_str();
+        std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->item_effect->oneline_str_colours();
+        one_line_helper(ui_inv_con, i, msg, colctrl_vec);
         i++;
 
         key++;
@@ -399,6 +402,47 @@ void Ui::draw_inventory_ui()
     TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
     delete ui_inv_con;
 
+};
+
+void one_line_helper(TCODConsole* ui_inv_con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
+{
+    if (color_vector.size() != 0)
+        msg_str.append("%c");
+    const char* msg = msg_str.c_str();
+    if (color_vector.size() == 0)
+        ui_inv_con->print(3, i, msg);
+    else if (color_vector.size() == 1)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 2)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 3)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 4)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 5)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 6)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 7)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 8)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 9)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 10)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 11)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 12)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 13)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 14)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 15)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), TCOD_COLCTRL_STOP);
+    else if (color_vector.size() == 16)
+        ui_inv_con->print(3, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), color_vector.at(16-1), TCOD_COLCTRL_STOP);
 };
 
 void Ui::draw_inventory_msg()
