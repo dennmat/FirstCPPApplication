@@ -81,17 +81,30 @@ bool Actor::IsActorInSight(Actor * actor)
 
     std::vector<Actor*>::iterator aisItr;
     aisItr = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
-    if (aisItr != this->actors_in_sight->end()) { return true; }
-    else { return false; }
+    if (aisItr != this->actors_in_sight->end()) 
+    {
+        return true; 
+    }
+    else 
+    {
+        return false; 
+    }
 };
 
 void Actor::ActorInSight(int x, int y, Actor * actor)
 {
     std::vector<Actor*>* ais = this->actors_in_sight;
     //if the actor is in sight and isnt this actor:
-    if (actor == this) {return;}
-    if(std::find(ais->begin(), ais->end(), actor) != ais->end()) { }
-    else { this->actors_in_sight->push_back(actor);
+    if (actor == this) 
+    {
+        return;
+    }
+    if (std::find(ais->begin(), ais->end(), actor) != ais->end())
+    {
+    }
+    else 
+    {
+        this->actors_in_sight->push_back(actor);
     }
 
 }
