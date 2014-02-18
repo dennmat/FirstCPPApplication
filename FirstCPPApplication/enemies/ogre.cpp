@@ -46,6 +46,7 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string comba
     // has_live_combat = true;
 
     // my_tile = NULL;
+    // this->pack_size = 4;
 
     this->attrs->health->max_val = 100;
     this->attrs->health->current_val = 100;

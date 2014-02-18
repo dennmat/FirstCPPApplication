@@ -39,6 +39,8 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     this->level = 1;
 
     this->is_champion = false;
+    this->pack_size = 0;
+
 
     //set its representation, aka color and char
     this->representation = new Representation;

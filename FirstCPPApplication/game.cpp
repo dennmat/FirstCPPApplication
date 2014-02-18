@@ -110,7 +110,7 @@ void Game::fill_world(Map* world)
         if (spawn_type == SpawnTypes::TrollSpawn)
         {
 
-            int enemy_count = rng->getInt(1, 5);
+            int enemy_count = rng->getInt(1, Troll::pack_size);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -135,7 +135,7 @@ void Game::fill_world(Map* world)
         else if (spawn_type == SpawnTypes::JackalSpawn)
         {
 
-            int enemy_count = rng->getInt(1, 5);
+            int enemy_count = rng->getInt(1, Jackal::pack_size);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -159,7 +159,7 @@ void Game::fill_world(Map* world)
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
-            int enemy_count = rng->getInt(1, 5);
+            int enemy_count = rng->getInt(1, Ogre::pack_size);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -185,7 +185,7 @@ void Game::fill_world(Map* world)
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
-            int enemy_count = rng->getInt(1, 5);
+            int enemy_count = rng->getInt(1, Skeleton::pack_size);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -554,7 +554,6 @@ void Game::mainloop()
                 };
 
                 Game::draw_ui();
-
 
                 // let them choose one to look at 
                 break;

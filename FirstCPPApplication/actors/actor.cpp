@@ -22,6 +22,7 @@
 #include "game.h"
 
 
+int Actor::pack_size = 10;
 Actor::Actor()
 {
     this->cls_name = "Actor";
@@ -144,7 +145,7 @@ Item* Actor::CreateCorpse()
     Item* corpse = new Item;
     corpse->repr->repr = '%';
     corpse->repr->setFGColor(*this->representation->fg_color, true, false, true);
-    
+
     corpse->name =  this->cls_name + " corpse";
     corpse->slot_type = slots_t::NoSlot;
     corpse->item_effect->set_all_vals_to(0);
@@ -327,9 +328,9 @@ void Actor::Die()
         for (int fade=255; fade >= 0; fade --) {
             TCODConsole::setFade(fade,TCODColor::red);
             TCODConsole::flush();
-			printf("YOU'RE DEAD, GIVE UP");
+            printf("YOU'RE DEAD GIVE UP");
         }
-	    exit(1);
+        exit(1);
     };
 
 };

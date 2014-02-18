@@ -46,6 +46,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr, std::string com
     // has_live_combat = true;
 
     // my_tile = NULL;
+    // this->pack_size = 10;
 
     this->attrs->health->max_val = 30;
     this->attrs->health->current_val = 30;

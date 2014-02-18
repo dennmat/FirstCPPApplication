@@ -48,6 +48,7 @@ class Actor : public Object
         int xp_value;
         
         bool is_champion;
+        static int pack_size;
 
         bool is_moving_left;
         bool is_moving_right;
