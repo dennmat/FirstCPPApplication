@@ -19,6 +19,7 @@
 #include "item_effect.h"
 #include "ui.h"
 #include "messages.h"
+#include "game.h"
 
 
 Actor::Actor()
@@ -320,6 +321,16 @@ void Actor::Die()
     };
 
     new Message(Ui::msg_handler_main, "%s died!", this->name.c_str());
+
+    if (this == (Actor*)Game::player)
+    {
+        for (int fade=255; fade >= 0; fade --) {
+            TCODConsole::setFade(fade,TCODColor::red);
+            TCODConsole::flush();
+			printf("YOU'RE DEAD, GIVE UP");
+        }
+	    exit(1);
+    };
 
 };
 
