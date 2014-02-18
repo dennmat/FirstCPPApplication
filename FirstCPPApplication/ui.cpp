@@ -413,8 +413,18 @@ void Ui::draw_inventory_msg()
     ui_inv_msg_con->clear();
 
     //draw the message text
-    ui_inv_msg_con->print(0, 0, "is item chosen? %i", Ui::item_is_chosen());
-    ui_inv_msg_con->print(0, 1, "is item active? %i", Ui::item_active);
+    int y = 0;
+    ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
+    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and once more to confirm");
+    ui_inv_msg_con->print(0, y++, "You can then press E to equip, Y to unequip, U to use, D to drop, Q to deselect item");
+    y++;
+    ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
+    ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally");
+
+    ui_inv_msg_con->setDefaultForeground(TCODColor::white);
+    y++;
+    ui_inv_msg_con->print(0, y++, "is item chosen? %i", Ui::item_is_chosen());
+    ui_inv_msg_con->print(0, y++, "is item confirmed? %i", Ui::item_active);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
