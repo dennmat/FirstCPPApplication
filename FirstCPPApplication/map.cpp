@@ -134,9 +134,12 @@ class BspListener : public ITCODBspCallback
                 lasty=room_y+room_h/2;
                 roomNum++;
 
-                Tile* door_tile = map.getTileAt(room_x+1, room_y+1);
-                door_tile->updateTileType(5);
-                map.l_map->setProperties(door_tile->tile_x, door_tile->tile_y, true, true);
+                if (roomNum == 6) //stairs only on 6th room
+                {
+                    Tile* stair_tile = map.getTileAt(room_x+1, room_y+1);
+                    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+                    map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+                }
             }
             else
             {

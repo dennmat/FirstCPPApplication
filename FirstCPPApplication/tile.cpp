@@ -111,7 +111,7 @@ void Tile::makeUnoccupied(Actor* the_actor)
     {
         //make the last actor on top of the tile
         occupant = occupants->back();
-        cout << "tile ain't empty" << endl;
+        //cout << "tile ain't empty" << endl;
     };
 };
 

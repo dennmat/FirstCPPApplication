@@ -412,11 +412,12 @@ void Game::update()
     //     };
     // }
 
-    for (std::vector<Actor*>::size_type i = 0; i != Game::current_map->enemies.size(); i++) 
+    int enemies_size = Game::current_map->enemies.size();
+    for (std::vector<Actor*>::size_type i = 0; i != enemies_size; i++) 
     {
         Actor* enemy = Game::current_map->enemies.at(i);
         // cout << "\t" << enemy->name << "is updating" << endl;
-        if (enemy->is_active)
+        if (enemy->is_active && enemy->thinker != NULL)
         {
             enemy->update();
             // printf("updating ai\n");
