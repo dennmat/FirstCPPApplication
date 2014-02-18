@@ -18,6 +18,7 @@
 #include "map.h"
 #include "tile.h"
 #include "draw_utils.h"
+#include "Representation.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -349,6 +350,7 @@ void Ui::draw_inventory_ui()
         is_active = Ui::item_active;
 
         //TODO: Clean the shit out of this whole thing
+        TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, TCODColor::black);
         if (Ui::game->player->equipment->is_item_equipped(*it))
         {
             if (is_chosen)
@@ -366,7 +368,7 @@ void Ui::draw_inventory_ui()
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
             };
-            ui_inv_con->print(3, i, "%c- %c%s%c", key, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+            ui_inv_con->print(3, i, "%c-%c%c%c %c%s%c", key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         }
         else
         {
@@ -385,7 +387,7 @@ void Ui::draw_inventory_ui()
             {
                 TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
             };
-            ui_inv_con->print(3, i, "%c- %c%s%c", key, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+            ui_inv_con->print(3, i, "%c-%c%c%c %c%s%c", key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         };
         i++;
 
