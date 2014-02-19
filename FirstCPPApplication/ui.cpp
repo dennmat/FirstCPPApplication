@@ -319,7 +319,6 @@ void Ui::draw_ui_msg()
     delete ui_msg_con;
 };
 
-
 void Ui::draw_inventory_main()
 {
     Ui::draw_inventory_ui();
@@ -341,18 +340,20 @@ void Ui::draw_inventory_ui()
 
     // draw the list of items on the player
     std::vector<Item*>* v  = Ui::game->player->inventory->items;
-    int i = 5;
+    int offset = 5;
+    int i = offset;
     char key = 'a';
     bool is_chosen, is_active;
 
+    ui_inv_con->hline(0, Game::mouse_evt.cy, 10);
+
     TCODColor foreground, background;
-    for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
+    for (std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
-    std::string msg_str = "%c-%c%c%c %c%s%c";
+        std::string msg_str = "%c-%c%c%c %c%s%c";
         is_chosen = (*it) == Ui::chosen_item;
         is_active = Ui::item_active;
 
-        //TODO: Clean the shit out of this whole thing
         TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, ui_inv_con->getDefaultBackground());
         if (Ui::game->player->equipment->is_item_equipped(*it))
         {
@@ -394,6 +395,35 @@ void Ui::draw_inventory_ui()
             {
                 foreground = TCODColor::white;
             };
+        };
+
+
+        if (Game::mouse_evt.lbutton_pressed)
+        {
+            if (Game::mouse_evt.cy == i)
+            {
+                if ( (*it)!= Ui::chosen_item)
+                {
+                    Ui::chosen_item= (*it);
+                    Ui::item_active = false;
+                }
+                else if ( (*it) == Ui::chosen_item)
+                {
+                    Ui::item_active = true;
+                    background = TCODColor::green;
+                };
+
+            }
+            // else
+            // {
+            //     Ui::chosen_item = NULL;
+            //     Ui::item_active = false;
+            // };
+        }
+        else if (Game::mouse_evt.rbutton_pressed)
+        {
+            Ui::chosen_item = NULL;
+            Ui::item_active = false;
         };
 
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);

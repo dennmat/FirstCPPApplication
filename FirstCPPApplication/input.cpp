@@ -594,6 +594,14 @@ void process_buildmode(TCOD_key_t request, int current_tile)
 
 };
 
+void process_mouse_inv_event()
+{
+    if (Game::mouse_evt.lbutton_pressed)
+	{
+
+	};
+};
+
 bool process_mouse_event(TCOD_mouse_t request, Person *player)
 {
 

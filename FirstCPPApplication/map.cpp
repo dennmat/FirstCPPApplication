@@ -178,6 +178,7 @@ int Map::build_from_random(int seed)
     stringstream ss;
     ss << myfile.rdbuf(); 
 
+    //JANNSON TESTING
     json_t* root;
     json_error_t error;
     std::string s = ss.str();
@@ -189,16 +190,8 @@ int Map::build_from_random(int seed)
         std::cout << error.text << std::endl;
         throw std::exception("help");
     }
+    std::cout << json_string_value(text) << std::endl;
 
-
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
-    std::cout << json_string_value(text) << std::endl;
     width = Game::map_width;
     height = Game::map_height;
     l_map = new TCODMap(width, height);

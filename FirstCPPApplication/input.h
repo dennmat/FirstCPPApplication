@@ -15,6 +15,7 @@ class Game;
 
 bool process_debug_event(TCOD_key_t request, Person *player);
 bool process_mouse_event(TCOD_mouse_t request, Person *player);
+void process_mouse_inv_event();
 bool process_key_event(TCOD_key_t request, Person *player);
 
 extern enum directions_t;

@@ -559,6 +559,7 @@ void Game::mainloop()
                 };
 
                 Game::draw_ui();
+                process_mouse_inv_event();
 
                 // let them choose one to look at 
                 break;
