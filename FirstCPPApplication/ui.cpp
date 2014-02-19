@@ -344,51 +344,62 @@ void Ui::draw_inventory_ui()
     int i = 5;
     char key = 'a';
     bool is_chosen, is_active;
+
+    TCODColor foreground, background;
     for(std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
+    std::string msg_str = "%c-%c%c%c %c%s%c";
         is_chosen = (*it) == Ui::chosen_item;
         is_active = Ui::item_active;
 
         //TODO: Clean the shit out of this whole thing
-        TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, TCODColor::black);
+        TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, ui_inv_con->getDefaultBackground());
         if (Ui::game->player->equipment->is_item_equipped(*it))
         {
+            background = TCODColor::darkestRed;
             if (is_chosen)
             {
+                msg_str.append(" <-");
+                // background = TCODColor::white;
                 if (is_active)
                 {
-                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::blue, TCODColor::black);
+                    foreground = TCODColor::red+TCODColor::blue;
                 }
                 else 
                 {
-                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::green, TCODColor::black);
+                    foreground = TCODColor::red+TCODColor::green;
                 }
             }
             else
             {
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
+                foreground = TCODColor::red;
             };
-            ui_inv_con->print(3, i, "%c-%c%c%c %c%s%c", key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         }
         else
         {
+            background = ui_inv_con->getDefaultBackground();
             if (is_chosen)
             {
+                msg_str.append(" <-");
                 if (is_active)
                 {
-                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red+TCODColor::yellow, TCODColor::black);
+                    foreground = TCODColor::red+TCODColor::yellow;
                 }
                 else
                 {
-                    TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
+                    foreground = TCODColor::green;
                 }
             }
             else
             {
-                TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::white, TCODColor::black);
+                foreground = TCODColor::white;
             };
-            ui_inv_con->print(3, i, "%c-%c%c%c %c%s%c", key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
         };
+
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+        const char *msg_char = msg_str.c_str();
+        ui_inv_con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+
         i++;
 
         // ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());

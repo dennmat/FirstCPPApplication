@@ -326,9 +326,9 @@ void  Game::initialize_items(){
     //put it on the map somewhere
     Tile * next_tile = current_map->getTileAt(1,1);
 
-    Item* item = new Item();
-    next_tile->place_item_down(item);
-    items.push_back(item);
+    // Item* item = new Item();
+    // next_tile->place_item_down(item);
+    // items.push_back(item);
 
     Item* item2 = new Item();
     item2->name = "Item of Holding";
