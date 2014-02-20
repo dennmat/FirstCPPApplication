@@ -345,9 +345,12 @@ void Ui::draw_inventory_ui()
     char key = 'a';
     bool is_chosen, is_active;
 
-    ui_inv_con->hline(0, Game::mouse_evt.cy, 10);
+    int hline = 2;
+    ui_inv_con->hline(0, Game::mouse_evt.cy, hline);
+    ui_inv_con->putChar(hline, Game::mouse_evt.cy, '>');
 
     TCODColor foreground, background;
+    foreground = TCODColor::white;
     for (std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c";
@@ -388,7 +391,7 @@ void Ui::draw_inventory_ui()
                 }
                 else
                 {
-                    foreground = TCODColor::green;
+                    // foreground = TCODColor::green;
                 }
             }
             else
