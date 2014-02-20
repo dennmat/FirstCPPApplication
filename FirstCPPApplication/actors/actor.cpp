@@ -165,6 +165,7 @@ Item* Actor::CreateCorpse()
     corpse->item_effect->health_regen_interval=1;
     corpse->item_effect->health_regen_rate=1;
     corpse->usable = true;
+    corpse->equippable = false;
 
     return corpse;
 };
@@ -322,6 +323,59 @@ void Actor::Die()
         dropped_item->item_effect->damage_max_val = damage;
         this->my_tile->place_item_down(dropped_item);
     }
+    else if (result <= 80)
+    {
+        dropped_item = new Item;
+        dropped_item->equippable = false;
+        dropped_item->usable = true;
+        dropped_item->repr->repr = '!';
+        dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
+        dropped_item->name = "A health potion";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::NoSlot;
+
+        //health restore
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int health = rng->getInt(10, 100, 25);
+        dropped_item->item_effect->health_current_val = health;
+        this->my_tile->place_item_down(dropped_item);
+    }
+    else if (result <= 82)
+    {
+        dropped_item = new Item;
+        dropped_item->equippable = false;
+        dropped_item->usable = true;
+        dropped_item->repr->repr = '!';
+        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
+        dropped_item->name = "A glowing health potion";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::NoSlot;
+
+        //health restore
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int health = rng->getInt(5, 25, 5);
+        dropped_item->item_effect->health_current_val = health;
+        dropped_item->item_effect->health_max_val = health;
+        this->my_tile->place_item_down(dropped_item);
+    }
+    else if (result <= 83)
+    {
+        dropped_item = new Item;
+        dropped_item->equippable = false;
+        dropped_item->usable = true;
+        dropped_item->repr->repr = '!';
+        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
+        dropped_item->name = "A pulsating health potion";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::NoSlot;
+
+        //health restore
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int health = rng->getInt(1, 5, 1);
+        dropped_item->item_effect->health_regen_rate = health;
+        dropped_item->item_effect->health_regen_interval = -floor((double)health/2);
+        this->my_tile->place_item_down(dropped_item);
+    }
 
 
     //remove master from ai update list
@@ -336,12 +390,16 @@ void Actor::Die()
 
     new Message(Ui::msg_handler_main, "%s died!", this->name.c_str());
 
+    int multiplier = 1;
     if (this == (Actor*)Game::player)
     {
-        for (int fade=255; fade >= 0; fade --) {
-            TCODConsole::setFade(fade,TCODColor::red);
-            TCODConsole::flush();
-            printf("YOU'RE DEAD GIVE UP");
+        for (int fade=255*multiplier; fade >= 0; fade --) {
+            if (fade % multiplier == 0)
+            {
+                TCODConsole::setFade(fade/multiplier,TCODColor::red);
+                TCODConsole::flush();
+                printf("YOU'RE DEAD GIVE UP");
+            };
         }
         exit(1);
     };
