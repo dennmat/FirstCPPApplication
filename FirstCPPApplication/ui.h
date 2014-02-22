@@ -44,6 +44,7 @@ class Ui
         static void draw_ui();
         static void draw_ui_msg();
         static void draw_ui_sidebar();
+        static void draw_facing_angle(TCODConsole* ui_sidebar_con);
         static void draw_xp();
         static void draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore);
 

@@ -172,6 +172,29 @@ void draw_mouse_helpbox()
     TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
 };
 
+void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con)
+{
+    //is moving in a direction
+    bool ml = Game::player->is_moving_left;
+    bool mr = Game::player->is_moving_right;
+    bool mu = Game::player->is_moving_up;
+    bool md = Game::player->is_moving_down;
+    std::string sl = " ", sr = " ", st = " ", sb = " ", stl = " ", str = " ", sbl = " ", sbr = " ";
+    if (ml && mu) { stl= "\\"; }
+    else if (mr && mu) { str= "/"; }
+    else if (mu) { st= "|"; }
+    else if (mr && md) { sbr= "\\"; }
+    else if (ml && md) { sbl= "/"; }
+    else if (md) { sb= "|"; }
+    else if (ml) { sl= "-"; }
+    else if (mr) { sr= "-"; };
+
+    ui_sidebar_con->print(1,  8, "%s%s%s", stl.c_str(), st.c_str(), str.c_str());
+    ui_sidebar_con->print(1,  9, "%so%s", sl.c_str(), sr.c_str());
+    ui_sidebar_con->print(1, 10, "%s%s%s", sbl.c_str(), sb.c_str(), sbr.c_str());
+
+};
+
 void Ui::draw_ui_sidebar()
 {
     ui_sidebar_w = 20;
@@ -213,15 +236,8 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_con->print(0, 5, "MOUSE X Y" );
     ui_sidebar_con->print(0, 6, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
 
-    //is moving in a direciton
-    const char* move_left;
-    const char* move_right;
-    move_left = BoolToString(Ui::game->player->is_moving_left, false);
-    move_right = BoolToString(Ui::game->player->is_moving_right, false);
-
-    ui_sidebar_con->print(1, 8, "%s", BoolToString(Ui::game->player->is_moving_up, false) );
-    ui_sidebar_con->print(0, 9, "%s %s", move_left, move_right);
-    ui_sidebar_con->print(1, 10, "%s", BoolToString(Ui::game->player->is_moving_down, false));
+    //facing direction
+    Ui::draw_facing_angle(ui_sidebar_con);
 
     //draw player inventory info
     ui_sidebar_con->print(0, 12, "Items in inventory:");
