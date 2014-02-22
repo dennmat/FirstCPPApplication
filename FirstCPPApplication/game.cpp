@@ -453,6 +453,67 @@ void Game::draw_ui()
     };
 };
 
+bool gameplay_loop(bool incr_turn)
+{
+
+    if (incr_turn)
+    {
+        Game::turn_count++;
+
+        //this used to be after input was processed but turn hadn't
+        //been incremented
+        int item_count = Game::player->my_tile->inventory->get_count();
+        if (item_count == 1)
+        {
+            std::string msg_str =  "%s is on the ground.";
+            Message* msg = new Message(Ui::msg_handler_main, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
+        }
+        else if (item_count > 1)
+        {
+            std::string msg_str = "%d items are on the ground.";
+            Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
+        }
+        else 
+        {
+            Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground.");
+        }
+
+        //tile description
+        Message* msg = new Message(Ui::msg_handler_main, "%s", Game::player->my_tile->tile->description.c_str());
+
+        //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
+        printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
+        incr_turn = false;
+    }
+
+    // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
+    if (Game::key_evt.c != NULL && Game::key_evt.pressed == 1 ){
+        incr_turn = process_key_event(Game::key_evt, Game::player);
+    }
+    if (Game::key_evt.pressed == 1)
+    {
+        process_debug_event(Game::key_evt, Game::player);
+    }
+
+    process_mouse_event(Game::mouse_evt, Game::player);
+
+    //AIs update
+    if (incr_turn == true)
+    {
+        Game::update();
+    }
+
+    Game::update_ui();
+
+    //draw the map to libtconsole
+    Game::current_map->draw();
+
+    //draw the UI
+    Game::draw_ui();
+
+    return incr_turn;
+};
+
 void Game::mainloop()
 {
 
@@ -469,7 +530,7 @@ void Game::mainloop()
 
     bool battle_done = false;
     bool incr_turn  = false;
-    turn_count = 1;
+    Game::turn_count = 1;
 
     Game::fps_limit = 60;
 
@@ -495,61 +556,7 @@ void Game::mainloop()
         switch(Game::current_state)
         {
             case GameStates::GameplayState: 
-                if (incr_turn)
-                {
-                    turn_count++;
-
-                    //this used to be after input was processed but turn hadn't
-                    //been incremented
-                    int item_count = player->my_tile->inventory->get_count();
-                    if (item_count == 1)
-                    {
-                        std::string msg_str =  "%s is on the ground.";
-                        Message* msg = new Message(Ui::msg_handler_main, msg_str, player->my_tile->inventory->items->back()->name.c_str());
-                    }
-                    else if (item_count > 1)
-                    {
-                        std::string msg_str = "%d items are on the ground.";
-                        Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
-                    }
-                    else 
-                    {
-                        Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground.");
-                    }
-
-                    //tile description
-                    Message* msg = new Message(Ui::msg_handler_main, "%s", player->my_tile->tile->description.c_str());
-
-                    //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
-                    printf("\n-------------[ TURN: %d ]-------------\n", turn_count);
-                    incr_turn = false;
-                }
-
-                // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
-                if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = process_key_event(key_evt, player);
-                }
-                if (key_evt.pressed == 1)
-                {
-                    process_debug_event(key_evt, player);
-                }
-
-                process_mouse_event(mouse_evt, player);
-
-                //AIs update
-                if (incr_turn == true)
-                {
-                    Game::update();
-                }
-
-                Game::update_ui();
-
-                //draw the map to libtconsole
-                Game::current_map->draw();
-
-                //draw the UI
-                Game::draw_ui();
-
+                incr_turn = gameplay_loop(incr_turn);
                 break;
 
             case GameStates::MenuState:
