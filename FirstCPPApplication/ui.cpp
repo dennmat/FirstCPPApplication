@@ -159,12 +159,16 @@ void draw_mouse_helpbox()
     int adjusted_h = help_text_height+top_pad+bot_pad;
     TCODConsole help_con = TCODConsole(adjusted_w, adjusted_h);
     if (!mouse_tile->is_known())
-        help_con.setDefaultForeground(TCODColor::grey);
+        help_con.setDefaultForeground(TCODColor::darkestGrey);
     help_con.clear();
+
+    if (!mouse_tile->is_known())
+        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h, "?", "?", "?", "?", "?", "?", "?", "?");
+	else
+        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
 
     help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
 
-    draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
     TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
 };
 
