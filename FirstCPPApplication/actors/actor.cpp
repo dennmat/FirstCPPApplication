@@ -206,19 +206,12 @@ int* Actor::get_direction_heading()
 
 };
 
-void Actor::Die()
+Item* spawnItem(int result)
 {
-    //make the master's tile no longer occupied by him
-    //drop corpse on floor or another item
-    TCODRandom *rng = TCODRandom::getInstance();
     Item* dropped_item;
-    int result = rng->getInt(0, 100);
-    if (result <= 15)
-    {
-        dropped_item = this->CreateCorpse();
-        this->my_tile->place_item_down(dropped_item);
-    }
-    else if (result <= 25)
+    TCODRandom *rng = TCODRandom::getInstance();
+
+    if (result <= 25)
     {
         dropped_item = new Item;
         dropped_item->equippable = true;
@@ -233,7 +226,6 @@ void Actor::Die()
         int armor = rng->getInt(1, 5, 2);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 35)
     {
@@ -250,7 +242,6 @@ void Actor::Die()
         int damage = rng->getInt(5, 15, 8);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 45)
     {
@@ -267,7 +258,6 @@ void Actor::Die()
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 55)
     {
@@ -284,7 +274,6 @@ void Actor::Die()
         int damage = rng->getInt(1, 5, 3);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 65)
     {
@@ -301,7 +290,6 @@ void Actor::Die()
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 70)
     {
@@ -321,7 +309,6 @@ void Actor::Die()
         dropped_item->item_effect->armor_max_val = armor;
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 80)
     {
@@ -338,7 +325,6 @@ void Actor::Die()
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int health = rng->getInt(10, 100, 25);
         dropped_item->item_effect->health_current_val = health;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 82)
     {
@@ -356,7 +342,6 @@ void Actor::Die()
         int health = rng->getInt(5, 25, 5);
         dropped_item->item_effect->health_current_val = health;
         dropped_item->item_effect->health_max_val = health;
-        this->my_tile->place_item_down(dropped_item);
     }
     else if (result <= 83)
     {
@@ -374,6 +359,32 @@ void Actor::Die()
         int health = rng->getInt(1, 5, 1);
         dropped_item->item_effect->health_regen_rate = health;
         dropped_item->item_effect->health_regen_interval = -floor((double)health/2);
+    }
+    else
+    {
+        dropped_item = NULL;
+    }
+
+    return dropped_item;
+};
+
+void Actor::Die()
+{
+    //make the master's tile no longer occupied by him
+    //drop corpse on floor or another item
+    TCODRandom *rng = TCODRandom::getInstance();
+    Item* dropped_item;
+    int result = rng->getInt(0, 100);
+    if (result <= 15)
+    {
+        dropped_item = this->CreateCorpse();
+    }
+    else
+    {
+        dropped_item = spawnItem(result);
+    };
+    if (dropped_item != NULL)
+    {
         this->my_tile->place_item_down(dropped_item);
     }
 

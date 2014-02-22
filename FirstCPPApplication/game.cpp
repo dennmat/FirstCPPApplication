@@ -107,10 +107,11 @@ void Game::fill_world(Map* world)
         SpawnTypes spawn_type = get_spawn_type();
         int creature_x, creature_y;
         TCODRandom *rng = TCODRandom::getInstance();
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         if (spawn_type == SpawnTypes::TrollSpawn)
         {
 
-            int enemy_count = rng->getInt(1, Troll::pack_size);
+            int enemy_count = rng->getInt(1, Troll::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -159,7 +160,7 @@ void Game::fill_world(Map* world)
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
-            int enemy_count = rng->getInt(1, Ogre::pack_size);
+            int enemy_count = rng->getInt(1, Ogre::pack_size, 2);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -185,7 +186,7 @@ void Game::fill_world(Map* world)
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
-            int enemy_count = rng->getInt(1, Skeleton::pack_size);
+            int enemy_count = rng->getInt(1, Skeleton::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
@@ -359,6 +360,8 @@ Person*  Game::initialize_player()
     player->attrs->health->max_val=50;
     player->attrs->damage->current_val=10;
     player->attrs->damage->max_val=10;
+    player->attrs->armor->current_val=3;
+    player->attrs->armor->max_val=3;
     delete player->thinker;
     player->thinker = NULL;
 

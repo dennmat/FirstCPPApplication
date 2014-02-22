@@ -133,7 +133,7 @@ void Combat::GiveExp(int exp_to_gain)
 
 void Combat::Attack(Combat* combat_target, int dmg){
     //cout << "About to attack " << (*combat_target).name << endl;
-    new Message(Ui::msg_handler_main, "About to attack %s for %d damage", (*combat_target).master->name.c_str(), dmg);
+    new Message(Ui::msg_handler_main, "About to attack %s for %d damage.", (*combat_target).master->name.c_str(), dmg);
     combat_target->TakeDamage(this, dmg);
 
     bool is_target_dead = combat_target->CheckDeath();
@@ -189,7 +189,8 @@ Combat* Combat::GetLastAttacker()
 void Combat::TakeDamage(Combat* combat_attacker, int dmg)
 {
 
-    (this->master->attrs->health->current_val)-=dmg;
+    int adjusted_dmg = dmg-this->master->attrs->armor->current_val;
+    (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
 
     std::cout << this->master->name;
     std::cout << " took " << dmg << " damage! ";

@@ -180,6 +180,8 @@ void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con)
     bool mu = Game::player->is_moving_up;
     bool md = Game::player->is_moving_down;
     std::string sl = " ", sr = " ", st = " ", sb = " ", stl = " ", str = " ", sbl = " ", sbr = " ";
+
+    //draw the line the right way
     if (ml && mu) { stl= "\\"; }
     else if (mr && mu) { str= "/"; }
     else if (mu) { st= "|"; }
