@@ -11,6 +11,8 @@
 #include "Representation.h"
 #include "tile.h"	
 #include "combat.h"
+#include "attribute.h"
+#include "attribute_container.h"
 
 using namespace std;
 
@@ -107,8 +109,7 @@ void Thinker::update()
                         assailant->master->my_tile) != adjacent_tiles->end())
             {
                 // std::cout << "adjacent" << std::endl;
-                ((Person*)master)->combat->Attack(assailant, 1);
-
+                ((Person*)master)->combat->Attack(assailant, master->attrs->damage->current_val);
             };
 
             //calm the combat down

@@ -51,4 +51,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr, std::string c
     this->attrs->health->max_val = 20;
     this->attrs->health->current_val = 20;
 
+    this->attrs->damage->max_val = 2;
+    this->attrs->damage->current_val = 2;
+
 };

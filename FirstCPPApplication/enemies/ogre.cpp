@@ -50,4 +50,7 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string comba
 
     this->attrs->health->max_val = 100;
     this->attrs->health->current_val = 100;
+
+    this->attrs->damage->max_val = 6;
+    this->attrs->damage->current_val = 6;
 };

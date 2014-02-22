@@ -63,6 +63,9 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     is_active = true;
 
+    this->attrs->damage->max_val = 1;
+    this->attrs->damage->current_val = 1;
+
 };
 
 Person::Person() : Actor()

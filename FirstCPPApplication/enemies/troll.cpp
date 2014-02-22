@@ -51,4 +51,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr, std::string com
     this->attrs->health->max_val = 30;
     this->attrs->health->current_val = 30;
 
+    this->attrs->damage->max_val = 3;
+    this->attrs->damage->current_val = 3;
+
 };
