@@ -342,12 +342,11 @@ void  Game::initialize_items(){
 };
 
 //creates a bunch of enemies on the map
-void  Game::initialize_enemies(){
-
+void  Game::initialize_enemies()
+{
     Game::current_map->enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', Game::current_map, "First Person"));
     Game::current_map->enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
     Game::current_map->enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
-
 };
 
 Person*  Game::initialize_player()
@@ -359,6 +358,7 @@ Person*  Game::initialize_player()
     player->attrs->health->current_val=50;
     player->attrs->health->max_val=50;
     player->attrs->damage->current_val=10;
+    player->attrs->damage->max_val=10;
     delete player->thinker;
     player->thinker = NULL;
 

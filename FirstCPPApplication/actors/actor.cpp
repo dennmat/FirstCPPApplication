@@ -393,15 +393,17 @@ void Actor::Die()
     int multiplier = 1;
     if (this == (Actor*)Game::player)
     {
+        TCODSystem::setFps(0);
         for (int fade=255*multiplier; fade >= 0; fade --) {
             if (fade % multiplier == 0)
             {
                 TCODConsole::setFade(fade/multiplier,TCODColor::red);
                 TCODConsole::flush();
-                printf("YOU'RE DEAD GIVE UP");
+                //printf("YOU'RE DEAD GIVE UP");
             };
         }
         exit(1);
+        TCODSystem::setFps(Game::fps_limit);
     };
 
 };

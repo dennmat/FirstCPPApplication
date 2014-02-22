@@ -300,8 +300,8 @@ void ItemEffect::ApplyHealthEffects(Actor* actor)
 {
     if (! this->already_applied_health(actor))
     {
-        actor->attrs->health->AddToCurrentVal(this->health_current_val);
         actor->attrs->health->AddToMaxVal(this->health_max_val);
+        actor->attrs->health->AddToCurrentVal(this->health_current_val);
         actor->attrs->health->AddToRegenRate(this->health_regen_rate);
         actor->attrs->health->AddToRegenInterval(this->health_regen_interval);
         this->mark_applied_health(actor);
@@ -312,8 +312,8 @@ void ItemEffect::ApplyManaEffects(Actor* actor)
 {
     if (! this->already_applied_mana(actor))
     {
-        actor->attrs->mana->AddToCurrentVal(this->mana_current_val);
         actor->attrs->mana->AddToMaxVal(this->mana_max_val);
+        actor->attrs->mana->AddToCurrentVal(this->mana_current_val);
         actor->attrs->mana->AddToRegenRate(this->mana_regen_rate);
         actor->attrs->mana->AddToRegenInterval(this->mana_regen_interval);
         this->mark_applied_mana(actor);
@@ -324,8 +324,8 @@ void ItemEffect::ApplyArmorEffects(Actor* actor)
 {
     if (! this->already_applied_armor(actor))
     {
-        actor->attrs->armor->AddToCurrentVal(this->armor_current_val);
         actor->attrs->armor->AddToMaxVal(this->armor_max_val);
+        actor->attrs->armor->AddToCurrentVal(this->armor_current_val);
         actor->attrs->armor->AddToRegenRate(this->armor_regen_rate);
         actor->attrs->armor->AddToRegenInterval(this->armor_regen_interval);
         this->mark_applied_armor(actor);
@@ -336,8 +336,8 @@ void ItemEffect::ApplyDamageEffects(Actor* actor)
 {
     if (! this->already_applied_damage(actor))
     {
-        actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
         actor->attrs->damage->AddToMaxVal(this->damage_max_val);
+        actor->attrs->damage->AddToCurrentVal(this->damage_current_val);
         actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
         actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
         this->mark_applied_damage(actor);

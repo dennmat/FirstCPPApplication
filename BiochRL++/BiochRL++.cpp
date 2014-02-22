@@ -12,8 +12,8 @@ int _tmain(int argc, _TCHAR* argv[])
     Game::current_map = map;
 
     Game::initialize_player(); //created the Person player
-    Game::initialize_enemies(); // create the enemies
-    Game::initialize_items(); // create the items
+    //Game::initialize_enemies(); // create the enemies
+    //Game::initialize_items(); // create the items
     Game::mainloop();
     return 0;
 }
