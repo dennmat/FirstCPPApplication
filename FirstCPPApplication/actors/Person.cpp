@@ -27,10 +27,10 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
     this->x = x;
     this->y = y;
 
-    if (name == "Josh")
-	{
-    new Message(Ui::msg_handler_main, "Creating the Josh player.");
-	}
+ //   if (name == "Josh")
+	//{
+ //   new Message(Ui::msg_handler_main, "Creating the Josh player.");
+	//}
 
     this->xp = 0;
     this->xp_this_level = 0;

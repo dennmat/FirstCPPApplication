@@ -537,7 +537,8 @@ void Game::mainloop()
     current_map->draw();
     TCODSystem::setFps(fps_limit);
 
-    new Message(Ui::msg_handler_main, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Game::turn_count, TCOD_COLCTRL_STOP);
+    new Message(Ui::msg_handler_main, "Run from ogres and skeletons, kill troll and jackals!");
+    new Message(Ui::msg_handler_main, "You're going to die a lot, this isn't Dark Souls 2.");
     //
 
     //draw the map to libtconsole

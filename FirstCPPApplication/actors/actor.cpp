@@ -399,7 +399,7 @@ void Actor::Die()
             {
                 TCODConsole::setFade(fade/multiplier,TCODColor::red);
                 TCODConsole::flush();
-                //printf("YOU'RE DEAD GIVE UP");
+                printf("YOU'RE DEAD GIVE UP");
             };
         }
         exit(1);
