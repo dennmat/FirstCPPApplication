@@ -229,7 +229,7 @@ Map* Game:: build_town()
     Game::fill_town(world);
     return world;
 }
-Map* Game:: buildworld()
+Map* Game:: build_world()
 {
 
     std::cout << get_exe_path() << std::endl;
@@ -533,8 +533,8 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::start_game()
 {
-    // Map* last_map = Game::buildworld();
-    Map* last_map = Game::build_town();
+    Map* last_map = Game::build_world();
+    // Map* last_map = Game::build_town();
     Game::current_map = last_map;
 
     Game::initialize_player(); //created the Person player

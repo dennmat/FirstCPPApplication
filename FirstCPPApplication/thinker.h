@@ -10,9 +10,8 @@ class Actor;
 class Thinker
 {
 
-
     public:
-    Actor* master;
+        Actor* master;
         void update();
         Thinker();
         ~Thinker();

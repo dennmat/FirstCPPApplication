@@ -631,7 +631,7 @@ bool process_debug_event(TCOD_key_t request, Person *player)
 
     if (request.vk == TCODK_F4)
     {
-        auto map = Game::buildworld();
+        auto map = Game::build_world();
         Game::current_map = map;
     }
 
