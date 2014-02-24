@@ -15,8 +15,11 @@ class Room
 
         //its location on the map
         int x, y;
+        int center_x, center_y;
+        int radius;
 
         bool isPerimeter(int point_x, int point_y);
+        bool isCircle(int point_x, int point_y);
         bool checkDoorCount();
 
     private:

@@ -5,6 +5,7 @@
 #include "messages.h"
 #include <vector>
 #include <stdarg.h>
+#include <assert.h>
 
 #include <libtcod.hpp>
 #include "game.h"
@@ -171,6 +172,7 @@ Message::Message()
 
 Message::Message(MessageHandler* handler, std::string content, ...) 
 {
+    assert(content.size()!=0);
 
     this->Init();
 

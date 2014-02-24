@@ -29,6 +29,7 @@ Thinker::~Thinker()
 
 void Thinker::update()
 {
+    // return;
 
     // vector<Actor*>::iterator aisItr;
     // aisItr = std::find(Game::player->actors_in_sight->begin(), Game::player->actors_in_sight->end(),  this->master);

@@ -314,7 +314,7 @@ void move_camera(int dir_x, int dir_y)
     int plr_x = Game::player->x - Game::camera_x;
     int plr_y = Game::player->y - Game::camera_y;
 
-    int border_threshold = 5;
+    int border_threshold = 10;
     std::cout << "cam w" << Game::camera_w << std::endl;
 
     int change = 1;

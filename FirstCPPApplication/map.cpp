@@ -117,7 +117,7 @@ class BspListener : public ITCODBspCallback
                 // std::cout << "nodes a leaf" << std::endl;
 
                 int room_x,room_y,room_w,room_h;
-                int room_min_size = 6;
+                int room_min_size = 10;
                 // dig a room
                 TCODRandom *rng = TCODRandom::getInstance();
 
@@ -128,7 +128,15 @@ class BspListener : public ITCODBspCallback
 
                 int perimeter = room_w*2 + room_h*2 - 4;
                 int door_index = rng->getInt(0, perimeter);
-                map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+                int room_style = rng->getInt(0, 100);
+                if (room_style < 75)
+                {
+                    map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+                }
+                else
+                {
+                    map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                }
 
                 lastx=room_x+room_w/2;
                 lasty=room_y+room_h/2;
@@ -209,8 +217,8 @@ int Map::build_from_random(int seed)
     int x = 0;
     int y = 0;
 
-    int room_max_x = 12;
-    int room_max_y = 6;
+    int room_min_x = 10;
+    int room_min_y = 10;
 
     while ( i < width*height )
     {
@@ -247,7 +255,7 @@ int Map::build_from_random(int seed)
     }
 
     TCODBsp bsp(0, 0, width, height);
-    bsp.splitRecursive(NULL, 8, room_max_x, room_max_y, 1.5f, 1.5f);
+    bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
@@ -258,6 +266,63 @@ int Map::build_from_random(int seed)
 };
 
 
+void Map::build_circle_room(int room_x, int room_y,
+        int room_width, int room_height,
+        int door_index)
+{
+    //create and add the room to the list of vectors
+    Room * room = new Room(room_x, room_y, room_width, room_height, door_index);
+    this->roomVector->push_back(room);
+
+    for(int new_y=0; new_y<room_height; new_y++)
+    {
+        for(int new_x=0; new_x<room_width;new_x++)
+        {
+            // std::cout << new_x << " x y " << new_y << std::endl;
+            int adj_x = room_x + new_x;
+            int adj_y = room_y + new_y;
+
+            //done to save time later on for getTileAt recursion
+            if (adj_y >= this->height)
+            {
+                // break;
+                adj_y = this->height-2;
+            }
+
+            if (adj_y >= this->width)
+            {
+                // break;
+                adj_y = this->width-2;
+            }
+
+            //check for outer perimeter
+            if (room->isCircle(adj_x, adj_y))
+            {
+                // std::cout << "is circle" << std::endl;
+                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::WallTileTypeType); //for wall
+                l_map -> setProperties(adj_x, adj_y, false, false);
+
+                //place door if valid position
+                if (room->checkDoorCount())
+                {
+                    getTileAt(adj_x, adj_y)->updateTileType(TileTypes::DoorTileTypeType); //for door
+                    l_map -> setProperties(adj_x, adj_y, false, false);
+                }
+            }
+
+            //everything else
+            else 
+            {
+                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::FloorTileTypeType); //for floor
+                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
+            }
+
+        }
+    }
+
+
+
+};
 void Map::build_rect_room(int room_x, int room_y,
         int room_width, int room_height,
         int door_index)

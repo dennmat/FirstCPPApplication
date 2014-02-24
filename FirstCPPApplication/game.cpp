@@ -3,11 +3,11 @@
 #include <sstream>
 #include <fstream>
 #include <Windows.h>
+#include <assert.h>
 
 #include "libtcod.hpp"
 
 #include "game.h"
-
 #include <actors/person.h>
 #include "map.h"
 #include "FirstCPPApplication.h"
@@ -519,7 +519,6 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::mainloop()
 {
-
     WelcomeMessage();
 
     // cout << screen_w << endl;
@@ -574,14 +573,18 @@ void Game::mainloop()
 
                 // let them choose one to look at 
                 break;
+
+            default:
+                assert(false && "Unknown gamestate");
+                break;
         }
 
         //draw the root console to screen to screen
         TCODConsole::flush();
         TCODConsole::root->clear();
 
+        // assert(Game::tick_count!= -1);
         Game::tick_count++;
-        // printf("ticks: %d \r", tick_count);
     }
 
     std::cout << "Hit enter to exit" << std::endl;
