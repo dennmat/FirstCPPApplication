@@ -100,6 +100,10 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::OgreSpawn;
 };
 
+void Game::fill_town(Map* world)
+{
+
+};
 void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
@@ -222,7 +226,7 @@ Map* Game:: build_town()
     world = new Map;
     //world->the_game = this;
     world->build_town_from_random(0);
-    Game::fill_dungeon(world);
+    Game::fill_town(world);
     return world;
 }
 Map* Game:: buildworld()
@@ -574,6 +578,7 @@ void Game::mainloop()
     //draw libtcon to screen
     TCODConsole::flush();
 
+    assert(Game::world != NULL);
     // Game::tick_count = 1;
     bool tick_printed = true;
     while ( !TCODConsole::isWindowClosed() ) {

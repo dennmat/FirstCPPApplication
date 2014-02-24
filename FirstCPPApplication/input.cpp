@@ -315,7 +315,7 @@ void move_camera(int dir_x, int dir_y)
     int plr_y = Game::player->y - Game::camera_y;
 
     int border_threshold = 10;
-    std::cout << "cam w" << Game::camera_w << std::endl;
+    //std::cout << "cam w" << Game::camera_w << std::endl;
 
     int change = 1;
     if (plr_x <= border_threshold || plr_x >= (Game::camera_w -border_threshold))
@@ -326,11 +326,11 @@ void move_camera(int dir_x, int dir_y)
             if (Game::camera_x - change >= (0))
             {
                 Game::camera_x -= 1;
-                std::cout << "x left" << std::endl;
+                // std::cout << "x left" << std::endl;
             }
             else
             {
-                std::cout << "x NOT left" << std::endl;
+                // std::cout << "x NOT left" << std::endl;
             }
         }
         else 
@@ -338,11 +338,11 @@ void move_camera(int dir_x, int dir_y)
             if (cam_x2 + change <= (Game::map_width))
             {
                 Game::camera_x += 1;
-                std::cout << "x right" << std::endl;
+                // std::cout << "x right" << std::endl;
             }
             else
             {
-                std::cout << "x NOT right" << std::endl;
+                // std::cout << "x NOT right" << std::endl;
             }
         };
     };
@@ -354,11 +354,11 @@ void move_camera(int dir_x, int dir_y)
             if (Game::camera_y - change >= (0 ))
             {
                 Game::camera_y -= 1;
-                std::cout << "y up" << std::endl;
+                // std::cout << "y up" << std::endl;
             }
             else
             {
-                std::cout << "y NOT up" << std::endl;
+                // std::cout << "y NOT up" << std::endl;
             }
         }
         else 
@@ -366,11 +366,11 @@ void move_camera(int dir_x, int dir_y)
             if (cam_y2 + change <= (Game::map_height))
             {
                 Game::camera_y += 1;
-                std::cout << "y down" << std::endl;
+                // std::cout << "y down" << std::endl;
             }
             else
             {
-                std::cout << "y NOT down" << std::endl;
+                // std::cout << "y NOT down" << std::endl;
             }
         };
     };
