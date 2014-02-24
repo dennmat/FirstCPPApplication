@@ -175,7 +175,7 @@ class BspListener : public ITCODBspCallback
 };
 std::stringstream BspListener::output = std::stringstream();
 
-int Map::build_from_random(int seed)
+int Map::build_dungeon_from_random(int seed)
 {
     std::string path = get_data_path()+"testing_jansson.json";
     ifstream myfile(path);
@@ -370,7 +370,8 @@ void Map::build_rect_room(int room_x, int room_y,
             else 
             {
                 getTileAt(adj_x, adj_y)->updateTileType(TileTypes::FloorTileTypeType); //for floor
-                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
+                //set darker indoor color
+                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); 
             }
 
         }

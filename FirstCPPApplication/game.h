@@ -72,6 +72,7 @@ class Game
 
         // Game();
         static Map* buildworld();
+        static Map* build_town();
         static void update();
 
         static void update_ui();
@@ -90,6 +91,7 @@ class Game
         static Ogre * create_ogre(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
 
 
+        static void start_game();
         static void mainloop();
 };
 

@@ -215,6 +215,38 @@ void Game::fill_world(Map* world)
 };
 
 
+Map* Game:: build_town()
+{
+
+    std::cout << get_exe_path() << std::endl;
+
+    std::string line;
+    std::ifstream myfile (get_data_path()+"world.txt");
+    int num_of_worlds;
+
+    Map* world;
+    if (myfile.is_open())
+    {
+        // get width
+        getline (myfile,line);
+        num_of_worlds = atoi(line.c_str());
+
+        world = new Map;
+        //world->the_game = this;
+        world->build_dungeon_from_random(0);
+    }
+    else
+    {
+        TCHAR exepath[MAX_PATH+1];
+        GetModuleFileName(0, exepath, MAX_PATH+1);
+        MessageBox(0, exepath, _T("ERROR"), MB_OK);
+        MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
+        exit(EXIT_FAILURE);
+    };
+
+    Game::fill_world(world);
+    return world;
+}
 Map* Game:: buildworld()
 {
 
@@ -232,7 +264,7 @@ Map* Game:: buildworld()
 
         world = new Map;
         //world->the_game = this;
-        world[0].build_from_random(0);
+        world->build_dungeon_from_random(0);
     }
     else
     {
@@ -515,6 +547,19 @@ bool gameplay_loop(bool incr_turn)
     Game::draw_ui();
 
     return incr_turn;
+};
+
+void Game::start_game()
+{
+    // Map* last_map = Game::buildworld();
+    Map* last_map = Game::build_town();
+    Game::current_map = last_map;
+
+    Game::initialize_player(); //created the Person player
+    //Game::initialize_enemies(); // create the enemies
+    //Game::initialize_items(); // create the items
+    Game::mainloop();
+
 };
 
 void Game::mainloop()
