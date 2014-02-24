@@ -42,6 +42,8 @@ int Game::screen_h = 50;
 
 int Game::map_width = 160;
 int Game::map_height = 140;
+int Game::town_width = 60;
+int Game::town_height = 40;
 
 int Game::view_width = 60;
 int Game::view_height = 40;
@@ -98,7 +100,7 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::OgreSpawn;
 };
 
-void Game::fill_world(Map* world)
+void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
     // bool is_troll = true;
@@ -217,34 +219,10 @@ void Game::fill_world(Map* world)
 
 Map* Game:: build_town()
 {
-
-    std::cout << get_exe_path() << std::endl;
-
-    std::string line;
-    std::ifstream myfile (get_data_path()+"world.txt");
-    int num_of_worlds;
-
-    Map* world;
-    if (myfile.is_open())
-    {
-        // get width
-        getline (myfile,line);
-        num_of_worlds = atoi(line.c_str());
-
-        world = new Map;
-        //world->the_game = this;
-        world->build_dungeon_from_random(0);
-    }
-    else
-    {
-        TCHAR exepath[MAX_PATH+1];
-        GetModuleFileName(0, exepath, MAX_PATH+1);
-        MessageBox(0, exepath, _T("ERROR"), MB_OK);
-        MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
-        exit(EXIT_FAILURE);
-    };
-
-    Game::fill_world(world);
+    world = new Map;
+    //world->the_game = this;
+    world->build_town_from_random(0);
+    Game::fill_dungeon(world);
     return world;
 }
 Map* Game:: buildworld()
@@ -275,7 +253,7 @@ Map* Game:: buildworld()
         exit(EXIT_FAILURE);
     };
 
-    Game::fill_world(world);
+    Game::fill_dungeon(world);
     return world;
 }
 

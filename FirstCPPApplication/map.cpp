@@ -175,6 +175,74 @@ class BspListener : public ITCODBspCallback
 };
 std::stringstream BspListener::output = std::stringstream();
 
+int Map::build_town_from_random(int seed)
+{
+
+    width = Game::town_width;
+    height = Game::town_height;
+    l_map = new TCODMap(width, height);
+    //the default tile description
+    description = "This is the town, don't hurt anyone.";
+
+    tileVector = new vector<vector<Tile>>;
+    tileVector->resize(height);
+    for(int ix = 0; ix < height; ++ix)
+    {
+        (*tileVector)[ix].resize(width);
+    }
+
+    int i = 0;
+    int x = 0;
+    int y = 0;
+
+    int room_min_x = 10;
+    int room_min_y = 10;
+
+    while ( i < width*height )
+    {
+        Tile* this_tile = getTileAt(x, y);
+        this_tile->map = this;
+        this_tile->updateTileType(TileTypes::FloorTileTypeType);
+        if(this_tile->type_id == TileTypes::FloorTileTypeType)
+        {
+            //light passes though, walkable
+            l_map -> setProperties(x, y, true, true);
+        }
+
+        else 
+        {
+            //light does NOT pass through nor is walkable
+            l_map -> setProperties(x, y, false, false);
+        }
+
+        this_tile->tile->description = "Descriptionless tile.";
+
+        this_tile->tile_x = x;
+        this_tile->tile_y = y;
+
+        if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
+        {
+            y++;
+            x = 0;
+        }
+        else { 
+            x++;
+        };
+
+        i++;
+    }
+
+    TCODBsp bsp(0, 0, width, height);
+    bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
+    BspListener listener(*this);
+    bsp.traverseInvertedLevelOrder(&listener, this);
+
+    std::cout << "" << BspListener::output.str() << std::endl;
+
+    return 1;
+
+};
+
 int Map::build_dungeon_from_random(int seed)
 {
     std::string path = get_data_path()+"testing_jansson.json";

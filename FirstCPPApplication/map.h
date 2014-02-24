@@ -34,6 +34,7 @@ class Map : public Object
 
         int build_from_file(std::string filename);
         int build_dungeon_from_random(int seed);
+        int build_town_from_random(int seed);
 
         void build_circle_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);

@@ -46,6 +46,9 @@ class Game
 
         static int map_width;
         static int map_height;
+        static int town_width;
+        static int town_height;
+
         static int view_width;
         static int view_height;
 
@@ -82,7 +85,7 @@ class Game
         static Person*  initialize_player();
         static void  initialize_enemies();
         static void  initialize_items();
-        static void fill_world(Map* world);
+        static void fill_dungeon(Map* world);
 
         static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
         static Troll * create_troll(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
