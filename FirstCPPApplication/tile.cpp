@@ -216,7 +216,7 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
             std::remove_if(
                 adjacent_tiles->begin(),
                 adjacent_tiles->end(),
-                [](Tile* s) -> bool { return s->is_occupied() || !s->map->l_map->isWalkable(s->tile_x, s->tile_y); }),
+                [](Tile* s) -> bool { return s->is_occupied() || !s->map->l_map->isWalkable(s->tile_x, s->tile_y) || s==NULL;}),
             adjacent_tiles->end());
 
     return adjacent_tiles;
