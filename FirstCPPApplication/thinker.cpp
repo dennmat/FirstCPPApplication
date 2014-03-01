@@ -55,7 +55,7 @@ void Thinker::update()
             {
 
                 //if the path destination isn't adj to the player make a new path
-                std::cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << std::endl;
+                //std::cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << std::endl;
                 delete master->l_path;
                 master->l_path = NULL;
             }
@@ -63,11 +63,12 @@ void Thinker::update()
             {
                 //continue on that path
 
-                std::cout << "dest x: " << dest_tile_x;
-                std::cout << "dest y: " << dest_tile_y << std::endl;
+                //std::cout << "dest x: " << dest_tile_x;
+                //std::cout << "dest y: " << dest_tile_y << std::endl;
                 std::cout << "CONTINUTE" << std::endl;
 
             };
+	    delete adj_tiles;
 
 
         };
@@ -82,6 +83,7 @@ void Thinker::update()
             std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
             master->dest_x = adjacent_tiles->back()->tile_x;
             master->dest_y = adjacent_tiles->back()->tile_y;
+	    delete adjacent_tiles;
 
             int x, y, dest_x, dest_y;
             x = master->x;
