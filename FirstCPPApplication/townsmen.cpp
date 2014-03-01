@@ -5,10 +5,15 @@
 
 Townsmen::Townsmen()
 {
-    this->master = null;
+    this->master = NULL;
 };
 
 Townsmen::~Townsmen()
+{
+
+};
+
+void Townsmen::update()
 {
 
 };

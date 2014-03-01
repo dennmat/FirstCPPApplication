@@ -14,8 +14,6 @@
 #include "attribute.h"
 #include "attribute_container.h"
 
-using namespace std;
-
 Thinker::Thinker()
 {
 
@@ -51,19 +49,21 @@ void Thinker::update()
 
             //if the target tile is adjacent to the player keep moving towards
             //it, otherwise change spots
-            vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getVacantAdjacentTiles();
-            vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
+            std::vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getVacantAdjacentTiles();
+            std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
             if (adjItr == adj_tiles->end())
             {
 
                 //if the path destination isn't adj to the player make a new path
-                // cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << endl;
+                std::cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << std::endl;
                 delete master->l_path;
                 master->l_path = NULL;
             }
             else
             {
                 //continue on that path
+                std::cout << "CONTINUTE" << std::endl;
+
             };
 
 
@@ -71,11 +71,11 @@ void Thinker::update()
 
         if (master->l_path == NULL)
         {
-            //cout << "Building Path" << endl;
+            std::cout << "Building Path" << std::endl;
             master->l_path = new TCODPath(map->l_map);
 
             //set the master's destination to above the player
-            vector<Tile*>* adjacent_tiles = Game::player->my_tile->getVacantAdjacentTiles();
+            std::vector<Tile*>* adjacent_tiles = Game::player->my_tile->getVacantAdjacentTiles();
             std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
             master->dest_x = adjacent_tiles->back()->tile_x;
             master->dest_y = adjacent_tiles->back()->tile_y;
@@ -93,19 +93,19 @@ void Thinker::update()
             // cout << "Path size AFTER BUILDING IT: " << path_size << endl << "I'mna walk it" << endl;
         };
 
-        int path_size = master->l_path->size();
-        // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
-
         master->l_path->walk(&master->x, &master->y, true);
         Tile * next_tile = map->getTileAt(master->x,master->y);
         master->putPerson(next_tile, master->x, master->y); 
+
+        int path_size = master->l_path->size();
+        // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
 
         if (path_size == 0)
         {
             // cout << "IMNA ATTACK THE PLAYER" << endl;
             //attack the player if he's in range (aka adjacent tile)
             Combat* assailant = Game::player->combat;
-            vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
+            std::vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
             if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(),
                         assailant->master->my_tile) != adjacent_tiles->end())
             {
