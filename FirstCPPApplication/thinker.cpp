@@ -62,6 +62,9 @@ void Thinker::update()
             else
             {
                 //continue on that path
+
+                std::cout << "dest x: " << dest_tile_x;
+                std::cout << "dest y: " << dest_tile_y << std::endl;
                 std::cout << "CONTINUTE" << std::endl;
 
             };
@@ -93,7 +96,13 @@ void Thinker::update()
             // cout << "Path size AFTER BUILDING IT: " << path_size << endl << "I'mna walk it" << endl;
         };
 
-        master->l_path->walk(&master->x, &master->y, true);
+        // int *xx = 0, *yy = 0;
+        // master->l_path->getDestination(xx, yy);
+        // std::cout << xx << " x" ;
+        // std::cout << &xx << " &x" ;
+        //std::cout << *xx << " *x" ;
+        // std::cout << yy << " y" << std::endl;
+        master->l_path->walk(&master->x, &master->y, false);
         Tile * next_tile = map->getTileAt(master->x,master->y);
         master->putPerson(next_tile, master->x, master->y); 
 
