@@ -78,6 +78,8 @@ class Actor : public Object
 
         void pickUpItem(Item* item);
 
+        virtual void championize() = 0;
+
 };
 
 #endif

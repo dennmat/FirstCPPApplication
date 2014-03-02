@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "troll.h"
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 
@@ -55,3 +56,11 @@ Troll::Troll(std::string name, int age, int x, int y, char repr, std::string com
     this->attrs->damage->current_val = 3;
 
 };
+
+void Troll::championize()
+{
+    this->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
+    this->attrs->health->current_val+=this->attrs->health->current_val;
+    this->attrs->health->max_val+=this->attrs->health->max_val;
+    this->xp_value= floor(this->xp_value*1.5);
+}

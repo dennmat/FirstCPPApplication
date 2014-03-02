@@ -55,3 +55,13 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr, std::string c
     this->attrs->damage->current_val = 2;
 
 };
+
+void Jackal::championize()
+{
+    // the_jackal = Game::create_jackal("Burly Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
+    this->representation->setFGColor(TCODColor::sepia+TCODColor::sepia+TCODColor::darkYellow, true, false, true);
+    this->attrs->health->current_val+=this->attrs->health->current_val;
+    this->attrs->health->max_val+=this->attrs->health->max_val;
+    this->xp_value= floor(this->xp_value*1.5);
+
+};

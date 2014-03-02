@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 #include "libtcod.hpp"
 
@@ -54,3 +55,13 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string comba
     this->attrs->damage->max_val = 6;
     this->attrs->damage->current_val = 6;
 };
+
+void Ogre::championize()
+{
+                    this->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
+                    this->attrs->health->current_val+=this->attrs->health->current_val;
+                    this->attrs->health->max_val+=this->attrs->health->max_val;
+                    this->attrs->damage->current_val+=this->attrs->damage->current_val;
+                    this->attrs->damage->max_val+=this->attrs->damage->max_val;
+                    this->xp_value = floor(this->xp_value*1.5);
+}

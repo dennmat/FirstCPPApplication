@@ -123,17 +123,15 @@ void Game::fill_dungeon(Map* world)
                 creature_x = rng->getInt(1, (*it)->width-3) + (*it)->x;
                 creature_y = rng->getInt(1, (*it)->height-3) + (*it)->y;
                 Troll* the_troll;
-                if (rng->getInt(1, 100) > 10) 
+                the_troll = Game::create_troll("Random Troll", 34, creature_x, creature_y, 'T', world, "troll combat");
+                if (rng->getInt(1, 100) < 10) 
                 {
-                    the_troll = Game::create_troll("Random Troll", 34, creature_x, creature_y, 'T', world, "troll combat");
-                }
-                else //hero
-                {
-                    the_troll = Game::create_troll("Burly Troll", 34, creature_x, creature_y, 'T', world, "Burly troll combat");
-                    the_troll->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
-                    the_troll->attrs->health->current_val+=the_troll->attrs->health->current_val;
-                    the_troll->attrs->health->max_val+=the_troll->attrs->health->max_val;
-                    the_troll->xp_value= floor(the_troll->xp_value*1.5);
+                    the_troll->championize();
+                    // the_troll = Game::create_troll("Burly Troll", 34, creature_x, creature_y, 'T', world, "Burly troll combat");
+                    // the_troll->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
+                    // the_troll->attrs->health->current_val+=the_troll->attrs->health->current_val;
+                    // the_troll->attrs->health->max_val+=the_troll->attrs->health->max_val;
+                    // the_troll->xp_value= floor(the_troll->xp_value*1.5);
                 };
                 world->enemies.push_back(the_troll);
                 // is_troll = false;
@@ -148,17 +146,10 @@ void Game::fill_dungeon(Map* world)
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
                 Jackal* the_jackal;
-                if (rng->getInt(1, 100) > 10) 
+                the_jackal = Game::create_jackal("Random Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
+                if (rng->getInt(1, 100) < 10) 
                 {
-                    the_jackal = Game::create_jackal("Random Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
-                }
-                else //hero
-                {
-                    the_jackal = Game::create_jackal("Burly Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
-                    the_jackal->representation->setFGColor(TCODColor::sepia+TCODColor::sepia+TCODColor::darkYellow, true, false, true);
-                    the_jackal->attrs->health->current_val+=the_jackal->attrs->health->current_val;
-                    the_jackal->attrs->health->max_val+=the_jackal->attrs->health->max_val;
-                    the_jackal->xp_value= floor(the_jackal->xp_value*1.5);
+                    the_jackal->championize();
                 };
                 world->enemies.push_back(the_jackal);
                 // is_jackal = false;
@@ -172,19 +163,11 @@ void Game::fill_dungeon(Map* world)
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
                 Ogre* the_ogre;
-                if (rng->getInt(1, 100) > 10) 
+                the_ogre = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
+                if (rng->getInt(1, 100) < 10) 
                 {
-                    the_ogre = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
-                }
-                else
-                {
-                    the_ogre = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
-                    the_ogre->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
-                    the_ogre->attrs->health->current_val+=the_ogre->attrs->health->current_val;
-                    the_ogre->attrs->health->max_val+=the_ogre->attrs->health->max_val;
-                    the_ogre->attrs->damage->current_val+=the_ogre->attrs->damage->current_val;
-                    the_ogre->attrs->damage->max_val+=the_ogre->attrs->damage->max_val;
-                    the_ogre->xp_value = floor(the_ogre->xp_value*1.5);
+                    // the_ogre = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
+                    the_ogre->championize();
                 };
                 world->enemies.push_back(the_ogre);
                 // is_troll = true;
@@ -198,19 +181,11 @@ void Game::fill_dungeon(Map* world)
                 creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
                 creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
                 Skeleton* the_skelly;
-                if (rng->getInt(1, 100) > 10) 
+                the_skelly = Game::create_skeleton("Random Skeleton", 92, creature_x, creature_y, 's', world, "skeleton combat");
+                if (rng->getInt(1, 100) < 10) 
                 {
-                    the_skelly = Game::create_skeleton("Random Skeleton", 92, creature_x, creature_y, 's', world, "skeleton combat");
-                }
-                else
-                {
-                    the_skelly = Game::create_skeleton("Strong Skeleton", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
-                    the_skelly->representation->setFGColor(TCODColor::white*(TCODColor::darkBlue-TCODColor::darkYellow), true, false, true);
-                    the_skelly->attrs->health->current_val+=the_skelly->attrs->health->current_val;
-                    the_skelly->attrs->health->max_val+=the_skelly->attrs->health->max_val;
-                    the_skelly->attrs->damage->current_val+=the_skelly->attrs->damage->current_val;
-                    the_skelly->attrs->damage->max_val+=the_skelly->attrs->damage->max_val;
-                    the_skelly->xp_value= the_skelly->xp_value*1.5;
+                    // the_skelly = Game::create_skeleton("Strong Skeleton", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
+                    the_skelly->championize();
                 };
                 world->enemies.push_back(the_skelly);
                 // is_troll = true;
@@ -534,7 +509,7 @@ bool gameplay_loop(bool incr_turn)
 void Game::start_game()
 {
     Map* last_map = Game::build_world();
-     // Map* last_map = Game::build_town();
+    // Map* last_map = Game::build_town();
     Game::current_map = last_map;
 
     Game::initialize_player(); //created the Person player

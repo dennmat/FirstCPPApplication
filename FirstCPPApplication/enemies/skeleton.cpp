@@ -54,3 +54,14 @@ Skeleton::Skeleton(std::string name, int age, int x, int y, char repr, std::stri
     this->attrs->damage->current_val = 5;
 
 };
+
+void Skeleton::championize()
+{
+    this->representation->setFGColor(TCODColor::white*(TCODColor::darkBlue-TCODColor::darkYellow), true, false, true);
+    this->attrs->health->current_val+=this->attrs->health->current_val;
+    this->attrs->health->max_val+=this->attrs->health->max_val;
+    this->attrs->damage->current_val+=this->attrs->damage->current_val;
+    this->attrs->damage->max_val+=this->attrs->damage->max_val;
+    this->xp_value= this->xp_value*1.5;
+
+};
