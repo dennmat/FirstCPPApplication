@@ -327,7 +327,7 @@ int Map::build_dungeon_from_random(int seed)
     BspListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
-    std::cout << "" << BspListener::output.str() << std::endl;
+    //std::cout << "" << BspListener::output.str() << std::endl;
 
     return 1;
 

@@ -24,6 +24,7 @@ class Thinker
         Thinker();
         ~Thinker();
         void walk_towards_player();
+        void try_attacking_player();
 
 };
 #endif

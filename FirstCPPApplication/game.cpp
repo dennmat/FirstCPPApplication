@@ -120,8 +120,8 @@ void Game::fill_dungeon(Map* world)
             int enemy_count = rng->getInt(1, Troll::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = rng->getInt(1, (*it)->width-2) + (*it)->x;
-                creature_y = rng->getInt(1, (*it)->height-2) + (*it)->y;
+                creature_x = rng->getInt(1, (*it)->width-3) + (*it)->x;
+                creature_y = rng->getInt(1, (*it)->height-3) + (*it)->y;
                 Troll* the_troll;
                 if (rng->getInt(1, 100) > 10) 
                 {
@@ -534,7 +534,7 @@ bool gameplay_loop(bool incr_turn)
 void Game::start_game()
 {
     Map* last_map = Game::build_world();
-    // Map* last_map = Game::build_town();
+     // Map* last_map = Game::build_town();
     Game::current_map = last_map;
 
     Game::initialize_player(); //created the Person player

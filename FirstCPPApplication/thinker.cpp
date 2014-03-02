@@ -38,6 +38,24 @@ void Thinker::walk_towards_player()
     master->putPerson(next_tile, master->x, master->y); 
 }
 
+void Thinker::try_attacking_player()
+{
+    // cout << "IMNA ATTACK THE PLAYER" << endl;
+    //attack the player if he's in range (aka adjacent tile)
+    Combat* assailant = Game::player->combat;
+    std::vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
+    if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(),
+                assailant->master->my_tile) != adjacent_tiles->end())
+    {
+        // std::cout << "adjacent" << std::endl;
+        ((Person*)master)->combat->Attack(assailant, master->attrs->damage->current_val);
+    };
+
+    //calm the combat down
+    ((Person*)master)->combat->was_attacked = false;
+
+};
+
 void Thinker::update()
 {
     // return;
@@ -153,23 +171,11 @@ void Thinker::update()
         {
             this->walk_towards_player();
 
-            int path_size = master->l_path->size();
+            bool path_empty = master->l_path->isEmpty();
             // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
-            if (path_size == 0)
+            if (path_empty)
             {
-                // cout << "IMNA ATTACK THE PLAYER" << endl;
-                //attack the player if he's in range (aka adjacent tile)
-                Combat* assailant = Game::player->combat;
-                std::vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
-                if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(),
-                            assailant->master->my_tile) != adjacent_tiles->end())
-                {
-                    // std::cout << "adjacent" << std::endl;
-                    ((Person*)master)->combat->Attack(assailant, master->attrs->damage->current_val);
-                };
-
-                //calm the combat down
-                ((Person*)master)->combat->was_attacked = false;
+                this->try_attacking_player();
             }
         }
     }

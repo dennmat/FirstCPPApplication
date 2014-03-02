@@ -18,6 +18,9 @@ class Room
         int center_x, center_y;
         int radius;
 
+        //inner room
+        int inner_w, inner_h;
+
         bool isPerimeter(int point_x, int point_y);
         bool isCircle(int point_x, int point_y);
         bool checkDoorCount();

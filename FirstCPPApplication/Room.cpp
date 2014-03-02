@@ -24,9 +24,12 @@ Room::Room(int x, int y, int width, int height, int door_index)
 
     this->width = width;
     this->height = height;
+    this->inner_w = -1;
+    this->inner_h = -1;
 
     this->x = x;
     this->y = y;
+
     this->center_x = width/2 + x;
     this->center_y = height/2 + y;
     this->radius = std::min(width/2, height/2)-2;
