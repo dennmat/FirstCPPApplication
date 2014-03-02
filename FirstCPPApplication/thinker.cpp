@@ -113,11 +113,11 @@ void Thinker::update()
                 //set the master's destination to above the player
                 std::vector<Tile*>* adjacent_tiles = Game::player->my_tile->getVacantAdjacentTiles();
                 std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
-		if (adjacent_tiles->size() >0)
-        {
-            master->dest_x = adjacent_tiles->back()->tile_x;
-            master->dest_y = adjacent_tiles->back()->tile_y;
-        }
+                if (adjacent_tiles->size() >0)
+                {
+                    master->dest_x = adjacent_tiles->back()->tile_x;
+                    master->dest_y = adjacent_tiles->back()->tile_y;
+                }
                 delete adjacent_tiles;
 
                 int x, y, dest_x, dest_y;
