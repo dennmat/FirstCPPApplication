@@ -219,6 +219,7 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
                 [](Tile* s) -> bool { return s->is_occupied() || !s->map->l_map->isWalkable(s->tile_x, s->tile_y) || s==NULL;}),
             adjacent_tiles->end());
 
+    adjacent_tiles->shrink_to_fit();
     return adjacent_tiles;
 };
 
