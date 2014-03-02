@@ -26,6 +26,7 @@ class StairsDownRepresentation;
 class StairsUpRepresentation;
 
 class TCODColor;
+class TCODPath;
 
 
 class Tile;
@@ -113,7 +114,8 @@ class Tile : public Object
         std::vector<Item *> * items;       // the dude sitting on the tile
         Actor * occupant;
 
-        bool is_occupied() { return this->_is_occupied; };
+        bool is_occupied();
+	bool is_walkable();
 
         bool check_for_items();
         void place_item_down(Item* item);

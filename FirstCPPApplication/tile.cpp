@@ -223,6 +223,16 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
     return adjacent_tiles;
 };
 
+bool Tile::is_occupied() 
+{
+    return this->_is_occupied; 
+};
+bool Tile::is_walkable()
+{
+    return this->map->l_map->isWalkable(this->tile_x, this->tile_y);
+};
+
+
 BaseTileType::BaseTileType() 
 {
     this->color = new TCODColor;

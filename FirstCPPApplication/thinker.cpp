@@ -121,6 +121,7 @@ void Thinker::update()
                 else
                 {
                     this->path_possible = true;
+                    this->consecutive_fails = 0;
                 }
             }
             else
