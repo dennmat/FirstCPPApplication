@@ -191,6 +191,24 @@ void Game::fill_dungeon(Map* world)
                 world->enemies.push_back(the_creature);
             }
         }
+        else if (spawn_type == SpawnTypes::BadMotherSpawn)
+        {
+            int enemy_count = rng->getInt(1, BadMother::pack_size, 5);
+            for (int i = 0; i <= enemy_count; i++)
+            {
+                creature_x = rng->getInt(2, (*it)->width-2) + (*it)->x;
+                creature_y = rng->getInt(2, (*it)->height-2) + (*it)->y;
+                BadMother* the_creature;
+                if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
+                the_creature = Game::create_bad_mother("Random BadMother", 92, creature_x, creature_y, 's', world, "bad mother combat");
+                if (rng->getInt(1, 100) < 10) 
+                {
+                    // the_creature = Game::create_skeleton("Strong BadMother", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
+                    the_creature->championize();
+                };
+                world->enemies.push_back(the_creature);
+            }
+        }
     }
 
 };

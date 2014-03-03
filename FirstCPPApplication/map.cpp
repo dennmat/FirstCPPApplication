@@ -584,6 +584,7 @@ int Map::draw()
 
                     the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
+                    the_bg_color = the_tile->occupant->representation->bg_color;
                 }
                 //tile is not occupied
                 else

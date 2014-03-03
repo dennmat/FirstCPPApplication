@@ -34,7 +34,7 @@ BadMother::BadMother(std::string name, int age, int x, int y, char repr, std::st
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::black * (variant/10.0f), true, true, true);
-    this->representation->setBGColor(TCODColor::white * (variant/10.0f), true, true, true);
+    this->representation->setBGColor(TCODColor::white , true, true, true);
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;

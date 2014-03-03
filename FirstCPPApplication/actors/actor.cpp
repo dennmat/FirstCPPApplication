@@ -418,4 +418,3 @@ void Actor::Die()
     };
 
 };
-
