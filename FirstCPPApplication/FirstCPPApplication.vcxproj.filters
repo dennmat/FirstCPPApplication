@@ -290,6 +290,9 @@
     <ClInclude Include="townsmen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enemies\bad_mother.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -378,6 +381,9 @@
     </ClCompile>
     <ClCompile Include="townsmen.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemies\bad_mother.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,6 +33,7 @@
 #include "Room.h"
 #include "debug_options.h"
 #include "messages.h"
+#include <enemies\bad_mother.h>
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -83,7 +84,8 @@ enum SpawnTypes {
     TrollSpawn = 1,
     JackalSpawn,
     SkeletonSpawn,
-    OgreSpawn
+    OgreSpawn,
+    BadMotherSpawn
 };
 
 SpawnTypes get_spawn_type()
@@ -96,8 +98,10 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::JackalSpawn;
     else if (dice_roll <= 80)
         return SpawnTypes::SkeletonSpawn;
-    else if (dice_roll <= 100)
+    else if (dice_roll <= 99)
         return SpawnTypes::OgreSpawn;
+    else if (dice_roll == 100)
+        return SpawnTypes::BadMotherSpawn;
 };
 
 void Game::fill_town(Map* world)
@@ -251,6 +255,20 @@ Troll * Game::create_troll(std::string name, int age, int x, int y, char repr,
 {
     //build the Person
     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
+
+    //put it on the map somewhere
+    Tile * next_tile = map->getTileAt(x,y);
+    new_pers->putPerson(next_tile, x, y);
+
+    return new_pers;
+
+};
+
+BadMother * Game::create_bad_mother(std::string name, int age, int x, int y, char repr, 
+        Map* map, std::string Combat_name)
+{
+    //build the Person
+    BadMother * new_pers = new BadMother(name, age, x, y, repr, Combat_name);
 
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);

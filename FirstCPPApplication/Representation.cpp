@@ -47,6 +47,26 @@ TCODColor* Representation::createColorFromRGB(int r, int g, int b)
 
 };
 
+void Representation::setBGColor(TCODColor color, bool set_bg, bool set_temp, bool set_orig)
+{
+    int r,b,g;
+    this->getRGBFromColor(r, g, b, color);
+    if (set_bg)
+    {
+        this->bg_color = this->createColorFromRGB(r, g, b);
+    };
+    if (set_temp)
+    {
+        this->temp_bg_color = this->createColorFromRGB(r, g, b);
+    };
+    if (set_orig)
+    {
+        this->orig_bg_color = this->createColorFromRGB(r, g, b);
+    };
+    // std::cout << "rbg: " << r << g << b << std::endl;
+
+};
+
 void Representation::setFGColor(TCODColor color, bool set_fg, bool set_temp, bool set_orig)
 {
     int r,b,g;
