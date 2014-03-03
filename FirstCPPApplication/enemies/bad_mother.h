@@ -9,6 +9,7 @@ class BadMother : public Person
         BadMother(std::string name, int age, int x, int y, char repr, std::string combat_name);
         static const int BadMother::pack_size = 1;
         void championize();
+	void Die();
 
 };
 

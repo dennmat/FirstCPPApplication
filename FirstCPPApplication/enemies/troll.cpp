@@ -16,6 +16,8 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include "combat.h"
+#include "ui.h"
+#include "messages.h"
 
 Troll::Troll(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
 {
@@ -64,3 +66,12 @@ void Troll::championize()
     this->attrs->health->max_val+=this->attrs->health->max_val;
     this->xp_value= floor(this->xp_value*1.5);
 }
+
+void Troll::Die() 
+{
+    Actor::Die();
+    new Message(Ui::msg_handler_main, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, "YOU KILLED THE BADMOTHER YOU WIN");
+};

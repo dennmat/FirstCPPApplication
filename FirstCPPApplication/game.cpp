@@ -572,6 +572,11 @@ void Game::mainloop()
 
     current_map->draw();
     TCODSystem::setFps(fps_limit);
+    //TCODConsole::setFullscreen(true);
+    // auto renderer = TCODSystem::getRenderer();
+    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky
+    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_GLSL); // really fast if you can man it
+    TCODConsole::setKeyboardRepeat(250, 10);
 
     new Message(Ui::msg_handler_main, "Run from ogres and skeletons, kill troll and jackals!");
     new Message(Ui::msg_handler_main, "You're going to die a lot, this isn't Dark Souls 2.");

@@ -66,3 +66,8 @@ void BadMother::championize()
     this->xp_value= floor(this->xp_value*1.5);
 }
 
+
+void BadMother::Die() 
+{
+    Actor::Die();
+};
