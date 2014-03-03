@@ -591,9 +591,8 @@ void Game::mainloop()
     TCODConsole::flush();
 
     assert(Game::world != NULL);
-    // Game::tick_count = 1;
-    bool tick_printed = true;
-    while ( !TCODConsole::isWindowClosed() ) {
+    while ( !TCODConsole::isWindowClosed() ) 
+    {
 
         TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
         switch(Game::current_state)
