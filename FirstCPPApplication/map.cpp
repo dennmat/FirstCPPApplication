@@ -208,9 +208,24 @@ class TownListener : public ITCODBspCallback
                 // }
                 // else
                 // {
-                Room* new_room = map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
-                Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, new_room->center_x, new_room->center_y+1, 't', &this->map, "To be deleted");
-                this->map.enemies.push_back(the_townsmen);
+                Room* new_room = this->map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                int center_x = new_room->center_x, center_y =new_room->center_y+1;
+                Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, center_x, center_y, 't', &this->map, "To be deleted");
+
+                //if the Townsmen can path to (0, 0), remove him because the
+                //room is not walled in
+                the_townsmen->l_path = new TCODPath(this->map.l_map);
+                the_townsmen->l_path->compute(center_x, center_y, 0, 0);
+                if (the_townsmen->l_path->isEmpty())
+                {
+                    this->map.enemies.push_back(the_townsmen);
+                }
+                else
+                {
+                    delete the_townsmen;
+                }
+
+
                 // }
 
                 lastx=room_x+room_w/2;

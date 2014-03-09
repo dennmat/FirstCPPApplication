@@ -101,6 +101,7 @@ Person::Person() : Actor()
 
 Person::~Person(){
     //TODO: safely remove Combat
+    this->my_tile->makeUnoccupied(this);
 };
 
 void Person::update()
