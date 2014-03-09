@@ -34,6 +34,11 @@ unsigned long long int Ui::tick_turn_changed = 0;
 unsigned long long int Ui::tick_threshold = 50;
 unsigned long long int Ui::tick_checking_against = Ui::tick_threshold;
 
+unsigned long long int Ui::tick_mouse_moved = 0;
+int Ui::mouse_move_threshold = 10;
+unsigned long long int Ui::tick_key_pressed = 0;
+unsigned long long int Ui::tick_key_released = 0;
+
 int Ui::ui_inv_w = 0;
 int Ui::ui_inv_h = 0;
 int Ui::ui_inv_msg_w = 0;
@@ -137,7 +142,13 @@ void Ui::draw_ui()
     draw_ui_sidebar();
 };
 
-void draw_mouse_helpbox()
+bool Ui::should_draw_mouse_helpbox()
+{
+    // return true;
+    return Ui::tick_mouse_moved > Ui::tick_key_pressed;
+};
+
+void Ui::draw_mouse_helpbox()
 {
     //get help text
     std::string help_text = "";
@@ -203,7 +214,10 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_h = Ui::game->screen_h-ui_msg_h;
     TCODConsole *ui_sidebar_con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
 
-    draw_mouse_helpbox();
+    if (Ui::should_draw_mouse_helpbox())
+    {
+        draw_mouse_helpbox();
+    }
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
     TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();

@@ -22,6 +22,12 @@ class Ui
         static unsigned long long int last_turn_noted;
         static unsigned long long int turn_checking_against;
         static unsigned long long int tick_checking_against;
+
+        static unsigned long long int tick_mouse_moved;
+        static int mouse_move_threshold;
+        static unsigned long long int tick_key_pressed;
+        static unsigned long long int tick_key_released;
+
         static Game* game;
         static MessageHandler* msg_handler_main;
 
@@ -45,6 +51,8 @@ class Ui
         static void draw_ui_msg();
         static void draw_ui_sidebar();
         static void draw_facing_angle(TCODConsole* ui_sidebar_con);
+        static bool should_draw_mouse_helpbox();
+        static void draw_mouse_helpbox();
         static void draw_xp();
         static void draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore);
 

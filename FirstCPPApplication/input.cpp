@@ -605,6 +605,11 @@ void process_mouse_inv_event()
 bool process_mouse_event(TCOD_mouse_t request, Person *player)
 {
 
+    if (request.dx > Ui::mouse_move_threshold || request.dy > Ui::mouse_move_threshold)
+    {
+	std::cout << "Mouse MOVE" << std::endl;
+        Ui::tick_mouse_moved = Game::tick_count;
+    }
     //set the foreground color to red for the tile the mouse is on
     Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
     moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
@@ -645,6 +650,8 @@ bool process_debug_event(TCOD_key_t request, Person *player)
 bool process_key_event(TCOD_key_t request, Person *player)
 {
 
+    Ui::tick_key_pressed = Game::tick_count;
+    std::cout << "key event" << std::endl;
     //determine if movement command
     bool incr_turn = false;
     int current_tile = player->x+(player->y*(Game::current_map->width));
