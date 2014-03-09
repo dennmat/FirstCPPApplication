@@ -17,7 +17,6 @@ class Combat
     public:
         // std::string name;
         Actor* master;
-        char representation;
 
         bool is_dead;
         bool was_attacked;

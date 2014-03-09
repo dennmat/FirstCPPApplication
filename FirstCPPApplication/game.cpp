@@ -558,7 +558,7 @@ void Game::mainloop()
     // cout << screen_w << endl;
     // cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
-    TCODConsole::setKeyboardRepeat(500, 1);
+    TCODConsole::setKeyboardRepeat(1000, 1);
 
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);

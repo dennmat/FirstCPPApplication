@@ -72,11 +72,11 @@ Combat::Combat(std::string name, int max_hp, Person* master, char representation
 
     representation = representation;
 
-    master = NULL;
-    is_dead = false;
+    this->master = NULL;
+    this->is_dead = false;
 
-    attackers = new std::vector<Combat*>;
-    was_attacked = false;
+    this->attackers = new std::vector<Combat*>;
+    this->was_attacked = false;
 
 };
 
