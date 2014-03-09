@@ -651,7 +651,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
 {
 
     Ui::tick_key_pressed = Game::tick_count;
-    std::cout << "key event" << std::endl;
+    //std::cout << "key event" << std::endl;
     //determine if movement command
     bool incr_turn = false;
     int current_tile = player->x+(player->y*(Game::current_map->width));
