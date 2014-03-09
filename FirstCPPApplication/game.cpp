@@ -34,6 +34,7 @@
 #include "debug_options.h"
 #include "messages.h"
 #include <enemies\bad_mother.h>
+#include "civilian.h"
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -281,6 +282,9 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
     new_pers->putPerson(next_tile, x, y);
 
     new_pers->thinker->is_dumb = true;
+    new_pers->thinker->civilian = new Civilian;
+
+    new_pers->is_fighter = false;
     delete new_pers->combat;
 
     return new_pers;

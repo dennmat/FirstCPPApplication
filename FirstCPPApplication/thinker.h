@@ -5,6 +5,7 @@
 
 class Game;
 class Actor;
+class Civilian;
 
 //class to handle the ai, from combat to movement
 class Thinker
@@ -21,6 +22,7 @@ class Thinker
 
     public:
         Actor* master;
+        Civilian* civilian;
 
         int is_dumb;
         int is_civ;

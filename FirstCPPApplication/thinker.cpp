@@ -17,6 +17,9 @@
 
 Thinker::Thinker()
 {
+    this->master = NULL;
+    this->civilian = NULL;
+
     this->consecutive_fails = 0;
     this->fail_threshold = 5;
     this->path_possible = true;

@@ -30,5 +30,6 @@ class Person : public Actor
         void attack(Actor * target);
         void update();
         void championize();
+        void talk_to(Actor* occupant);
 };
 #endif

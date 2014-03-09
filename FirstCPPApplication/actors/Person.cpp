@@ -18,6 +18,7 @@
 #include "messages.h"
 #include "game.h"
 #include "ui.h"
+#include "civilian.h"
 
 Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name)
 {
@@ -136,4 +137,12 @@ void Person::attack(Actor * target)
 void Person::championize()
 {
 
+}
+
+void Person::talk_to(Actor* target)
+{
+    if (target->thinker->civilian != NULL)
+    {
+        new Message(Ui::msg_handler_main, target->thinker->civilian->talk_general_topic());
+    }
 };

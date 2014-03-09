@@ -17,6 +17,7 @@ class Item;
 class AttributeContainer;
 
 class TCODPath;
+class Townsmen;
 
 
 
