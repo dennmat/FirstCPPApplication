@@ -172,21 +172,95 @@ class DungeonListener : public ITCODBspCallback
         };
 };
 std::stringstream DungeonListener::output = std::stringstream();
+class TownListener : public ITCODBspCallback 
+{
+    private:
+        Map& map;
+        int roomNum;
+        int lastx, lasty;
+
+    public:
+        static std::stringstream output;
+        TownListener(Map &map) : map(map), roomNum(0) {};
+        bool visitNode(TCODBsp *node, void *userData)
+        {
+            if (node->isLeaf())
+            {
+                // std::cout << "nodes a leaf" << std::endl;
+
+                int room_x,room_y,room_w,room_h;
+                int room_min_size = 10;
+                // dig a room
+                TCODRandom *rng = TCODRandom::getInstance();
+
+                room_w = rng->getInt(room_min_size, node->w-2);
+                room_h = rng->getInt(room_min_size, node->h-2);
+                room_x = rng->getInt(node->x+1, node->x+node->w-(room_w-1));
+                room_y = rng->getInt(node->y+1, node->y+node->h-(room_h-1));
+
+                int perimeter = room_w*2 + room_h*2 - 4;
+                int door_index = rng->getInt(0, perimeter);
+                int room_style = rng->getInt(0, 100);
+                if (room_style < 75)
+                {
+                    map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+                }
+                else
+                {
+                    map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                }
+
+                lastx=room_x+room_w/2;
+                lasty=room_y+room_h/2;
+                roomNum++;
+
+                if (roomNum == 6) //stairs only on 6th room
+                {
+                    Tile* stair_tile = map.getTileAt(room_x+1, room_y+1);
+                    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+                    map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+                }
+            }
+            else
+            {
+                TownListener::output << "nodes NOT A leaf " << std::endl;
+                // std::cout << "nodes NOT A leaf " << std::endl;
+
+                Tile* tile;
+                TCODRandom *rng = TCODRandom::getInstance();
+                int x, y;
+                for (int i = 0; i < 16; i++)
+                {
+                    x = rng->getInt(node->x+1, node->x+node->w -3);
+                    y = rng->getInt(node->y+1, node->y+node->h -3);
+                    tile= map.getTileAt(x, y);
+                    if ( tile->tile->type_id == TileTypes::FloorTileTypeType)
+                    {
+                        tile->tile->representation->repr = ',';
+                        tile->tile->representation->setFGColor(TCODColor::darkerGrey, true, true, true);
+                        tile->tile->description = "A small stone lays here.";
+                    }
+                }
+            }
+            return true;
+        };
+};
+std::stringstream TownListener::output = std::stringstream();
 
 int Map::build_town_from_random(int seed)
 {
 
-    width = Game::town_width;
-    height = Game::town_height;
-    l_map = new TCODMap(width, height);
+    this->width = Game::town_width;
+    this->height = Game::town_height;
+    this->l_map = new TCODMap(this->width, this->height);
     //the default tile description
-    description = "This is the town, don't hurt anyone.";
+    this->description = "This is the town, don't hurt anyone.";
 
-    tileVector = new std::vector<std::vector<Tile>>;
-    tileVector->resize(height);
-    for(int ix = 0; ix < height; ++ix)
+    this->tileVector = new std::vector<std::vector<Tile>>;
+    this->tileVector->resize(this->height);
+    for(int ix = 0; ix < this->height; ++ix)
     {
-        (*tileVector)[ix].resize(width);
+        (*this->tileVector)[ix].resize(this->width);
     }
 
     int i = 0;
@@ -196,7 +270,7 @@ int Map::build_town_from_random(int seed)
     int room_min_x = 10;
     int room_min_y = 10;
 
-    while ( i < width*height )
+    while ( i < this->width*this->height )
     {
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
@@ -204,13 +278,13 @@ int Map::build_town_from_random(int seed)
         if(this_tile->type_id == TileTypes::FloorTileTypeType)
         {
             //light passes though, walkable
-            l_map -> setProperties(x, y, true, true);
+            this->l_map -> setProperties(x, y, true, true);
         }
 
         else 
         {
             //light does NOT pass through nor is walkable
-            l_map -> setProperties(x, y, false, false);
+            this->l_map -> setProperties(x, y, false, false);
         }
 
         // this_tile->tile->description = "Descriptionless tile.";
@@ -218,7 +292,7 @@ int Map::build_town_from_random(int seed)
         this_tile->tile_x = x;
         this_tile->tile_y = y;
 
-        if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
+        if ( x >= (this->width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
         {
             y++;
             x = 0;
@@ -229,14 +303,14 @@ int Map::build_town_from_random(int seed)
 
         i++;
     }
-    // 
-    //     TCODBsp bsp(0, 0, width, height);
-    //     bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
-    //     BspListener listener(*this);
-    //     bsp.traverseInvertedLevelOrder(&listener, this);
-    // 
-    //     std::cout << "" << BspListener::output.str() << std::endl;
-    // 
+    
+        TCODBsp bsp(0, 0, this->width, this->height);
+        bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
+        TownListener listener(*this);
+        bsp.traverseInvertedLevelOrder(&listener, this);
+    
+        std::cout << "" << TownListener::output.str() << std::endl;
+    
     return 1;
 
 };
