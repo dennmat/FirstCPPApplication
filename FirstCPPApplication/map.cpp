@@ -304,14 +304,14 @@ int Map::build_town_from_random(int seed)
 
         i++;
     }
-    
-        TCODBsp bsp(0, 0, this->width, this->height);
-        bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
-        TownListener listener(*this);
-        bsp.traverseInvertedLevelOrder(&listener, this);
-    
-        std::cout << "" << TownListener::output.str() << std::endl;
-    
+
+    TCODBsp bsp(0, 0, this->width, this->height);
+    bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
+    TownListener listener(*this);
+    bsp.traverseInvertedLevelOrder(&listener, this);
+
+    std::cout << "" << TownListener::output.str() << std::endl;
+
     return 1;
 
 };
