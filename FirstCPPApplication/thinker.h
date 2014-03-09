@@ -17,13 +17,20 @@ class Thinker
         int skip_threshold;
         int fail_threshold;
 
+        int is_dumb;
+        int is_civ;
+        int is_shopkeep;
+
 
     public:
         Actor* master;
         void update();
+        void smart_update();
+        void dumb_update();
         Thinker();
         ~Thinker();
         void walk_towards_player();
+        void walk_dumbly();
         void try_attacking_player();
 
 };

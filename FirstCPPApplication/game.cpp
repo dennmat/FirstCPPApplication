@@ -106,7 +106,8 @@ SpawnTypes get_spawn_type()
 
 void Game::fill_town(Map* world)
 {
-
+    Person* the_person = Game::create_person("Random Townsmen", 30, 10, 10, 'p', world, "To be deleted");
+    delete the_person->combat;
 };
 void Game::fill_dungeon(Map* world)
 {
@@ -541,7 +542,7 @@ bool gameplay_loop(bool incr_turn)
 void Game::start_game()
 {
     Map* last_map = Game::build_world();
-    // Map* last_map = Game::build_town();
+     // Map* last_map = Game::build_town();
     Game::current_map = last_map;
 
     Game::initialize_player(); //created the Person player
