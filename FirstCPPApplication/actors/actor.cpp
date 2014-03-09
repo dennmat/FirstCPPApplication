@@ -131,8 +131,8 @@ void Actor::putPerson( Tile * next_tile, int new_x, int new_y)
 
     if (new_x != -1 && new_y != -1)
     {
-        x = new_x;
-        y = new_y;
+        this->x = new_x;
+        this->y = new_y;
     }
 
 };

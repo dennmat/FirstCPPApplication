@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "thinker.h"
 
+#include <random>
 #include <iostream>
 #include <algorithm>
 
@@ -157,7 +158,7 @@ void Thinker::smart_update()
 
 void Thinker::dumb_update()
 {
-
+    this->walk_dumbly();
 };
 
 
@@ -165,6 +166,11 @@ void Thinker::walk_dumbly()
 {
     //pick a random direction if its not a wall or a boundary of some kind ie
     //the exit of their shop
+    std::vector<Tile*>* adj_tiles = this->master->my_tile->getVacantAdjacentTiles();
+    std::random_shuffle ( adj_tiles->begin(), adj_tiles->end());
+    Tile * next_tile = adj_tiles->back();
+    master->putPerson(next_tile, next_tile->tile_x, next_tile->tile_y); 
+    delete adj_tiles;
 };
 
 void Thinker::walk_towards_player()

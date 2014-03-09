@@ -107,7 +107,9 @@ SpawnTypes get_spawn_type()
 void Game::fill_town(Map* world)
 {
     Person* the_person = Game::create_person("Random Townsmen", 30, 10, 10, 'p', world, "To be deleted");
+    the_person->thinker->is_dumb = true;
     delete the_person->combat;
+    world->enemies.push_back(the_person);
 };
 void Game::fill_dungeon(Map* world)
 {
@@ -541,13 +543,11 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::start_game()
 {
-    Map* last_map = Game::build_world();
-     // Map* last_map = Game::build_town();
+    // Map* last_map = Game::build_world();
+     Map* last_map = Game::build_town();
     Game::current_map = last_map;
 
     Game::initialize_player(); //created the Person player
-    //Game::initialize_enemies(); // create the enemies
-    //Game::initialize_items(); // create the items
     Game::mainloop();
 
 };
@@ -556,14 +556,11 @@ void Game::mainloop()
 {
     WelcomeMessage();
 
-    // cout << screen_w << endl;
-    // cout << screen_h << endl;
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
     TCODConsole::setKeyboardRepeat(1000, 1);
 
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
-
 
     bool battle_done = false;
     bool incr_turn  = false;
