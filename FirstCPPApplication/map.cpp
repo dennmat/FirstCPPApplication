@@ -172,6 +172,7 @@ class DungeonListener : public ITCODBspCallback
         };
 };
 std::stringstream DungeonListener::output = std::stringstream();
+
 class TownListener : public ITCODBspCallback 
 {
     private:
@@ -208,6 +209,8 @@ class TownListener : public ITCODBspCallback
                 // else
                 // {
                 Room* new_room = map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, new_room->center_x, new_room->center_y+1, 't', &this->map, "To be deleted");
+                this->map.enemies.push_back(the_townsmen);
                 // }
 
                 lastx=room_x+room_w/2;
@@ -216,9 +219,9 @@ class TownListener : public ITCODBspCallback
 
                 if (roomNum == 6) //stairs only on 6th room
                 {
-                    Tile* stair_tile = map.getTileAt(new_room->center_x, new_room->center_y+1);
+                    Tile* stair_tile = this->map.getTileAt(new_room->center_x, new_room->center_y+1);
                     stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
-                    map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+                    this->map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
                 }
             }
             else
@@ -233,7 +236,7 @@ class TownListener : public ITCODBspCallback
                 {
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
-                    tile= map.getTileAt(x, y);
+                    tile = map.getTileAt(x, y);
                     if ( tile->tile->type_id == TileTypes::FloorTileTypeType)
                     {
                         tile->tile->representation->repr = ',';
