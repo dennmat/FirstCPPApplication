@@ -10,6 +10,7 @@ class Actor;
 class Civilian
 {
     public:
+        int disposition;
         Actor* master;
         std::vector<std::string>* chat_lines;
         

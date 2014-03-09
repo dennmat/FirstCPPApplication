@@ -139,10 +139,16 @@ void Person::championize()
 
 }
 
+std::string Person::talk_wrap(Actor* target, std::string text)
+{
+    return "He says, \""+text+"\"";
+};
+
 void Person::talk_to(Actor* target)
 {
     if (target->thinker->civilian != NULL)
     {
-        new Message(Ui::msg_handler_main, "He says, \""+target->thinker->civilian->talk_general_topic()+"\"");
+        std::string text = this->talk_wrap(target, target->thinker->civilian->talk_general_topic());
+        new Message(Ui::msg_handler_main, text);
     }
 };

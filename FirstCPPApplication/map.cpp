@@ -25,12 +25,10 @@
 #include "messages.h"
 #include "ui.h"
 
-using namespace std;
-
 Map::Map()
 {
-    this->enemies = vector<Actor*>();
-    this->roomVector = new vector<Room*>;
+    this->enemies = std::vector<Actor*>();
+    this->roomVector = new std::vector<Room*>;
 
     this->width = NULL;
     this->height = NULL;
@@ -44,7 +42,7 @@ Map::~Map()
 
 Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 {
-    vector<Tile> * x_tiles;
+    std::vector<Tile> * x_tiles;
 
     if (x < 0  )
     {
@@ -58,8 +56,8 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 
     if (!is_original_pos && (x < 0 || y < 0 ) ) // this shouldnt ever happen now
     { 
-        cout << "can't find a tile here.";
-        cout << "I'd throw and error but I don't know how yet" << endl;
+        std::cout << "can't find a tile here.";
+        std::cout << "I'd throw and error but I don't know how yet" <<std::endl;
     }
 
     // these two ifs cut way the hell down on recursion by eliminating the
@@ -100,7 +98,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     };
 };
 
-class BspListener : public ITCODBspCallback 
+class DungeonListener : public ITCODBspCallback 
 {
     private:
         Map& map;
@@ -109,7 +107,7 @@ class BspListener : public ITCODBspCallback
 
     public:
         static std::stringstream output;
-        BspListener(Map &map) : map(map), roomNum(0) {};
+        DungeonListener(Map &map) : map(map), roomNum(0) {};
         bool visitNode(TCODBsp *node, void *userData)
         {
             if (node->isLeaf())
@@ -151,7 +149,7 @@ class BspListener : public ITCODBspCallback
             }
             else
             {
-                BspListener::output << "nodes NOT A leaf " << std::endl;
+                DungeonListener::output << "nodes NOT A leaf " << std::endl;
                 // std::cout << "nodes NOT A leaf " << std::endl;
 
                 Tile* tile;
@@ -173,7 +171,7 @@ class BspListener : public ITCODBspCallback
             return true;
         };
 };
-std::stringstream BspListener::output = std::stringstream();
+std::stringstream DungeonListener::output = std::stringstream();
 
 int Map::build_town_from_random(int seed)
 {
@@ -184,7 +182,7 @@ int Map::build_town_from_random(int seed)
     //the default tile description
     description = "This is the town, don't hurt anyone.";
 
-    tileVector = new vector<vector<Tile>>;
+    tileVector = new std::vector<std::vector<Tile>>;
     tileVector->resize(height);
     for(int ix = 0; ix < height; ++ix)
     {
@@ -215,7 +213,7 @@ int Map::build_town_from_random(int seed)
             l_map -> setProperties(x, y, false, false);
         }
 
-        this_tile->tile->description = "Descriptionless tile.";
+        // this_tile->tile->description = "Descriptionless tile.";
 
         this_tile->tile_x = x;
         this_tile->tile_y = y;
@@ -231,14 +229,14 @@ int Map::build_town_from_random(int seed)
 
         i++;
     }
-// 
-//     TCODBsp bsp(0, 0, width, height);
-//     bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
-//     BspListener listener(*this);
-//     bsp.traverseInvertedLevelOrder(&listener, this);
-// 
-//     std::cout << "" << BspListener::output.str() << std::endl;
-// 
+    // 
+    //     TCODBsp bsp(0, 0, width, height);
+    //     bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
+    //     BspListener listener(*this);
+    //     bsp.traverseInvertedLevelOrder(&listener, this);
+    // 
+    //     std::cout << "" << BspListener::output.str() << std::endl;
+    // 
     return 1;
 
 };
@@ -246,12 +244,12 @@ int Map::build_town_from_random(int seed)
 int Map::build_dungeon_from_random(int seed)
 {
     std::string path = get_data_path()+"testing_jansson.json";
-    ifstream myfile(path);
+    std::ifstream myfile(path);
     if (!myfile.is_open())
     {
         throw std::bad_exception();
     }
-    stringstream ss;
+    std::stringstream ss;
     ss << myfile.rdbuf(); 
 
     //JANNSON TESTING
@@ -274,7 +272,7 @@ int Map::build_dungeon_from_random(int seed)
     //the default tile description
     description = "poppycock";
 
-    tileVector = new vector<vector<Tile>>;
+    tileVector = new std::vector<std::vector<Tile>>;
     tileVector->resize(height);
     for(int ix = 0; ix < height; ++ix)
     {
@@ -305,8 +303,6 @@ int Map::build_dungeon_from_random(int seed)
             l_map -> setProperties(x, y, false, false);
         }
 
-        this_tile->tile->description = "Descriptionless tile.";
-
         this_tile->tile_x = x;
         this_tile->tile_y = y;
 
@@ -324,7 +320,7 @@ int Map::build_dungeon_from_random(int seed)
 
     TCODBsp bsp(0, 0, width, height);
     bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
-    BspListener listener(*this);
+    DungeonListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
     //std::cout << "" << BspListener::output.str() << std::endl;
@@ -449,10 +445,10 @@ void Map::build_rect_room(int room_x, int room_y,
 
 };
 
-int Map::build_from_file(string filename)
+int Map::build_from_file(std::string filename)
 {
-    string line;
-    ifstream myfile (filename);
+    std::string line;
+    std::ifstream myfile (filename);
 
 
     if (myfile.is_open())
@@ -467,7 +463,7 @@ int Map::build_from_file(string filename)
 
         l_map = new TCODMap(width, height);
         // printf("Width: %s, Height: %s\n", width, height);
-        // cout << width << " " << height << endl;
+        // std::cout << width << " " << height <<std::endl;
 
         // get default tile description
         getline (myfile,line);
@@ -564,8 +560,8 @@ int Map::draw()
             TCODColor* the_fg_color = &(TCODColor)(TCODColor::white);
             char the_char;
 
-            // cout << "initial white and black" << endl;
-            // cout << the_fg_color << endl << the_bg_color << endl;
+            // std::cout << "initial white and black" <<std::endl;
+            // std::cout << the_fg_color <<std::endl << the_bg_color <<std::endl;
 
             if (Game::debug_opts->all_vision || l_map->isInFov(x, y))
                 // if (true)
@@ -649,8 +645,8 @@ int Map::draw()
             // {
             //              TCODConsole::root->setCharBackground(x, y, TCODColor::amber);
             // }
-            // cout << "final white and black" << endl;
-            // cout << the_fg_color << endl << the_bg_color << endl << endl;
+            // std::cout << "final white and black" <<std::endl;
+            // std::cout << the_fg_color << std::endl << the_bg_color << std::endl << std::endl;
         }
     }
 
@@ -671,23 +667,23 @@ int Map::draw()
     //         }
     //     }
     //     else {
-    //         cout << "its null" << endl;
+    //         std::cout << "its null" << std::endl;
     //     }
     // }
 
     //may have just shot readability in the head here...
-    // cout << endl << endl;
-    // cout << "Tile Description:" << endl;
+    // std::cout << std::endl << std::endl;
+    // std::cout << "Tile Description:" << std::endl;
 
     Person  * thePerson = Game::player;
     //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
     BaseTileType * person_tile = getTileAt(thePerson->x, thePerson->y)->tile;
 
 
-    string pers_desc = person_tile->description;
-    string tile_description = (pers_desc != "none" ?  pers_desc : description);
-    // cout << tile_description;
-    // cout << endl << endl;
+    std::string pers_desc = person_tile->description;
+    std::string tile_description = (pers_desc != "none" ?  pers_desc : description);
+    // std::cout << tile_description;
+    // std::cout << std::endl << std::endl;
 
     //draw the game_console to root, taking from where the camera is looking at
     TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
@@ -698,7 +694,7 @@ int Map::draw()
 
 bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 {
-    // cout << "trying to move player" << endl;
+    // std::cout << "trying to move player" << std::endl;
 
     int new_x, new_y; // where the player is intending to go
     new_x = thePerson->x+x2;
@@ -707,7 +703,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     //check to make sure the target tile's position would be valid
     if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     {
-        cout << "invalid move fool" << endl;
+        std::cout << "invalid move fool" << std::endl;
         new Message(Ui::msg_handler_main, "Leave the outer limits alone");
         return false;
     }
@@ -763,15 +759,15 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 
     else
     {
-        cout << endl << "invalid move." << endl;
+        std::cout << std::endl << "invalid move." << std::endl;
         new Message(Ui::msg_handler_main, "That's probably a wall.");
         if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         {
-            cout << target_tile->tile->description << endl;
+            std::cout << target_tile->tile->description << std::endl;
         }
         else
         {  // more blank space for gui consistency
-            cout << endl;
+            std::cout << std::endl;
         }
 
         return false;

@@ -9,6 +9,7 @@
 
 Civilian::Civilian()
 {
+    this->disposition = 50;
     this->master = NULL;
     this->chat_lines = new std::vector<std::string>();
     this->chat_lines->push_back("Nice day outside, isn't it?");

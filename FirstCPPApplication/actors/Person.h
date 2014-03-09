@@ -31,5 +31,6 @@ class Person : public Actor
         void update();
         void championize();
         void talk_to(Actor* occupant);
+        std::string Person::talk_wrap(Actor* target, std::string text);
 };
 #endif
