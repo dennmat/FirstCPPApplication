@@ -36,9 +36,9 @@ class Map : public Object
         int build_dungeon_from_random(int seed);
         int build_town_from_random(int seed);
 
-        void build_circle_room(int room_x, int room_y,
+        Room* build_circle_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);
-        void build_rect_room(int room_x, int room_y,
+        Room* build_rect_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);
 
         int draw();

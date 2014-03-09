@@ -200,15 +200,15 @@ class TownListener : public ITCODBspCallback
 
                 int perimeter = room_w*2 + room_h*2 - 4;
                 int door_index = rng->getInt(0, perimeter);
-                int room_style = rng->getInt(0, 100);
-                if (room_style < 75)
-                {
-                    map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
-                }
-                else
-                {
-                    map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
-                }
+                // int room_style = rng->getInt(0, 100);
+                // if (room_style < 75)
+                // {
+                //     map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+                // }
+                // else
+                // {
+                Room* new_room = map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                // }
 
                 lastx=room_x+room_w/2;
                 lasty=room_y+room_h/2;
@@ -216,7 +216,7 @@ class TownListener : public ITCODBspCallback
 
                 if (roomNum == 6) //stairs only on 6th room
                 {
-                    Tile* stair_tile = map.getTileAt(room_x+1, room_y+1);
+                    Tile* stair_tile = map.getTileAt(new_room->center_x, new_room->center_y+1);
                     stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
                     map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
                 }
@@ -275,6 +275,7 @@ int Map::build_town_from_random(int seed)
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
         this_tile->updateTileType(TileTypes::FloorTileTypeType);
+        this_tile->tile->description = "Dirt floor.";
         if(this_tile->type_id == TileTypes::FloorTileTypeType)
         {
             //light passes though, walkable
@@ -404,7 +405,7 @@ int Map::build_dungeon_from_random(int seed)
 };
 
 
-void Map::build_circle_room(int room_x, int room_y,
+Room* Map::build_circle_room(int room_x, int room_y,
         int room_width, int room_height,
         int door_index)
 {
@@ -433,17 +434,18 @@ void Map::build_circle_room(int room_x, int room_y,
                 adj_y = this->width-2;
             }
 
+            Tile* tile = getTileAt(adj_x, adj_y);
             //check for outer perimeter
             if (room->isCircle(adj_x, adj_y))
             {
                 // std::cout << "is circle" << std::endl;
-                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::WallTileTypeType); //for wall
+                tile->updateTileType(TileTypes::WallTileTypeType); //for wall
                 l_map -> setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (room->checkDoorCount())
                 {
-                    getTileAt(adj_x, adj_y)->updateTileType(TileTypes::DoorTileTypeType); //for door
+                    tile->updateTileType(TileTypes::DoorTileTypeType); //for door
                     l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
@@ -451,17 +453,17 @@ void Map::build_circle_room(int room_x, int room_y,
             //everything else
             else 
             {
-                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::FloorTileTypeType); //for floor
-                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
+                tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
+                tile->tile->representation->setFGColor(*(tile->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
+                tile->tile->description = "Crumbling bricks scattered here.";
             }
 
         }
     }
 
-
-
+    return room;
 };
-void Map::build_rect_room(int room_x, int room_y,
+Room* Map::build_rect_room(int room_x, int room_y,
         int room_width, int room_height,
         int door_index)
 {
@@ -490,16 +492,17 @@ void Map::build_rect_room(int room_x, int room_y,
                 adj_y = this->width-2;
             }
 
+            Tile* tile = getTileAt(adj_x, adj_y);
             //check for outer perimeter
             if (room->isPerimeter(new_x, new_y))
             {
-                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::WallTileTypeType); //for wall
+                tile->updateTileType(TileTypes::WallTileTypeType); //for wall
                 l_map -> setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (room->checkDoorCount())
                 {
-                    getTileAt(adj_x, adj_y)->updateTileType(TileTypes::DoorTileTypeType); //for door
+                    tile->updateTileType(TileTypes::DoorTileTypeType); //for door
                     l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
@@ -507,14 +510,15 @@ void Map::build_rect_room(int room_x, int room_y,
             //everything else
             else 
             {
-                getTileAt(adj_x, adj_y)->updateTileType(TileTypes::FloorTileTypeType); //for floor
+                tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //set darker indoor color
-                getTileAt(adj_x, adj_y)->tile->representation->setFGColor(*(getTileAt(adj_x, adj_y)->tile->representation->fg_color) * 0.5f, true, false, true); 
+                tile->tile->representation->setFGColor(*(tile->tile->representation->fg_color) * 0.5f, true, false, true); 
             }
 
         }
     }
 
+    return room;
 
 
 };
