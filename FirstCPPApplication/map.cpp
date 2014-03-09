@@ -718,10 +718,6 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     Tile *target_tile; // the tile of the new position
     target_tile = getTileAt(new_x, new_y);
 
-    std::stringstream converter;
-    converter << target_tile->is_occupied();
-    string bool_string = converter.str();
-
     int vec[] = {3, 2, 5, 6}; //walkable types of tiles
     std::vector<int> vec_ints(vec, vec+4);
     bool in_types = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id)!=vec_ints.end();
@@ -748,6 +744,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
         {
             thePerson->has_attacked = false;
             thePerson->talk_to(target_tile->occupant);
+            return false;
         };
     }
 

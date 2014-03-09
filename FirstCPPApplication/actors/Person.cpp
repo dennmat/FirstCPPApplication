@@ -143,6 +143,6 @@ void Person::talk_to(Actor* target)
 {
     if (target->thinker->civilian != NULL)
     {
-        new Message(Ui::msg_handler_main, target->thinker->civilian->talk_general_topic());
+        new Message(Ui::msg_handler_main, "He says, "+target->thinker->civilian->talk_general_topic());
     }
 };

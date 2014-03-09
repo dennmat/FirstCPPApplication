@@ -161,7 +161,10 @@ void Thinker::smart_update()
 
 void Thinker::dumb_update()
 {
-    this->walk_dumbly();
+    if (Game::turn_count % 3 == 0)
+    {
+        this->walk_dumbly();
+    }
 };
 
 

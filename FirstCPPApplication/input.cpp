@@ -376,7 +376,7 @@ void move_camera(int dir_x, int dir_y)
     };
 };
 
-//returns whether or not the player has moved
+//returns whether or not the player has moved and should increment the turn
 bool process_movement(TCOD_key_t request, Person *player)
 {
     Map *world = Game::world;
