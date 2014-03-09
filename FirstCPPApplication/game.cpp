@@ -106,10 +106,8 @@ SpawnTypes get_spawn_type()
 
 void Game::fill_town(Map* world)
 {
-    Person* the_person = Game::create_person("Random Townsmen", 30, 10, 10, 'p', world, "To be deleted");
-    the_person->thinker->is_dumb = true;
-    delete the_person->combat;
-    world->enemies.push_back(the_person);
+    Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, 10, 10, 't', world, "To be deleted");
+    world->enemies.push_back(the_townsmen);
 };
 void Game::fill_dungeon(Map* world)
 {
@@ -267,6 +265,23 @@ Person * Game::create_person(std::string name, int age, int x, int y, char repr,
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
+
+    return new_pers;
+};
+
+//creates a person and places them on the current map
+Person * Game::create_townsmen(std::string name, int age, int x, int y, char repr, 
+        Map* map, std::string Combat_name)
+{
+    //build the Person
+    Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
+
+    //put it on the map somewhere
+    Tile * next_tile = map->getTileAt(x,y);
+    new_pers->putPerson(next_tile, x, y);
+
+    new_pers->thinker->is_dumb = true;
+    delete new_pers->combat;
 
     return new_pers;
 };
