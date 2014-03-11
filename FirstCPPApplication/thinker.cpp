@@ -2,8 +2,6 @@
 #include "thinker.h"
 
 #include <random>
-#include <iostream>
-#include <algorithm>
 
 #include "libtcod.hpp"
 #include "map.h"

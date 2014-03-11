@@ -1,11 +1,9 @@
 #include "stdafx.h"
 // #include "libtcod.hpp"
-#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <typeinfo>
 #include <cstdlib>
-#include <algorithm>
 #include <unordered_map>
 
 #include <windows.h>

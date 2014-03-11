@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Representation.h"
 
-#include <iostream>
 
 #include "../FirstCPPApplication/libtcod_cpp_hpp/libtcod.hpp"
 

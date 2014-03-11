@@ -1,12 +1,9 @@
 #include "stdafx.h"
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
 #include "libtcod.hpp"
-#include <vector>
-#include <algorithm>
 #include <exception>
 
 #include <jansson.h>

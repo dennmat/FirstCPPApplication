@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <iostream>
-#include <vector>
 #include "ui.h"
 //#include <cmath>
 

@@ -1,7 +1,5 @@
 #include "stdafx.h"
-#include <iostream>
 #include <assert.h>
-#include <algorithm>
 
 #include "Room.h"
 

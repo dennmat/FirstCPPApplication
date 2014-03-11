@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-#include <vector>
-#include <string>
 
 #include "libtcod.hpp"
 #include "draw_utils.h"

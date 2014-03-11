@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <vector>
-#include <algorithm>
 
 #include "item_effect.h"
 #include "attribute_container.h"

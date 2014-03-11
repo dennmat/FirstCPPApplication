@@ -1,11 +1,8 @@
 #include "stdafx.h"
 #include "tile.h"
-#include <algorithm>
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
-#include <iostream>
-#include <vector>
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 

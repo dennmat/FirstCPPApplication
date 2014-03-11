@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "civilian.h"
 
-#include <vector>
-#include <string>
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 

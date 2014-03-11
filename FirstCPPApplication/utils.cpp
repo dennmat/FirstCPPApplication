@@ -1,12 +1,9 @@
 #include "stdafx.h"
-#include <iostream>
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
-#include <algorithm>
 #include "windows.h"
 #include <fstream>
-#include <vector>
 
 #include "utils.h"
 

@@ -1,11 +1,7 @@
 #include "stdafx.h"
-#include <iostream>
 #include <sstream>
 #include <typeinfo>
 #include <cstdlib>
-#include <algorithm>
-#include <vector>
-#include <string>
 
 #include <libtcod.hpp>
 

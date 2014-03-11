@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <vector>
-#include <algorithm>
 
 #include "inventory.h"
 #include "item.h"

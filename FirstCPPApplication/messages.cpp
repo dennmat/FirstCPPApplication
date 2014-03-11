@@ -1,9 +1,6 @@
 #include "stdafx.h"
-#include <iostream>
 #include <sstream>
-#include <string>
 #include "messages.h"
-#include <vector>
 #include <stdarg.h>
 #include <assert.h>
 

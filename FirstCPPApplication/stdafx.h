@@ -11,6 +11,10 @@
 #include <tchar.h>
 
 
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
 
 // TODO: reference additional headers your program requires here
 #include <libtcod.hpp>
