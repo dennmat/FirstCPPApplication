@@ -5,7 +5,9 @@
 
 #include <Vector>
 // #include "input.h"
-#include "libtcod_cpp_hpp\libtcod.hpp"
+// #include "libtcod_cpp_hpp\libtcod.hpp"
+#include "libtcod_cpp_hpp\mouse_types.h"
+#include "libtcod_cpp_hpp\console_types.h"
 
 #include <enums\gamestate.h>
 
@@ -24,11 +26,10 @@ class Skeleton;
 class Ogre;
 
 class Item;
-
 class DebugOptions;
-
 class Ui;
 
+class TCODConsole;
 
 class Game
 {

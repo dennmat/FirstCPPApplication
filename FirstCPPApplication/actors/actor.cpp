@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "libtcod_cpp_hpp\libtcod.hpp"
+// #include "libtcod_cpp_hpp\libtcod.hpp"
 
 #include "actor.h"
 

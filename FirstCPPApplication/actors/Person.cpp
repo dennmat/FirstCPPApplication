@@ -5,7 +5,7 @@
 
 #include "Person.h"
 
-#include "libtcod.hpp"
+// #include "libtcod.hpp"
 
 #include "thinker.h"
 #include "inventory.h"

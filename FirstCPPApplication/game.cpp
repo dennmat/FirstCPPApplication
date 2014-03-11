@@ -546,6 +546,7 @@ bool gameplay_loop(bool incr_turn)
     //AIs update
     if (incr_turn == true)
     {
+        // int x = 1;
         Game::update();
     }
 

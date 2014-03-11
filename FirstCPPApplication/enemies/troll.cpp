@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "libtcod.hpp"
+// #include "libtcod.hpp"
 
 #include <actors/person.h>
 #include "thinker.h"
