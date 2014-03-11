@@ -670,7 +670,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 incr_turn = process_basic_cmd(request, player);
             }
 
-            else if(request.c == 'q' && request.pressed == 1)
+            else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
             {
                 cout << "Goodbye now" << endl;
                 exit(1);
