@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <windows.h>
 
-#include "libtcod_cpp_hpp\libtcod.hpp"
+// #include "libtcod_cpp_hpp\libtcod.hpp"
 
 #include "FirstCPPApplication.h"
 

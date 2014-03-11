@@ -6,7 +6,10 @@
 #include <iostream>
 
 // #include "libtcod.hpp"
-#include "libtcod_cpp_hpp\libtcod.hpp"
+// #include "libtcod_cpp_hpp\libtcod.hpp"
+// #include "libtcod_cpp_hpp\libtcod.hpp"
+#include "libtcod_cpp_hpp\mouse_types.h"
+#include "libtcod_cpp_hpp\console_types.h"
 
 
 class Person;
