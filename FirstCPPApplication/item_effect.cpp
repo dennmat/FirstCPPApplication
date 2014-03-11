@@ -102,6 +102,7 @@ bool ItemEffect::already_applied_health(Actor* actor)
         };
 
     };
+    return false;
 };
 
 bool ItemEffect::already_applied_mana(Actor* actor)
@@ -118,6 +119,7 @@ bool ItemEffect::already_applied_mana(Actor* actor)
         };
 
     };
+    return false;
 };
 
 bool ItemEffect::already_applied_armor(Actor* actor)
@@ -134,6 +136,7 @@ bool ItemEffect::already_applied_armor(Actor* actor)
         };
 
     };
+    return false;
 };
 
 bool ItemEffect::already_applied_damage(Actor* actor)
@@ -150,6 +153,7 @@ bool ItemEffect::already_applied_damage(Actor* actor)
         };
 
     };
+    return false;
 };
 
 bool ItemEffect::already_applied_all(Actor* actor)
@@ -178,6 +182,7 @@ bool ItemEffect::already_applied_all(Actor* actor)
     // // gaining way too much health for ever.
     // //TODO TODO TODO
 
+    return false;
 };
 
 
