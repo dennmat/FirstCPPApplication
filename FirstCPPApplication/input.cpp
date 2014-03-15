@@ -44,6 +44,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
     char_movemap['>'] = basic_cmds_t::DownStairs;
     char_movemap['<'] = basic_cmds_t::UpStairs;
+    char_movemap['m'] = basic_cmds_t::Magic;
 
     if (key.vk == TCODK_CHAR) 
     {
@@ -237,7 +238,22 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
             //std::cout << "There's no stair here" << std::endl;
             new Message(Ui::msg_handler_main,"There's no stair here.");
         };
+    }
+
+    else if ( basic_cmd == basic_cmds_t::Magic )
+    {
+        Tile* stair_tile = Game::player->my_tile;
+        if (Ui::toggle_targetting())
+        {
+            new Message(Ui::msg_handler_main, "Select a target.");
+        }
+        else
+        {
+            new Message(Ui::msg_handler_main, "Done targetting");
+        }
+        //start targetting mode
     };
+    
 
     return false;
 };
@@ -605,7 +621,7 @@ bool process_mouse_event(TCOD_mouse_t request, Person *player)
 
     if (request.dx > Ui::mouse_move_threshold || request.dy > Ui::mouse_move_threshold)
     {
-	std::cout << "Mouse MOVE" << std::endl;
+	//std::cout << "Mouse MOVE" << std::endl;
         Ui::tick_mouse_moved = Game::tick_count;
     }
     //set the foreground color to red for the tile the mouse is on

@@ -37,6 +37,8 @@ int Ui::mouse_move_threshold = 10;
 unsigned long long int Ui::tick_key_pressed = 0;
 unsigned long long int Ui::tick_key_released = 0;
 
+bool Ui::is_targetting = false;
+
 int Ui::ui_inv_w = 0;
 int Ui::ui_inv_h = 0;
 int Ui::ui_inv_msg_w = 0;
@@ -138,6 +140,7 @@ void Ui::draw_ui()
 {
     draw_ui_sidebar();
     draw_ui_msg();
+    draw_misc();
 };
 
 bool Ui::should_draw_mouse_helpbox()
@@ -150,7 +153,7 @@ void Ui::draw_mouse_helpbox()
 {
     //get help text
     std::string help_text = "";
-    Tile* mouse_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
+    Tile* mouse_tile = Game::get_mouse_tile();
     if (! mouse_tile->is_known())
         help_text = "Unknown tile";
     else if (mouse_tile->is_occupied())
@@ -285,18 +288,34 @@ void Ui::draw_ui_sidebar()
 
     y++;
 
-    //draw line from player to mouse
-    // TCODLine::init(Game::player->x, Game::player->y, Game::mouse_evt.cx, Game::mouse_evt.cy);
-    // int x = Game::player->x, y2 = Game::player->y ;
-    // do {
-    //     TCODConsole::root->setCharBackground(x, y2, TCODColor::red);
-    // } while (!TCODLine::step(&x,&y2));
 
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, Ui::game->screen_w-ui_sidebar_w, 0 );
     delete ui_sidebar_con;
 };
+
+bool Ui::toggle_targetting()
+{
+    Ui::is_targetting = !Ui::is_targetting;
+    return Ui::is_targetting;
+};
+
+void Ui::draw_misc()
+{
+    if (Ui::is_targetting)
+    {
+        // draw line from player to mouse
+        TCODLine::init(Game::player->x, Game::player->y,
+                Game::mouse_evt.cx, Game::mouse_evt.cy);
+        int x = Game::player->x, y2 = Game::player->y ;
+        do {
+            TCODConsole::root->setCharBackground(x, y2,
+                    TCODColor::red);
+        } while (!TCODLine::step(&x,&y2));
+    }
+        
+}
 
 void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
 {

@@ -104,6 +104,18 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::BadMotherSpawn;
 };
 
+Tile* Game::get_mouse_tile()
+{
+    Tile* mouse_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
+    return mouse_tile;
+};
+
+Tile* Game::get_player_tile()
+{
+    Tile* player_tile = Game::player->my_tile;
+    return player_tile;
+};
+
 void Game::fill_town(Map* world)
 {
     Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, 10, 10, 't', world, "To be deleted");

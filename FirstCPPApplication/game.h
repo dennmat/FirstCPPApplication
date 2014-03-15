@@ -102,6 +102,8 @@ class Game
         static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
         static Ogre * create_ogre(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
 
+        static Tile* get_mouse_tile();
+        static Tile* get_player_tile();
 
         static void start_game();
         static void mainloop();
