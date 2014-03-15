@@ -21,13 +21,13 @@
 #include "item.h"
 #include "debug_options.h"
 
-using namespace std;
 
 enum basic_cmds_t {
     Pickup, Drop,
     OpenInventory,
     Look, ActivateDoor,
     DownStairs, UpStairs,
+    Magic,
     NO_MATCHING_BASIC_CMD
 };
 
@@ -174,13 +174,13 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
 
     if (basic_cmd == basic_cmds_t::Pickup)
     {
-        cout << "PICKUP THIS IS A STICKUP" << endl;
+        std::cout << "PICKUP THIS IS A STICKUP" << std::endl;
 
         //check if items are on the floor
         if (player->my_tile->check_for_items())
         {
-            cout << "items on the floor, you'll be picking up";
-            cout << "the last item you picked up now" << endl;
+            std::cout << "items on the floor, you'll be picking up";
+            std::cout << "the last item you picked up now" << std::endl;
             //TODO:open ui for item pickup to choose which item
             Item* item = player->my_tile->inventory->items->back();
             player->pickUpItem(item);
@@ -478,7 +478,7 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::X)
     {
-        cout << "WAITING" << endl;
+        std::cout << "WAITING" << std::endl;
         // player->is_moving_left = true;
         // if(Game::current_map->attackMovePlayer(player, -1, 0) )
         // { 
@@ -522,58 +522,58 @@ void process_buildmode(TCOD_key_t request, int current_tile)
     if(request.c == 'c')
     {
         // do the stuff to make a new tile
-        cout << "type_id: ";
+        std::cout << "type_id: ";
         Tile this_tile = Game::current_map->tileArray[current_tile];
-        cin >> this_tile.type_id;
+        std::cin >> this_tile.type_id;
         if(this_tile.type_id == TileTypes::WarpTileTypeType)
         {
             WarpTileType* warp_tile;
             warp_tile = (WarpTileType*) this_tile.tile;
 
-            cout << "Warp Map: ";
-            cin >> warp_tile->warpMap;
-            cout << "WarpX: ";
-            cin >> warp_tile->warpX;
-            cout << "WarpY: ";
-            cin >> warp_tile->warpY;
+            std::cout << "Warp Map: ";
+            std::cin >> warp_tile->warpMap;
+            std::cout << "WarpX: ";
+            std::cin >> warp_tile->warpX;
+            std::cout << "WarpY: ";
+            std::cin >> warp_tile->warpY;
         }
-        cout << endl << "Description: ";
-        getline(cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
-        getline(cin, this_tile.tile->description);
-        cout << endl << "Representation: ";
-        cin >> this_tile.tile->representation->repr;
+        std::cout << std::endl << "Description: ";
+        getline(std::cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
+        getline(std::cin, this_tile.tile->description);
+        std::cout << std::endl << "Representation: ";
+        std::cin >> this_tile.tile->representation->repr;
     }
     else if(request.c == 'i')
     {
         // Write the map to a file
-        ofstream myfile;
-        string filename;
-        cout << "Filename: ";
-        getline(cin, filename); // do this twice because hitting enter... whatever
+        std::ofstream myfile;
+        std::string filename;
+        std::cout << "Filename: ";
+        getline(std::cin, filename); // do this twice because hitting enter... whatever
         myfile.open (filename);
         int i,j;
 
         // Map this_map = Game::current_map;
-        myfile << Game::current_map->width << endl;
-        myfile << Game::current_map->height << endl;  
-        myfile << Game::current_map->description << endl;  
+        myfile << Game::current_map->width << std::endl;
+        myfile << Game::current_map->height << std::endl;  
+        myfile << Game::current_map->description << std::endl;  
 
         for(i=0; i<Game::current_map->height; i++)
             for(j=0; j<Game::current_map->width; j++)
             {
                 Tile active_tile = Game::current_map->tileArray[(i*Game::current_map->width)+j];
-                myfile << active_tile.tile->representation << endl;
-                myfile << active_tile.type_id << endl;
+                myfile << active_tile.tile->representation << std::endl;
+                myfile << active_tile.type_id << std::endl;
                 if(active_tile.type_id == TileTypes::WarpTileTypeType)
                 {
                     WarpTileType* warp_tile;
                     warp_tile = (WarpTileType*) active_tile.tile;
 
-                    myfile << warp_tile->warpMap << endl;
-                    myfile << warp_tile->warpX << endl;
-                    myfile << warp_tile->warpY << endl;
+                    myfile << warp_tile->warpMap << std::endl;
+                    myfile << warp_tile->warpX << std::endl;
+                    myfile << warp_tile->warpY << std::endl;
                 }
-                myfile << active_tile.tile->description << endl;  
+                myfile << active_tile.tile->description << std::endl;  
             }
         myfile.close();
     }
@@ -670,13 +670,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
 
             else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
             {
-                cout << "Goodbye now" << endl;
+                std::cout << "Goodbye now" << std::endl;
                 exit(1);
             }
             else
             {
-                cout << endl << "command not found: " << char_to_str(request.c) << endl;
-                cout << "nswe or numpad to move, i to open inventory, q to quit, o to open doors" << endl;
+                std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                std::cout << "nswe or numpad to move, i to open inventory, q to quit, o to open doors" << std::endl;
             }
 
             break;
@@ -684,7 +684,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
         case GameStates::MenuState:
             if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
             {
-                cout << "Back to the game." << endl;
+                std::cout << "Back to the game." << std::endl;
                 Ui::chosen_item = NULL;
                 Ui::item_active = false;
                 Game::current_state = GameStates::GameplayState;
@@ -730,10 +730,10 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 }
                 else 
                 {
-                    cout << endl << "command not found: " << char_to_str(request.c) << endl;
-                    cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << endl;
-                    cout << "press again to select. once it's activated, press u to use" << endl;
-                    cout << "e to equip, y to unequip, d to drop" << endl;
+                    std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                    std::cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << std::endl;
+                    std::cout << "press again to select. once it's activated, press u to use" << std::endl;
+                    std::cout << "e to equip, y to unequip, d to drop" << std::endl;
                 }
             }
 

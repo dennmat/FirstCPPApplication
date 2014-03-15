@@ -136,8 +136,8 @@ void Ui::update_ui()
 
 void Ui::draw_ui()
 {
-    draw_ui_msg();
     draw_ui_sidebar();
+    draw_ui_msg();
 };
 
 bool Ui::should_draw_mouse_helpbox()
@@ -285,6 +285,12 @@ void Ui::draw_ui_sidebar()
 
     y++;
 
+    //draw line from player to mouse
+    // TCODLine::init(Game::player->x, Game::player->y, Game::mouse_evt.cx, Game::mouse_evt.cy);
+    // int x = Game::player->x, y2 = Game::player->y ;
+    // do {
+    //     TCODConsole::root->setCharBackground(x, y2, TCODColor::red);
+    // } while (!TCODLine::step(&x,&y2));
 
 
     //draw ui console to root
