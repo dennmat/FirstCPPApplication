@@ -27,7 +27,7 @@ enum basic_cmds_t {
     OpenInventory,
     Look, ActivateDoor,
     DownStairs, UpStairs,
-    Magic,
+    Magic, ConfirmCast,
     NO_MATCHING_BASIC_CMD
 };
 
@@ -45,6 +45,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     char_movemap['>'] = basic_cmds_t::DownStairs;
     char_movemap['<'] = basic_cmds_t::UpStairs;
     char_movemap['m'] = basic_cmds_t::Magic;
+    char_movemap['k'] = basic_cmds_t::ConfirmCast;
 
     if (key.vk == TCODK_CHAR) 
     {
@@ -250,6 +251,21 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         else
         {
             new Message(Ui::msg_handler_main, "Done targetting");
+        }
+        //start targetting mode
+    }
+    
+    else if ( basic_cmd == basic_cmds_t::ConfirmCast )
+    {
+        Tile* stair_tile = Game::player->my_tile;
+        if (Ui::is_targetting && Game::get_mouse_tile()->is_occupied())
+        {
+            new Message(Ui::msg_handler_main, "BAM casted.");
+            return true;
+        }
+        else
+        {
+            new Message(Ui::msg_handler_main, "Pick a better target.");
         }
         //start targetting mode
     };
@@ -677,6 +693,11 @@ bool process_key_event(TCOD_key_t request, Person *player)
             if(is_request_move_cmd(request))
             {
                 incr_turn = process_movement(request, player);
+                if (incr_turn)
+                {
+                    //stop the targetting so that user has to retry
+                    Ui::is_targetting = false;
+                }
             }
 
             else if (is_request_basic_cmd(request))

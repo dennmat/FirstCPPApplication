@@ -315,7 +315,6 @@ void Ui::draw_misc()
         else
         {
             line_color = TCODColor::grey;
-
         }
 
         // draw line from player to mouse

@@ -121,6 +121,7 @@ void Game::fill_town(Map* world)
     Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, 10, 10, 't', world, "To be deleted");
     world->enemies.push_back(the_townsmen);
 };
+
 void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
