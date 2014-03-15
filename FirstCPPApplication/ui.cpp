@@ -176,7 +176,7 @@ void Ui::draw_mouse_helpbox()
 
     if (!mouse_tile->is_known())
         draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h, "?", "?", "?", "?", "?", "?", "?", "?");
-	else
+    else
         draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
 
     help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
@@ -305,16 +305,29 @@ void Ui::draw_misc()
 {
     if (Ui::is_targetting)
     {
+        Tile* mouse_tile = Game::get_mouse_tile();
+	TCODColor line_color;
+        if (mouse_tile->is_occupied() && mouse_tile->is_known())
+        {
+            TCODConsole::root->setChar(mouse_tile->tile_x, mouse_tile->tile_y, 'X');
+            line_color = TCODColor::red;
+        }
+        else
+        {
+            line_color = TCODColor::grey;
+
+        }
+
         // draw line from player to mouse
         TCODLine::init(Game::player->x, Game::player->y,
                 Game::mouse_evt.cx, Game::mouse_evt.cy);
         int x = Game::player->x, y2 = Game::player->y ;
         do {
-            TCODConsole::root->setCharBackground(x, y2,
-                    TCODColor::red);
+            TCODConsole::root->setCharBackground(x, y2, line_color);
         } while (!TCODLine::step(&x,&y2));
+
     }
-        
+
 }
 
 void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
