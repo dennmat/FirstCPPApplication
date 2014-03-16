@@ -14,13 +14,17 @@ enum message_types_t {
     TILE_DESCRIPTION_MSG,
     DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG,
     HELP_MSG, CHAT_MSG,
-    HUNGER_MSG, BURDEN_MSG
+    HUNGER_MSG, BURDEN_MSG,
+    ITEM_MSG
 };
 
 class MessageHandler
 {
+    private:
+        static message_types_t initial_message_order [9];
+
     public:
-        static message_types_t message_order [8];// ={}; // {HUNGER_MSG, BURDEN_MSG, MOOD_MSG, DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG, CHAT_MSG, TILE_DESCRIPTION_MSG, NOTYPE_MSG};
+        static std::vector<message_types_t> message_order;
         Game* game;
         std::vector<Message*> msg_list;
         void draw(TCODConsole* console);

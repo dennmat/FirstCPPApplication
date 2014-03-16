@@ -524,20 +524,20 @@ bool gameplay_loop(bool incr_turn)
         if (item_count == 1)
         {
             std::string msg_str =  "%s is on the ground.";
-            Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
+            Message* msg = new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
         }
         else if (item_count > 1)
         {
             std::string msg_str = "%d items are on the ground.";
-            Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, msg_str, item_count);
+            Message* msg = new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
         }
         else 
         {
-            Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, "Nothing on the ground.");
+            Message* msg = new Message(Ui::msg_handler_main, ITEM_MSG, "Nothing on the ground.");
         }
 
         //tile description
-        Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", Game::player->my_tile->tile->description.c_str());
+        Message* msg = new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->tile->description.c_str());
 
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "TURN: %d", Game::turn_count);
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
