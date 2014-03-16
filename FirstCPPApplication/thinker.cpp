@@ -50,12 +50,13 @@ void Thinker::smart_update()
     {
         //get the destination tile coords
         int dest_tile_x, dest_tile_y;
-        Tile* player_tile = Game::player->my_tile;
         master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
+
+        Tile* player_tile = Game::player->my_tile;
 
         //if the target tile is adjacent to the player keep moving towards
         //it, otherwise change spots
-        std::vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getVacantAdjacentTiles();
+        std::vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
         std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
         if (adjItr == adj_tiles->end())
         {
@@ -67,7 +68,7 @@ void Thinker::smart_update()
             //stands if you can't path to player, this keeps trying every
             //turn
 
-            //std::cout << "no adjacent tiles found next to player where I'm pathing to, so I'm making a new path" << std::endl;
+            std::cout << "no tiles adjacent to player where I'm pathing to, so I'm making a new path" << std::endl;
             delete master->l_path;
             master->l_path = NULL;
         }
