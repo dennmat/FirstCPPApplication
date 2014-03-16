@@ -83,10 +83,10 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
 {
     std::map<int, inventory_items_active_t> spec_invitemactivemap; //Keypad, punctuation
     std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
-// 
+    // 
     spec_invitemactivemap[TCODK_ESCAPE] = inventory_items_active_t::EscapeMenuItem;
-//     spec_invitemactivemap['\''] = inventory_items_active_t::N;
-     
+    //     spec_invitemactivemap['\''] = inventory_items_active_t::N;
+
     char_invitemactivemap['x'] = inventory_items_active_t::ExamineItem;
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
     char_invitemactivemap['u'] = inventory_items_active_t::UseItem;
@@ -257,36 +257,46 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         }
         //start targetting mode
     }
-    
+
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
         Tile* stair_tile = Game::player->my_tile;
         Tile* mouse_tile = Game::get_mouse_tile();
+        int mana_cost = 10;
+        int spell_range = 5;
+        int distance = get_euclidean_distance(Game::player->x, Game::player->y, mouse_tile->tile_x, mouse_tile->tile_y);
         if (Ui::is_targetting && mouse_tile->is_occupied())
         {
-            int mana_cost = 10;
-            if (Game::player->attrs->mana->current_val > mana_cost)
+            if (distance <= spell_range)
             {
-                mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
-                Game::player->attrs->mana->current_val -= mana_cost;
-                int distance = get_euclidean_distance(Game::player->x, Game::player->y, mouse_tile->tile_x, mouse_tile->tile_y);
-                new Message(Ui::msg_handler_main, "BAM casted a spell at the range of %i", distance);
-                return true;
+                if (Game::player->attrs->mana->current_val > mana_cost)
+                {
+                    mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
+                    Game::player->attrs->mana->current_val -= mana_cost;
+                    new Message(Ui::msg_handler_main, "BAM casted a spell at the range of %i", distance, ".");
+                    return true;
+                }
+                else 
+                {
+                    new Message(Ui::msg_handler_main, "No mana for this cast!");
+                };
             }
-            else 
+            else
             {
-                new Message(Ui::msg_handler_main, "No mana for this cast.");
+
+                new Message(Ui::msg_handler_main, "Out of range. Max is %i, you're at %i.", spell_range, distance);
             };
         }
         else
         {
             new Message(Ui::msg_handler_main, "Pick an actual target how about.");
-        }
+        };
         //start targetting mode
-    };
-    
 
-    return false;
+
+
+        return false;
+    };
 };
 
 int get_euclidean_distance(int x1, int y1, int x2, int y2)
@@ -647,9 +657,9 @@ void process_buildmode(TCOD_key_t request, int current_tile)
 void process_mouse_inv_event()
 {
     if (Game::mouse_evt.lbutton_pressed)
-	{
+    {
 
-	};
+    };
 };
 
 bool process_mouse_event(TCOD_mouse_t request, Person *player)
@@ -657,7 +667,7 @@ bool process_mouse_event(TCOD_mouse_t request, Person *player)
 
     if (request.dx > Ui::mouse_move_threshold || request.dy > Ui::mouse_move_threshold)
     {
-	//std::cout << "Mouse MOVE" << std::endl;
+        //std::cout << "Mouse MOVE" << std::endl;
         Ui::tick_mouse_moved = Game::tick_count;
     }
     //set the foreground color to red for the tile the mouse is on
@@ -693,7 +703,7 @@ bool process_debug_event(TCOD_key_t request, Person *player)
     if (request.vk == TCODK_F5)
     {
         //this'll redraw the entire screen incase shit goes black
-		TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 };
 
