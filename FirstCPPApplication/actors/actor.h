@@ -13,6 +13,7 @@ class Inventory;
 class Equipment;
 class Item;
 class AttributeContainer;
+class Combat;
 
 class TCODPath;
 class Townsmen;
@@ -59,6 +60,8 @@ class Actor : public Object
         std::vector<Actor*> * actors_in_sight;
 
         bool is_fighter;
+        Combat * combat;
+        bool has_live_combat;
         bool has_attacked;
 
         Actor();

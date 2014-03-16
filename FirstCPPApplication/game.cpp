@@ -575,8 +575,8 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::start_game()
 {
-    // Map* last_map = Game::build_world();
-     Map* last_map = Game::build_town();
+    Map* last_map = Game::build_world();
+     // Map* last_map = Game::build_town();
     Game::current_map = last_map;
 
     Game::initialize_player(); //created the Person player

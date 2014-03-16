@@ -20,6 +20,7 @@
 #include "ui.h"
 #include "item.h"
 #include "debug_options.h"
+#include "combat.h"
 
 
 enum basic_cmds_t {
@@ -258,14 +259,16 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
         Tile* stair_tile = Game::player->my_tile;
-        if (Ui::is_targetting && Game::get_mouse_tile()->is_occupied())
+        Tile* mouse_tile = Game::get_mouse_tile();
+        if (Ui::is_targetting && mouse_tile->is_occupied())
         {
+            mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
             new Message(Ui::msg_handler_main, "BAM casted.");
             return true;
         }
         else
         {
-            new Message(Ui::msg_handler_main, "Pick a better target.");
+            new Message(Ui::msg_handler_main, "Pick an actual target how about.");
         }
         //start targetting mode
     };
