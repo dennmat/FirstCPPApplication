@@ -180,7 +180,7 @@ Message::Message()
     this->Init();
 };
 
-Message::Message(MessageHandler* handler, std::string content, ...) 
+ Message::Message(MessageHandler* handler, message_types_t type, std::string content, ...)
 {
     assert(content.size()!=0);
 

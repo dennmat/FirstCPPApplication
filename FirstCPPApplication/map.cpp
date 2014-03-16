@@ -797,7 +797,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     {
         std::cout << "invalid move fool" << std::endl;
-        new Message(Ui::msg_handler_main, "Leave the outer limits alone");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Leave the outer limits alone");
         return false;
     }
 
@@ -853,7 +853,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     else
     {
         std::cout << std::endl << "invalid move." << std::endl;
-        new Message(Ui::msg_handler_main, "That's probably a wall.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "That's probably a wall.");
         if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         {
             std::cout << target_tile->tile->description << std::endl;

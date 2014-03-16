@@ -30,7 +30,7 @@ Person::Person(std::string name, int age, int x, int y, char repr, std::string c
 
     //   if (name == "Josh")
     //{
-    //   new Message(Ui::msg_handler_main, "Creating the Josh player.");
+    //   new Message(Ui::msg_handler_main, NOTYPE_MSG, "Creating the Josh player.");
     //}
 
     this->xp = 0;
@@ -150,6 +150,6 @@ void Person::talk_to(Actor* target)
     if (target->thinker->civilian != NULL)
     {
         std::string text = this->talk_wrap(target, target->thinker->civilian->talk_general_topic());
-        new Message(Ui::msg_handler_main, text);
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, text);
     }
 };

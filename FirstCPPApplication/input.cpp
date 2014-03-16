@@ -234,13 +234,13 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         if (stair_tile->type_id == TileTypes::StairsDownTileTypeType)
         {
             //std::cout << "there's a stair down here, its gon go down" << std::endl;
-            new Message(Ui::msg_handler_main,"There's a stair down here, its gon go down to the next floor.");
+            new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair down here, its gon go down to the next floor.");
             ((StairsDownTileType*)stair_tile)->GoDown();
         }
         else
         {
             //std::cout << "There's no stair here" << std::endl;
-            new Message(Ui::msg_handler_main,"There's no stair here.");
+            new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's no stair here.");
         };
     }
 
@@ -249,11 +249,11 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         Tile* stair_tile = Game::player->my_tile;
         if (Ui::toggle_targetting())
         {
-            new Message(Ui::msg_handler_main, "Select a target.");
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Select a target.");
         }
         else
         {
-            new Message(Ui::msg_handler_main, "Done targetting");
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Done targetting");
         }
         //start targetting mode
     }
@@ -273,23 +273,23 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
                 {
                     mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
                     Game::player->attrs->mana->current_val -= mana_cost;
-                    new Message(Ui::msg_handler_main, "BAM casted a spell at the range of %i", distance, ".");
+                    new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
                     return true;
                 }
                 else 
                 {
-                    new Message(Ui::msg_handler_main, "No mana for this cast!");
+                    new Message(Ui::msg_handler_main, NOTYPE_MSG, "No mana for this cast!");
                 };
             }
             else
             {
 
-                new Message(Ui::msg_handler_main, "Out of range. Max is %i, you're at %i.", spell_range, distance);
+                new Message(Ui::msg_handler_main, NOTYPE_MSG, "Out of range. Max is %i, you're at %i.", spell_range, distance);
             };
         }
         else
         {
-            new Message(Ui::msg_handler_main, "Pick an actual target how about.");
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Pick an actual target how about.");
         };
         //start targetting mode
 
@@ -310,12 +310,12 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
 
     if( action == inventory_items_active_t::ExamineItem )
     {
-        new Message(Ui::msg_handler_main, "EXAMINE ITEM.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE ITEM.");
         return true;
     }
     else if( action == inventory_items_active_t::DropItem )
     {
-        new Message(Ui::msg_handler_main, "DROP ITEM.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
         Item* item = Ui::chosen_item;
         Ui::chosen_item = NULL;
         Ui::item_active = false;
@@ -326,7 +326,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
 
     else if( action == inventory_items_active_t::UseItem )
     {
-        new Message(Ui::msg_handler_main, "Using item.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using item.");
         Ui::chosen_item->use(Game::player);
         return true;
     }
@@ -335,7 +335,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::chosen_item->equip(Game::player);
         Game::player->equipment->equip_item(Ui::chosen_item);
-        new Message(Ui::msg_handler_main, "Equipping item.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping item.");
         return true;
     }
 
@@ -343,7 +343,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::chosen_item->unequip(Game::player);
         Game::player->equipment->unequip_item(Ui::chosen_item);
-        new Message(Ui::msg_handler_main, "Unequipping item.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Unequipping item.");
         return true;
     }
 
@@ -351,7 +351,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::item_active = false;
         Ui::chosen_item = false;
-        new Message(Ui::msg_handler_main, "Escape back to regular inventory mode.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
         return true;
     }
 

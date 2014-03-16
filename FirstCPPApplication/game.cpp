@@ -524,22 +524,22 @@ bool gameplay_loop(bool incr_turn)
         if (item_count == 1)
         {
             std::string msg_str =  "%s is on the ground.";
-            Message* msg = new Message(Ui::msg_handler_main, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
+            Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
         }
         else if (item_count > 1)
         {
             std::string msg_str = "%d items are on the ground.";
-            Message* msg = new Message(Ui::msg_handler_main, msg_str, item_count);
+            Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, msg_str, item_count);
         }
         else 
         {
-            Message* msg = new Message(Ui::msg_handler_main, "Nothing on the ground.");
+            Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, "Nothing on the ground.");
         }
 
         //tile description
-        Message* msg = new Message(Ui::msg_handler_main, "%s", Game::player->my_tile->tile->description.c_str());
+        Message* msg = new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", Game::player->my_tile->tile->description.c_str());
 
-        //new Message(Ui::msg_handler_main, "TURN: %d", Game::turn_count);
+        //new Message(Ui::msg_handler_main, NOTYPE_MSG, "TURN: %d", Game::turn_count);
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
         incr_turn = false;
     }
@@ -608,8 +608,8 @@ void Game::mainloop()
     // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_GLSL); // really fast if you can man it
     TCODConsole::setKeyboardRepeat(250, 10);
 
-    new Message(Ui::msg_handler_main, "Run from ogres and skeletons, kill troll and jackals!");
-    new Message(Ui::msg_handler_main, "You're going to die a lot, this isn't Dark Souls 2.");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "Run from ogres and skeletons, kill troll and jackals!");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "You're going to die a lot, this isn't Dark Souls 2.");
     //
 
     //draw the map to libtconsole

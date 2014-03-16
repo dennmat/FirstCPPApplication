@@ -42,7 +42,7 @@ class Message
         message_types_t type;
 
         Message();
-        Message(MessageHandler* handler, std::string content, ...);
+        Message(MessageHandler* handler, message_types_t type, std::string content, ...);
         void Init();
 
 
