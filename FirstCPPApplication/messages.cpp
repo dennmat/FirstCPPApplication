@@ -128,6 +128,11 @@ int getIndex(message_types_t type)
     }
 }
 
+bool sorting_by_type(Message* a, Message* b)
+{
+    return getIndex(a->type) > getIndex(b->type) && a->turn > b->turn;
+};
+
 //goes through all the vectors of this turn and creates a std::string of the
 //ones that share a turn
 std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
@@ -159,7 +164,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     }
     //TODO: This'll get slower the longer the game goes on
     std::sort(limited_messages.begin(), limited_messages.end(),
-            [](Message* a, Message* b){ return getIndex(a->type) > getIndex(b->type);});
+            sorting_by_type);
 
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
         if (prerendered_msgs.size() >= turn_limit) break;
