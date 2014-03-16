@@ -58,17 +58,12 @@ void Thinker::smart_update()
         //it, otherwise change spots
         std::vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
         std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
+        //if the path destination isn't adj to the player make a new path 
         if (adjItr == adj_tiles->end())
         {
 
-            //if the path destination isn't adj to the player make a new path 
 
-            //NOTE: this is breaking all seeing mode. Should try to
-            //check if it's possible to get to player somehow because as it
-            //stands if you can't path to player, this keeps trying every
-            //turn
-
-            std::cout << "no tiles adjacent to player where I'm pathing to, so I'm making a new path" << std::endl;
+            // std::cout << "no tiles adjacent to player where I'm pathing to, so I'm making a new path" << std::endl;
             delete master->l_path;
             master->l_path = NULL;
         }

@@ -7,6 +7,10 @@
 #include <libtcod.hpp>
 #include "game.h"
 
+message_types_t MessageHandler::message_order [8] = { HUNGER_MSG, BURDEN_MSG,
+    MOOD_MSG, DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG, CHAT_MSG,
+    TILE_DESCRIPTION_MSG, NOTYPE_MSG };
+
 MessageHandler::MessageHandler()
 {
     this->msg_list = std::vector<Message*>();
@@ -113,6 +117,13 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     std::string last_msg = "";
     std::string new_msg = "";
 
+    //TODO: This'll get slower the longer the game goes on
+    std::sort(this->msg_list.begin(), this->msg_list.end(),
+            [](Message* a, Message* b){ return a->type < b->type;});
+        // std::sort(object.begin(), object.end(),
+        //             [](myclass const & a, myclass const &b){return a.v < b.v;});
+
+
 
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
         if (prerendered_msgs.size() >= turn_limit) break;
@@ -157,6 +168,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 
 void Message::Init()
 {
+    this->type = message_types_t::NOTYPE_MSG;
     this->content = "Unspecified %s";
     // this->vlist = "content";
     this->count = 0;
