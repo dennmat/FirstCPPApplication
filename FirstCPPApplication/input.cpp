@@ -21,6 +21,8 @@
 #include "item.h"
 #include "debug_options.h"
 #include "combat.h"
+#include "attribute_container.h"
+#include "attribute.h"
 
 
 enum basic_cmds_t {
@@ -262,9 +264,18 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         Tile* mouse_tile = Game::get_mouse_tile();
         if (Ui::is_targetting && mouse_tile->is_occupied())
         {
-            mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
-            new Message(Ui::msg_handler_main, "BAM casted.");
-            return true;
+            int mana_cost = 10;
+            if (Game::player->attrs->mana->current_val > mana_cost)
+            {
+                mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
+                Game::player->attrs->mana->current_val -= mana_cost;
+                new Message(Ui::msg_handler_main, "BAM casted.");
+                return true;
+            }
+            else 
+            {
+                new Message(Ui::msg_handler_main, "No mana for this cast.");
+            };
         }
         else
         {
