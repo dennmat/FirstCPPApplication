@@ -505,8 +505,11 @@ void Game::draw_ui()
         case GameStates::GameplayState: 
             Ui::draw_ui();
             break;
-        case GameStates::MenuState:
+        case GameStates::InventoryState:
             Ui::draw_inventory_main();
+            break;
+        case GameStates::MenuState:
+            Ui::draw_main_menu_ui();
             break;
     };
 };
@@ -586,11 +589,11 @@ void Game::start_game()
 
 void Game::mainloop()
 {
-    WelcomeMessage();
 
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
     TCODConsole::setKeyboardRepeat(1000, 1);
 
+    WelcomeMessage();
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
 

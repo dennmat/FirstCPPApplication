@@ -61,10 +61,14 @@ class Ui
 
         static TCODConsole* create_screen();
         static void draw_screen_title(std::string title, TCODConsole* con);
-        static void inventory_ui_loop(TCODConsole* con, int offset, int i, char key);
-        static void draw_inventory_ui();
+        static void draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*, int, int, char));
+
+        static void Ui::draw_main_menu_ui();
+
         static void draw_inventory_main();
+        static void draw_inventory_ui();
         static void draw_inventory_msg();
+        static void inventory_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static bool item_is_chosen();
         static bool toggle_targetting();

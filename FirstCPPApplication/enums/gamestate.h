@@ -5,6 +5,7 @@
 enum GameStates {
     GameplayState,
     MenuState,
+    InventoryState
 };
 
 #endif

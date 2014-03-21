@@ -198,7 +198,7 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
 
     else if ( basic_cmd == basic_cmds_t::OpenInventory )
     {
-        Game::current_state = GameStates::MenuState;
+        Game::current_state = GameStates::InventoryState;
     }
 
     else if ( basic_cmd == basic_cmds_t::ActivateDoor )
@@ -748,6 +748,15 @@ bool process_key_event(TCOD_key_t request, Person *player)
             break;
 
         case GameStates::MenuState:
+            if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
+            {
+                std::cout << "Back to the game." << std::endl;
+                Ui::chosen_item = NULL;
+                Ui::item_active = false;
+                Game::current_state = GameStates::GameplayState;
+            }
+
+        case GameStates::InventoryState:
             if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
             {
                 std::cout << "Back to the game." << std::endl;

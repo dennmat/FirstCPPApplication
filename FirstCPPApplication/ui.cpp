@@ -511,13 +511,13 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
     }
 };
 
-void Ui::draw_inventory_ui()
+void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*, int, int, char))
 {
     // clear the screen
     TCODConsole::root->clear();
 
     TCODConsole *ui_inv_con = Ui::create_screen();
-    Ui::draw_screen_title("Inventory Screen", ui_inv_con);
+    Ui::draw_screen_title(title, ui_inv_con);
 
     // draw the list of items on the player
     int offset = 5;
@@ -530,11 +530,24 @@ void Ui::draw_inventory_ui()
     ui_inv_con->putChar(hline, Game::mouse_evt.cy, '>');
 
 
-    Ui::inventory_ui_loop(ui_inv_con, offset, i, key);
+    if (loop_through_lines != NULL)
+    {
+        loop_through_lines(ui_inv_con, offset, i, key);
+    };
 
     TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
     delete ui_inv_con;
 
+};
+
+void Ui::draw_inventory_ui()
+{
+    Ui::draw_screen("Inventory Screen", &Ui::inventory_ui_loop);
+};
+
+void Ui::draw_main_menu_ui()
+{
+    Ui::draw_screen("Main menu", NULL);
 };
 
 void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
