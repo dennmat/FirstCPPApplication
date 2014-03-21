@@ -412,34 +412,20 @@ TCODConsole* Ui::create_screen()
     return con;
 };
 
-void Ui::draw_inventory_ui()
+void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
-    // clear the screen
-    TCODConsole::root->clear();
-
-    TCODConsole *ui_inv_con = Ui::create_screen();
-    Ui::draw_screen_title("Inventory Screen", ui_inv_con);
-
-    // draw the list of items on the player
-    std::vector<Item*>* v  = Ui::game->player->inventory->items;
-    int offset = 5;
-    int i = offset;
-    char key = 'a';
-    bool is_chosen, is_active;
-
-    int hline = 2;
-    ui_inv_con->hline(0, Game::mouse_evt.cy, hline);
-    ui_inv_con->putChar(hline, Game::mouse_evt.cy, '>');
-
     TCODColor foreground, background;
     foreground = TCODColor::white;
+
+    bool is_chosen, is_active;
+    std::vector<Item*>* v  = Ui::game->player->inventory->items;
     for (std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c";
         is_chosen = (*it) == Ui::chosen_item;
         is_active = Ui::item_active;
 
-        TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, ui_inv_con->getDefaultBackground());
+        TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, con->getDefaultBackground());
         if (Ui::game->player->equipment->is_item_equipped(*it))
         {
             background = TCODColor::darkestRed;
@@ -463,7 +449,7 @@ void Ui::draw_inventory_ui()
         }
         else
         {
-            background = ui_inv_con->getDefaultBackground();
+            background = con->getDefaultBackground();
             if (is_chosen)
             {
                 msg_str.append(" <-");
@@ -506,28 +492,52 @@ void Ui::draw_inventory_ui()
             Ui::item_active = false;
         };
 
+        //print the item name and selection
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
         const char *msg_char = msg_str.c_str();
-        ui_inv_con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
 
         i++;
 
+        //print the item effects
         std::string msg = (*it)->item_effect->oneline_str();
         std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->item_effect->oneline_str_colours();
-        one_line_helper(ui_inv_con, i, msg, colctrl_vec);
+        one_line_helper(con, i, msg, colctrl_vec);
         i++;
         i++;
 
         key++;
 
     }
+};
+
+void Ui::draw_inventory_ui()
+{
+    // clear the screen
+    TCODConsole::root->clear();
+
+    TCODConsole *ui_inv_con = Ui::create_screen();
+    Ui::draw_screen_title("Inventory Screen", ui_inv_con);
+
+    // draw the list of items on the player
+    int offset = 5;
+    int i = offset;
+    char key = 'a';
+
+    //draw mouse line
+    int hline = 2;
+    ui_inv_con->hline(0, Game::mouse_evt.cy, hline);
+    ui_inv_con->putChar(hline, Game::mouse_evt.cy, '>');
+
+
+    Ui::inventory_ui_loop(ui_inv_con, offset, i, key);
 
     TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
     delete ui_inv_con;
 
 };
 
-void one_line_helper(TCODConsole* ui_inv_con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
+void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
 {
     //add a col stop to end
     if (color_vector.size() != 0)
@@ -536,39 +546,39 @@ void one_line_helper(TCODConsole* ui_inv_con, int i, std::string msg_str, std::v
 
     int x = 4;
     if (color_vector.size() == 0)
-        ui_inv_con->print(x, i, msg);
+        con->print(x, i, msg);
     else if (color_vector.size() == 1)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 2)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 3)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 4)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 5)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 6)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 7)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 8)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 9)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 10)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 11)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 12)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 13)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 14)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 15)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 16)
-        ui_inv_con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), color_vector.at(16-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), color_vector.at(16-1), TCOD_COLCTRL_STOP);
 };
 
 void Ui::draw_inventory_msg()
