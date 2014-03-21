@@ -59,6 +59,8 @@ class Ui
         static void draw_xp();
         static void draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore);
 
+        static TCODConsole* create_screen();
+        static void draw_screen_title(std::string title, TCODConsole* con);
         static void draw_inventory_ui();
         static void draw_inventory_main();
         static void draw_inventory_msg();

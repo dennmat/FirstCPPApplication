@@ -396,18 +396,29 @@ void Ui::draw_inventory_main()
     Ui::draw_inventory_msg();
 };
 
+void Ui::draw_screen_title(std::string title, TCODConsole* con)
+{
+    int inv_title_x = Ui::game->screen_w/2;
+    TCOD_bkgnd_flag_t bkgnd_flag = con->getBackgroundFlag();
+    con->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER, title.c_str());
+
+};
+
+TCODConsole* Ui::create_screen()
+{
+    int con_w = Ui::game->screen_w;
+    int con_h = Ui::game->screen_h - 10;
+    TCODConsole *con = new TCODConsole(con_w, con_h);
+    return con;
+};
+
 void Ui::draw_inventory_ui()
 {
     // clear the screen
     TCODConsole::root->clear();
 
-    ui_inv_w = Ui::game->screen_w;
-    ui_inv_h = Ui::game->screen_h - 10;
-    TCODConsole *ui_inv_con = new TCODConsole(ui_inv_w, ui_inv_h);
-
-    int inv_title_x = Ui::game->screen_w/2;
-    TCOD_bkgnd_flag_t bkgnd_flag = ui_inv_con->getBackgroundFlag();
-    ui_inv_con->printEx(inv_title_x, 2, bkgnd_flag, TCOD_alignment_t::TCOD_CENTER, "Inventory Screen");
+    TCODConsole *ui_inv_con = Ui::create_screen();
+    Ui::draw_screen_title("Inventory Screen", ui_inv_con);
 
     // draw the list of items on the player
     std::vector<Item*>* v  = Ui::game->player->inventory->items;
@@ -488,11 +499,6 @@ void Ui::draw_inventory_ui()
                 };
 
             }
-            // else
-            // {
-            //     Ui::chosen_item = NULL;
-            //     Ui::item_active = false;
-            // };
         }
         else if (Game::mouse_evt.rbutton_pressed)
         {
@@ -506,7 +512,6 @@ void Ui::draw_inventory_ui()
 
         i++;
 
-        // ui_inv_con->print(3, i, (*it)->item_effect->oneline_str().c_str());
         std::string msg = (*it)->item_effect->oneline_str();
         std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->item_effect->oneline_str_colours();
         one_line_helper(ui_inv_con, i, msg, colctrl_vec);

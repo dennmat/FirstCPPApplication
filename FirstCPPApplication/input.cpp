@@ -283,7 +283,6 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
             }
             else
             {
-
                 new Message(Ui::msg_handler_main, NOTYPE_MSG, "Out of range. Max is %i, you're at %i.", spell_range, distance);
             };
         }
