@@ -13,4 +13,4 @@ It's too early to have a distinct direction for the game, but I want to be able 
 * finally, some sort of over the top stat tracking
 
 
-![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/Screenshot_12Jan2014.png)
+![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/Screenshot_20Mar2014.png)
