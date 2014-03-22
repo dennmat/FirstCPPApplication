@@ -47,7 +47,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 
     char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap['c'] = basic_cmds_t::OpenCharacterSheet;
-    char_movemap['h'] = basic_cmds_t::OpenHelp;
+    char_movemap['?'] = basic_cmds_t::OpenHelp;
     char_movemap[','] = basic_cmds_t::Pickup;
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
     char_movemap['>'] = basic_cmds_t::DownStairs;
