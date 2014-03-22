@@ -550,6 +550,16 @@ void Ui::draw_main_menu_ui()
     Ui::draw_screen("Main menu", NULL);
 };
 
+void Ui::draw_char_sheet_ui()
+{
+    Ui::draw_screen("Character Sheet", NULL);
+};
+
+void Ui::draw_help_ui()
+{
+    Ui::draw_screen("Help Information", NULL);
+};
+
 void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
 {
     //add a col stop to end

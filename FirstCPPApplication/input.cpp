@@ -23,6 +23,7 @@
 #include "combat.h"
 #include "attribute_container.h"
 #include "attribute.h"
+#include "enums\screens.h"
 
 
 enum basic_cmds_t {
@@ -31,6 +32,8 @@ enum basic_cmds_t {
     Look, ActivateDoor,
     DownStairs, UpStairs,
     Magic, ConfirmCast,
+    OpenCharacterSheet,
+    OpenHelp,
     NO_MATCHING_BASIC_CMD
 };
 
@@ -43,6 +46,8 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     // spec_movemap[TCODK_KP8] = 
 
     char_movemap['i'] = basic_cmds_t::OpenInventory;
+    char_movemap['c'] = basic_cmds_t::OpenCharacterSheet;
+    char_movemap['h'] = basic_cmds_t::OpenHelp;
     char_movemap[','] = basic_cmds_t::Pickup;
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
     char_movemap['>'] = basic_cmds_t::DownStairs;
@@ -199,6 +204,19 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     else if ( basic_cmd == basic_cmds_t::OpenInventory )
     {
         Game::current_state = GameStates::InventoryState;
+        Game::current_screen = Screens::InventoryScreen;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::OpenCharacterSheet )
+    {
+        Game::current_state = GameStates::MenuState;
+        Game::current_screen = Screens::CharacterSheetScreen;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::OpenHelp )
+    {
+        Game::current_state = GameStates::MenuState;
+        Game::current_screen = Screens::HelpScreen;
     }
 
     else if ( basic_cmd == basic_cmds_t::ActivateDoor )

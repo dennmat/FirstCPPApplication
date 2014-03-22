@@ -34,6 +34,7 @@
 #include "messages.h"
 #include <enemies\bad_mother.h>
 #include "civilian.h"
+#include "enums\screens.h"
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -62,6 +63,7 @@ TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_hei
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
+Screens Game::current_screen = Screens::InventoryScreen;
 
 Person* Game::player = NULL;     //the PC
 
@@ -500,17 +502,33 @@ void Game::update_ui()
 
 void Game::draw_ui()
 {
-    switch(Game::current_state)
+    if (Game::current_state == GameStates::GameplayState)
+    // switch(Game::current_state)
     {
-        case GameStates::GameplayState: 
+        // case GameStates::GameplayState: 
             Ui::draw_ui();
-            break;
-        case GameStates::InventoryState:
-            Ui::draw_inventory_main();
-            break;
-        case GameStates::MenuState:
-            Ui::draw_main_menu_ui();
-            break;
+            // break;
+    }
+    else
+    {
+        switch(Game::current_screen)
+        {
+            case Screens::InventoryScreen:
+                Ui::draw_inventory_main();
+                break;
+            case Screens::MainMenuScreen:
+                Ui::draw_main_menu_ui();
+                break;
+            case Screens::CharacterSheetScreen:
+                Ui::draw_char_sheet_ui();
+                break;
+            case Screens::HelpScreen:
+                Ui::draw_help_ui();
+                break;
+            default:
+                assert(false && "Unknown Screens");
+                break;
+        };
     };
 };
 
@@ -635,7 +653,6 @@ void Game::mainloop()
                 break;
 
             case GameStates::MenuState:
-                // std::cout << "in menu state" << std::endl;
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
                     incr_turn = process_key_event(key_evt, player);
                 };
@@ -643,8 +660,17 @@ void Game::mainloop()
                 Game::draw_ui();
                 process_mouse_inv_event();
 
-                // let them choose one to look at 
                 break;
+
+            case GameStates::InventoryState:
+                if (key_evt.c != NULL && key_evt.pressed == 1 ){
+                    incr_turn = process_key_event(key_evt, player);
+                };
+
+                Game::draw_ui();
+                process_mouse_inv_event();
+                break;
+
 
             default:
                 assert(false && "Unknown gamestate");

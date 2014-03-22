@@ -10,6 +10,7 @@
 #include "libtcod_cpp_hpp\console_types.h"
 
 #include <enums\gamestate.h>
+#include <enums\screens.h>
 
 
 class Map;
@@ -37,6 +38,7 @@ class Game
         static Person* player;     //the PC
         //static Ui* ui;
         static GameStates current_state;
+        static Screens current_screen;
         static DebugOptions* debug_opts;
 
         static TCOD_key_t key_evt;

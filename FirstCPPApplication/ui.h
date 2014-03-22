@@ -64,6 +64,8 @@ class Ui
         static void draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*, int, int, char));
 
         static void Ui::draw_main_menu_ui();
+        static void Ui::draw_char_sheet_ui();
+        static void Ui::draw_help_ui();
 
         static void draw_inventory_main();
         static void draw_inventory_ui();
