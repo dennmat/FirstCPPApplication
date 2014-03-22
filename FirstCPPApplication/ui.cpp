@@ -516,8 +516,8 @@ void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*,
     // clear the screen
     TCODConsole::root->clear();
 
-    TCODConsole *ui_inv_con = Ui::create_screen();
-    Ui::draw_screen_title(title, ui_inv_con);
+    TCODConsole *con = Ui::create_screen();
+    Ui::draw_screen_title(title, con);
 
     // draw the list of items on the player
     int offset = 5;
@@ -526,17 +526,17 @@ void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*,
 
     //draw mouse line
     int hline = 2;
-    ui_inv_con->hline(0, Game::mouse_evt.cy, hline);
-    ui_inv_con->putChar(hline, Game::mouse_evt.cy, '>');
+    con->hline(0, Game::mouse_evt.cy, hline);
+    con->putChar(hline, Game::mouse_evt.cy, '>');
 
 
     if (loop_through_lines != NULL)
     {
-        loop_through_lines(ui_inv_con, offset, i, key);
+        loop_through_lines(con, offset, i, key);
     };
 
-    TCODConsole::blit(ui_inv_con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
-    delete ui_inv_con;
+    TCODConsole::blit(con, 0, 0, ui_inv_w, ui_inv_h, TCODConsole::root, 0, 0);
+    delete con;
 
 };
 
