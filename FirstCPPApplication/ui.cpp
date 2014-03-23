@@ -507,6 +507,7 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
             };
         };
 
+        //mouse selection
         if (Game::mouse_evt.lbutton_pressed)
         {
             if (Game::mouse_evt.cy == i)

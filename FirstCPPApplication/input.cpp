@@ -24,6 +24,7 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "enums\screens.h"
+#include "spells.h"
 
 
 enum basic_cmds_t {
@@ -280,8 +281,11 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     {
         Tile* stair_tile = Game::player->my_tile;
         Tile* mouse_tile = Game::get_mouse_tile();
-        int mana_cost = 10;
-        int spell_range = 5;
+        Spell* spell = Game::player->spells->back();
+        int mana_cost = spell->mana_cost;
+        int spell_range = spell->max_range;
+        int spell_damage = (-spell->attrs->health->current_val);
+
         int distance = get_euclidean_distance(Game::player->x, Game::player->y, mouse_tile->tile_x, mouse_tile->tile_y);
         if (Ui::is_targetting && mouse_tile->is_occupied())
         {
@@ -289,7 +293,7 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
             {
                 if (Game::player->attrs->mana->current_val > mana_cost)
                 {
-                    mouse_tile->occupant->combat->TakeDamage(Game::player->combat, 10);
+                    mouse_tile->occupant->combat->TakeDamage(Game::player->combat, spell_damage);
                     Game::player->attrs->mana->current_val -= mana_cost;
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
                     return true;
@@ -309,8 +313,6 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
             new Message(Ui::msg_handler_main, NOTYPE_MSG, "Pick an actual target how about.");
         };
         //start targetting mode
-
-
 
         return false;
     };
@@ -773,6 +775,24 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 Ui::item_active = false;
                 Game::current_state = GameStates::GameplayState;
             }
+
+            if (Game::current_screen == Screens::SpellSelectScreen)
+            {
+                // //generate keys for the appropriate items
+                // typedef std::unordered_map<char, Spell*> keypair_t;
+                // keypair_t item_map;
+                // typedef std::pair<char, Spell*> keypair;
+
+                // char key = 'a';
+
+                // std::vector<Item*>* items = Game::player->inventory->items;
+                // for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
+                // {
+                //     item_map.insert(keypair(key, (*it)));
+                //     key++;
+                // };
+
+            };
 
         case GameStates::InventoryState:
             if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)

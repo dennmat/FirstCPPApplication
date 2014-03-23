@@ -37,6 +37,7 @@ Actor::Actor()
     this->inventory->master = this;
     this->attrs = new AttributeContainer;
     this->attrs->owner = this;
+    this->spells = new std::vector<Spell*>;
 
     this->actors_in_sight = new std::vector<Actor*>;
 

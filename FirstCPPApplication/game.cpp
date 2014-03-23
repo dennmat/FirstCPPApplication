@@ -35,6 +35,7 @@
 #include <enemies\bad_mother.h>
 #include "civilian.h"
 #include "enums\screens.h"
+#include "spells.h"
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -413,14 +414,18 @@ Person*  Game::initialize_player()
     player = new Person("Josh", 23, 3, 3, '@', "PLAYER ONE");
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
+
     player->attrs->health->current_val=200;
     player->attrs->health->max_val=200;
     player->attrs->damage->current_val=10;
     player->attrs->damage->max_val=10;
     player->attrs->armor->current_val=3;
     player->attrs->armor->max_val=3;
+
     delete player->thinker;
     player->thinker = NULL;
+
+    player->spells->push_back(new Spell);
 
     Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     player->putPerson(next_tile, player->x, player->y);

@@ -2,6 +2,7 @@
 #define ACTOR_H
 
 
+
 #include "object.h"
 
 class Representation;
@@ -17,6 +18,7 @@ class Combat;
 
 class TCODPath;
 class Townsmen;
+class Spell;
 
 
 
@@ -29,6 +31,7 @@ class Actor : public Object
         Thinker* thinker;
         Inventory* inventory;
         Equipment* equipment;
+        std::vector<Spell*>* spells;
 
         AttributeContainer* attrs;
         bool has_attributes();
