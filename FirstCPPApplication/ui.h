@@ -9,6 +9,7 @@
 class Item;
 class Game;
 class TCODColor;
+class Attribute;
 class TCODConsole;
 
 void one_line_helper(TCODConsole* ui_inv_con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
@@ -65,6 +66,8 @@ class Ui
 
         static void draw_main_menu_ui();
 
+        static void Ui::format_attribute(Attribute* attr, char buffer[]);
+        static void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& i, std::string name);
         static void draw_char_sheet_ui();
         static void character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key);
 

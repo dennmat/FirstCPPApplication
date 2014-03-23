@@ -412,12 +412,27 @@ TCODConsole* Ui::create_screen()
     return con;
 };
 
+void Ui::format_attribute(Attribute* attr, char buffer[])
+{
+    std::string msg_template = "%i out of %i, regenerating %i every %i turns";
+    sprintf(buffer, msg_template.c_str(), attr->current_val, attr->max_val, attr->regen_rate, attr->regen_interval);
+};
+
+void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& i, std::string name)
+{
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, name.c_str());
+    i++;
+    Ui::format_attribute(attr, buffer);
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    i++;
+    i++;
+};
+
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
     foreground = TCODColor::white;
 
-    std::string msg_template = "%i out of %i, regenerating %i every %i turns";
     char buffer [100];
 
     std::string msg_str;
@@ -428,37 +443,10 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     DamageAttribute* damage = player_attrs->damage;
     ArmorAttribute* armor = player_attrs->armor;
 
-    msg_str = "HEALTH";
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
-    i++;
-    sprintf(buffer, msg_template.c_str(), health->current_val, health->max_val, health->regen_rate, health->regen_interval);
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
-    i++;
-    i++;
-
-    msg_str = "MANA";
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
-    i++;
-    sprintf(buffer, msg_template.c_str(), mana->current_val, mana->max_val, mana->regen_rate, mana->regen_interval);
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
-    i++;
-    i++;
-
-    msg_str = "DAMAGE";
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
-    i++;
-    sprintf(buffer, msg_template.c_str(), damage->current_val, damage->max_val, damage->regen_rate, damage->regen_interval);
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
-    i++;
-    i++;
-
-    msg_str = "ARMOR";
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
-    i++;
-    sprintf(buffer, msg_template.c_str(), armor->current_val, armor->max_val, armor->regen_rate, armor->regen_interval);
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
-    i++;
-    i++;
+    Ui::print_attribute(con, health, buffer, i, "HEALTH");
+    Ui::print_attribute(con, mana, buffer, i, "MANA");
+    Ui::print_attribute(con, damage, buffer, i, "DAMAGE");
+    Ui::print_attribute(con, armor, buffer, i, "ARMOR");
 
 };
 
