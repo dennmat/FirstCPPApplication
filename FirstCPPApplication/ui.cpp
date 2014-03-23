@@ -487,18 +487,10 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
             {
                 msg_str.append(" <-");
                 // background = TCODColor::white;
-                if (is_active)
-                {
-                    foreground = TCODColor::red+TCODColor::blue;
-                }
-                else 
-                {
-                    foreground = TCODColor::red+TCODColor::green;
-                }
+                if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
+                else { foreground = TCODColor::red+TCODColor::green; }
             }
-            else
-            {
-                foreground = TCODColor::red;
+            else { foreground = TCODColor::red;
             };
         }
         else
@@ -507,21 +499,13 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
             if (is_chosen)
             {
                 msg_str.append(" <-");
-                if (is_active)
-                {
-                    foreground = TCODColor::red+TCODColor::yellow;
-                }
-                else
-                {
-                    // foreground = TCODColor::green;
-                }
+                if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
             }
             else
             {
                 foreground = TCODColor::white;
             };
         };
-
 
         if (Game::mouse_evt.lbutton_pressed)
         {
@@ -537,7 +521,6 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
                     Ui::item_active = true;
                     background = TCODColor::green;
                 };
-
             }
         }
         else if (Game::mouse_evt.rbutton_pressed)
