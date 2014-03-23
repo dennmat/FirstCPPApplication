@@ -437,7 +437,7 @@ void Ui::print_experience(TCODConsole* con, int& i)
     con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "Level %i", player->level);
     i++;
 
-    std::string msg_template = "%i out of %i XP, with %i total.";
+    std::string msg_template = "%i out of %i XP to next level, with %i total.";
     sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required, player->xp);
     con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
 };
