@@ -428,6 +428,20 @@ void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& 
     i++;
 };
 
+void print_experience(TCODConsole* con, int& i)
+{
+    char buffer[100];
+    Person* player = Game::player;
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "EXPERIENCE");
+    i++;
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "Level %i", player->level);
+    i++;
+
+    std::string msg_template = "%i out of %i XP, with %i total.";
+    sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required, player->xp);
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+};
+
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
@@ -447,6 +461,8 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     Ui::print_attribute(con, mana, buffer, i, "MANA");
     Ui::print_attribute(con, damage, buffer, i, "DAMAGE");
     Ui::print_attribute(con, armor, buffer, i, "ARMOR");
+
+    print_experience(con, i);
 
 };
 
