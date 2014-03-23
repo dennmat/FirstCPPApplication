@@ -428,7 +428,7 @@ void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& 
     i++;
 };
 
-void print_experience(TCODConsole* con, int& i)
+void Ui::print_experience(TCODConsole* con, int& i)
 {
     char buffer[100];
     Person* player = Game::player;

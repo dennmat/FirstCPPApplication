@@ -68,6 +68,7 @@ class Ui
 
         static void Ui::format_attribute(Attribute* attr, char buffer[]);
         static void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& i, std::string name);
+        static void Ui::print_experience(TCODConsole* con, int& i);
         static void draw_char_sheet_ui();
         static void character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key);
 
