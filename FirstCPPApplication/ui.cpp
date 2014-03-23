@@ -412,6 +412,56 @@ TCODConsole* Ui::create_screen()
     return con;
 };
 
+void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
+{
+    TCODColor foreground, background;
+    foreground = TCODColor::white;
+
+    std::string msg_template = "%i out of %i, regenerating %i every %i turns";
+    char buffer [100];
+
+    std::string msg_str;
+    AttributeContainer* player_attrs = Game::player->attrs;
+
+    HealthAttribute* health = player_attrs->health;
+    ManaAttribute* mana = player_attrs->mana;
+    DamageAttribute* damage = player_attrs->damage;
+    ArmorAttribute* armor = player_attrs->armor;
+
+    msg_str = "HEALTH";
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    i++;
+    sprintf(buffer, msg_template.c_str(), health->current_val, health->max_val, health->regen_rate, health->regen_interval);
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    i++;
+    i++;
+
+    msg_str = "MANA";
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    i++;
+    sprintf(buffer, msg_template.c_str(), mana->current_val, mana->max_val, mana->regen_rate, mana->regen_interval);
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    i++;
+    i++;
+
+    msg_str = "DAMAGE";
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    i++;
+    sprintf(buffer, msg_template.c_str(), damage->current_val, damage->max_val, damage->regen_rate, damage->regen_interval);
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    i++;
+    i++;
+
+    msg_str = "ARMOR";
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    i++;
+    sprintf(buffer, msg_template.c_str(), armor->current_val, armor->max_val, armor->regen_rate, armor->regen_interval);
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    i++;
+    i++;
+
+};
+
 void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
@@ -552,7 +602,7 @@ void Ui::draw_main_menu_ui()
 
 void Ui::draw_char_sheet_ui()
 {
-    Ui::draw_screen("Character Sheet", NULL);
+    Ui::draw_screen("Character Sheet", &Ui::character_sheet_ui_loop);
 };
 
 void Ui::draw_help_ui()
