@@ -530,6 +530,9 @@ void Game::draw_ui()
             case Screens::HelpScreen:
                 Ui::draw_help_ui();
                 break;
+            case Screens::SpellSelectScreen:
+                Ui::draw_spell_select_ui();
+                break;
             default:
                 assert(false && "Unknown Screens");
                 break;
@@ -676,6 +679,14 @@ void Game::mainloop()
                 process_mouse_inv_event();
                 break;
 
+            case GameStates::MagicState:
+                if (key_evt.c != NULL && key_evt.pressed == 1 ){
+                    incr_turn = process_key_event(key_evt, player);
+                };
+
+                Game::draw_ui();
+                process_mouse_inv_event();
+                break;
 
             default:
                 assert(false && "Unknown gamestate");

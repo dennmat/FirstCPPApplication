@@ -32,7 +32,7 @@ enum basic_cmds_t {
     OpenInventory,
     Look, ActivateDoor,
     DownStairs, UpStairs,
-    Magic, ConfirmCast,
+    OpenMagic, ConfirmCast,
     OpenCharacterSheet,
     OpenHelp,
     NO_MATCHING_BASIC_CMD
@@ -53,7 +53,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
     char_movemap['>'] = basic_cmds_t::DownStairs;
     char_movemap['<'] = basic_cmds_t::UpStairs;
-    char_movemap['m'] = basic_cmds_t::Magic;
+    char_movemap['m'] = basic_cmds_t::OpenMagic;
     char_movemap['k'] = basic_cmds_t::ConfirmCast;
 
     if (key.vk == TCODK_CHAR) 
@@ -83,6 +83,49 @@ enum inventory_items_active_t {
     DropItem, EscapeMenuItem,
     UseItem,
     NO_MATCHING_ITEMS_ACTIVE
+};
+
+enum spells_active_t {
+    ExamineSpell,
+    EquipSpell, UnequipSpell,
+    DropSpell, EscapeMenuSpell,
+    UseSpell,
+    NO_MATCHING_SPELLS_ACTIVE
+};
+
+spells_active_t spells_active_pressed(TCOD_key_t key)
+{
+    std::map<int, spells_active_t> spec_spellactivemap; //Keypad, punctuation
+    std::map<char, spells_active_t> char_spellactivemap; //regular letters
+    // 
+    spec_spellactivemap[TCODK_ESCAPE] = spells_active_t::EscapeMenuSpell;
+    //     spec_spellactivemap['\''] = spells_active_t::N;
+
+    char_spellactivemap['x'] = spells_active_t::ExamineSpell;
+    char_spellactivemap['d'] = spells_active_t::DropSpell;
+    char_spellactivemap['u'] = spells_active_t::UseSpell;
+    char_spellactivemap['e'] = spells_active_t::EquipSpell;
+    char_spellactivemap['y'] = spells_active_t::UnequipSpell;
+    char_spellactivemap['q'] = spells_active_t::EscapeMenuSpell;
+
+    if (key.vk == TCODK_CHAR) 
+    {
+        auto it = char_spellactivemap.find(key.c);
+        if(it == char_spellactivemap.end())
+        {
+            return spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
+        }
+        return it->second;
+    }
+    else
+    {
+        auto it = spec_spellactivemap.find(key.vk);
+        if(it == spec_spellactivemap.end())
+        {
+            return spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
+        }
+        return it->second;
+    }
 };
 
 inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
@@ -208,6 +251,12 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         Game::current_screen = Screens::InventoryScreen;
     }
 
+    else if ( basic_cmd == basic_cmds_t::OpenMagic )
+    {
+        Game::current_state = GameStates::MenuState;
+        Game::current_screen = Screens::SpellSelectScreen;
+    }
+
     else if ( basic_cmd == basic_cmds_t::OpenCharacterSheet )
     {
         Game::current_state = GameStates::MenuState;
@@ -263,19 +312,19 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         };
     }
 
-    else if ( basic_cmd == basic_cmds_t::Magic )
-    {
-        Tile* stair_tile = Game::player->my_tile;
-        if (Ui::toggle_targetting())
-        {
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Select a target.");
-        }
-        else
-        {
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Done targetting");
-        }
-        //start targetting mode
-    }
+    // else if ( basic_cmd == basic_cmds_t::OpenMagic )
+    // {
+    //     Tile* stair_tile = Game::player->my_tile;
+    //     if (Ui::toggle_targetting())
+    //     {
+    //         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Select a target.");
+    //     }
+    //     else
+    //     {
+    //         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Done targetting");
+    //     }
+    //     //start targetting mode
+    // }
 
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
@@ -370,6 +419,61 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     {
         Ui::item_active = false;
         Ui::chosen_item = false;
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
+        return true;
+    }
+
+    return false;
+};
+
+bool process_spells_active(TCOD_key_t request, Person *player)
+{
+    spells_active_t action = spells_active_pressed(request);
+
+    if( action == spells_active_t::ExamineSpell )
+    {
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE SPELL.");
+	std::cout << "EXAMINE SPELL." << std::endl;
+        return true;
+    }
+    else if( action == spells_active_t::DropSpell )
+    {/*
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
+        Spell* spell = Ui::chosen_item;
+        Ui::chosen_spell = NULL;
+        Ui::spell_active = false;
+
+        player->inventory->drop_spell(item);
+        return true;
+    */}
+
+    else if( action == spells_active_t::UseSpell )
+    {
+        //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
+        //Ui::chosen_spell->use(Game::player);
+        //return true;
+    }
+
+    else if( action == spells_active_t::EquipSpell )
+    {
+        // Ui::chosen_spell->equip(Game::player);
+        // Game::player->equipment->equip_spell(Ui::chosen_item);
+        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping spell.");
+        // return true;
+    }
+
+    else if( action == spells_active_t::UnequipSpell )
+    {
+        // Ui::chosen_spell->unequip(Game::player);
+        // Game::player->equipment->unequip_spell(Ui::chosen_item);
+        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Unequipping spell.");
+        // return true;
+    }
+
+    else if( action == spells_active_t::EscapeMenuSpell )
+    {
+        Ui::spell_active = false;
+        Ui::chosen_spell = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
         return true;
     }
@@ -596,6 +700,11 @@ bool is_request_inventory_item_active_cmd(TCOD_key_t request)
     return inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
 };
 
+bool is_request_spell_active_cmd(TCOD_key_t request)
+{
+    return spells_active_pressed(request) != spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
+};
+
 void process_buildmode(TCOD_key_t request, int current_tile)
 {
     Map *world = Game::world;
@@ -778,19 +887,56 @@ bool process_key_event(TCOD_key_t request, Person *player)
 
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
-                // //generate keys for the appropriate items
-                // typedef std::unordered_map<char, Spell*> keypair_t;
-                // keypair_t item_map;
-                // typedef std::pair<char, Spell*> keypair;
+                //generate keys for the appropriate items
+                typedef std::unordered_map<char, Spell*> keypair_t;
+                keypair_t spell_map;
+                typedef std::pair<char, Spell*> keypair;
 
-                // char key = 'a';
+                char key = 'a';
 
-                // std::vector<Item*>* items = Game::player->inventory->items;
-                // for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
-                // {
-                //     item_map.insert(keypair(key, (*it)));
-                //     key++;
-                // };
+                std::vector<Spell*>* spells = Game::player->spells;
+                for (std::vector<Spell*>::const_iterator it = spells->begin(); it != spells->end(); ++it)
+                {
+                    spell_map.insert(keypair(key, (*it)));
+                    key++;
+                };
+            bool successful_action = true;
+            if (Ui::spell_active == false)
+            {
+                //choose spell
+                auto it = spell_map.find(request.c);
+                if (it != spell_map.end())
+                {
+                    if (Ui::chosen_spell == it->second)
+                    {
+                        Ui::spell_active = true;
+                    }
+                    else
+                    {
+                        Ui::spell_active = false;
+                    };
+                    Ui::chosen_spell = it->second;
+                };
+            }
+            else // spell_active is true
+            {
+                if (is_request_spell_active_cmd(request))
+                {
+                    successful_action = process_spells_active(request, player);
+                }
+                else 
+                {
+                    std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                    std::cout << "q to return to gameplay, a b c to choose the first, second, third spell etc." << std::endl;
+                    std::cout << "press again to select. once it's activated, press u to use" << std::endl;
+                    std::cout << "e to equip, y to unequip, d to drop" << std::endl;
+                }
+            }
+
+            //display info of chosen spell
+
+            //equip chosen spell
+
 
             };
 

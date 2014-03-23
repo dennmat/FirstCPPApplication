@@ -6,6 +6,7 @@
 
 class AttributeContainer;
 class Attribute;
+class ItemEffect;
 
 class Spell 
 {
@@ -20,6 +21,7 @@ class Spell
         int cast_count;
 
         AttributeContainer* attrs;
+        ItemEffect* spell_effect;
 
         Spell();
 };

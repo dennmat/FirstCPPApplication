@@ -3,6 +3,7 @@
 #include "spells.h"
 #include "attribute_container.h"
 #include "attribute.h"
+#include "item_effect.h"
 
 Spell::Spell()
 {
@@ -17,5 +18,7 @@ Spell::Spell()
 
         this->attrs = new AttributeContainer;
         this->attrs->health->current_val = -10;
+
+        this->spell_effect = new ItemEffect;
 
 };

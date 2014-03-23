@@ -17,14 +17,17 @@
 #include "tile.h"
 #include "draw_utils.h"
 #include "Representation.h"
+#include "spells.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
 Game* Ui::game = game;
 
 Item* Ui::chosen_item = NULL;
+Spell* Ui::chosen_spell = NULL;
 
 bool Ui::item_active = false;
+bool Ui::spell_active = false;
 
 unsigned long long int Ui::turn_checking_against = 1;
 unsigned long long int Ui::last_turn_noted = 1;
@@ -466,6 +469,74 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 
 };
 
+void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
+{
+    TCODColor foreground, background;
+    foreground = TCODColor::white;
+
+    bool is_chosen, is_active;
+    std::vector<Spell*>* v  = Ui::game->player->spells;
+    for (std::vector<Spell*>::iterator it = v->begin(); it != v->end(); ++it) 
+    {
+        std::string msg_str = "%c-%c%c%c %c%s%c";
+        is_chosen = (*it) == Ui::chosen_spell;
+        is_active = Ui::spell_active;
+
+        TCODConsole::setColorControl(TCOD_COLCTRL_2, TCODColor::red, con->getDefaultBackground());
+
+        background = con->getDefaultBackground();
+        if (is_chosen)
+        {
+            msg_str.append(" <-");
+            if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
+        }
+        else
+        {
+            foreground = TCODColor::white;
+        };
+
+        //mouse selection
+        if (Game::mouse_evt.lbutton_pressed)
+        {
+            if (Game::mouse_evt.cy == i)
+            {
+                if ( (*it)!= Ui::chosen_spell)
+                {
+                    Ui::chosen_spell= (*it);
+                    Ui::spell_active = false;
+                }
+                else if ( (*it) == Ui::chosen_spell)
+                {
+                    Ui::spell_active = true;
+                    background = TCODColor::green;
+                };
+            }
+        }
+        else if (Game::mouse_evt.rbutton_pressed)
+        {
+            Ui::chosen_spell = NULL;
+            Ui::spell_active = false;
+        };
+
+        //print the spell name and selection
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+        const char *msg_char = msg_str.c_str();
+        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's', TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+
+        i++;
+
+        //print the spell effects
+        std::string msg = (*it)->spell_effect->oneline_str();
+        std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->spell_effect->oneline_str_colours();
+        one_line_helper(con, i, msg, colctrl_vec);
+        i++;
+        i++;
+
+        key++;
+
+    }
+};
+
 void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
@@ -581,6 +652,11 @@ void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*,
 void Ui::draw_inventory_ui()
 {
     Ui::draw_screen("Inventory Screen", &Ui::inventory_ui_loop);
+};
+
+void Ui::draw_spell_select_ui()
+{
+    Ui::draw_screen("Select Spell", &Ui::spell_ui_loop);
 };
 
 void Ui::draw_main_menu_ui()

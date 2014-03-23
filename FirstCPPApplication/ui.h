@@ -11,6 +11,7 @@ class Game;
 class TCODColor;
 class Attribute;
 class TCODConsole;
+class Spell;
 
 void one_line_helper(TCODConsole* ui_inv_con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
 
@@ -46,6 +47,8 @@ class Ui
 
         static Item* chosen_item;
         static bool item_active;
+        static Spell* chosen_spell;
+        static bool spell_active;
 
         static void update_ui();
         static void update_inventory_ui();
@@ -72,6 +75,9 @@ class Ui
         static void draw_char_sheet_ui();
         static void character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key);
 
+        static void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key);
+        static void draw_spell_select_ui();
+
         static void Ui::draw_help_ui();
 
         static void draw_inventory_main();
@@ -81,7 +87,6 @@ class Ui
 
         static bool item_is_chosen();
         static bool toggle_targetting();
-
 };
 
 #endif

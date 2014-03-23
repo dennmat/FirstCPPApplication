@@ -5,7 +5,8 @@
 enum GameStates {
     GameplayState,
     MenuState,
-    InventoryState
+    InventoryState,
+    MagicState
 };
 
 #endif
