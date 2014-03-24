@@ -531,7 +531,7 @@ void Game::draw_ui()
                 Ui::draw_help_ui();
                 break;
             case Screens::SpellSelectScreen:
-                Ui::draw_spell_select_ui();
+                Ui::draw_spell_select_main();
                 break;
             default:
                 assert(false && "Unknown Screens");

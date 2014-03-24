@@ -77,6 +77,8 @@ class Ui
 
         static void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key);
         static void draw_spell_select_ui();
+        static void Ui::draw_spell_select_main();
+        static void Ui::draw_spell_select_msg();
 
         static void Ui::draw_help_ui();
 
@@ -86,6 +88,7 @@ class Ui
         static void inventory_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static bool item_is_chosen();
+        static bool Ui::spell_is_chosen();
         static bool toggle_targetting();
 };
 
