@@ -492,7 +492,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
     std::vector<Spell*>* v  = Ui::game->player->spells;
     for (std::vector<Spell*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
-        std::string msg_str = "%c-%c%c%c %c%s%c";
+        std::string msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c";
         is_chosen = (*it) == Ui::chosen_spell;
         is_active = Ui::spell_active;
 
@@ -535,7 +535,10 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         //print the spell name and selection
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
         const char *msg_char = msg_str.c_str();
-        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's', TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's',
+                TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
+                TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->mana_cost, TCOD_COLCTRL_STOP);
 
         i++;
 
