@@ -427,10 +427,18 @@ Person*  Game::initialize_player()
 
     player->spells->push_back(new Spell);
     player->spells->back()->name = "Fireball";
+
     player->spells->push_back(new Spell);
     player->spells->back()->name = "Ice bolt";
+    player->spells->back()->element = WaterElement;
+
     player->spells->push_back(new Spell);
     player->spells->back()->name = "Sacred Love";
+    player->spells->back()->element = LifeElement;
+
+    player->spells->push_back(new Spell);
+    player->spells->back()->name = "Death's Touch";
+    player->spells->back()->element = DeathElement;
 
     Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     player->putPerson(next_tile, player->x, player->y);
@@ -504,9 +512,9 @@ void Game::update_ui()
         case GameStates::GameplayState: 
             Ui::update_ui();
             break;
-        case GameStates::MenuState:
-            Ui::update_inventory_ui();
-            break;
+        // case GameStates::MenuState:
+        //     Ui::update_inventory_ui();
+        //     break;
     };
 }
 

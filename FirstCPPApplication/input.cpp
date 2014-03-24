@@ -102,10 +102,10 @@ spells_active_t spells_active_pressed(TCOD_key_t key)
     //     spec_spellactivemap['\''] = spells_active_t::N;
 
     char_spellactivemap['x'] = spells_active_t::ExamineSpell;
-    char_spellactivemap['d'] = spells_active_t::DropSpell;
-    char_spellactivemap['u'] = spells_active_t::CastSpell;
-    char_spellactivemap['e'] = spells_active_t::EquipSpell;
-    char_spellactivemap['y'] = spells_active_t::UnequipSpell;
+    // char_spellactivemap['d'] = spells_active_t::DropSpell;
+    char_spellactivemap['c'] = spells_active_t::CastSpell;
+    // char_spellactivemap['e'] = spells_active_t::EquipSpell;
+    // char_spellactivemap['y'] = spells_active_t::UnequipSpell;
     char_spellactivemap['q'] = spells_active_t::EscapeMenuSpell;
 
     if (key.vk == TCODK_CHAR) 

@@ -162,6 +162,7 @@
     <ClInclude Include="enemies\ogre.h" />
     <ClInclude Include="enemies\skeleton.h" />
     <ClInclude Include="enemies\troll.h" />
+    <ClInclude Include="enums\elements_t.h" />
     <ClInclude Include="enums\screens.h" />
     <ClInclude Include="enums\tiletypes_t.h" />
     <ClInclude Include="equipment.h" />

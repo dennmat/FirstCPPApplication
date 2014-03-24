@@ -306,14 +306,15 @@ bool Ui::toggle_targetting()
 
 void Ui::draw_misc()
 {
+    //spell casting
     if (Ui::is_targetting)
     {
         Tile* mouse_tile = Game::get_mouse_tile();
-	TCODColor line_color;
+        TCODColor line_color;
         if (mouse_tile->is_occupied() && mouse_tile->is_known())
         {
             TCODConsole::root->setChar(mouse_tile->tile_x, mouse_tile->tile_y, 'X');
-            line_color = TCODColor::red;
+            line_color = TCODColor::darkGreen;
         }
         else
         {
@@ -321,12 +322,19 @@ void Ui::draw_misc()
         }
 
         // draw line from player to mouse
+        int count = 0;
         TCODLine::init(Game::player->x, Game::player->y,
                 Game::mouse_evt.cx, Game::mouse_evt.cy);
         int x = Game::player->x, y2 = Game::player->y ;
         do {
+            count++;
+            if (count > Ui::chosen_spell->max_range)
+            {
+                line_color = TCODColor::darkRed;
+            }
             TCODConsole::root->setCharBackground(x, y2, line_color);
         } while (!TCODLine::step(&x,&y2));
+
 
     }
 
@@ -488,7 +496,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         is_chosen = (*it) == Ui::chosen_spell;
         is_active = Ui::spell_active;
 
-        TCODConsole::setColorControl(TCOD_COLCTRL_2, TCODColor::red, con->getDefaultBackground());
+        TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_spell_color(), con->getDefaultBackground());
 
         background = con->getDefaultBackground();
         if (is_chosen)

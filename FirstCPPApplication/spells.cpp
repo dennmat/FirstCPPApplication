@@ -5,6 +5,8 @@
 #include "attribute.h"
 #include "item_effect.h"
 
+
+
 Spell::Spell()
 {
         this->name = "Unamed spell";
@@ -21,4 +23,18 @@ Spell::Spell()
 
         this->spell_effect = new ItemEffect;
 
+        this->element = elements_t::FireElement;
+
+};
+
+TCODColor Spell::get_spell_color()
+{
+    std::unordered_map<elements_t, TCODColor> spell_color = std::unordered_map<elements_t, TCODColor>();
+    spell_color.insert(std::make_pair<elements_t, TCODColor>(FireElement, TCODColor::red));
+    spell_color.insert(std::make_pair<elements_t, TCODColor>(WaterElement, TCODColor::blue));
+    spell_color.insert(std::make_pair<elements_t, TCODColor>(DeathElement, TCODColor::darkestGrey));
+    spell_color.insert(std::make_pair<elements_t, TCODColor>(LifeElement, TCODColor::lightGreen));
+    spell_color.insert(std::make_pair<elements_t, TCODColor>(SpectreElement, TCODColor::darkPurple));
+
+    return spell_color.at(this->element);
 };
