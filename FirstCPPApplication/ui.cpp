@@ -534,6 +534,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
 
         //print the spell name and selection
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
         const char *msg_char = msg_str.c_str();
         con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
                 TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's',
