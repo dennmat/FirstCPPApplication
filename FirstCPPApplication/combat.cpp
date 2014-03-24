@@ -184,21 +184,32 @@ Combat* Combat::GetLastAttacker()
 
 void Combat::TakeDamage(Combat* combat_attacker, int dmg)
 {
-
-    int adjusted_dmg = dmg-this->master->attrs->armor->current_val;
-    (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
-
-    std::cout << this->master->name;
-    std::cout << " took " << dmg << " damage! ";
-    std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
-    std::cout << std::endl;
-
-    //save attacker in history
-    this->RememberAttacker(combat_attacker);
-
-    if (this->CheckDeath())
+    if (dmg > 0) 
     {
-        this->Die();
+        int adjusted_dmg = dmg-this->master->attrs->armor->current_val;
+        (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
+
+        std::cout << this->master->name;
+        std::cout << " took " << dmg << " damage! ";
+        std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
+        std::cout << std::endl;
+
+        //save attacker in history
+        this->RememberAttacker(combat_attacker);
+
+        if (this->CheckDeath())
+        {
+            this->Die();
+        };
+    }
+    else
+    {
+        (this->master->attrs->health->current_val)-= dmg;
+
+        std::cout << this->master->name;
+        std::cout << " gained " << (-dmg) << " health! ";
+        std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
+        std::cout << std::endl;
     };
 };
 
