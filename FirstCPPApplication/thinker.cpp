@@ -73,7 +73,7 @@ void Thinker::smart_update()
 
             //std::cout << "dest x: " << dest_tile_x;
             //std::cout << "dest y: " << dest_tile_y << std::endl;
-            std::cout << "CONTINUTE" << std::endl;
+            //std::cout << "CONTINUTE" << std::endl;
 
         };
         delete adj_tiles;
