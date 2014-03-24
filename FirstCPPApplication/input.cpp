@@ -89,7 +89,7 @@ enum spells_active_t {
     ExamineSpell,
     EquipSpell, UnequipSpell,
     DropSpell, EscapeMenuSpell,
-    UseSpell,
+    CastSpell,
     NO_MATCHING_SPELLS_ACTIVE
 };
 
@@ -103,7 +103,7 @@ spells_active_t spells_active_pressed(TCOD_key_t key)
 
     char_spellactivemap['x'] = spells_active_t::ExamineSpell;
     char_spellactivemap['d'] = spells_active_t::DropSpell;
-    char_spellactivemap['u'] = spells_active_t::UseSpell;
+    char_spellactivemap['u'] = spells_active_t::CastSpell;
     char_spellactivemap['e'] = spells_active_t::EquipSpell;
     char_spellactivemap['y'] = spells_active_t::UnequipSpell;
     char_spellactivemap['q'] = spells_active_t::EscapeMenuSpell;
@@ -447,8 +447,11 @@ bool process_spells_active(TCOD_key_t request, Person *player)
         return true;
     */}
 
-    else if( action == spells_active_t::UseSpell )
+    else if( action == spells_active_t::CastSpell )
     {
+        Ui::toggle_targetting();
+        Game::current_state = GameStates::GameplayState;
+        // Game::current_screen = Screens::Game
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
         //Ui::chosen_spell->use(Game::player);
         //return true;

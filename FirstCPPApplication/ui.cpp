@@ -753,6 +753,7 @@ void Ui::draw_spell_select_msg()
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
     delete ui_inv_msg_con;
 };
+
 void Ui::draw_inventory_msg()
 {
     ui_inv_msg_w = Ui::game->screen_w;
