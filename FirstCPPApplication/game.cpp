@@ -426,6 +426,11 @@ Person*  Game::initialize_player()
     player->thinker = NULL;
 
     player->spells->push_back(new Spell);
+    player->spells->back()->name = "Fireball";
+    player->spells->push_back(new Spell);
+    player->spells->back()->name = "Ice bolt";
+    player->spells->push_back(new Spell);
+    player->spells->back()->name = "Sacred Love";
 
     Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     player->putPerson(next_tile, player->x, player->y);

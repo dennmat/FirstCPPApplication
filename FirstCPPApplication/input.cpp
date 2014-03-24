@@ -330,7 +330,8 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     {
         Tile* stair_tile = Game::player->my_tile;
         Tile* mouse_tile = Game::get_mouse_tile();
-        Spell* spell = Game::player->spells->back();
+        // Spell* spell = Game::player->spells->back();
+        Spell* spell = Ui::chosen_spell;
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
         int spell_damage = (-spell->attrs->health->current_val);
@@ -451,6 +452,7 @@ bool process_spells_active(TCOD_key_t request, Person *player)
     {
         Ui::toggle_targetting();
         Game::current_state = GameStates::GameplayState;
+        std::cout << Ui::chosen_spell->name << std::endl;
         // Game::current_screen = Screens::Game
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
         //Ui::chosen_spell->use(Game::player);
@@ -858,6 +860,8 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 {
                     //stop the targetting so that user has to retry
                     Ui::is_targetting = false;
+		    Ui::chosen_spell = NULL;
+            Ui::spell_active = false;
                 }
             }
 
