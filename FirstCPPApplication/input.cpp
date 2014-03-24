@@ -25,6 +25,7 @@
 #include "attribute.h"
 #include "enums\screens.h"
 #include "spells.h"
+#include "item_effect.h"
 
 
 enum basic_cmds_t {
@@ -334,7 +335,8 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         Spell* spell = Ui::chosen_spell;
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
-        int spell_damage = (-spell->attrs->health->current_val);
+        int spell_damage = spell->spell_effect->health_current_val;
+        // int spell_damage = (-spell->attrs->health->current_val);
 
         int distance = get_euclidean_distance(Game::player->x, Game::player->y, mouse_tile->tile_x, mouse_tile->tile_y);
         if (Ui::is_targetting && mouse_tile->is_occupied())

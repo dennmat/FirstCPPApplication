@@ -19,7 +19,7 @@ Spell::Spell()
         this->cast_count = 0;
 
         this->attrs = new AttributeContainer;
-        this->attrs->health->current_val = -10;
+        this->attrs->health->current_val = 100;
 
         this->spell_effect = new ItemEffect;
 
@@ -30,6 +30,7 @@ Spell::Spell()
 TCODColor Spell::get_spell_color()
 {
     std::unordered_map<elements_t, TCODColor> spell_color = std::unordered_map<elements_t, TCODColor>();
+
     spell_color.insert(std::make_pair<elements_t, TCODColor>(FireElement, TCODColor::red));
     spell_color.insert(std::make_pair<elements_t, TCODColor>(WaterElement, TCODColor::blue));
     spell_color.insert(std::make_pair<elements_t, TCODColor>(DeathElement, TCODColor::darkestGrey));

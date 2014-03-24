@@ -9,7 +9,7 @@
 
 ItemEffect::ItemEffect()
 {
-    this->health_current_val = 9999;
+    this->health_current_val = 100;
     this->health_max_val = 0;
     this->health_regen_rate = 0;
     this->health_regen_interval = 0; 
