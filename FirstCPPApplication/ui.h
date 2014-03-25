@@ -34,6 +34,8 @@ class Ui
 
         static Game* game;
         static MessageHandler* msg_handler_main;
+        static MessageHandler* msg_handler_inv;
+        static MessageHandler* msg_handler_spell_select;
 
         static int ui_inv_w;
         static int ui_inv_h;

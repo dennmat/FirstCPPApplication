@@ -53,6 +53,8 @@ int Ui::ui_sidebar_w = 0;
 int Ui::ui_sidebar_h = 0;
 
 MessageHandler* Ui::msg_handler_main = new MessageHandler;
+MessageHandler* Ui::msg_handler_inv = new MessageHandler;
+MessageHandler* Ui::msg_handler_spell_select = new MessageHandler;
 //  Ui::Ui()
 // {
 //     Ui::chosen_item = NULL;

@@ -215,6 +215,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '&';
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->name = "Chainmail";
+        dropped_item->description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Chest;
 
@@ -231,6 +232,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '/';
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->name = "A sword";
+        dropped_item->description = "It looks like it can swipe left to right and up and down. Wow.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::MainHand;
 
@@ -247,6 +249,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = ']';
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->name = "A shield";
+        dropped_item->description = "It looks like it can take a few hits.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::OffHand;
 
@@ -263,6 +266,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '/';
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
         dropped_item->name = "A mace";
+        dropped_item->description = "It looks like your mom.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::MainHand;
 
@@ -279,6 +283,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '^';
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->name = "A helmet";
+        dropped_item->description = "It looks sturdy.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Head;
 
@@ -295,6 +300,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '|';
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->name = "An amulet";
+        dropped_item->description = "It glows.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Neck;
 
@@ -302,10 +308,14 @@ Item* spawnItem(int result)
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 2);
         int damage = rng->getInt(1, 5, 2);
+        int mana = rng->getInt(1, 5, 2);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
+        dropped_item->item_effect->mana_regen_rate = mana;
+        dropped_item->item_effect->mana_regen_interval = mana;
+
     }
     else if (result <= 80)
     {
@@ -315,6 +325,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '!';
         dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
         dropped_item->name = "A health potion";
+        dropped_item->description = "It looks like it's safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::NoSlot;
 
@@ -331,6 +342,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '!';
         dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
         dropped_item->name = "A glowing health potion";
+        dropped_item->description = "It looks like it's probably safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::NoSlot;
 
@@ -348,6 +360,7 @@ Item* spawnItem(int result)
         dropped_item->repr->repr = '!';
         dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
         dropped_item->name = "A pulsating health potion";
+        dropped_item->description = "It looks like it could be safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::NoSlot;
 
@@ -370,15 +383,19 @@ void Actor::Die()
     //make the master's tile no longer occupied by him
     //drop corpse on floor or another item
     TCODRandom *rng = TCODRandom::getInstance();
-    Item* dropped_item;
+    Item* dropped_item = NULL;
     int result = rng->getInt(0, 100);
     if (result <= 15)
     {
         dropped_item = this->CreateCorpse();
     }
-    else
+    else if (result > 60)
     {
         dropped_item = spawnItem(result);
+    }
+    else 
+    {
+        //nothing happens between result of 15 and 60
     };
     if (dropped_item != NULL)
     {

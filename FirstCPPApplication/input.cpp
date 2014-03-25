@@ -381,7 +381,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
 
     if( action == inventory_items_active_t::ExamineItem )
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE ITEM.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", Ui::chosen_item->description);
         return true;
     }
     else if( action == inventory_items_active_t::DropItem )
