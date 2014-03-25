@@ -207,6 +207,7 @@ Item* spawnItem(int result)
 {
     Item* dropped_item;
     TCODRandom *rng = TCODRandom::getInstance();
+    result = rng->getInt(0, 100);
 
     if (result <= 25)
     {
