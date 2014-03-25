@@ -34,6 +34,8 @@ class Combat
         void assign_to_master(Person* master);
         void GiveExp(int exp_to_gain);
         void LevelUp(int levels = 1);
+        void Combat::LevelUpStats(int levels);
+        void Combat::LevelUpSkills(int levels);
 
         void printout();
 };

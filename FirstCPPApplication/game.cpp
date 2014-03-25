@@ -431,27 +431,6 @@ Person*  Game::initialize_player()
     player->spells->back()->mana_cost = 10;
     player->spells->back()->max_range = 10;
 
-    player->spells->push_back(new Spell);
-    player->spells->back()->name = "Ice bolt";
-    player->spells->back()->element = WaterElement;
-    player->spells->back()->spell_effect->health_current_val = 7;
-    player->spells->back()->mana_cost = 5;
-    player->spells->back()->max_range = 4;
-
-    player->spells->push_back(new Spell);
-    player->spells->back()->name = "Sacred Love";
-    player->spells->back()->element = LifeElement;
-    player->spells->back()->spell_effect->health_current_val = -15;
-    player->spells->back()->mana_cost = 5;
-    player->spells->back()->max_range = 1;
-
-    player->spells->push_back(new Spell);
-    player->spells->back()->name = "Death's Touch";
-    player->spells->back()->element = DeathElement;
-    player->spells->back()->spell_effect->health_current_val = 25;
-    player->spells->back()->mana_cost = 20;
-    player->spells->back()->max_range = 2;
-
     Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     player->putPerson(next_tile, player->x, player->y);
 

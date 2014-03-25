@@ -231,7 +231,7 @@ Message::Message()
     va_list ap;
     va_start(ap, content);
 
-    char* x = new char[255*32];
+    char* x = new char[512*32];
     vsprintf(x, content.c_str(), ap);
     this->content = std::string(x);
 

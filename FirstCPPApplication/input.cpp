@@ -840,6 +840,24 @@ bool process_debug_event(TCOD_key_t request, Person *player)
         //this'll redraw the entire screen incase shit goes black
         TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
+
+    if (request.vk == TCODK_F6)
+    {
+        //this'll redraw the entire screen incase shit goes black
+        TCODConsole::root->setDirty(0, 0, 1000, 1000);
+    }
+
+    if (request.vk == TCODK_F7)
+    {
+        //this'll redraw the entire screen incase shit goes black
+        Game::player->combat->LevelUp(1);
+    }
+
+    if (request.vk == TCODK_F8)
+    {
+        //this'll redraw the entire screen incase shit goes black
+        TCODConsole::root->setDirty(0, 0, 1000, 1000);
+    }
 };
 
 bool process_key_event(TCOD_key_t request, Person *player)
