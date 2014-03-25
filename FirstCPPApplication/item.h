@@ -19,8 +19,10 @@ class Item
         std::string description;
         std::string name;
 
+        int weight;
+
         bool usable;
-	int uses;
+        int uses;
         bool equippable;
 
         ItemEffect* item_effect;

@@ -21,6 +21,7 @@ class Inventory
 
         void drop_item(Item* item);
 
+        int Inventory::get_total_weight();
 };
 
 #endif

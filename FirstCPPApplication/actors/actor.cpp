@@ -218,6 +218,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Chest;
+        dropped_item->weight = 10;
 
         //sword damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -235,6 +236,8 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like it can swipe left to right and up and down. Wow.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::MainHand;
+        dropped_item->weight = 12;
+
 
         //sword damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -252,6 +255,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like it can take a few hits.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::OffHand;
+        dropped_item->weight = 6;
 
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -269,6 +273,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like your mom.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::MainHand;
+        dropped_item->weight = 12;
 
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -286,6 +291,8 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks sturdy.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Head;
+        dropped_item->weight = 5;
+
 
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -303,6 +310,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It glows.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::Neck;
+        dropped_item->weight = 2;
 
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -328,6 +336,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like it's safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::NoSlot;
+        dropped_item->weight = 1;
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -345,6 +354,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like it's probably safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::NoSlot;
+        dropped_item->weight = 1;
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -363,6 +373,7 @@ Item* spawnItem(int result)
         dropped_item->description = "It looks like it could be safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->slot_type = slots_t::NoSlot;
+        dropped_item->weight = 1;
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);

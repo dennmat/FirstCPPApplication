@@ -230,9 +230,11 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_con->setDefaultBackground(ui_sidebar_color);
     ui_sidebar_con->clear();
 
+    int first_y = 0;
 
     //draw the message text
-    ui_sidebar_con->print(0, 0, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
+    ui_sidebar_con->print(0, first_y, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
+    first_y++;
 
     //  player stats
     //generate a color for the percent of players' cur hp to max hp between red and green
@@ -251,12 +253,17 @@ void Ui::draw_ui_sidebar()
         TCODConsole::setColorControl(TCOD_COLCTRL_1, player_hp_color, TCODColor::black);
     };
 
-    ui_sidebar_con->print(0, 2, "PLAYER NAME %s", Ui::game->player->GetNameC());
-    ui_sidebar_con->print(0, 3, "PLAYER HP %c%d%c", TCOD_COLCTRL_1, Ui::game->player->attrs->health->current_val, TCOD_COLCTRL_STOP);
+    ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
+    first_y++;
+    ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d%c", TCOD_COLCTRL_1, Ui::game->player->attrs->health->current_val, TCOD_COLCTRL_STOP);
+    first_y++;
+    first_y++;
 
     //mouse stats
-    ui_sidebar_con->print(0, 5, "MOUSE X Y" );
-    ui_sidebar_con->print(0, 6, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
+    ui_sidebar_con->print(0, first_y, "MOUSE X Y" );
+    first_y++;
+    ui_sidebar_con->print(0, first_y, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
+    first_y++;
 
     //facing direction
     Ui::draw_facing_angle(ui_sidebar_con);
@@ -265,7 +272,11 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_con->print(0, 12, "Items in inventory:");
     ui_sidebar_con->print(0, 13, "%d", Ui::game->player->inventory->get_count());
 
-    int initial_y = 15;
+    //draw player inventory info
+    ui_sidebar_con->print(0, 15, "Total burden");
+    ui_sidebar_con->print(0, 16, "%d", Ui::game->player->inventory->get_total_weight());
+
+    int initial_y = 18;
     int y = initial_y;
     Ui::draw_xp(y, ui_sidebar_con, ui_sidebar_fore);
     y++;
@@ -566,7 +577,7 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
     std::vector<Item*>* v  = Ui::game->player->inventory->items;
     for (std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
-        std::string msg_str = "%c-%c%c%c %c%s%c";
+        std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
         is_chosen = (*it) == Ui::chosen_item;
         is_active = Ui::item_active;
 
@@ -623,9 +634,12 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
 
         //print the item name and selection
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
         const char *msg_char = msg_str.c_str();
-        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(), TCOD_COLCTRL_STOP);
-
+        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2,
+                (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
+                (*it)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->weight, TCOD_COLCTRL_STOP);
         i++;
 
         //print the item effects

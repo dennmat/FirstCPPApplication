@@ -53,3 +53,13 @@ int Inventory::get_count()
 {
     return this->items->size();
 };
+
+int Inventory::get_total_weight()
+{
+    int total_weight = 0;
+    for (std::vector<Item*>::iterator it = this->items->begin(); it != this->items->end(); ++it)
+    {
+        total_weight += (*it)->weight;
+    }
+    return total_weight;
+};

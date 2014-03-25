@@ -329,10 +329,14 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
 
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
+        Spell* spell = Ui::chosen_spell;
+	if (spell == NULL)
+	{
+	    return false;
+	}
         Tile* stair_tile = Game::player->my_tile;
         Tile* mouse_tile = Game::get_mouse_tile();
         // Spell* spell = Game::player->spells->back();
-        Spell* spell = Ui::chosen_spell;
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
         int spell_damage = spell->spell_effect->health_current_val;
@@ -382,6 +386,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     if( action == inventory_items_active_t::ExamineItem )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", Ui::chosen_item->description);
+        std::cout << Ui::chosen_item->description << std::endl;
         return true;
     }
     else if( action == inventory_items_active_t::DropItem )
@@ -436,7 +441,7 @@ bool process_spells_active(TCOD_key_t request, Person *player)
     if( action == spells_active_t::ExamineSpell )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE SPELL.");
-	std::cout << "EXAMINE SPELL." << std::endl;
+        std::cout << "EXAMINE SPELL." << std::endl;
         return true;
     }
     else if( action == spells_active_t::DropSpell )
