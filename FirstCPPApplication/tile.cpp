@@ -123,10 +123,21 @@ void Tile::updateTileType(int type )
 
     this->type_id = type;
 
-    if (type == 0) { tile = new BaseTileType; }
-    else if (type == 1) { tile = new WallTileType; }
-    else if (type == 2) { tile = new WarpTileType; }
-    else if (type == 3) { tile = new FloorTileType; }
+    if (type == 0) {
+        tile = new BaseTileType; 
+    }
+    else if (type == 1) { 
+        tile = new WallTileType;
+        this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
+    }
+
+    else if (type == 2) {
+        tile = new WarpTileType; 
+    }
+    else if (type == 3) {
+        tile = new FloorTileType;
+        this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
+    }
     else if (type == 4) { tile = new DoorTileType; }
     else if (type == 5) { tile = new StairsDownTileType; }
     else if (type == 6) { tile = new StairsUpTileType; }

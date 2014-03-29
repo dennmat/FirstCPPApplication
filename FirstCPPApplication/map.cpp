@@ -161,7 +161,7 @@ class DungeonListener : public ITCODBspCallback
                 {
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
-                    tile= map.getTileAt(x, y);
+                    tile = map.getTileAt(x, y);
                     if ( tile->tile->type_id == TileTypes::FloorTileTypeType)
                     {
                         tile->tile->representation->repr = ',';
@@ -385,7 +385,8 @@ int Map::build_dungeon_from_random(int seed)
     {
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
-        this_tile->updateTileType(TileTypes::FloorTileTypeType);
+        this_tile->updateTileType(TileTypes::WallTileTypeType);
+        // this_tile->updateTileType(TileTypes::FloorTileTypeType);
         if(this_tile->type_id == TileTypes::FloorTileTypeType)
         {
             //light passes though, walkable
@@ -469,7 +470,9 @@ int Map::build_dungeon_from_random(int seed)
         TCODLine::init((*it)->center_x, (*it)->center_y, current_room->center_x, current_room->center_y);
         int draw_x=10, draw_y=10;
         do {
-        this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
+            this->getTileAt(draw_x, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
+            this->getTileAt(draw_x+1, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
+        // this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
         }
         while (!TCODLine::step(&draw_x, &draw_y));
 
