@@ -432,6 +432,9 @@ int Map::build_dungeon_from_random(int seed)
         auto unused_it = unused_rooms.begin();
         for (unused_it; unused_it != unused_rooms.end(); unused_it++)
         {
+	    if ((*it)->center_x == (*unused_it)->center_x && (*it)->center_y == (*unused_it)->center_y){
+	    continue;
+        }
             new_distance = (*it)->distanceToRoomCenter(*unused_it);
             if (new_distance < distance)
             {
@@ -440,6 +443,13 @@ int Map::build_dungeon_from_random(int seed)
             // std::cout << &(unused_it) << std::endl;
         };
         current_room = *unused_it;
+        //draw line between *it and current room
+        TCODLine::init((*it)->center_x, (*it)->center_y, current_room->center_x, current_room->center_y);
+        int draw_x=10, draw_y=10;
+        do {
+        this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
+        }
+        while (!TCODLine::step(&draw_x, &draw_y));
 
         unused_rooms.erase(unused_it);
         std::cout << &(unused_it) << std::endl;
@@ -745,7 +755,7 @@ int Map::draw()
 
                 Game::game_console->putChar(x, y, the_char);
                 Game::game_console->setCharForeground(x, y, *the_fg_color);
-                Game::game_console->setCharBackground(x, y, *the_bg_color);
+                // Game::game_console->setCharBackground(x, y, *the_bg_color);
 
 
             }
