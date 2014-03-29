@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include "libtcod.hpp"
 #include <exception>
+#include <iterator>
 
 #include <jansson.h>
 
@@ -431,32 +432,40 @@ int Map::build_dungeon_from_random(int seed)
     std::vector<Room*> unused_rooms = std::vector<Room*>(*v);
     for (it; it != v->end(); it++)
     {
-        auto unused_it = unused_rooms.begin();
-        for (unused_it; unused_it != unused_rooms.end(); unused_it++)
-        {
-            if ((*it)->center_x == (*unused_it)->center_x && (*it)->center_y == (*unused_it)->center_y){
-                continue;
-            }
-            new_distance = (*it)->distanceToRoomCenter(*unused_it);
-            if (new_distance < distance)
-            {
-                break;
-            }
-            // std::cout << &(unused_it) << std::endl;
-        };
-        distance = 999;
-        if (unused_it == unused_rooms.end())
+        // auto unused_it = unused_rooms.begin();
+        // for (unused_it; unused_it != unused_rooms.end(); unused_it++)
+        // {
+        //     if ((*it)->center_x == (*unused_it)->center_x && (*it)->center_y == (*unused_it)->center_y){
+        //         continue;
+        //     }
+        //     new_distance = (*it)->distanceToRoomCenter(*unused_it);
+        //     if (new_distance < distance)
+        //     {
+        //         break;
+        //     }
+        //     // std::cout << &(unused_it) << std::endl;
+        // };
+        // distance = 999;
+        // if (unused_it == unused_rooms.end())
+        // {
+        //     current_room = v->back();
+        // }
+        // else
+        // {
+        //     current_room = *unused_it;
+        //     unused_rooms.erase(unused_it);
+        //     // std::cout << &(unused_it) << std::endl;
+        // };
+
+        //draw line between *it and current room
+        if (std::next(it, 1) == v->end())
         {
             current_room = v->back();
         }
         else
         {
-            current_room = *unused_it;
-            unused_rooms.erase(unused_it);
-            // std::cout << &(unused_it) << std::endl;
-        };
-
-        //draw line between *it and current room
+            current_room = *std::next(it, 1);
+        }
         TCODLine::init((*it)->center_x, (*it)->center_y, current_room->center_x, current_room->center_y);
         int draw_x=10, draw_y=10;
         do {
