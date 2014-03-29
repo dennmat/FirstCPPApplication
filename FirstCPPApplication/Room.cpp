@@ -2,6 +2,7 @@
 #include <assert.h>
 
 #include "Room.h"
+#include "input.h"
 
 Room::Room()
 {
@@ -77,4 +78,9 @@ bool Room::isPerimeter(int point_x, int point_y)
         return true;
     }
     return false;
+};
+
+int Room::distanceToRoomCenter(Room* other)
+{
+    return get_euclidean_distance(this->center_x, this->center_y,other->center_x, other->center_y);
 };

@@ -25,6 +25,8 @@ class Room
         bool isCircle(int point_x, int point_y);
         bool checkDoorCount();
 
+        int distanceToRoomCenter(Room* other);
+
     private:
         int _door_index_limit;
         int _current_door_index;

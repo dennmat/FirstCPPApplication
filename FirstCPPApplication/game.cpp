@@ -56,6 +56,7 @@ int Game::camera_h = Game::view_height;
 int Game::camera_x = 0;
 int Game::camera_y = 0;
 
+int Game::fov_radius = 6;
 int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
@@ -88,7 +89,8 @@ enum SpawnTypes {
     JackalSpawn,
     SkeletonSpawn,
     OgreSpawn,
-    BadMotherSpawn
+    BadMotherSpawn,
+    ErrorSpawn
 };
 
 SpawnTypes get_spawn_type()
@@ -105,6 +107,9 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::OgreSpawn;
     else if (dice_roll == 100)
         return SpawnTypes::BadMotherSpawn;
+    else
+        assert(false && "Math is bad.");
+        return SpawnTypes::ErrorSpawn;
 };
 
 Tile* Game::get_mouse_tile()
@@ -556,20 +561,20 @@ bool gameplay_loop(bool incr_turn)
         if (item_count == 1)
         {
             std::string msg_str =  "%s is on the ground.";
-            Message* msg = new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
+             new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
         }
         else if (item_count > 1)
         {
             std::string msg_str = "%d items are on the ground.";
-            Message* msg = new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
+             new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
         }
         else 
         {
-            Message* msg = new Message(Ui::msg_handler_main, ITEM_MSG, "Nothing on the ground.");
+             new Message(Ui::msg_handler_main, ITEM_MSG, "Nothing on the ground.");
         }
 
         //tile description
-        Message* msg = new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->tile->description.c_str());
+        new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->tile->description.c_str());
 
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "TURN: %d", Game::turn_count);
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
@@ -626,7 +631,6 @@ void Game::mainloop()
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
 
-    bool battle_done = false;
     bool incr_turn  = false;
     Game::turn_count = 1;
 
@@ -656,7 +660,7 @@ void Game::mainloop()
     while ( !TCODConsole::isWindowClosed() ) 
     {
 
-        TCOD_event_t evt = TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
+        TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
         switch(Game::current_state)
         {
             case GameStates::GameplayState: 

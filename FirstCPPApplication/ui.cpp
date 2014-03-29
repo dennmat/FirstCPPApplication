@@ -314,6 +314,7 @@ void Ui::draw_ui_sidebar()
 bool Ui::toggle_targetting()
 {
     Ui::is_targetting = !Ui::is_targetting;
+
     return Ui::is_targetting;
 };
 

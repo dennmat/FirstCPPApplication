@@ -105,6 +105,7 @@ class DungeonListener : public ITCODBspCallback
     public:
         static std::stringstream output;
         DungeonListener(Map &map) : map(map), roomNum(0) {};
+
         bool visitNode(TCODBsp *node, void *userData)
         {
             if (node->isLeaf())
@@ -122,7 +123,8 @@ class DungeonListener : public ITCODBspCallback
                 room_y = rng->getInt(node->y+1, node->y+node->h-(room_h-1));
 
                 int perimeter = room_w*2 + room_h*2 - 4;
-                int door_index = rng->getInt(0, perimeter);
+                // int door_index = rng->getInt(0, perimeter);
+                int door_index = -1;
                 int room_style = rng->getInt(0, 100);
                 if (room_style < 75)
                 {
@@ -408,10 +410,40 @@ int Map::build_dungeon_from_random(int seed)
         i++;
     }
 
+    //split the map into a bsp
     TCODBsp bsp(0, 0, width, height);
     bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
+
+    //go through entire map and build rooms
     DungeonListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
+
+    //connect rooms to each of their nearesst neighbors.
+
+    int distance = 999;
+    int new_distance;
+    Room* current_room;
+
+    auto v = this->roomVector;
+    auto it = v->begin();
+    std::vector<Room*> unused_rooms = std::vector<Room*>(*v);
+    for (it; it != v->end(); it++)
+    {
+        auto unused_it = unused_rooms.begin();
+        for (unused_it; unused_it != unused_rooms.end(); unused_it++)
+        {
+            new_distance = (*it)->distanceToRoomCenter(*unused_it);
+            if (new_distance < distance)
+            {
+                break;
+            }
+            // std::cout << &(unused_it) << std::endl;
+        };
+        current_room = *unused_it;
+
+        unused_rooms.erase(unused_it);
+        std::cout << &(unused_it) << std::endl;
+    };
 
     //std::cout << "" << BspListener::output.str() << std::endl;
 
@@ -515,7 +547,7 @@ Room* Map::build_rect_room(int room_x, int room_y,
                 l_map -> setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
-                if (room->checkDoorCount())
+                if (door_index != -1 && room->checkDoorCount())
                 {
                     tile->updateTileType(TileTypes::DoorTileTypeType); //for door
                     l_map -> setProperties(adj_x, adj_y, false, false);
@@ -642,7 +674,7 @@ int Map::draw()
 {
     int x,y;
 
-    l_map->computeFov(Game::player->x, Game::player->y, 10, true, FOV_SHADOW);
+    l_map->computeFov(Game::player->x, Game::player->y, Game::fov_radius, true, FOV_SHADOW);
 
     for(x=0; x<width;x++)
     {
