@@ -112,19 +112,21 @@ class DungeonListener : public ITCODBspCallback
             {
                 // std::cout << "nodes a leaf" << std::endl;
 
-                int room_x,room_y,room_w,room_h;
-                int room_min_size = 10;
+                int room_x, room_y, room_w, room_h;
+                int room_min_size = 5;
                 // dig a room
                 TCODRandom *rng = TCODRandom::getInstance();
 
-                room_w = rng->getInt(room_min_size, node->w-2);
-                room_h = rng->getInt(room_min_size, node->h-2);
+                // room_w = rng->getInt(room_min_size, node->w-2);
+                // room_h = rng->getInt(room_min_size, node->h-2);
+                room_w = rng->getInt(node->w-5, node->w);
+                room_h = rng->getInt(node->h-5, node->h);
                 room_x = rng->getInt(node->x+1, node->x+node->w-(room_w-1));
                 room_y = rng->getInt(node->y+1, node->y+node->h-(room_h-1));
 
                 int perimeter = room_w*2 + room_h*2 - 4;
-                // int door_index = rng->getInt(0, perimeter);
-                int door_index = -1;
+                int door_index = rng->getInt(0, perimeter);
+                // int door_index = -1;
                 int room_style = rng->getInt(0, 100);
                 if (room_style < 75)
                 {
@@ -418,7 +420,7 @@ int Map::build_dungeon_from_random(int seed)
     DungeonListener listener(*this);
     bsp.traverseInvertedLevelOrder(&listener, this);
 
-    //connect rooms to each of their nearesst neighbors.
+    //connect rooms to each of their nearest neighbors.
 
     int distance = 999;
     int new_distance;
@@ -432,9 +434,9 @@ int Map::build_dungeon_from_random(int seed)
         auto unused_it = unused_rooms.begin();
         for (unused_it; unused_it != unused_rooms.end(); unused_it++)
         {
-	    if ((*it)->center_x == (*unused_it)->center_x && (*it)->center_y == (*unused_it)->center_y){
-	    continue;
-        }
+            if ((*it)->center_x == (*unused_it)->center_x && (*it)->center_y == (*unused_it)->center_y){
+                continue;
+            }
             new_distance = (*it)->distanceToRoomCenter(*unused_it);
             if (new_distance < distance)
             {
@@ -442,7 +444,18 @@ int Map::build_dungeon_from_random(int seed)
             }
             // std::cout << &(unused_it) << std::endl;
         };
-        current_room = *unused_it;
+        distance = 999;
+        if (unused_it == unused_rooms.end())
+        {
+            current_room = v->back();
+        }
+        else
+        {
+            current_room = *unused_it;
+            unused_rooms.erase(unused_it);
+            // std::cout << &(unused_it) << std::endl;
+        };
+
         //draw line between *it and current room
         TCODLine::init((*it)->center_x, (*it)->center_y, current_room->center_x, current_room->center_y);
         int draw_x=10, draw_y=10;
@@ -451,8 +464,6 @@ int Map::build_dungeon_from_random(int seed)
         }
         while (!TCODLine::step(&draw_x, &draw_y));
 
-        unused_rooms.erase(unused_it);
-        std::cout << &(unused_it) << std::endl;
     };
 
     //std::cout << "" << BspListener::output.str() << std::endl;
