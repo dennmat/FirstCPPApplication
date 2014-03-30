@@ -103,7 +103,7 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::JackalSpawn;
     else if (dice_roll <= 80)
         return SpawnTypes::SkeletonSpawn;
-    else if (dice_roll <= 99)
+    else if (dice_roll <= 95)
         return SpawnTypes::OgreSpawn;
     else if (dice_roll == 100)
         return SpawnTypes::BadMotherSpawn;
