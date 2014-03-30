@@ -7,6 +7,7 @@ enum Screens {
     CharacterSheetScreen,
     MainMenuScreen,
     HelpScreen,
-    SpellSelectScreen
+    SpellSelectScreen,
+    ClassSelectScreen
 };
 #endif

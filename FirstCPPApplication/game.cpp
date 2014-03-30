@@ -543,7 +543,10 @@ void Game::draw_ui()
                 Ui::draw_help_ui();
                 break;
             case Screens::SpellSelectScreen:
-                Ui::draw_spell_select_main();
+                Ui::draw_class_select_main();
+                break;
+            case Screens::ClassSelectScreen:
+                Ui::draw_class_select_main();
                 break;
             default:
                 assert(false && "Unknown Screens");
@@ -616,6 +619,9 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::start_game()
 {
+    Actor::actor_class_choices->push_back(new FighterClass);
+    Actor::actor_class_choices->push_back(new MageClass);
+    Actor::actor_class_choices->push_back(new BrawlerClass);
     Map* last_map = Game::build_world();
      // Map* last_map = Game::build_town();
     Game::current_map = last_map;

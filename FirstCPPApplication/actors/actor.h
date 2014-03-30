@@ -55,6 +55,7 @@ class Actor : public Object
         static int pack_size;
 
         IClass* actor_class;
+        static std::vector<IClass*>* actor_class_choices;
 
         bool is_moving_left;
         bool is_moving_right;

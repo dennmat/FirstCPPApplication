@@ -18,6 +18,7 @@
 #include "draw_utils.h"
 #include "Representation.h"
 #include "spells.h"
+#include "class.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -25,9 +26,11 @@ Game* Ui::game = game;
 
 Item* Ui::chosen_item = NULL;
 Spell* Ui::chosen_spell = NULL;
+IClass* Ui::chosen_class = NULL;
 
 bool Ui::item_active = false;
 bool Ui::spell_active = false;
+bool Ui::class_active = false;
 
 unsigned long long int Ui::turn_checking_against = 1;
 unsigned long long int Ui::last_turn_noted = 1;
@@ -421,6 +424,12 @@ void Ui::draw_inventory_main()
     Ui::draw_inventory_msg();
 };
 
+void Ui::draw_class_select_main()
+{
+    Ui::draw_class_select_ui();
+    Ui::draw_class_select_msg();
+};
+
 void Ui::draw_spell_select_main()
 {
     Ui::draw_spell_select_ui();
@@ -495,6 +504,83 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 
     print_experience(con, i);
 
+};
+
+void Ui::class_ui_loop(TCODConsole* con, int offset, int i, char key)
+{
+    TCODColor foreground, background;
+    foreground = TCODColor::white;
+
+    std::string buffer = "Select a class";
+    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer.c_str());
+
+    bool is_chosen, is_active;
+    std::vector<IClass*>* v  = Ui::game->player->actor_class_choices;
+    for (std::vector<IClass*>::iterator it = v->begin(); it != v->end(); ++it) 
+    {
+        // std::string msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c";
+        std::string msg_str = "%c- %c%s%c";
+        is_chosen = (*it) == Ui::chosen_class;
+        is_active = Ui::class_active;
+
+        // TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_class_color(), con->getDefaultBackground());
+
+        // background = con->getDefaultBackground();
+        // if (is_chosen)
+        // {
+        //     msg_str.append(" <-");
+        //     if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
+        // }
+        // else
+        // {
+            foreground = TCODColor::white;
+        // };
+
+        //mouse selection
+        if (Game::mouse_evt.lbutton_pressed)
+        {
+            if (Game::mouse_evt.cy == i)
+            {
+                if ( (*it)!= Ui::chosen_class)
+                {
+                    Ui::chosen_class= (*it);
+                    Ui::class_active = false;
+                }
+                else if ( (*it) == Ui::chosen_class)
+                {
+                    Ui::class_active = true;
+                    background = TCODColor::green;
+                };
+            }
+        }
+        else if (Game::mouse_evt.rbutton_pressed)
+        {
+            Ui::chosen_class = NULL;
+            Ui::class_active = false;
+        };
+
+        //print the class name and selection
+        i++;
+        i++;
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
+        const char *msg_char = msg_str.c_str();
+        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_1,
+                (*it)->name.c_str(), TCOD_COLCTRL_STOP);
+
+        i++;
+
+        // //print the class effects
+        // std::string msg = (*it)->class_effect->oneline_str();
+        // std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->class_effect->oneline_str_colours();
+        // one_line_helper(con, i, msg, colctrl_vec);
+        // i++;
+        // i++;
+
+        key++;
+
+    }
 };
 
 void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
@@ -694,6 +780,11 @@ void Ui::draw_spell_select_ui()
     Ui::draw_screen("Select Spell", &Ui::spell_ui_loop);
 };
 
+void Ui::draw_class_select_ui()
+{
+    Ui::draw_screen("Select Class", &Ui::class_ui_loop);
+};
+
 void Ui::draw_main_menu_ui()
 {
     Ui::draw_screen("Main menu", NULL);
@@ -751,6 +842,11 @@ void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<T
         con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 16)
         con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), color_vector.at(16-1), TCOD_COLCTRL_STOP);
+};
+
+void Ui::draw_class_select_msg()
+{
+
 };
 
 void Ui::draw_spell_select_msg()
