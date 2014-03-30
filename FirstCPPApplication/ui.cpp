@@ -846,6 +846,32 @@ void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<T
 
 void Ui::draw_class_select_msg()
 {
+    ui_inv_msg_w = Ui::game->screen_w;
+    ui_inv_msg_h = 10;
+    TCODConsole *ui_inv_msg_con = new TCODConsole(ui_inv_msg_w, ui_inv_msg_h);
+
+    //reset ui console to default
+    TCODColor ui_inv_msg_color(12,12,12);
+    ui_inv_msg_con->setDefaultBackground(ui_inv_msg_color);
+    ui_inv_msg_con->clear();
+
+    //draw the message text
+    int y = 0;
+    ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
+    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and once more to confirm");
+    ui_inv_msg_con->print(0, y++, "You can then press X to examine it.");
+    y++;
+    // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
+    // ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
+
+    ui_inv_msg_con->setDefaultForeground(TCODColor::white);
+    y++;
+    ui_inv_msg_con->print(0, y++, "is class chosen? %i", Ui::class_is_chosen());
+    ui_inv_msg_con->print(0, y++, "is class confirmed? %i", Ui::class_active);
+
+    //draw ui console to root
+    TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
+    delete ui_inv_msg_con;
 
 };
 
@@ -912,6 +938,11 @@ void Ui::draw_inventory_msg()
 bool Ui::item_is_chosen()
 {
     return Ui::chosen_item != NULL;
+};
+
+bool Ui::class_is_chosen()
+{
+    return Ui::chosen_class != NULL;
 };
 
 bool Ui::spell_is_chosen()
