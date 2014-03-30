@@ -21,6 +21,8 @@ class Thinker
 
 
     public:
+        static int visibility_threshold;
+
         Actor* master;
         Civilian* civilian;
 

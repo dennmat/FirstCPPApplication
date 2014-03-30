@@ -12,6 +12,9 @@
 #include "combat.h"
 #include "attribute.h"
 #include "attribute_container.h"
+#include "utils.h"
+
+int Thinker::visibility_threshold = 50;
 
 Thinker::Thinker()
 {
@@ -206,7 +209,9 @@ void Thinker::update()
     // aisItr = std::find(Game::player->actors_in_sight->begin(), Game::player->actors_in_sight->end(),  this->master);
     if (Game::player->IsActorInSight(this->master))
     {
-        if (! this->is_dumb)
+        auto player = Game::player;
+        int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
+        if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
         {
             //aka pathing and fighting
             this->smart_update();
