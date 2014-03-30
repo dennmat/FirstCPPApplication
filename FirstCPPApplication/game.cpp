@@ -66,12 +66,13 @@ TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_hei
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
+// GameStates Game::current_state = GameStates::InventoryState;
 Screens Game::current_screen = Screens::InventoryScreen;
 
 Person* Game::player = NULL;     //the PC
 
 TCOD_key_t Game::key_evt;
-TCOD_mouse_t Game::mouse_evt ;
+TCOD_mouse_t Game::mouse_evt;
 
 std::vector<Actor*> Game::enemies = std::vector<Actor*>();  //later, this will be an array of all the enemies 
 std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an array of all the enemies 
@@ -476,19 +477,10 @@ Person*  Game::initialize_player()
 void Game::update()
 {
 
+    //update player
     Game::player->update();
-    //explode while level 2
-    // if (Game::player->level == 2)
-    // {
-    //     Tile* tile = Game::player->my_tile;
 
-    //     std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
-    //     for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
-    //     {
-    //         (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::red);
-    //     };
-    // }
-
+    //update actors in this floor
     int enemies_size = Game::current_map->enemies.size();
     for (std::vector<Actor*>::size_type i = 0; i != enemies_size; i++) 
     {

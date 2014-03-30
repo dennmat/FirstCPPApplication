@@ -880,8 +880,8 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 {
                     //stop the targetting so that user has to retry
                     Ui::is_targetting = false;
-		    Ui::chosen_spell = NULL;
-            Ui::spell_active = false;
+                    Ui::chosen_spell = NULL;
+                    Ui::spell_active = false;
                 }
             }
 
@@ -927,42 +927,42 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     spell_map.insert(keypair(key, (*it)));
                     key++;
                 };
-            bool successful_action = true;
-            if (Ui::spell_active == false)
-            {
-                //choose spell
-                auto it = spell_map.find(request.c);
-                if (it != spell_map.end())
+                bool successful_action = true;
+                if (Ui::spell_active == false)
                 {
-                    if (Ui::chosen_spell == it->second)
+                    //choose spell
+                    auto it = spell_map.find(request.c);
+                    if (it != spell_map.end())
                     {
-                        Ui::spell_active = true;
-                    }
-                    else
-                    {
-                        Ui::spell_active = false;
+                        if (Ui::chosen_spell == it->second)
+                        {
+                            Ui::spell_active = true;
+                        }
+                        else
+                        {
+                            Ui::spell_active = false;
+                        };
+                        Ui::chosen_spell = it->second;
                     };
-                    Ui::chosen_spell = it->second;
-                };
-            }
-            else // spell_active is true
-            {
-                if (is_request_spell_active_cmd(request))
-                {
-                    successful_action = process_spells_active(request, player);
                 }
-                else 
+                else // spell_active is true
                 {
-                    std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                    std::cout << "q to return to gameplay, a b c to choose the first, second, third spell etc." << std::endl;
-                    std::cout << "press again to select. once it's activated, press u to use" << std::endl;
-                    std::cout << "e to equip, y to unequip, d to drop" << std::endl;
+                    if (is_request_spell_active_cmd(request))
+                    {
+                        successful_action = process_spells_active(request, player);
+                    }
+                    else 
+                    {
+                        std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                        std::cout << "q to return to gameplay, a b c to choose the first, second, third spell etc." << std::endl;
+                        std::cout << "press again to select. once it's activated, press u to use" << std::endl;
+                        std::cout << "e to equip, y to unequip, d to drop" << std::endl;
+                    }
                 }
-            }
 
-            //display info of chosen spell
+                //display info of chosen spell
 
-            //equip chosen spell
+                //equip chosen spell
 
 
             };
