@@ -16,6 +16,7 @@
 #include "ui.h"
 #include "messages.h"
 #include "game.h"
+#include "class.h"
 
 
 int Actor::pack_size = 10;

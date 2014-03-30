@@ -154,6 +154,7 @@
     <ClInclude Include="attribute_container.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="civilian.h" />
+    <ClInclude Include="class.h" />
     <ClInclude Include="combat.h" />
     <ClInclude Include="debug_options.h" />
     <ClInclude Include="draw_utils.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="attribute_container.cpp" />
     <ClCompile Include="build.cpp" />
     <ClCompile Include="civilian.cpp" />
+    <ClCompile Include="class.cpp" />
     <ClCompile Include="combat.cpp" />
     <ClCompile Include="draw_utils.cpp" />
     <ClCompile Include="enemies\bad_mother.cpp" />

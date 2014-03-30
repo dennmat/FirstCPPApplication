@@ -19,6 +19,7 @@ class Combat;
 class TCODPath;
 class Townsmen;
 class Spell;
+class IClass;
 
 
 
@@ -52,6 +53,8 @@ class Actor : public Object
         
         bool is_champion;
         static int pack_size;
+
+        IClass* actor_class;
 
         bool is_moving_left;
         bool is_moving_right;

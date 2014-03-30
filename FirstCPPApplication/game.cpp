@@ -36,6 +36,7 @@
 #include "civilian.h"
 #include "enums\screens.h"
 #include "spells.h"
+#include "class.h"
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -105,7 +106,7 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::SkeletonSpawn;
     else if (dice_roll <= 95)
         return SpawnTypes::OgreSpawn;
-    else if (dice_roll == 100)
+    else if (dice_roll > 95)
         return SpawnTypes::BadMotherSpawn;
     else
         assert(false && "Math is bad.");
@@ -425,6 +426,9 @@ Person*  Game::initialize_player()
     player->attrs->damage->max_val=10;
     player->attrs->armor->current_val=3;
     player->attrs->armor->max_val=3;
+
+    player->actor_class = new FighterClass;
+    player->actor_class->master = player;
 
     delete player->thinker;
     player->thinker = NULL;
