@@ -185,3 +185,9 @@ std::string char_to_str(char chr)
 // {
 // 	return std::find(vect.begin(), vect.end(), elem)!=vect.end();
 // };
+
+int get_euclidean_distance(int x1, int y1, int x2, int y2)
+{
+    return std::sqrt(std::pow(x2-x1, 2.0f)+std::pow(y2-y1, 2.0f));
+};
+

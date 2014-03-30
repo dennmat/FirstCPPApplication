@@ -126,8 +126,8 @@ class DungeonListener : public ITCODBspCallback
                 room_y = rng->getInt(node->y+1, node->y+node->h-(room_h-1));
 
                 int perimeter = room_w*2 + room_h*2 - 4;
-                int door_index = rng->getInt(0, perimeter);
-                // int door_index = -1;
+                // int door_index = rng->getInt(0, perimeter);
+                int door_index = -1; //disable doors
                 int room_style = rng->getInt(0, 100);
                 if (room_style < 75)
                 {

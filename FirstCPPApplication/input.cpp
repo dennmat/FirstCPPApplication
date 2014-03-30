@@ -374,11 +374,6 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     };
 };
 
-int get_euclidean_distance(int x1, int y1, int x2, int y2)
-{
-    return std::sqrt(std::pow(x2-x1, 2.0f)+std::pow(y2-y1, 2.0f));
-};
-
 bool process_inventory_item_active(TCOD_key_t request, Person *player)
 {
     inventory_items_active_t action = inventory_items_active_pressed(request);
