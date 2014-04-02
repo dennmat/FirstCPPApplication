@@ -573,7 +573,7 @@ bool gameplay_loop(bool incr_turn)
         }
 
         //tile description
-        new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->tile->description.c_str());
+        new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());
 
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "TURN: %d", Game::turn_count);
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);

@@ -338,7 +338,7 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         {
             std::cout << "there's a door here, its gon get open" << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
-            ((DoorTileType*)door_tile->tile)->ToggleDoor();
+            door_tile->ToggleDoor();
         }
         else 
         {
@@ -828,78 +828,78 @@ bool is_request_class_active_cmd(TCOD_key_t request)
 
 void process_buildmode(TCOD_key_t request, int current_tile)
 {
-    Map *world = Game::world;
-    bool buildmode = Game::buildmode;
-    if(request.c == 'c')
-    {
-        // do the stuff to make a new tile
-        std::cout << "type_id: ";
-        Tile this_tile = Game::current_map->tileArray[current_tile];
-        std::cin >> this_tile.type_id;
-        if(this_tile.type_id == TileTypes::WarpTileTypeType)
-        {
-            WarpTileType* warp_tile;
-            warp_tile = (WarpTileType*) this_tile.tile;
+    // Map *world = Game::world;
+    // bool buildmode = Game::buildmode;
+    // if(request.c == 'c')
+    // {
+    //     // do the stuff to make a new tile
+    //     std::cout << "type_id: ";
+    //     Tile this_tile = Game::current_map->tileArray[current_tile];
+    //     std::cin >> this_tile.type_id;
+    //     if(this_tile.type_id == TileTypes::WarpTileTypeType)
+    //     {
+    //         WarpTileType* warp_tile;
+    //         warp_tile = (WarpTileType*) this_tile.tile;
 
-            std::cout << "Warp Map: ";
-            std::cin >> warp_tile->warpMap;
-            std::cout << "WarpX: ";
-            std::cin >> warp_tile->warpX;
-            std::cout << "WarpY: ";
-            std::cin >> warp_tile->warpY;
-        }
-        std::cout << std::endl << "Description: ";
-        getline(std::cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
-        getline(std::cin, this_tile.tile->description);
-        std::cout << std::endl << "Representation: ";
-        std::cin >> this_tile.tile->representation->repr;
-    }
-    else if(request.c == 'i')
-    {
-        // Write the map to a file
-        std::ofstream myfile;
-        std::string filename;
-        std::cout << "Filename: ";
-        getline(std::cin, filename); // do this twice because hitting enter... whatever
-        myfile.open (filename);
-        int i,j;
+    //         std::cout << "Warp Map: ";
+    //         std::cin >> warp_tile->warpMap;
+    //         std::cout << "WarpX: ";
+    //         std::cin >> warp_tile->warpX;
+    //         std::cout << "WarpY: ";
+    //         std::cin >> warp_tile->warpY;
+    //     }
+    //     std::cout << std::endl << "Description: ";
+    //     getline(std::cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
+    //     getline(std::cin, this_tile.tile->description);
+    //     std::cout << std::endl << "Representation: ";
+    //     std::cin >> this_tile.tile->representation->repr;
+    // }
+    // else if(request.c == 'i')
+    // {
+    //     // Write the map to a file
+    //     std::ofstream myfile;
+    //     std::string filename;
+    //     std::cout << "Filename: ";
+    //     getline(std::cin, filename); // do this twice because hitting enter... whatever
+    //     myfile.open (filename);
+    //     int i,j;
 
-        // Map this_map = Game::current_map;
-        myfile << Game::current_map->width << std::endl;
-        myfile << Game::current_map->height << std::endl;  
-        myfile << Game::current_map->description << std::endl;  
+    //     // Map this_map = Game::current_map;
+    //     myfile << Game::current_map->width << std::endl;
+    //     myfile << Game::current_map->height << std::endl;  
+    //     myfile << Game::current_map->description << std::endl;  
 
-        for(i=0; i<Game::current_map->height; i++)
-            for(j=0; j<Game::current_map->width; j++)
-            {
-                Tile active_tile = Game::current_map->tileArray[(i*Game::current_map->width)+j];
-                myfile << active_tile.tile->representation << std::endl;
-                myfile << active_tile.type_id << std::endl;
-                if(active_tile.type_id == TileTypes::WarpTileTypeType)
-                {
-                    WarpTileType* warp_tile;
-                    warp_tile = (WarpTileType*) active_tile.tile;
+    //     for(i=0; i<Game::current_map->height; i++)
+    //         for(j=0; j<Game::current_map->width; j++)
+    //         {
+    //             Tile active_tile = Game::current_map->tileArray[(i*Game::current_map->width)+j];
+    //             myfile << active_tile.tile->representation << std::endl;
+    //             myfile << active_tile.type_id << std::endl;
+    //             if(active_tile.type_id == TileTypes::WarpTileTypeType)
+    //             {
+    //                 WarpTileType* warp_tile;
+    //                 warp_tile = (WarpTileType*) active_tile.tile;
 
-                    myfile << warp_tile->warpMap << std::endl;
-                    myfile << warp_tile->warpX << std::endl;
-                    myfile << warp_tile->warpY << std::endl;
-                }
-                myfile << active_tile.tile->description << std::endl;  
-            }
-        myfile.close();
-    }
+    //                 myfile << warp_tile->warpMap << std::endl;
+    //                 myfile << warp_tile->warpX << std::endl;
+    //                 myfile << warp_tile->warpY << std::endl;
+    //             }
+    //             myfile << active_tile.tile->description << std::endl;  
+    //         }
+    //     myfile.close();
+    // }
 
-    else if(request.c == 'o')
-    {
-        // Copy a tile
-        Game::clipboard = &Game::current_map->tileArray[current_tile];
-    }
+    // else if(request.c == 'o')
+    // {
+    //     // Copy a tile
+    //     Game::clipboard = &Game::current_map->tileArray[current_tile];
+    // }
 
-    else if(request.c == 'p')
-    {
-        // paste a tile
-        Game::current_map->tileArray[current_tile] = *Game::clipboard;
-    }
+    // else if(request.c == 'p')
+    // {
+    //     // paste a tile
+    //     Game::current_map->tileArray[current_tile] = *Game::clipboard;
+    // }
 
 };
 
@@ -920,8 +920,8 @@ bool process_mouse_event(TCOD_mouse_t request, Person *player)
         Ui::tick_mouse_moved = Game::tick_count;
     }
     //set the foreground color to red for the tile the mouse is on
-    Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
-    moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
+    // Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
+    // moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
 
     if (request.lbutton_pressed)
     {

@@ -23,15 +23,75 @@ Tile::Tile()
 {
     this->tile = new BaseTileType;
     this->is_deleted = false;
-    type_id = TileTypes::BaseTileTypeType;
-    _is_occupied = false;
-    _is_known = false;
+    this->type_id = TileTypes::BaseTileTypeType;
+    this->_is_occupied = false;
+    this->_is_known = false;
 
-    occupants = new std::vector<Actor*>;
+    this->is_custom_tile = false;
+    this->custom_tile = NULL;
+
+    this->occupants = new std::vector<Actor*>;
     // items = new std::vector<Item*>;
-    inventory = new Inventory;
+    this->inventory = new Inventory;
+
+    this->is_open = false;
 
     updateTileType(type_id);
+};
+
+BaseTileType* Tile::get_tile_type()
+{
+    if (! this->is_custom_tile)
+    {
+        return this->tile;
+    }
+    else
+    {
+        return this->custom_tile;
+    };
+};
+
+std::string Tile::get_description()
+{
+    if (! this->is_custom_tile)
+    {
+        return this->tile->description;
+    }
+    else
+    {
+        return this->custom_tile->description;
+    };
+};
+void Tile::set_description(std::string new_desc)
+{
+    if (!this->is_custom_tile)
+    {
+        this->updateCustomTileType(this->type_id);
+    }
+    this->custom_tile->description = new_desc;
+
+};
+
+Representation* Tile::get_representation()
+{
+    if (!this->is_custom_tile)
+    {
+        return this->tile->representation;
+    }
+    else
+    {
+        return this->custom_tile->representation;
+    };
+};
+
+void  Tile::set_representation(Representation* new_repr)
+{
+    if (!this->is_custom_tile)
+    {
+        this->updateCustomTileType(this->type_id);
+    }
+    // delete this->custom_tile->representation;
+    this->custom_tile->representation = new_repr;
 };
 
 bool Tile::check_for_items() { 
@@ -110,6 +170,39 @@ void Tile::makeUnoccupied(Actor* the_actor)
         occupant = occupants->back();
         //cout << "tile ain't empty" << endl;
     };
+};
+
+void Tile::updateCustomTileType(int type )
+{
+
+    this->type_id = type;
+
+    if (type == 0) {
+        this->custom_tile = new BaseTileType; 
+    }
+    else if (type == 1) { 
+        this->custom_tile = new WallTileType;
+        this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
+    }
+
+    else if (type == 2) {
+        this->custom_tile = new WarpTileType; 
+    }
+    else if (type == 3) {
+        this->custom_tile = new FloorTileType;
+        this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
+    }
+    else if (type == 4) { this->custom_tile = new DoorTileType; }
+    else if (type == 5) { this->custom_tile = new StairsDownTileType; }
+    else if (type == 6) { this->custom_tile = new StairsUpTileType; }
+    else 
+    {
+        cout << type << endl;
+        cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
+    }
+    this->tile->tile=this;
+    this->is_deleted = false;
+
 };
 
 void Tile::updateTileType(int type )
@@ -265,7 +358,7 @@ DoorTileType::DoorTileType()  : BaseTileType()
     representation = new DoorRepresentation; 
 };
 
-void DoorTileType::ToggleDoor()
+void Tile::ToggleDoor()
 {
     if (this->is_open)
     {
@@ -277,20 +370,24 @@ void DoorTileType::ToggleDoor()
     };
 }
 
-void DoorTileType::CloseDoor()
+void Tile::CloseDoor()
 {
-    this->description = "A door is closed here.";
+    this->set_description("A door is closed here.");
     this->is_open = false;
-    this->representation->repr = '+';
-    this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, false, false);
+    Representation* old_repr = this->get_representation();
+    old_repr->repr = '+';
+    this->set_representation(old_repr);
+    this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
 };
 
-void DoorTileType::OpenDoor()
+void Tile::OpenDoor()
 {
-    this->description = "An open door.";
+    this->set_description("An open door.");
     this->is_open = true;
-    this->representation->repr = '=';
-    this->tile->map->l_map->setProperties(this->tile->tile_x, this->tile->tile_y, true, true);
+    Representation* old_repr = this->get_representation();
+    old_repr->repr = '=';
+    this->set_representation(old_repr);
+    this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
 };
 
 StairsDownTileType::StairsDownTileType() : BaseTileType() 

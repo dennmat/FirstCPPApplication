@@ -169,7 +169,7 @@ void Ui::draw_mouse_helpbox()
     else if (mouse_tile->inventory->get_count() > 0)
         help_text = mouse_tile->inventory->items->back()->name;
     else
-        help_text = mouse_tile->tile->description;
+        help_text = mouse_tile->get_description();
 
     //draw the right sizes
     int left_pad=1, right_pad=2, top_pad=1, bot_pad=1;

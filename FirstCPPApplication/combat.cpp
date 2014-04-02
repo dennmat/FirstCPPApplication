@@ -106,13 +106,13 @@ void Combat::LevelUp(int levels)
     this->LevelUpSkills(levels);
 
     //animate
-    Tile* tile = this->master->my_tile;
-    std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
-    for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
-    {
-        (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::gold);
-    };
-    std::cout << "just exploded with color for a frame" << std::endl;
+    // Tile* tile = this->master->my_tile;
+    // std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
+    // for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
+    // {
+    //     (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::gold);
+    // };
+    // std::cout << "just exploded with color for a frame" << std::endl;
 };
 
 void Combat::LevelUpSkills(int levels)

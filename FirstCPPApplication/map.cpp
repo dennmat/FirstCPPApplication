@@ -162,11 +162,11 @@ class DungeonListener : public ITCODBspCallback
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
                     tile = map.getTileAt(x, y);
-                    if ( tile->tile->type_id == TileTypes::FloorTileTypeType)
+                    if ( tile->type_id == TileTypes::FloorTileTypeType)
                     {
-                        tile->tile->representation->repr = ',';
-                        tile->tile->representation->setFGColor(TCODColor::darkerGrey, true, true, true);
-                        tile->tile->description = "A small stone lays here.";
+                        tile->get_representation()->repr = ',';
+                        tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
+                        tile->get_description() = "A small stone lays here.";
                     }
                 }
             }
@@ -254,11 +254,11 @@ class TownListener : public ITCODBspCallback
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
                     tile = map.getTileAt(x, y);
-                    if ( tile->tile->type_id == TileTypes::FloorTileTypeType)
+                    if ( tile->type_id == TileTypes::FloorTileTypeType)
                     {
-                        tile->tile->representation->repr = ',';
-                        tile->tile->representation->setFGColor(TCODColor::darkerGrey, true, true, true);
-                        tile->tile->description = "A small stone lays here.";
+                        tile->get_representation()->repr = ',';
+                        tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
+                        tile->get_description() = "A small stone lays here.";
                     }
                 }
             }
@@ -295,7 +295,7 @@ int Map::build_town_from_random(int seed)
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
         this_tile->updateTileType(TileTypes::FloorTileTypeType);
-        this_tile->tile->description = "Dirt floor.";
+        this_tile->get_description() = "Dirt floor.";
         if(this_tile->type_id == TileTypes::FloorTileTypeType)
         {
             //light passes though, walkable
@@ -308,7 +308,7 @@ int Map::build_town_from_random(int seed)
             this->l_map -> setProperties(x, y, false, false);
         }
 
-        // this_tile->tile->description = "Descriptionless tile.";
+        // this_tile->get_description() = "Descriptionless tile.";
 
         this_tile->tile_x = x;
         this_tile->tile_y = y;
@@ -534,8 +534,8 @@ Room* Map::build_circle_room(int room_x, int room_y,
             else 
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
-                tile->tile->representation->setFGColor(*(tile->tile->representation->fg_color) * 0.5f, true, false, true); //set darker indoor color
-                tile->tile->description = "Crumbling bricks scattered here.";
+                tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
+                tile->get_description() = "Crumbling bricks scattered here.";
             }
 
         }
@@ -592,7 +592,7 @@ Room* Map::build_rect_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //set darker indoor color
-                tile->tile->representation->setFGColor(*(tile->tile->representation->fg_color) * 0.5f, true, false, true); 
+                tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); 
             }
 
         }
@@ -605,100 +605,100 @@ Room* Map::build_rect_room(int room_x, int room_y,
 
 int Map::build_from_file(std::string filename)
 {
-    std::string line;
-    std::ifstream myfile (filename);
+    // std::string line;
+    // std::ifstream myfile (filename);
 
 
-    if (myfile.is_open())
-    {
-        // get width
-        getline (myfile,line);
-        width = atoi(line.c_str());
+    // if (myfile.is_open())
+    // {
+    //     // get width
+    //     getline (myfile,line);
+    //     width = atoi(line.c_str());
 
-        // get height
-        getline (myfile,line);
-        height = atoi(line.c_str());
+    //     // get height
+    //     getline (myfile,line);
+    //     height = atoi(line.c_str());
 
-        l_map = new TCODMap(width, height);
-        // printf("Width: %s, Height: %s\n", width, height);
-        // std::cout << width << " " << height <<std::endl;
+    //     l_map = new TCODMap(width, height);
+    //     // printf("Width: %s, Height: %s\n", width, height);
+    //     // std::cout << width << " " << height <<std::endl;
 
-        // get default tile description
-        getline (myfile,line);
-        description = line;
+    //     // get default tile description
+    //     getline (myfile,line);
+    //     description = line;
 
-        tileArray = new Tile[width*height];
+    //     tileArray = new Tile[width*height];
 
-        int i = 0;
-        int x = 0;
-        int y = 0;
-        while (i < width*height) //had to change this from file.good because it was reading too far. Not sure yet.
-        {
-            getline (myfile,line);
+    //     int i = 0;
+    //     int x = 0;
+    //     int y = 0;
+    //     while (i < width*height) //had to change this from file.good because it was reading too far. Not sure yet.
+    //     {
+    //         getline (myfile,line);
 
-            getline (myfile,line);
-            int tileType = atoi(line.c_str());
-            tileArray[i].map = this;
-            tileArray[i].updateTileType(tileType);
+    //         getline (myfile,line);
+    //         int tileType = atoi(line.c_str());
+    //         tileArray[i].map = this;
+    //         tileArray[i].updateTileType(tileType);
 
-            // printf("x %i y %i\n", x, y);
-            if(tileArray[i].type_id == TileTypes::FloorTileTypeType)
-            {
-                //light passes though, walkable
-                l_map -> setProperties(x, y, true, true);
+    //         // printf("x %i y %i\n", x, y);
+    //         if(tileArray[i].type_id == TileTypes::FloorTileTypeType)
+    //         {
+    //             //light passes though, walkable
+    //             l_map -> setProperties(x, y, true, true);
 
-                // printf("see through ");
-                // printf("this should be true: %s\n", BoolToString(l_map->isWalkable(x, y)));
-            }
+    //             // printf("see through ");
+    //             // printf("this should be true: %s\n", BoolToString(l_map->isWalkable(x, y)));
+    //         }
 
-            else 
-            {
-                l_map -> setProperties(x, y, false, false);
-                // printf("NOT see through ");
-                // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
-            }
+    //         else 
+    //         {
+    //             l_map -> setProperties(x, y, false, false);
+    //             // printf("NOT see through ");
+    //             // printf("this should be false: %s\n", BoolToString(l_map->isWalkable(x, y)));
+    //         }
 
-            if(tileArray[i].type_id == TileTypes::WarpTileTypeType)
-            {
-                WarpTileType* warp_tile;
-                warp_tile = (WarpTileType*) tileArray[i].tile;
+    //         if(tileArray[i].type_id == TileTypes::WarpTileTypeType)
+    //         {
+    //             // WarpTileType* warp_tile;
+    //             // warp_tile = (WarpTileType*) tileArray[i].tile;
 
-                getline (myfile,line);
-                warp_tile->warpMap = atoi(line.c_str());
-                getline (myfile,line);
-                warp_tile->warpX = atoi(line.c_str());
-                getline (myfile,line);
-                warp_tile->warpY = atoi(line.c_str());
+    //             // getline (myfile,line);
+    //             // warp_tile->warpMap = atoi(line.c_str());
+    //             // getline (myfile,line);
+    //             // warp_tile->warpX = atoi(line.c_str());
+    //             // getline (myfile,line);
+    //             // warp_tile->warpY = atoi(line.c_str());
 
-                getline (myfile,line);
-                warp_tile->description = line;
-            }
-            else
-            {
-                getline (myfile,line);
-                tileArray[i].tile->description = line;
-            }
+    //             // getline (myfile,line);
+    //             // warp_tile->description = line;
+    //         }
+    //         else
+    //         {
+    //             getline (myfile,line);
+    //             tileArray[i].tile->description = line;
+    //         }
 
-            tileArray[i].tile_x = x;
-            tileArray[i].tile_y = y;
+    //         tileArray[i].tile_x = x;
+    //         tileArray[i].tile_y = y;
 
-            // printf("x: %i, y: %i\n", x, y);
-            if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
-            {
-                y++;
-                x = 0;
-            }
-            else 
-            {
-                x++;
+    //         // printf("x: %i, y: %i\n", x, y);
+    //         if ( x >= (width -1)  ) // width is 1, only tile would be (0, 0) so you need to substract 1
+    //         {
+    //             y++;
+    //             x = 0;
+    //         }
+    //         else 
+    //         {
+    //             x++;
 
-            };
+    //         };
 
-            i++;
-        }
+    //         i++;
+    //     }
 
-        myfile.close();
-    }
+    //     myfile.close();
+    // }
 
     return 1;
 }
@@ -743,21 +743,21 @@ int Map::draw()
                 //tile is not occupied
                 else
                 {
-                    the_char = the_tile->tile->representation->repr;
+                    the_char = the_tile->get_representation()->repr;
 
-                    TCODColor* tile_temp_col = the_tile->tile->representation->temp_bg_color;
-                    TCODColor* tile_orig_col = the_tile->tile->representation->bg_color;
+                    TCODColor* tile_temp_col = the_tile->get_representation()->temp_bg_color;
+                    TCODColor* tile_orig_col = the_tile->get_representation()->bg_color;
 
                     Game::game_console->putChar(x, y, the_char);
                     //if the temp colour isnt the original color
                     if ( tile_temp_col != tile_orig_col) {
                         the_bg_color = tile_temp_col;
-                        the_tile->tile->representation->temp_bg_color = tile_orig_col;
+                        the_tile->get_representation()->temp_bg_color = tile_orig_col;
                     }
                     //if the two colors are the same
                     else 
                     {
-                        the_fg_color = the_tile->tile->representation->fg_color;
+                        the_fg_color = the_tile->get_representation()->fg_color;
                     };
 
                     if (the_tile->check_for_items())
@@ -787,10 +787,10 @@ int Map::draw()
 
                 if (the_tile->is_known() == true)
                 {
-                    char the_char = the_tile->tile->representation->repr;
+                    char the_char = the_tile->get_representation()->repr;
                     Game::game_console->putChar(x, y, the_char);
-                    Game::game_console->setCharBackground(x, y, *(the_tile->tile->representation->bg_color) * TCODColor::darkGrey);
-                    Game::game_console->setCharForeground(x, y, *(the_tile->tile->representation->fg_color) * TCODColor::darkGrey);
+                    Game::game_console->setCharBackground(x, y, *(the_tile->get_representation()->bg_color) * TCODColor::darkGrey);
+                    Game::game_console->setCharForeground(x, y, *(the_tile->get_representation()->fg_color) * TCODColor::darkGrey);
                 }
                 else {
                     Game::game_console->setCharBackground(x, y, TCODColor::black);
@@ -835,10 +835,10 @@ int Map::draw()
 
     Person  * thePerson = Game::player;
     //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
-    BaseTileType * person_tile = getTileAt(thePerson->x, thePerson->y)->tile;
+    // BaseTileType * person_tile = getTileAt(thePerson->x, thePerson->y)->tile;
 
 
-    std::string pers_desc = person_tile->description;
+    std::string pers_desc = getTileAt(thePerson->x, thePerson->y)->get_description();
     std::string tile_description = (pers_desc != "none" ?  pers_desc : description);
     // std::cout << tile_description;
     // std::cout << std::endl << std::endl;
@@ -905,7 +905,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     //doors
     else if (target_tile->type_id == TileTypes::DoorTileTypeType)
     {
-        if (((DoorTileType*)target_tile->tile)->is_open)
+        if (target_tile->is_open)
         {
             thePerson->putPerson(target_tile, new_x, new_y);
         }
@@ -921,7 +921,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "That's probably a wall.");
         if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         {
-            std::cout << target_tile->tile->description << std::endl;
+            std::cout << target_tile->get_description() << std::endl;
         }
         else
         {  // more blank space for gui consistency

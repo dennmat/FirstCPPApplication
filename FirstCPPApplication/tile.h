@@ -69,9 +69,9 @@ class DoorTileType : public BaseTileType
         DoorTileType();
         bool is_open;
 
-        void OpenDoor();
-        void CloseDoor();
-        void ToggleDoor();
+        // void OpenDoor();
+        // void CloseDoor();
+        // void ToggleDoor();
 };
 
 class StairsDownTileType : public BaseTileType
@@ -100,13 +100,21 @@ class Tile : public Object
         bool _is_known;
         bool is_deleted;
 
-    public:
+        bool is_custom_tile;
+        BaseTileType* custom_tile;
         BaseTileType* tile;
+
+    public:
+
         Inventory* inventory;
+
         int type_id;               // type of tile
+        BaseTileType* get_tile_type();
 
         int tile_x;
         int tile_y;
+
+        bool is_open;
 
         Map* map; //the map that this tile is on
 
@@ -117,9 +125,19 @@ class Tile : public Object
         bool is_occupied();
         bool is_walkable();
 
+        std::string Tile::get_description();
+        void Tile::set_description(std::string new_desc);
+
+        Representation*  Tile::get_representation();
+        void  Tile::set_representation(Representation* new_repr);
+
         bool check_for_items();
         void place_item_down(Item* item);
         void pick_up_item(Item* item);
+
+        void OpenDoor();
+        void CloseDoor();
+        void ToggleDoor();
 
         bool is_known() { return this->_is_known; };
         void setKnown(bool is_known);
@@ -131,6 +149,7 @@ class Tile : public Object
         ~Tile(){ delete tile; };
 
         void updateTileType(int type = 0);
+        void updateCustomTileType(int type );
         void makeOccupied(Actor* the_actor);
         void makeUnoccupied(Actor* the_actor);
 
