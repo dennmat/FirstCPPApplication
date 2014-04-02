@@ -101,7 +101,7 @@ class Tile : public Object
         bool is_deleted;
 
     public:
-        BaseTileType * tile;
+        BaseTileType* tile;
         Inventory* inventory;
         int type_id;               // type of tile
 

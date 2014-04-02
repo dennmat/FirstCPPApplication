@@ -114,12 +114,6 @@ void Tile::makeUnoccupied(Actor* the_actor)
 
 void Tile::updateTileType(int type )
 {
-    // if (this->tile != NULL && this->is_deleted == false) { 
-    //     delete this->tile->representation;
-    //     delete this->tile->color;
-    //     delete this->tile;
-    //     this->is_deleted = true;
-    // };
 
     this->type_id = type;
 
@@ -235,11 +229,11 @@ bool Tile::is_occupied()
 {
     return this->_is_occupied; 
 };
+
 bool Tile::is_walkable()
 {
     return this->map->l_map->isWalkable(this->tile_x, this->tile_y);
 };
-
 
 BaseTileType::BaseTileType() 
 {
