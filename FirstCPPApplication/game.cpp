@@ -614,9 +614,11 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
-    Map* last_map = Game::build_world();
+    std::cout << "starting world gen" << std::endl;
+    Map* new_map = Game::build_world();
+    std::cout << "ending world gen" << std::endl;
      // Map* last_map = Game::build_town();
-    Game::current_map = last_map;
+    Game::current_map = new_map;
 
     Game::initialize_player(); //created the Person player
     Game::mainloop();
