@@ -19,6 +19,14 @@
 
 using namespace std;
 
+BaseTileType* Tile::BaseType = new BaseTileType; //all tile types must inherit this
+WarpTileType* Tile::WarpType = new WarpTileType;
+WallTileType* Tile::WallType = new WallTileType;
+DoorTileType* Tile::DoorType = new DoorTileType;
+StairsUpTileType* Tile::StairsUpType = new StairsUpTileType;
+StairsDownTileType* Tile::StairsDownType = new StairsDownTileType;
+FloorTileType* Tile::FloorType = new FloorTileType;
+
 Tile::Tile()
 {
     this->tile = new BaseTileType;
@@ -211,29 +219,43 @@ void Tile::updateTileType(int type )
     this->type_id = type;
 
     if (type == 0) {
-        tile = new BaseTileType; 
+        tile = Tile::BaseType; 
     }
     else if (type == 1) { 
-        tile = new WallTileType;
+        // tile = new WallTileType;
+        tile = Tile::WallType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
     }
 
     else if (type == 2) {
-        tile = new WarpTileType; 
+        // tile = new WarpTileType; 
+        tile = Tile::WarpType;
     }
     else if (type == 3) {
-        tile = new FloorTileType;
+        // tile = new FloorTileType;
+        tile = Tile::FloorType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
     }
-    else if (type == 4) { tile = new DoorTileType; }
-    else if (type == 5) { tile = new StairsDownTileType; }
-    else if (type == 6) { tile = new StairsUpTileType; }
+    else if (type == 4) {
+        // tile = new DoorTileType; 
+        tile = Tile::DoorType;
+    }
+    else if (type == 5) 
+    {
+        // tile = new StairsDownTileType; 
+        tile = Tile::StairsDownType;
+    }
+    else if (type == 6) 
+    {
+        // tile = new StairsUpTileType; 
+        tile = Tile::StairsUpType;
+    }
     else 
     {
         cout << type << endl;
         cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
-    this->tile->tile=this;
+    // this->tile->tile=this;
     this->is_deleted = false;
 
 };

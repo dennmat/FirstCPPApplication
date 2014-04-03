@@ -105,6 +105,13 @@ class Tile : public Object
         BaseTileType* tile;
 
     public:
+        static BaseTileType* BaseType; //all tile types must inherit this
+        static WarpTileType* WarpType;
+        static WallTileType* WallType;
+        static DoorTileType* DoorType;
+        static StairsUpTileType* StairsUpType;
+        static StairsDownTileType* StairsDownType;
+        static FloorTileType* FloorType;
 
         Inventory* inventory;
 
@@ -146,7 +153,8 @@ class Tile : public Object
 
 
         Tile(); 
-        ~Tile(){ delete tile; };
+        //~Tile(){ delete tile; };
+        ~Tile(){ };
 
         void updateTileType(int type = 0);
         void updateCustomTileType(int type );
