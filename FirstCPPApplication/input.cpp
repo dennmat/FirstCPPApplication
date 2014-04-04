@@ -529,8 +529,13 @@ bool process_classes_active(TCOD_key_t request, Person *player)
 
     else if( action == classes_active_t::EscapeMenuClass )
     {
-        Ui::spell_active = false;
-        Ui::chosen_spell = false;
+        std::cout << "escape" << std::endl;
+        if (  Ui::class_active == false )
+        {
+            Game::current_state = GameStates::GameplayState;
+        };
+        Ui::class_active = false;
+        Ui::chosen_class = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
         return true;
     }
@@ -1018,13 +1023,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
             break;
 
         case GameStates::MenuState:
-            if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
-            {
-                std::cout << "Back to the game." << std::endl;
-                Ui::chosen_item = NULL;
-                Ui::item_active = false;
-                Game::current_state = GameStates::GameplayState;
-            }
+            // if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::class_active == false && Ui::item_active == false)
+            // {
+            //     std::cout << "Back to the game." << std::endl;
+            //     Ui::chosen_item = NULL;
+            //     Ui::item_active = false;
+            //     Game::current_state = GameStates::GameplayState;
+            // }
 
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
@@ -1044,6 +1049,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 bool successful_action = true;
                 if (Ui::spell_active == false)
                 {
+                    if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::spell_active == false && Ui::spell_active == false)
+                    {
+                        std::cout << "Back to the game." << std::endl;
+                        Ui::chosen_spell = NULL;
+                        Ui::spell_active = false;
+                        Game::current_state = GameStates::GameplayState;
+                    }
                     //choose spell
                     auto it = spell_map.find(request.c);
                     if (it != spell_map.end())
@@ -1099,6 +1111,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 bool successful_action = true;
                 if (Ui::class_active == false)
                 {
+                    if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::class_active == false && Ui::class_active == false)
+                    {
+                        std::cout << "Back to the game." << std::endl;
+                        Ui::chosen_class = NULL;
+                        Ui::class_active = false;
+                        Game::current_state = GameStates::GameplayState;
+                    }
                     //choose class
                     auto it = class_map.find(request.c);
                     if (it != class_map.end())
@@ -1137,13 +1156,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
             };
 
         case GameStates::InventoryState:
-            if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
-            {
-                std::cout << "Back to the game." << std::endl;
-                Ui::chosen_item = NULL;
-                Ui::item_active = false;
-                Game::current_state = GameStates::GameplayState;
-            }
+            // if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
+            // {
+            //     std::cout << "Back to the game." << std::endl;
+            //     Ui::chosen_item = NULL;
+            //     Ui::item_active = false;
+            //     Game::current_state = GameStates::GameplayState;
+            // }
 
             //generate keys for the appropriate items
             typedef std::unordered_map<char, Item*> keypair_t;
@@ -1162,6 +1181,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
             bool successful_action = true;
             if (Ui::item_active == false)
             {
+                    if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::item_active == false && Ui::item_active == false)
+                    {
+                        std::cout << "Back to the game." << std::endl;
+                        Ui::chosen_item = NULL;
+                        Ui::item_active = false;
+                        Game::current_state = GameStates::GameplayState;
+                    }
                 //choose item
                 auto it = item_map.find(request.c);
                 if (it != item_map.end())

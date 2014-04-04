@@ -166,7 +166,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
             if (++i>message_limit) break;
         // };
     }
-    std::cout << limited_messages.size() << std::endl;
+    // std::cout << limited_messages.size() << std::endl;
     //TODO: This'll get slower the longer the game goes on
     std::sort(limited_messages.begin(), limited_messages.end(),
             sorting_by_type);
