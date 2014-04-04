@@ -152,6 +152,8 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 
 
     std::vector<Message*> limited_messages;
+    int message_limit = 200;
+    int i = 1;
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
         // if ((*it)->turn <= std::max(last_turn - turn_limit, 0))
         // {
@@ -160,8 +162,11 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         // else
         // {
             limited_messages.push_back((*it));
+
+            if (++i>message_limit) break;
         // };
     }
+    std::cout << limited_messages.size() << std::endl;
     //TODO: This'll get slower the longer the game goes on
     std::sort(limited_messages.begin(), limited_messages.end(),
             sorting_by_type);

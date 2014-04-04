@@ -246,6 +246,7 @@ Map* Game:: build_town()
     Game::fill_town(world);
     return world;
 }
+
 Map* Game:: build_world()
 {
 
@@ -275,6 +276,8 @@ Map* Game:: build_world()
     };
 
     Game::fill_dungeon(world);
+    //_CrtMemDumpAllObjectsSince( NULL );
+
     return world;
 }
 
