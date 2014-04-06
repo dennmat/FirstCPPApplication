@@ -381,11 +381,11 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
         Spell* spell = (Spell*)Ui::chosen_generic;
-	if (spell == NULL)
-	{
-        std::cout << "no spell chosen" << std::endl;
-	    return false;
-	}
+        if (spell == NULL)
+        {
+            std::cout << "no spell chosen" << std::endl;
+            return false;
+        }
         Tile* stair_tile = Game::player->my_tile;
         Tile* mouse_tile = Game::get_mouse_tile();
         // Spell* spell = Game::player->spells->back();
@@ -538,8 +538,8 @@ bool process_classes_active(TCOD_key_t request, Person *player)
         // {
         //     Game::current_state = GameStates::GameplayState;
         // };
-        Ui::class_active = false;
-        Ui::chosen_class = false;
+        Ui::generic_active = false;
+        Ui::chosen_generic = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
         std::cout << "Escape back to regular classmenu mode." << std::endl;
         return true;
@@ -598,8 +598,8 @@ bool process_spells_active(TCOD_key_t request, Person *player)
 
     else if( action == spells_active_t::EscapeMenuSpell )
     {
-        Ui::spell_active = false;
-        Ui::chosen_spell = false;
+        Ui::generic_active = false;
+        Ui::chosen_generic = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular spellmenu mode.");
         std::cout <<  "Escape back to regular spellmenu mode." << std::endl;
         return true;
@@ -1006,7 +1006,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     //stop the targetting so that user has to retry
                     Ui::is_targetting = false;
                     Ui::chosen_spell = NULL;
-                    Ui::spell_active = false;
+                    Ui::generic_active = false;
                 }
             }
 
@@ -1029,7 +1029,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
             break;
 
         case GameStates::MenuState:
-            // if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::class_active == false && Ui::item_active == false)
+            // if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::class_active == false && Ui::item_active == false)
             // {
             //     std::cout << "Back to the game." << std::endl;
             //     Ui::chosen_item = NULL;
@@ -1049,13 +1049,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 generic_keypair_t spell_map = build_keypairs(size);
 
                 bool successful_action = true;
-                if (Ui::spell_active == false)
+                if (Ui::generic_active == false)
                 {
                     if (request.c == 'q' && request.pressed == 1 )
                     {
                         std::cout << "Back to the game. spell" << std::endl;
                         Ui::chosen_generic = NULL;
-                        Ui::spell_active = false;
+                        Ui::generic_active = false;
                         Game::current_state = GameStates::GameplayState;
                     }
                     //choose spell
@@ -1064,16 +1064,16 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     {
                         if ((Spell*)Ui::chosen_generic == spells->at(it->second))
                         {
-                            Ui::spell_active = true;
+                            Ui::generic_active = true;
                         }
                         else
                         {
-                            Ui::spell_active = false;
+                            Ui::generic_active = false;
                         };
                         Ui::chosen_generic = spells->at(it->second);
                     };
                 }
-                else // spell_active is true
+                else // generic_active is true
                 {
                     if (is_request_spell_active_cmd(request))
                     {
@@ -1109,13 +1109,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 generic_keypair_t::iterator it = class_map.find(request.c);
 
                 bool successful_action = true;
-                if (Ui::class_active == false)
+                if (Ui::generic_active == false)
                 {
-                    if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::class_active == false && Ui::class_active == false)
+                    if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
                     {
                         std::cout << "Back to the game. class" << std::endl;
                         Ui::chosen_generic = NULL;
-                        Ui::class_active = false;
+                        Ui::generic_active = false;
                         Game::current_state = GameStates::GameplayState;
                     }
                     //choose class
@@ -1124,16 +1124,16 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     {
                         if ((IClass*)Ui::chosen_generic == classes->at(it->second))
                         {
-                            Ui::class_active = true;
+                            Ui::generic_active = true;
                         }
                         else
                         {
-                            Ui::class_active = false;
+                            Ui::generic_active = false;
                         };
                         Ui::chosen_generic = classes->at(it->second);
                     };
                 }
-                else // class_active is true
+                else // generic_active is true
                 {
                     if (is_request_class_active_cmd(request))
                     {
@@ -1181,7 +1181,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
             bool successful_action = true;
             if (Ui::item_active == false)
             {
-                    if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::item_active == false && Ui::item_active == false)
+                    if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::item_active == false && Ui::item_active == false)
                     {
                         std::cout << "Back to the game. invent" << std::endl;
                         Ui::chosen_item = NULL;
@@ -1240,6 +1240,7 @@ generic_keypair_t build_keypairs(int limit)
     for (int index = 0; index < limit; index++)
     {
         keymap.insert(generic_keypair(key, index));
+        if (key == 'z') break;
         key++;
     }
 
