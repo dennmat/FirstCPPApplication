@@ -26,6 +26,7 @@
 #include "enums\screens.h"
 #include "spells.h"
 #include "item_effect.h"
+#include "class.h"
 
 
 enum basic_cmds_t {
@@ -149,7 +150,7 @@ classes_active_t classes_active_pressed(TCOD_key_t key)
     char_classactivemap['x'] = classes_active_t::ExamineClass;
     // char_classactivemap['d'] = classes_active_t::Dropclass;
     char_classactivemap['c'] = classes_active_t::CastClass;
-    // char_classactivemap['e'] = classes_active_t::Equipclass;
+    char_classactivemap['e'] = classes_active_t::EquipClass;
     // char_classactivemap['y'] = classes_active_t::Unequipclass;
     char_classactivemap['q'] = classes_active_t::EscapeMenuClass;
 
@@ -502,9 +503,9 @@ bool process_classes_active(TCOD_key_t request, Person *player)
 
     else if( action == classes_active_t::CastClass )
     {
-        Ui::toggle_targetting();
-        Game::current_state = GameStates::GameplayState;
-        std::cout << Ui::chosen_spell->name << std::endl;
+        // Ui::toggle_targetting();
+        // Game::current_state = GameStates::GameplayState;
+        // std::cout << Ui::chosen_spell->name << std::endl;
         // Game::current_screen = Screens::Game
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
         //Ui::chosen_spell->use(Game::player);
@@ -513,6 +514,8 @@ bool process_classes_active(TCOD_key_t request, Person *player)
 
     else if( action == classes_active_t::EquipClass )
     {
+        Game::player->actor_class = Ui::chosen_class;
+        std::cout << "Class changed to " << Ui::chosen_class->name << std::endl;
         // Ui::chosen_spell->equip(Game::player);
         // Game::player->equipment->equip_spell(Ui::chosen_item);
         // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping spell.");
@@ -530,13 +533,14 @@ bool process_classes_active(TCOD_key_t request, Person *player)
     else if( action == classes_active_t::EscapeMenuClass )
     {
         std::cout << "escape" << std::endl;
-        if (  Ui::class_active == false )
-        {
-            Game::current_state = GameStates::GameplayState;
-        };
+        // if (  Ui::class_active == false )
+        // {
+        //     Game::current_state = GameStates::GameplayState;
+        // };
         Ui::class_active = false;
         Ui::chosen_class = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
+        std::cout << "Escape back to regular classmenu mode." << std::endl;
         return true;
     }
 
@@ -595,7 +599,8 @@ bool process_spells_active(TCOD_key_t request, Person *player)
     {
         Ui::spell_active = false;
         Ui::chosen_spell = false;
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular spellmenu mode.");
+        std::cout <<  "Escape back to regular spellmenu mode." << std::endl;
         return true;
     }
 
@@ -1049,9 +1054,9 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 bool successful_action = true;
                 if (Ui::spell_active == false)
                 {
-                    if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::spell_active == false && Ui::spell_active == false)
+                    if (request.c == 'q' && request.pressed == 1 /* && Ui::chosen_spell != NULL */ /* && Ui::spell_active == false && Ui::spell_active == false */)
                     {
-                        std::cout << "Back to the game." << std::endl;
+                        std::cout << "Back to the game. spell" << std::endl;
                         Ui::chosen_spell = NULL;
                         Ui::spell_active = false;
                         Game::current_state = GameStates::GameplayState;
@@ -1113,7 +1118,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 {
                     if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::class_active == false && Ui::class_active == false)
                     {
-                        std::cout << "Back to the game." << std::endl;
+                        std::cout << "Back to the game. class" << std::endl;
                         Ui::chosen_class = NULL;
                         Ui::class_active = false;
                         Game::current_state = GameStates::GameplayState;
@@ -1154,7 +1159,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
 
 
             };
-
+            break;
         case GameStates::InventoryState:
             // if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
             // {
@@ -1183,7 +1188,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
             {
                     if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::item_active == false && Ui::item_active == false)
                     {
-                        std::cout << "Back to the game." << std::endl;
+                        std::cout << "Back to the game. invent" << std::endl;
                         Ui::chosen_item = NULL;
                         Ui::item_active = false;
                         Game::current_state = GameStates::GameplayState;
