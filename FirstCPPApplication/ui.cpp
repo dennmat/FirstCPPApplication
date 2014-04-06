@@ -25,14 +25,8 @@
 Game* Ui::game = game;
 
 void* Ui::chosen_generic = NULL;
-Item* Ui::chosen_item = NULL;
-Spell* Ui::chosen_spell = NULL;
-IClass* Ui::chosen_class = NULL;
 
 bool Ui::generic_active = false;
-bool Ui::item_active = false;
-bool Ui::spell_active = false;
-bool Ui::class_active = false;
 
 unsigned long long int Ui::turn_checking_against = 1;
 unsigned long long int Ui::last_turn_noted = 1;

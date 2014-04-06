@@ -515,7 +515,7 @@ bool process_classes_active(TCOD_key_t request)
 
     else if( action == classes_active_t::EquipClass )
     {
-        Game::player->actor_class = (IClass*)Ui::chosen_class;
+        Game::player->actor_class = (IClass*)Ui::chosen_generic;
         std::cout << "Class changed to " << ((IClass*)Ui::chosen_generic)->name << std::endl;
         // Ui::chosen_spell->equip(Game::player);
         // Game::player->equipment->equip_spell(Ui::chosen_item);
@@ -1005,7 +1005,7 @@ bool process_key_event(TCOD_key_t request)
                 {
                     //stop the targetting so that user has to retry
                     Ui::is_targetting = false;
-                    Ui::chosen_spell = NULL;
+                    Ui::chosen_generic = NULL;
                     Ui::generic_active = false;
                 }
             }

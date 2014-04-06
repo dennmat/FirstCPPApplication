@@ -50,12 +50,6 @@ class Ui
 
         static void* chosen_generic;
         static bool generic_active;
-        static Item* chosen_item;
-        static bool item_active;
-        static Spell* chosen_spell;
-        static bool spell_active;
-        static IClass* chosen_class;
-        static bool class_active;
 
         static void update_ui();
         static void update_inventory_ui();
