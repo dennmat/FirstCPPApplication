@@ -522,8 +522,8 @@ void Ui::class_ui_loop(TCODConsole* con, int offset, int i, char key)
     {
         // std::string msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c";
         std::string msg_str = "%c- %c%s%c";
-        is_chosen = (*it) == Ui::chosen_class;
-        is_active = Ui::class_active;
+        is_chosen = (*it) == Ui::chosen_generic;
+        is_active = Ui::generic_active;
 
         // TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_class_color(), con->getDefaultBackground());
 
@@ -543,22 +543,22 @@ void Ui::class_ui_loop(TCODConsole* con, int offset, int i, char key)
         {
             if (Game::mouse_evt.cy == i)
             {
-                if ( (*it)!= Ui::chosen_class)
+                if ( (*it)!= Ui::chosen_generic)
                 {
-                    Ui::chosen_class= (*it);
-                    Ui::class_active = false;
+                    Ui::chosen_generic= (*it);
+                    Ui::generic_active = false;
                 }
-                else if ( (*it) == Ui::chosen_class)
+                else if ( (*it) == Ui::chosen_generic)
                 {
-                    Ui::class_active = true;
+                    Ui::generic_active = true;
                     background = TCODColor::green;
                 };
             }
         }
         else if (Game::mouse_evt.rbutton_pressed)
         {
-            Ui::chosen_class = NULL;
-            Ui::class_active = false;
+            Ui::chosen_generic = NULL;
+            Ui::generic_active = false;
         };
 
         //print the class name and selection
@@ -595,8 +595,8 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
     for (std::vector<Spell*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c";
-        is_chosen = (*it) == Ui::chosen_spell;
-        is_active = Ui::spell_active;
+        is_chosen = (*it) == Ui::chosen_generic;
+        is_active = Ui::generic_active;
 
         TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_spell_color(), con->getDefaultBackground());
 
@@ -616,22 +616,22 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         {
             if (Game::mouse_evt.cy == i)
             {
-                if ( (*it)!= Ui::chosen_spell)
+                if ( (*it)!= Ui::chosen_generic)
                 {
-                    Ui::chosen_spell= (*it);
-                    Ui::spell_active = false;
+                    Ui::chosen_generic= (*it);
+                    Ui::generic_active = false;
                 }
-                else if ( (*it) == Ui::chosen_spell)
+                else if ( (*it) == Ui::chosen_generic)
                 {
-                    Ui::spell_active = true;
+                    Ui::generic_active = true;
                     background = TCODColor::green;
                 };
             }
         }
         else if (Game::mouse_evt.rbutton_pressed)
         {
-            Ui::chosen_spell = NULL;
-            Ui::spell_active = false;
+            Ui::chosen_generic = NULL;
+            Ui::generic_active = false;
         };
 
         //print the spell name and selection
@@ -667,8 +667,8 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
     for (std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
-        is_chosen = (*it) == Ui::chosen_item;
-        is_active = Ui::item_active;
+        is_chosen = (*it) == Ui::chosen_generic;
+        is_active = Ui::generic_active;
 
         TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, con->getDefaultBackground());
         if (Ui::game->player->equipment->is_item_equipped(*it))
@@ -703,22 +703,22 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
         {
             if (Game::mouse_evt.cy == i)
             {
-                if ( (*it)!= Ui::chosen_item)
+                if ( (*it)!= Ui::chosen_generic)
                 {
-                    Ui::chosen_item= (*it);
-                    Ui::item_active = false;
+                    Ui::chosen_generic= (*it);
+                    Ui::generic_active = false;
                 }
-                else if ( (*it) == Ui::chosen_item)
+                else if ( (*it) == Ui::chosen_generic)
                 {
-                    Ui::item_active = true;
+                    Ui::generic_active = true;
                     background = TCODColor::green;
                 };
             }
         }
         else if (Game::mouse_evt.rbutton_pressed)
         {
-            Ui::chosen_item = NULL;
-            Ui::item_active = false;
+            Ui::chosen_generic = NULL;
+            Ui::generic_active = false;
         };
 
         //print the item name and selection
@@ -869,7 +869,7 @@ void Ui::draw_class_select_msg()
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
     ui_inv_msg_con->print(0, y++, "is class chosen? %i", Ui::class_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is class confirmed? %i", Ui::class_active);
+    ui_inv_msg_con->print(0, y++, "is class confirmed? %i", Ui::generic_active);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
@@ -939,15 +939,15 @@ void Ui::draw_inventory_msg()
 
 bool Ui::item_is_chosen()
 {
-    return Ui::chosen_item != NULL;
+    return Ui::chosen_generic != NULL;
 };
 
 bool Ui::class_is_chosen()
 {
-    return Ui::chosen_class != NULL;
+    return Ui::chosen_generic != NULL;
 };
 
 bool Ui::spell_is_chosen()
 {
-    return Ui::chosen_spell != NULL;
+    return Ui::chosen_generic != NULL;
 };
