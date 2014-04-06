@@ -59,25 +59,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     char_movemap['k'] = basic_cmds_t::ConfirmCast;
     char_movemap['p'] = basic_cmds_t::OpenClassSelect;
 
-    if (key.vk == TCODK_CHAR) 
-    {
-        auto it = char_movemap.find(key.c);
-        if(it == char_movemap.end())
-        {
-            return basic_cmds_t::NO_MATCHING_BASIC_CMD;
-        }
-        return it->second;
-    }
-    else
-    {
-        auto it = spec_movemap.find(key.vk);
-        if(it == spec_movemap.end())
-        {
-            return basic_cmds_t::NO_MATCHING_BASIC_CMD;
-        }
-        return it->second;
-    }
-
+    return find_key(key, char_movemap, spec_movemap, basic_cmds_t::NO_MATCHING_BASIC_CMD);
 };
 
 enum inventory_items_active_t {
@@ -218,25 +200,8 @@ directions_t direction_pressed(TCOD_key_t key)
     // char_movemap[TCODK_KP1] = directions_t::SW;
     char_movemap['w'] = directions_t::W;
 
-    if (key.vk == TCODK_CHAR) 
-    {
-        auto it = char_movemap.find(key.c);
-        if(it == char_movemap.end())
-        {
-            return directions_t::NO_MATCHING_DIRECTION;
-        }
-        return it->second;
-    }
-    else
-    {
-        auto it = spec_movemap.find(key.vk);
-        if(it == spec_movemap.end())
-        {
-            return directions_t::NO_MATCHING_DIRECTION;
-        }
-        return it->second;
-    }
-    // return directions_t::N;
+    return find_key(key, char_movemap, spec_movemap,
+            directions_t::NO_MATCHING_DIRECTION);
 };
 
 bool process_basic_cmd(TCOD_key_t request)
