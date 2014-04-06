@@ -515,8 +515,8 @@ bool process_classes_active(TCOD_key_t request, Person *player)
 
     else if( action == classes_active_t::EquipClass )
     {
-        Game::player->actor_class = Ui::chosen_class;
-        std::cout << "Class changed to " << Ui::chosen_class->name << std::endl;
+        Game::player->actor_class = (IClass*)Ui::chosen_class;
+        std::cout << "Class changed to " << ((IClass*)Ui::chosen_generic)->name << std::endl;
         // Ui::chosen_spell->equip(Game::player);
         // Game::player->equipment->equip_spell(Ui::chosen_item);
         // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping spell.");
@@ -1031,59 +1031,14 @@ bool process_key_event(TCOD_key_t request, Person *player)
         case GameStates::MenuState:
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
-
                 std::vector<Spell*>* spells = Game::player->spells;
-                int size = spells->size();
-                generic_keypair_t spell_map = build_keypairs(size);
+                select_generic(request, spells, is_request_spell_active_cmd, process_spells_active);
 
-                bool successful_action = true;
-                if (Ui::generic_active == false)
-                {
-                    if (request.c == 'q' && request.pressed == 1 )
-                    {
-                        std::cout << "Back to the game. spell" << std::endl;
-                        Ui::chosen_generic = NULL;
-                        Ui::generic_active = false;
-                        Game::current_state = GameStates::GameplayState;
-                    }
-                    //choose spell
-                    generic_keypair_t::iterator it = spell_map.find(request.c);
-                    if (it != spell_map.end())
-                    {
-                        if ((Spell*)Ui::chosen_generic == spells->at(it->second))
-                        {
-                            Ui::generic_active = true;
-                        }
-                        else
-                        {
-                            Ui::generic_active = false;
-                        };
-                        Ui::chosen_generic = spells->at(it->second);
-                    };
-                }
-                else // generic_active is true
-                {
-                    if (is_request_spell_active_cmd(request))
-                    {
-                        successful_action = process_spells_active(request, player);
-                    }
-                    else 
-                    {
-                        std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                        std::cout << "q to return to gameplay, a b c to choose the first, second, third spell etc." << std::endl;
-                        std::cout << "press again to select. once it's activated, press u to use" << std::endl;
-                        std::cout << "e to equip, y to unequip, d to drop" << std::endl;
-                    }
-                }
-
-            }
+             }
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
-
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
-
                 select_generic(request, classes, is_request_class_active_cmd, process_classes_active);
-
             };
             break;
 
@@ -1167,7 +1122,7 @@ generic_keypair_t build_keypairs(int limit)
     return keymap;
 };
 
-    template<class T>
+template<class T>
 void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t, Person*))
 {
     int size = generic_vector->size();
@@ -1187,7 +1142,7 @@ void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*
         generic_keypair_t::iterator it = class_map.find(request.c);
         if (it != class_map.end())
         {
-            if ((IClass*)Ui::chosen_generic == generic_vector->at(it->second))
+            if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
             {
                 Ui::generic_active = true;
             }
