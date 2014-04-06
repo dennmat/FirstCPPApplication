@@ -347,7 +347,7 @@ void Ui::draw_misc()
         int x = Game::player->x, y2 = Game::player->y ;
         do {
             count++;
-            if (count > Ui::chosen_spell->max_range)
+            if (count > ((Spell*)Ui::chosen_generic)->max_range)
             {
                 line_color = TCODColor::darkRed;
             }

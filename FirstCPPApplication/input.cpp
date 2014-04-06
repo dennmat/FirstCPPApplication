@@ -380,9 +380,10 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
 
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
-        Spell* spell = Ui::chosen_spell;
+        Spell* spell = (Spell*)Ui::chosen_generic;
 	if (spell == NULL)
 	{
+        std::cout << "no spell chosen" << std::endl;
 	    return false;
 	}
         Tile* stair_tile = Game::player->my_tile;
@@ -572,7 +573,7 @@ bool process_spells_active(TCOD_key_t request, Person *player)
     {
         Ui::toggle_targetting();
         Game::current_state = GameStates::GameplayState;
-        std::cout << Ui::chosen_spell->name << std::endl;
+        std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;
         // Game::current_screen = Screens::Game
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
         //Ui::chosen_spell->use(Game::player);
@@ -1113,7 +1114,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     if (request.c == 'q' && request.pressed == 1 && Ui::spell_active == false && Ui::class_active == false && Ui::class_active == false)
                     {
                         std::cout << "Back to the game. class" << std::endl;
-                        Ui::chosen_class = NULL;
+                        Ui::chosen_generic = NULL;
                         Ui::class_active = false;
                         Game::current_state = GameStates::GameplayState;
                     }
@@ -1121,7 +1122,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     generic_keypair_t::iterator it = class_map.find(request.c);
                     if (it != class_map.end())
                     {
-                        if (Ui::chosen_class == classes->at(it->second))
+                        if ((IClass*)Ui::chosen_generic == classes->at(it->second))
                         {
                             Ui::class_active = true;
                         }
@@ -1129,7 +1130,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                         {
                             Ui::class_active = false;
                         };
-                        Ui::chosen_class = classes->at(it->second);
+                        Ui::chosen_generic = classes->at(it->second);
                     };
                 }
                 else // class_active is true
