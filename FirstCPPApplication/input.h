@@ -1,9 +1,10 @@
+#pragma once
 #ifndef INPUT_H
 #define INPUT_H
 
-#pragma once
 #include <map>
 #include <iostream>
+#include <unordered_map>
 
 // #include "libtcod.hpp"
 // #include "libtcod_cpp_hpp\libtcod.hpp"
@@ -36,5 +37,8 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key);
 bool is_request_basic_cmd(TCOD_key_t request);
 bool process_basic_cmd(TCOD_key_t request, Person *player);
 
+typedef std::unordered_map<char, int> generic_keypair_t;
+typedef std::pair<char, int> generic_keypair;
+generic_keypair_t build_keypairs(int limit);
 
 #endif

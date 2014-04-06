@@ -1039,18 +1039,14 @@ bool process_key_event(TCOD_key_t request, Person *player)
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
                 //generate keys for the appropriate items
-                typedef std::unordered_map<char, Spell*> keypair_t;
-                keypair_t spell_map;
-                typedef std::pair<char, Spell*> keypair;
-
-                char key = 'a';
+                // typedef std::unordered_map<char, Spell*> keypair_t;
+                // keypair_t spell_map;
+                // typedef std::pair<char, Spell*> keypair;
 
                 std::vector<Spell*>* spells = Game::player->spells;
-                for (std::vector<Spell*>::const_iterator it = spells->begin(); it != spells->end(); ++it)
-                {
-                    spell_map.insert(keypair(key, (*it)));
-                    key++;
-                };
+                int size = spells->size();
+                generic_keypair_t spell_map = build_keypairs(size);
+
                 bool successful_action = true;
                 if (Ui::spell_active == false)
                 {
@@ -1065,7 +1061,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     auto it = spell_map.find(request.c);
                     if (it != spell_map.end())
                     {
-                        if (Ui::chosen_spell == it->second)
+                        if (Ui::chosen_spell == spells->at(it->second))
                         {
                             Ui::spell_active = true;
                         }
@@ -1073,7 +1069,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                         {
                             Ui::spell_active = false;
                         };
-                        Ui::chosen_spell = it->second;
+                        Ui::chosen_spell = spells->at(it->second);
                     };
                 }
                 else // spell_active is true
@@ -1232,4 +1228,21 @@ bool process_key_event(TCOD_key_t request, Person *player)
 
     return incr_turn;
 
+};
+
+
+
+// generic_keypair_t build_keypairs(std::vector<int> indices)
+generic_keypair_t build_keypairs(int limit)
+{
+    generic_keypair_t keymap;
+    char key = 'a';
+    // for (std::vector<int>::iterator it = indices.begin(); it != indices.end(); it++)
+    for (int index = 0; index < limit; index++)
+    {
+        keymap.insert(generic_keypair(key, index));
+        key++;
+    }
+
+    return keymap;
 };
