@@ -1029,20 +1029,8 @@ bool process_key_event(TCOD_key_t request, Person *player)
             break;
 
         case GameStates::MenuState:
-            // if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::class_active == false && Ui::item_active == false)
-            // {
-            //     std::cout << "Back to the game." << std::endl;
-            //     Ui::chosen_item = NULL;
-            //     Ui::item_active = false;
-            //     Game::current_state = GameStates::GameplayState;
-            // }
-
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
-                //generate keys for the appropriate items
-                // typedef std::unordered_map<char, Spell*> keypair_t;
-                // keypair_t spell_map;
-                // typedef std::pair<char, Spell*> keypair;
 
                 std::vector<Spell*>* spells = Game::player->spells;
                 int size = spells->size();
@@ -1088,20 +1076,10 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     }
                 }
 
-                //display info of chosen spell
-
-                //equip chosen spell
-
-
             }
 
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
-                //generate keys for the appropriate items
-                // typedef std::unordered_map<char, IClass*> keypair_t;
-                // keypair_t class_map;
-                // typedef std::pair<char, IClass*> keypair;
-                // char key = 'a';
 
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
                 int size = classes->size();
@@ -1148,22 +1126,9 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     }
                 }
 
-                //display info of chosen class
-
-                //equip chosen class
-
-
             };
             break;
         case GameStates::InventoryState:
-            // if (request.c == 'q' && request.pressed == 1 && Ui::item_active == false)
-            // {
-            //     std::cout << "Back to the game." << std::endl;
-            //     Ui::chosen_item = NULL;
-            //     Ui::item_active = false;
-            //     Game::current_state = GameStates::GameplayState;
-            // }
-
             //generate keys for the appropriate items
             typedef std::unordered_map<char, Item*> keypair_t;
             keypair_t item_map;
@@ -1217,10 +1182,6 @@ bool process_key_event(TCOD_key_t request, Person *player)
                     std::cout << "e to equip, y to unequip, d to drop" << std::endl;
                 }
             }
-
-            //display info of chosen item
-
-            //equip chosen item
 
             break;
     }
