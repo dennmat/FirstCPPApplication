@@ -432,16 +432,16 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
 
     if( action == inventory_items_active_t::ExamineItem )
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", Ui::chosen_item->description);
-        std::cout << Ui::chosen_item->description << std::endl;
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", ((Item*)Ui::chosen_generic)->description);
+        std::cout << ((Item*)Ui::chosen_generic)->description << std::endl;
         return true;
     }
     else if( action == inventory_items_active_t::DropItem )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
-        Item* item = Ui::chosen_item;
-        Ui::chosen_item = NULL;
-        Ui::item_active = false;
+        Item* item = ((Item*)Ui::chosen_generic);
+        Ui::chosen_generic = NULL;
+        Ui::generic_active = false;
 
         player->inventory->drop_item(item);
         return true;
@@ -450,30 +450,30 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     else if( action == inventory_items_active_t::UseItem )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using item.");
-        Ui::chosen_item->use(Game::player);
+        ((Item*)Ui::chosen_generic)->use(Game::player);
         return true;
     }
 
     else if( action == inventory_items_active_t::EquipItem )
     {
-        Ui::chosen_item->equip(Game::player);
-        Game::player->equipment->equip_item(Ui::chosen_item);
+        ((Item*)Ui::chosen_generic)->equip(Game::player);
+        Game::player->equipment->equip_item(((Item*)Ui::chosen_generic));
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping item.");
         return true;
     }
 
     else if( action == inventory_items_active_t::UnequipItem )
     {
-        Ui::chosen_item->unequip(Game::player);
-        Game::player->equipment->unequip_item(Ui::chosen_item);
+        ((Item*)Ui::chosen_generic)->unequip(Game::player);
+        Game::player->equipment->unequip_item(((Item*)Ui::chosen_generic));
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Unequipping item.");
         return true;
     }
 
     else if( action == inventory_items_active_t::EscapeMenuItem )
     {
-        Ui::item_active = false;
-        Ui::chosen_item = false;
+        Ui::generic_active = false;
+        Ui::chosen_generic = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
         return true;
     }
@@ -1043,59 +1043,61 @@ bool process_key_event(TCOD_key_t request, Person *player)
             break;
 
         case GameStates::InventoryState:
-            //generate keys for the appropriate items
-            typedef std::unordered_map<char, Item*> keypair_t;
-            keypair_t item_map;
-            typedef std::pair<char, Item*> keypair;
-
-            char key = 'a';
-
             std::vector<Item*>* items = Game::player->inventory->items;
-            for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
-            {
-                item_map.insert(keypair(key, (*it)));
-                key++;
-            };
+            select_generic(request, items, is_request_inventory_item_active_cmd, process_inventory_item_active);
+            // //generate keys for the appropriate items
+            // typedef std::unordered_map<char, Item*> keypair_t;
+            // keypair_t item_map;
+            // typedef std::pair<char, Item*> keypair;
 
-            bool successful_action = true;
-            if (Ui::item_active == false)
-            {
-                if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::item_active == false && Ui::item_active == false)
-                {
-                    std::cout << "Back to the game. invent" << std::endl;
-                    Ui::chosen_item = NULL;
-                    Ui::item_active = false;
-                    Game::current_state = GameStates::GameplayState;
-                }
-                //choose item
-                auto it = item_map.find(request.c);
-                if (it != item_map.end())
-                {
-                    if (Ui::chosen_item == it->second)
-                    {
-                        Ui::item_active = true;
-                    }
-                    else
-                    {
-                        Ui::item_active = false;
-                    };
-                    Ui::chosen_item = it->second;
-                };
-            }
-            else // item_active is true
-            {
-                if (is_request_inventory_item_active_cmd(request))
-                {
-                    successful_action = process_inventory_item_active(request, player);
-                }
-                else 
-                {
-                    std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                    std::cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << std::endl;
-                    std::cout << "press again to select. once it's activated, press u to use" << std::endl;
-                    std::cout << "e to equip, y to unequip, d to drop" << std::endl;
-                }
-            }
+            // char key = 'a';
+
+            // std::vector<Item*>* items = Game::player->inventory->items;
+            // for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
+            // {
+            //     item_map.insert(keypair(key, (*it)));
+            //     key++;
+            // };
+
+            // bool successful_action = true;
+            // if (Ui::item_active == false)
+            // {
+            //     if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::item_active == false && Ui::item_active == false)
+            //     {
+            //         std::cout << "Back to the game. invent" << std::endl;
+            //         Ui::chosen_item = NULL;
+            //         Ui::item_active = false;
+            //         Game::current_state = GameStates::GameplayState;
+            //     }
+            //     //choose item
+            //     auto it = item_map.find(request.c);
+            //     if (it != item_map.end())
+            //     {
+            //         if (Ui::chosen_item == it->second)
+            //         {
+            //             Ui::item_active = true;
+            //         }
+            //         else
+            //         {
+            //             Ui::item_active = false;
+            //         };
+            //         Ui::chosen_item = it->second;
+            //     };
+            // }
+            // else // item_active is true
+            // {
+            //     if (is_request_inventory_item_active_cmd(request))
+            //     {
+            //         successful_action = process_inventory_item_active(request, player);
+            //     }
+            //     else 
+            //     {
+            //         std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+            //         std::cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << std::endl;
+            //         std::cout << "press again to select. once it's activated, press u to use" << std::endl;
+            //         std::cout << "e to equip, y to unequip, d to drop" << std::endl;
+            //     }
+            // }
 
             break;
     }
