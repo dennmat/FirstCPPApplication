@@ -41,4 +41,7 @@ typedef std::unordered_map<char, int> generic_keypair_t;
 typedef std::pair<char, int> generic_keypair;
 generic_keypair_t build_keypairs(int limit);
 
+template<class T>
+void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t, Person*));
+
 #endif

@@ -500,7 +500,7 @@ bool process_classes_active(TCOD_key_t request, Person *player)
 
         player->inventory->drop_spell(item);
         return true;
-    */}
+        */}
 
     else if( action == classes_active_t::CastClass )
     {
@@ -567,7 +567,7 @@ bool process_spells_active(TCOD_key_t request, Person *player)
 
         player->inventory->drop_spell(item);
         return true;
-    */}
+        */}
 
     else if( action == spells_active_t::CastSpell )
     {
@@ -1077,57 +1077,16 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 }
 
             }
-
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
 
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
-                int size = classes->size();
-                generic_keypair_t class_map = build_keypairs(size);
-                generic_keypair_t::iterator it = class_map.find(request.c);
 
-                bool successful_action = true;
-                if (Ui::generic_active == false)
-                {
-                    if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
-                    {
-                        std::cout << "Back to the game. class" << std::endl;
-                        Ui::chosen_generic = NULL;
-                        Ui::generic_active = false;
-                        Game::current_state = GameStates::GameplayState;
-                    }
-                    //choose class
-                    generic_keypair_t::iterator it = class_map.find(request.c);
-                    if (it != class_map.end())
-                    {
-                        if ((IClass*)Ui::chosen_generic == classes->at(it->second))
-                        {
-                            Ui::generic_active = true;
-                        }
-                        else
-                        {
-                            Ui::generic_active = false;
-                        };
-                        Ui::chosen_generic = classes->at(it->second);
-                    };
-                }
-                else // generic_active is true
-                {
-                    if (is_request_class_active_cmd(request))
-                    {
-                        successful_action = process_classes_active(request, player);
-                    }
-                    else 
-                    {
-                        std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                        std::cout << "q to return to gameplay, a b c to choose the first, second, third class etc." << std::endl;
-                        std::cout << "press again to select. once it's activated, press u to use" << std::endl;
-                        std::cout << "e to equip, y to unequip, d to drop" << std::endl;
-                    }
-                }
+                select_generic(request, classes, is_request_class_active_cmd, process_classes_active);
 
             };
             break;
+
         case GameStates::InventoryState:
             //generate keys for the appropriate items
             typedef std::unordered_map<char, Item*> keypair_t;
@@ -1146,13 +1105,13 @@ bool process_key_event(TCOD_key_t request, Person *player)
             bool successful_action = true;
             if (Ui::item_active == false)
             {
-                    if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::item_active == false && Ui::item_active == false)
-                    {
-                        std::cout << "Back to the game. invent" << std::endl;
-                        Ui::chosen_item = NULL;
-                        Ui::item_active = false;
-                        Game::current_state = GameStates::GameplayState;
-                    }
+                if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::item_active == false && Ui::item_active == false)
+                {
+                    std::cout << "Back to the game. invent" << std::endl;
+                    Ui::chosen_item = NULL;
+                    Ui::item_active = false;
+                    Game::current_state = GameStates::GameplayState;
+                }
                 //choose item
                 auto it = item_map.find(request.c);
                 if (it != item_map.end())
@@ -1206,4 +1165,52 @@ generic_keypair_t build_keypairs(int limit)
     }
 
     return keymap;
+};
+
+    template<class T>
+void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t, Person*))
+{
+    int size = generic_vector->size();
+    generic_keypair_t class_map = build_keypairs(size);
+    generic_keypair_t::iterator it = class_map.find(request.c);
+    bool successful_action = true;
+    if (Ui::generic_active == false)
+    {
+        if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
+        {
+            std::cout << "Back to the game. class" << std::endl;
+            Ui::chosen_generic = NULL;
+            Ui::generic_active = false;
+            Game::current_state = GameStates::GameplayState;
+        }
+        //choose class
+        generic_keypair_t::iterator it = class_map.find(request.c);
+        if (it != class_map.end())
+        {
+            if ((IClass*)Ui::chosen_generic == generic_vector->at(it->second))
+            {
+                Ui::generic_active = true;
+            }
+            else
+            {
+                Ui::generic_active = false;
+            };
+            Ui::chosen_generic = generic_vector->at(it->second);
+        };
+    }
+    else // generic_active is true
+    {
+        if (active_func(request))
+        {
+            successful_action = process_func(request, Game::player);
+        }
+        else 
+        {
+            std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+            std::cout << "q to return to gameplay, a b c to choose the first, second, third class etc." << std::endl;
+            std::cout << "press again to select. once it's activated, press u to use" << std::endl;
+            std::cout << "e to equip, y to unequip, d to drop" << std::endl;
+        }
+    }
+
 };
