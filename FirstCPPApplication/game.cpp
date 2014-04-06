@@ -224,7 +224,7 @@ void Game::fill_dungeon(Map* world)
                 creature_y = rng->getInt(2, (*it)->height-2) + (*it)->y;
                 BadMother* the_creature;
                 if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
-                the_creature = Game::create_bad_mother("Random BadMother", 92, creature_x, creature_y, 's', world, "bad mother combat");
+                the_creature = Game::create_bad_mother("Random BadMother", 92, creature_x, creature_y, 'b', world, "bad mother combat");
                 if (rng->getInt(1, 100) < 10) 
                 {
                     // the_creature = Game::create_skeleton("Strong BadMother", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
