@@ -262,7 +262,7 @@ directions_t direction_pressed(TCOD_key_t key)
     // return directions_t::N;
 };
 
-bool process_basic_cmd(TCOD_key_t request, Person *player)
+bool process_basic_cmd(TCOD_key_t request)
 {
     basic_cmds_t basic_cmd = basic_cmd_pressed(request);
 
@@ -277,13 +277,13 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         std::cout << "PICKUP THIS IS A STICKUP" << std::endl;
 
         //check if items are on the floor
-        if (player->my_tile->check_for_items())
+        if (Game::player->my_tile->check_for_items())
         {
             std::cout << "items on the floor, you'll be picking up";
             std::cout << "the last item you picked up now" << std::endl;
             //TODO:open ui for item pickup to choose which item
-            Item* item = player->my_tile->inventory->items->back();
-            player->pickUpItem(item);
+            Item* item = Game::player->my_tile->inventory->items->back();
+            Game::player->pickUpItem(item);
             // player->equipment->chest->AddToSlot(item);
 
             return true;
@@ -329,8 +329,8 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
         int* direction = Game::player->get_direction_heading();
         int x, y;
 
-        x = player->x+direction[0];
-        y = player->y+direction[1];
+        x = Game::player->x+direction[0];
+        y = Game::player->y+direction[1];
 
         door_tile = Game::world->getTileAt(x, y);
 
@@ -426,7 +426,7 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
     };
 };
 
-bool process_inventory_item_active(TCOD_key_t request, Person *player)
+bool process_inventory_item_active(TCOD_key_t request)
 {
     inventory_items_active_t action = inventory_items_active_pressed(request);
 
@@ -443,7 +443,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
         Ui::chosen_generic = NULL;
         Ui::generic_active = false;
 
-        player->inventory->drop_item(item);
+        Game::player->inventory->drop_item(item);
         return true;
     }
 
@@ -481,7 +481,7 @@ bool process_inventory_item_active(TCOD_key_t request, Person *player)
     return false;
 };
 
-bool process_classes_active(TCOD_key_t request, Person *player)
+bool process_classes_active(TCOD_key_t request)
 {
     classes_active_t action = classes_active_pressed(request);
 
@@ -548,7 +548,7 @@ bool process_classes_active(TCOD_key_t request, Person *player)
     return false;
 };
 
-bool process_spells_active(TCOD_key_t request, Person *player)
+bool process_spells_active(TCOD_key_t request)
 {
     spells_active_t action = spells_active_pressed(request);
 
@@ -687,31 +687,31 @@ void move_camera(int dir_x, int dir_y)
 };
 
 //returns whether or not the player has moved and should increment the turn
-bool process_movement(TCOD_key_t request, Person *player)
+bool process_movement(TCOD_key_t request)
 {
     Map *world = Game::world;
     bool buildmode = Game::buildmode;
 
     int orig_plr_pos_x, orig_plr_pos_y;
-    orig_plr_pos_x = player->x;
-    orig_plr_pos_y = player->y;
+    orig_plr_pos_x = Game::player->x;
+    orig_plr_pos_y = Game::player->y;
 
-    player->is_moving_up = false;
-    player->is_moving_down = false;
-    player->is_moving_left = false;
-    player->is_moving_right = false;
+    Game::player->is_moving_up = false;
+    Game::player->is_moving_down = false;
+    Game::player->is_moving_left = false;
+    Game::player->is_moving_right = false;
     //reset player facing directions
     if (request.pressed == false)
     {
-        player->resetIsMoving();
+        Game::player->resetIsMoving();
         return false;
     };
 
     directions_t direction = direction_pressed(request);
     if( direction == directions_t::N )
     {
-        player->is_moving_up = true;
-        if(Game::current_map->attackMovePlayer(player, 0, -1) )
+        Game::player->is_moving_up = true;
+        if(Game::current_map->attackMovePlayer(Game::player, 0, -1) )
         { 
             move_camera(0, -1);
             return true;
@@ -719,9 +719,9 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::NE )
     {
-        player->is_moving_up = true;
-        player->is_moving_right = true;
-        if(Game::current_map->attackMovePlayer(player, 1, -1) )
+        Game::player->is_moving_up = true;
+        Game::player->is_moving_right = true;
+        if(Game::current_map->attackMovePlayer(Game::player, 1, -1) )
         { 
             move_camera(1, -1);
             return true;
@@ -729,8 +729,8 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::S )
     {
-        player->is_moving_down = true;
-        if(Game::current_map->attackMovePlayer(player, 0, 1) )
+        Game::player->is_moving_down = true;
+        if(Game::current_map->attackMovePlayer(Game::player, 0, 1) )
         { 
             move_camera(0, 1);
             return true;
@@ -738,9 +738,9 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::SE)
     {
-        player->is_moving_down = true;
-        player->is_moving_right = true;
-        if(Game::current_map->attackMovePlayer(player, 1, 1) )
+        Game::player->is_moving_down = true;
+        Game::player->is_moving_right = true;
+        if(Game::current_map->attackMovePlayer(Game::player, 1, 1) )
         {
             move_camera(1, 1);
             return true;
@@ -748,8 +748,8 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::E)
     {
-        player->is_moving_right = true;
-        if(Game::current_map->attackMovePlayer(player, 1, 0) )
+        Game::player->is_moving_right = true;
+        if(Game::current_map->attackMovePlayer(Game::player, 1, 0) )
         {
             move_camera(1, 0);
 
@@ -758,9 +758,9 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::SW)
     {
-        player->is_moving_left = true;
-        player->is_moving_down = true;
-        if(Game::current_map->attackMovePlayer(player, -1, 1) )
+        Game::player->is_moving_left = true;
+        Game::player->is_moving_down = true;
+        if(Game::current_map->attackMovePlayer(Game::player, -1, 1) )
         { 
             move_camera(-1, 1);
 
@@ -769,9 +769,9 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::NW)
     {
-        player->is_moving_left = true;
-        player->is_moving_up = true;
-        if(Game::current_map->attackMovePlayer(player, -1, -1) )
+        Game::player->is_moving_left = true;
+        Game::player->is_moving_up = true;
+        if(Game::current_map->attackMovePlayer(Game::player, -1, -1) )
         { 
             move_camera(-1, -1);
 
@@ -780,8 +780,8 @@ bool process_movement(TCOD_key_t request, Person *player)
     }
     else if( direction == directions_t::W)
     {
-        player->is_moving_left = true;
-        if(Game::current_map->attackMovePlayer(player, -1, 0) )
+        Game::player->is_moving_left = true;
+        if(Game::current_map->attackMovePlayer(Game::player, -1, 0) )
         { 
             move_camera(-1, 0);
 
@@ -801,7 +801,7 @@ bool process_movement(TCOD_key_t request, Person *player)
 
     //if the player has moved or attacked this update, increment the turn
     //counter
-    if ((orig_plr_pos_x != player->x || orig_plr_pos_y != player->y || player->has_attacked))
+    if ((orig_plr_pos_x != Game::player->x || orig_plr_pos_y != Game::player->y || Game::player->has_attacked))
     {
         return true;
     }
@@ -922,7 +922,7 @@ void process_mouse_inv_event()
     };
 };
 
-bool process_mouse_event(TCOD_mouse_t request, Person *player)
+bool process_mouse_event(TCOD_mouse_t request)
 {
 
     if (request.dx > Ui::mouse_move_threshold || request.dy > Ui::mouse_move_threshold)
@@ -942,7 +942,7 @@ bool process_mouse_event(TCOD_mouse_t request, Person *player)
     return 0;
 };
 
-bool process_debug_event(TCOD_key_t request, Person *player)
+bool process_debug_event(TCOD_key_t request)
 {
     if (request.vk == TCODK_F2)
     {
@@ -985,14 +985,14 @@ bool process_debug_event(TCOD_key_t request, Person *player)
     }
 };
 
-bool process_key_event(TCOD_key_t request, Person *player)
+bool process_key_event(TCOD_key_t request)
 {
 
     Ui::tick_key_pressed = Game::tick_count;
     //std::cout << "key event" << std::endl;
     //determine if movement command
     bool incr_turn = false;
-    int current_tile = player->x+(player->y*(Game::current_map->width));
+    int current_tile = Game::player->x+(Game::player->y*(Game::current_map->width));
 
     switch(Game::current_state)
     {
@@ -1000,7 +1000,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
 
             if(is_request_move_cmd(request))
             {
-                incr_turn = process_movement(request, player);
+                incr_turn = process_movement(request);
                 if (incr_turn)
                 {
                     //stop the targetting so that user has to retry
@@ -1012,7 +1012,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
 
             else if (is_request_basic_cmd(request))
             {
-                incr_turn = process_basic_cmd(request, player);
+                incr_turn = process_basic_cmd(request);
             }
 
             else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
@@ -1072,7 +1072,7 @@ generic_keypair_t build_keypairs(int limit)
 };
 
     template<class T>
-void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t, Person*))
+void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
 {
     int size = generic_vector->size();
     generic_keypair_t class_map = build_keypairs(size);
@@ -1082,7 +1082,7 @@ void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*
     {
         if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
         {
-            std::cout << "Back to the game. class" << std::endl;
+            std::cout << "Back to the game." << std::endl;
             Ui::chosen_generic = NULL;
             Ui::generic_active = false;
             Game::current_state = GameStates::GameplayState;
@@ -1106,7 +1106,7 @@ void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*
     {
         if (active_func(request))
         {
-            successful_action = process_func(request, Game::player);
+            successful_action = process_func(request);
         }
         else 
         {
