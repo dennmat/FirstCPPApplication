@@ -44,4 +44,7 @@ generic_keypair_t build_keypairs(int limit);
 template<class T>
 void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t));
 
+template<typename T1, typename T2, typename T3>
+T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice);
+
 #endif

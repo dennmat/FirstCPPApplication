@@ -119,24 +119,8 @@ spells_active_t spells_active_pressed(TCOD_key_t key)
     // char_spellactivemap['y'] = spells_active_t::UnequipSpell;
     char_spellactivemap['q'] = spells_active_t::EscapeMenuSpell;
 
-    if (key.vk == TCODK_CHAR) 
-    {
-        auto it = char_spellactivemap.find(key.c);
-        if(it == char_spellactivemap.end())
-        {
-            return spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
-        }
-        return it->second;
-    }
-    else
-    {
-        auto it = spec_spellactivemap.find(key.vk);
-        if(it == spec_spellactivemap.end())
-        {
-            return spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
-        }
-        return it->second;
-    }
+    return find_key(key, char_spellactivemap,
+            spec_spellactivemap, spells_active_t::NO_MATCHING_SPELLS_ACTIVE);
 };
 
 classes_active_t classes_active_pressed(TCOD_key_t key)
@@ -154,25 +138,34 @@ classes_active_t classes_active_pressed(TCOD_key_t key)
     // char_classactivemap['y'] = classes_active_t::Unequipclass;
     char_classactivemap['q'] = classes_active_t::EscapeMenuClass;
 
+    return find_key(key, char_classactivemap,
+            spec_classactivemap, classes_active_t::NO_MATCHING_CLASSES_ACTIVE);
+};
+
+template<typename T1, typename T2, typename T3>
+T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice)
+{
     if (key.vk == TCODK_CHAR) 
     {
-        auto it = char_classactivemap.find(key.c);
-        if(it == char_classactivemap.end())
+        auto it = char_active_map.find(key.c);
+        if(it == char_active_map.end())
         {
-            return classes_active_t::NO_MATCHING_CLASSES_ACTIVE;
+            return error_choice;
         }
         return it->second;
     }
     else
     {
-        auto it = spec_classactivemap.find(key.vk);
-        if(it == spec_classactivemap.end())
+        auto it = spec_active_map.find(key.vk);
+        if(it == spec_active_map.end())
         {
-            return classes_active_t::NO_MATCHING_CLASSES_ACTIVE;
+            return error_choice;
         }
         return it->second;
     }
+
 };
+
 
 inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
 {
@@ -189,24 +182,8 @@ inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
     char_invitemactivemap['y'] = inventory_items_active_t::UnequipItem;
     char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem;
 
-    if (key.vk == TCODK_CHAR) 
-    {
-        auto it = char_invitemactivemap.find(key.c);
-        if(it == char_invitemactivemap.end())
-        {
-            return inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
-        }
-        return it->second;
-    }
-    else
-    {
-        auto it = spec_invitemactivemap.find(key.vk);
-        if(it == spec_invitemactivemap.end())
-        {
-            return inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
-        }
-        return it->second;
-    }
+    return find_key(key, char_invitemactivemap,
+            spec_invitemactivemap, inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE);
 };
 
 enum directions_t {
@@ -1053,9 +1030,6 @@ bool process_key_event(TCOD_key_t request)
 
 };
 
-
-
-// generic_keypair_t build_keypairs(std::vector<int> indices)
 generic_keypair_t build_keypairs(int limit)
 {
     generic_keypair_t keymap;
