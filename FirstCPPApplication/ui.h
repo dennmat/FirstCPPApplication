@@ -48,6 +48,8 @@ class Ui
         static int ui_sidebar_w;
         static int ui_sidebar_h;
 
+        static void* chosen_generic;
+        static bool generic_active;
         static Item* chosen_item;
         static bool item_active;
         static Spell* chosen_spell;

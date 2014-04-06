@@ -1050,18 +1050,18 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 bool successful_action = true;
                 if (Ui::spell_active == false)
                 {
-                    if (request.c == 'q' && request.pressed == 1 /* && Ui::chosen_spell != NULL */ /* && Ui::spell_active == false && Ui::spell_active == false */)
+                    if (request.c == 'q' && request.pressed == 1 )
                     {
                         std::cout << "Back to the game. spell" << std::endl;
-                        Ui::chosen_spell = NULL;
+                        Ui::chosen_generic = NULL;
                         Ui::spell_active = false;
                         Game::current_state = GameStates::GameplayState;
                     }
                     //choose spell
-                    auto it = spell_map.find(request.c);
+                    generic_keypair_t::iterator it = spell_map.find(request.c);
                     if (it != spell_map.end())
                     {
-                        if (Ui::chosen_spell == spells->at(it->second))
+                        if ((Spell*)Ui::chosen_generic == spells->at(it->second))
                         {
                             Ui::spell_active = true;
                         }
@@ -1069,7 +1069,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                         {
                             Ui::spell_active = false;
                         };
-                        Ui::chosen_spell = spells->at(it->second);
+                        Ui::chosen_generic = spells->at(it->second);
                     };
                 }
                 else // spell_active is true
@@ -1097,18 +1097,16 @@ bool process_key_event(TCOD_key_t request, Person *player)
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
                 //generate keys for the appropriate items
-                typedef std::unordered_map<char, IClass*> keypair_t;
-                keypair_t class_map;
-                typedef std::pair<char, IClass*> keypair;
-
-                char key = 'a';
+                // typedef std::unordered_map<char, IClass*> keypair_t;
+                // keypair_t class_map;
+                // typedef std::pair<char, IClass*> keypair;
+                // char key = 'a';
 
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
-                for (std::vector<IClass*>::const_iterator it = classes->begin(); it != classes->end(); ++it)
-                {
-                    class_map.insert(keypair(key, (*it)));
-                    key++;
-                };
+                int size = classes->size();
+                generic_keypair_t class_map = build_keypairs(size);
+                generic_keypair_t::iterator it = class_map.find(request.c);
+
                 bool successful_action = true;
                 if (Ui::class_active == false)
                 {
@@ -1120,10 +1118,10 @@ bool process_key_event(TCOD_key_t request, Person *player)
                         Game::current_state = GameStates::GameplayState;
                     }
                     //choose class
-                    auto it = class_map.find(request.c);
+                    generic_keypair_t::iterator it = class_map.find(request.c);
                     if (it != class_map.end())
                     {
-                        if (Ui::chosen_class == it->second)
+                        if (Ui::chosen_class == classes->at(it->second))
                         {
                             Ui::class_active = true;
                         }
@@ -1131,7 +1129,7 @@ bool process_key_event(TCOD_key_t request, Person *player)
                         {
                             Ui::class_active = false;
                         };
-                        Ui::chosen_class = it->second;
+                        Ui::chosen_class = classes->at(it->second);
                     };
                 }
                 else // class_active is true
