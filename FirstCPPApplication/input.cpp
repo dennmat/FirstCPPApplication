@@ -293,7 +293,7 @@ bool process_basic_cmd(TCOD_key_t request, Person *player)
 
     else if ( basic_cmd == basic_cmds_t::OpenInventory )
     {
-        Game::current_state = GameStates::InventoryState;
+        Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::InventoryScreen;
     }
 
@@ -1034,71 +1034,18 @@ bool process_key_event(TCOD_key_t request, Person *player)
                 std::vector<Spell*>* spells = Game::player->spells;
                 select_generic(request, spells, is_request_spell_active_cmd, process_spells_active);
 
-             }
+            }
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
                 select_generic(request, classes, is_request_class_active_cmd, process_classes_active);
-            };
-            break;
+            }
 
-        case GameStates::InventoryState:
-            std::vector<Item*>* items = Game::player->inventory->items;
-            select_generic(request, items, is_request_inventory_item_active_cmd, process_inventory_item_active);
-            // //generate keys for the appropriate items
-            // typedef std::unordered_map<char, Item*> keypair_t;
-            // keypair_t item_map;
-            // typedef std::pair<char, Item*> keypair;
-
-            // char key = 'a';
-
-            // std::vector<Item*>* items = Game::player->inventory->items;
-            // for (std::vector<Item*>::const_iterator it = items->begin(); it != items->end(); ++it)
-            // {
-            //     item_map.insert(keypair(key, (*it)));
-            //     key++;
-            // };
-
-            // bool successful_action = true;
-            // if (Ui::item_active == false)
-            // {
-            //     if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::item_active == false && Ui::item_active == false)
-            //     {
-            //         std::cout << "Back to the game. invent" << std::endl;
-            //         Ui::chosen_item = NULL;
-            //         Ui::item_active = false;
-            //         Game::current_state = GameStates::GameplayState;
-            //     }
-            //     //choose item
-            //     auto it = item_map.find(request.c);
-            //     if (it != item_map.end())
-            //     {
-            //         if (Ui::chosen_item == it->second)
-            //         {
-            //             Ui::item_active = true;
-            //         }
-            //         else
-            //         {
-            //             Ui::item_active = false;
-            //         };
-            //         Ui::chosen_item = it->second;
-            //     };
-            // }
-            // else // item_active is true
-            // {
-            //     if (is_request_inventory_item_active_cmd(request))
-            //     {
-            //         successful_action = process_inventory_item_active(request, player);
-            //     }
-            //     else 
-            //     {
-            //         std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-            //         std::cout << "q to return to gameplay, a b c to choose the first, second, third item etc." << std::endl;
-            //         std::cout << "press again to select. once it's activated, press u to use" << std::endl;
-            //         std::cout << "e to equip, y to unequip, d to drop" << std::endl;
-            //     }
-            // }
-
+            else if (Game::current_screen == Screens::InventoryScreen)
+            {
+                std::vector<Item*>* items = Game::player->inventory->items;
+                select_generic(request, items, is_request_inventory_item_active_cmd, process_inventory_item_active);
+            }
             break;
     }
 
@@ -1124,7 +1071,7 @@ generic_keypair_t build_keypairs(int limit)
     return keymap;
 };
 
-template<class T>
+    template<class T>
 void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t, Person*))
 {
     int size = generic_vector->size();
