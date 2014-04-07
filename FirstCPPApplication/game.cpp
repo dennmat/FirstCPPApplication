@@ -555,7 +555,6 @@ bool gameplay_loop(bool incr_turn)
 
     if (incr_turn)
     {
-        Game::turn_count++;
 
         //this used to be after input was processed but turn hadn't
         //been incremented
@@ -579,6 +578,7 @@ bool gameplay_loop(bool incr_turn)
         new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());
 
         //new Message(Ui::msg_handler_main, NOTYPE_MSG, "TURN: %d", Game::turn_count);
+        Game::turn_count++;
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
         incr_turn = false;
     }

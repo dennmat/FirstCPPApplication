@@ -113,7 +113,6 @@ void MessageHandler::draw(TCODConsole* console)
 
 int getIndex(message_types_t type)
 {
-
     std::vector<message_types_t> vec = MessageHandler::message_order;
     auto it = std::find(vec.begin(), vec.end(), type);
     if (it == vec.end())
@@ -139,7 +138,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 {
     std::vector<std::string> prerendered_msgs;
 
-    int last_turn = Game::turn_count;
+    int last_turn = Game::turn_count-1;
     int turn_count = 0;
     int copy_count = 2;
     std::string prerendered_single = "";
@@ -195,7 +194,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
                 copy_count++;
 
                 prerendered_single.append("(x"+copy_str+")");
-                prerendered_msgs.pop_back();
+		if (!prerendered_msgs.empty()) prerendered_msgs.pop_back();
                 prerendered_msgs.push_back(prerendered_single);
             }
             prerendered_single.clear();
