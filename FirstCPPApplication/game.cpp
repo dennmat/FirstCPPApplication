@@ -571,7 +571,7 @@ bool gameplay_loop(bool incr_turn)
         }
         else 
         {
-             new Message(Ui::msg_handler_main, ITEM_MSG, "Nothing on the ground.");
+             new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "Nothing on the ground.");
         }
 
         //tile description

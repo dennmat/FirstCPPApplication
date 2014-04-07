@@ -6,17 +6,16 @@
 
 #include <libtcod.hpp>
 #include "game.h"
+#include "utils.h"
 
 //message ordering. started as array and transformed into a vector
 message_types_t MessageHandler::initial_message_order [9] = { HUNGER_MSG, BURDEN_MSG,
     MOOD_MSG, DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG, CHAT_MSG,
     TILE_DESCRIPTION_MSG, NOTYPE_MSG };
 
+typedef MessageHandler MH;
 std::vector<message_types_t>
-MessageHandler::message_order(MessageHandler::initial_message_order,
-        MessageHandler::initial_message_order+
-        sizeof(MessageHandler::initial_message_order) /
-        sizeof(MessageHandler::initial_message_order[0]));
+MH::message_order(MH::initial_message_order, MH::initial_message_order + sizeof(MH::initial_message_order) / sizeof(MH::initial_message_order[0]));
 
 MessageHandler::MessageHandler()
 {
@@ -122,14 +121,19 @@ int getIndex(message_types_t type)
     } 
     else
     {
-        auto index = std::distance(vec.begin(), it);
+        int index = std::distance(vec.begin(), it);
         return index;
     }
 }
 
 bool sorting_by_type(Message* a, Message* b)
 {
-    return getIndex(a->type) > getIndex(b->type) && a->turn > b->turn;
+    // std::cout << a->content;
+    // std::cout << b->content;
+    bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) >= (b->turn));
+    // std::cout << BoolToString(result);
+    // std::cout << std::endl;
+    return result;
 };
 
 //goes through all the vectors of this turn and creates a std::string of the
@@ -144,11 +148,6 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     std::string prerendered_single = "";
     std::string last_msg = "";
     std::string new_msg = "";
-
-    // //TODO: This'll get slower the longer the game goes on
-    // std::sort(this->msg_list.begin(), this->msg_list.end(),
-    //         [](Message* a, Message* b){ return getIndex(a->type) > getIndex(b->type);});
-
 
     std::vector<Message*> limited_messages;
     int message_limit = 200;
@@ -165,12 +164,13 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
             if (++i>message_limit) break;
         // };
     }
-    // std::cout << limited_messages.size() << std::endl;
+
     //TODO: This'll get slower the longer the game goes on
     std::sort(limited_messages.begin(), limited_messages.end(),
             sorting_by_type);
 
-    for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
+    // for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
+    for (std::vector<Message*>::iterator it = limited_messages.begin(); it != limited_messages.end(); ++it) {
         if (prerendered_msgs.size() >= turn_limit) break;
 
         if (last_turn != (*it)->turn) 
@@ -194,6 +194,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
                 copy_count++;
 
                 prerendered_single.append("(x"+copy_str+")");
+
 		if (!prerendered_msgs.empty()) prerendered_msgs.pop_back();
                 prerendered_msgs.push_back(prerendered_single);
             }
