@@ -242,7 +242,7 @@ T* Game::spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room*
         creature_y = linear_rng->getInt(2, room->height-3) + room->y;
         // if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { return NULL;};
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {continue;};
-        the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, 'T', combat_name);
+        the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, combat_name);
         if (linear_rng->getInt(1, 100) < 10) 
         {
             the_creature->championize();
@@ -338,7 +338,7 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr, std
     T * new_pers = new T(name, age, x, y, repr, Combat_name);
 
     //put it on the map somewhere
-    Tile * next_tile = Game::current_map->getTileAt(x,y);
+    Tile * next_tile = Game::world->getTileAt(x,y);
     new_pers->putPerson(next_tile, x, y);
 
     return new_pers;
