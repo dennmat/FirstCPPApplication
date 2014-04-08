@@ -52,7 +52,10 @@ class Actor : public Object
         int xp_value;
         
         bool is_champion;
+        static int champ_chance;
         static int pack_size;
+        static int preferred_pack_size;
+
 
         IClass* actor_class;
         static std::vector<IClass*>* actor_class_choices;

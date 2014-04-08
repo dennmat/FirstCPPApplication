@@ -20,6 +20,9 @@
 
 
 int Actor::pack_size = 10;
+int Actor::champ_chance = 10;
+int Actor::preferred_pack_size = 10;
+
 std::vector<IClass*>* Actor::actor_class_choices = new std::vector<IClass*>();
 //std::vector<IClass*>* Actor::actor_class_choices->push_back(new FighterClass);
 
