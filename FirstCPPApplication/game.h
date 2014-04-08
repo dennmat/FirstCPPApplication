@@ -26,11 +26,13 @@ class Jackal;
 class Skeleton;
 class Ogre;
 
+class Room;
 class Item;
 class DebugOptions;
 class Ui;
 
 class TCODConsole;
+class TCODRandom;
 
 class Game
 {
@@ -108,8 +110,12 @@ class Game
         static Tile* get_mouse_tile();
         static Tile* get_player_tile();
 
+        template<class T>
+        static T* spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room);
+
         static void start_game();
         static void mainloop();
 };
+
 
 #endif

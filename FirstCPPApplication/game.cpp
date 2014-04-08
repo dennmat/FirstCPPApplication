@@ -150,16 +150,9 @@ void Game::fill_dungeon(Map* world)
             int enemy_count = spawning_rng->getInt(1, Troll::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = linear_rng->getInt(2, (*it)->width-3) + (*it)->x;
-                creature_y = linear_rng->getInt(2, (*it)->height-3) + (*it)->y;
                 Troll* the_creature;
-                if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
-                the_creature = Game::create_troll("Random Troll", 34, creature_x, creature_y, 'T', world, "troll combat");
-                if (linear_rng->getInt(1, 100) < 10) 
-                {
-                    the_creature->championize();
-                    // the_creature = Game::create_troll("Burly Troll", 34, creature_x, creature_y, 'T', world, "Burly troll combat");
-                };
+                the_creature = spawn_creature<Troll>( spawning_rng, linear_rng, *it);
+                if (the_creature == NULL) { continue; };
                 world->enemies.push_back(the_creature);
             }
         }
@@ -239,6 +232,23 @@ void Game::fill_dungeon(Map* world)
 
 };
 
+template<class T>
+T* Game::spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room)
+{
+    T* the_creature;
+    int enemy_count = spawning_rng->getInt(1, Troll::pack_size, 5);
+    int creature_x, creature_y;
+    creature_x = linear_rng->getInt(2, room->width-3) + room->x;
+    creature_y = linear_rng->getInt(2, room->height-3) + room->y;
+    if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { return NULL;};
+    the_creature = Game::create_troll("Random Troll", 34, creature_x, creature_y, 'T', world, "troll combat");
+    if (linear_rng->getInt(1, 100) < 10) 
+    {
+        the_creature->championize();
+        // the_creature = Game::create_troll("Burly Troll", 34, creature_x, creature_y, 'T', world, "Burly troll combat");
+    };
+    return the_creature;
+};
 
 Map* Game:: build_town()
 {
