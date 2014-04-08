@@ -159,9 +159,9 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         // }
         // else
         // {
-            limited_messages.push_back((*it));
+        limited_messages.push_back((*it));
 
-            if (++i>message_limit) break;
+        if (++i>message_limit) break;
         // };
     }
 
@@ -171,7 +171,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 
     // for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
     for (std::vector<Message*>::iterator it = limited_messages.begin(); it != limited_messages.end(); ++it) {
-        if (prerendered_msgs.size() >= turn_limit) break;
+        if (prerendered_msgs.size() >= turn_limit+1) break;
 
         if (last_turn != (*it)->turn) 
         {
@@ -195,7 +195,8 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 
                 prerendered_single.append("(x"+copy_str+")");
 
-		if (!prerendered_msgs.empty()) prerendered_msgs.pop_back();
+                if (!prerendered_msgs.empty()) { prerendered_msgs.pop_back(); };
+
                 prerendered_msgs.push_back(prerendered_single);
             }
             prerendered_single.clear();
@@ -226,7 +227,7 @@ Message::Message()
     this->Init();
 };
 
- Message::Message(MessageHandler* handler, message_types_t type, std::string content, ...)
+Message::Message(MessageHandler* handler, message_types_t type, std::string content, ...)
 {
     assert(content.size()!=0);
 
