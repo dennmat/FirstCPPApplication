@@ -4,11 +4,9 @@
 #include <vector>
 #include <string>
 
-
 class Actor;
 
-class Civilian
-{
+class Civilian {
     public:
         int disposition;
         Actor* master;
