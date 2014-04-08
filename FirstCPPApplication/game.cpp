@@ -97,8 +97,8 @@ enum SpawnTypes {
 
 SpawnTypes get_spawn_type()
 {
-    TCODRandom *rng = TCODRandom::getInstance();
-    int dice_roll = rng->getInt(0, 100);
+    TCODRandom *spawning_rng = TCODRandom::getInstance();
+    int dice_roll = spawning_rng->getInt(0, 100);
     if (dice_roll <= 30)
         return SpawnTypes::TrollSpawn;
     else if (dice_roll <= 60)
@@ -136,24 +136,26 @@ void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
     // bool is_troll = true;
+    TCODRandom *spawning_rng = TCODRandom::getInstance();
+    spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+    TCODRandom* linear_rng = new TCODRandom();
+    spawning_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
     for (std::vector<Room*>::iterator it = world->roomVector->begin(); it != world->roomVector->end(); ++it)
     {
         SpawnTypes spawn_type = get_spawn_type();
         int creature_x, creature_y;
-        TCODRandom *rng = TCODRandom::getInstance();
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         if (spawn_type == SpawnTypes::TrollSpawn)
         {
 
-            int enemy_count = rng->getInt(1, Troll::pack_size, 5);
+            int enemy_count = spawning_rng->getInt(1, Troll::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = rng->getInt(2, (*it)->width-3) + (*it)->x;
-                creature_y = rng->getInt(2, (*it)->height-3) + (*it)->y;
+                creature_x = linear_rng->getInt(2, (*it)->width-3) + (*it)->x;
+                creature_y = linear_rng->getInt(2, (*it)->height-3) + (*it)->y;
                 Troll* the_creature;
                 if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
                 the_creature = Game::create_troll("Random Troll", 34, creature_x, creature_y, 'T', world, "troll combat");
-                if (rng->getInt(1, 100) < 10) 
+                if (linear_rng->getInt(1, 100) < 10) 
                 {
                     the_creature->championize();
                     // the_creature = Game::create_troll("Burly Troll", 34, creature_x, creature_y, 'T', world, "Burly troll combat");
@@ -164,15 +166,15 @@ void Game::fill_dungeon(Map* world)
         else if (spawn_type == SpawnTypes::JackalSpawn)
         {
 
-            int enemy_count = rng->getInt(1, Jackal::pack_size);
+            int enemy_count = spawning_rng->getInt(1, Jackal::pack_size);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = rng->getInt(2, (*it)->width-2) + (*it)->x;
-                creature_y = rng->getInt(2, (*it)->height-2) + (*it)->y;
+                creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
+                creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
                 if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
                 Jackal* the_creature;
                 the_creature = Game::create_jackal("Random Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
-                if (rng->getInt(1, 100) < 10) 
+                if (linear_rng->getInt(1, 100) < 10) 
                 {
                     the_creature->championize();
                 };
@@ -181,15 +183,15 @@ void Game::fill_dungeon(Map* world)
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
-            int enemy_count = rng->getInt(1, Ogre::pack_size, 2);
+            int enemy_count = spawning_rng->getInt(1, Ogre::pack_size, 2);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = rng->getInt(2, (*it)->width-2) + (*it)->x;
-                creature_y = rng->getInt(2, (*it)->height-2) + (*it)->y;
+                creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
+                creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
                 if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
                 Ogre* the_creature;
                 the_creature = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
-                if (rng->getInt(1, 100) < 10) 
+                if (linear_rng->getInt(1, 100) < 10) 
                 {
                     // the_creature = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
                     the_creature->championize();
@@ -199,15 +201,15 @@ void Game::fill_dungeon(Map* world)
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
-            int enemy_count = rng->getInt(1, Skeleton::pack_size, 5);
+            int enemy_count = spawning_rng->getInt(1, Skeleton::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = rng->getInt(2, (*it)->width-2) + (*it)->x;
-                creature_y = rng->getInt(2, (*it)->height-2) + (*it)->y;
+                creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
+                creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
                 Skeleton* the_creature;
                 if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
                 the_creature = Game::create_skeleton("Random Skeleton", 92, creature_x, creature_y, 's', world, "skeleton combat");
-                if (rng->getInt(1, 100) < 10) 
+                if (linear_rng->getInt(1, 100) < 10) 
                 {
                     // the_creature = Game::create_skeleton("Strong Skeleton", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
                     the_creature->championize();
@@ -217,15 +219,15 @@ void Game::fill_dungeon(Map* world)
         }
         else if (spawn_type == SpawnTypes::BadMotherSpawn)
         {
-            int enemy_count = rng->getInt(1, BadMother::pack_size, 5);
+            int enemy_count = spawning_rng->getInt(1, BadMother::pack_size, 5);
             for (int i = 0; i <= enemy_count; i++)
             {
-                creature_x = rng->getInt(2, (*it)->width-2) + (*it)->x;
-                creature_y = rng->getInt(2, (*it)->height-2) + (*it)->y;
+                creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
+                creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
                 BadMother* the_creature;
                 if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
                 the_creature = Game::create_bad_mother("Random BadMother", 92, creature_x, creature_y, 'b', world, "bad mother combat");
-                if (rng->getInt(1, 100) < 10) 
+                if (linear_rng->getInt(1, 100) < 10) 
                 {
                     // the_creature = Game::create_skeleton("Strong BadMother", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
                     the_creature->championize();
