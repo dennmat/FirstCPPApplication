@@ -101,17 +101,20 @@ class Game
 
         static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
         static Person * create_townsmen(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
-        static Troll * create_troll(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
-        static BadMother * create_bad_mother(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
-        static Jackal * create_jackal(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
-        static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
-        static Ogre * create_ogre(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        // static Troll * create_troll(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        // static BadMother * create_bad_mother(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        // static Jackal * create_jackal(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        // static Skeleton * create_skeleton(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        // static Ogre * create_ogre(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        template<class T>
+            static T* create_creature(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
 
         static Tile* get_mouse_tile();
         static Tile* get_player_tile();
 
         template<class T>
-        static T* spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room);
+            static T* spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room, std::string name, int age, char repr, std::string combat_name);
+        // static T* spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room);
 
         static void start_game();
         static void mainloop();
