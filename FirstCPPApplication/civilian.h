@@ -1,22 +1,26 @@
-#pragma once
-#ifndef CIVILIAN_H
-#define CIVILIAN_H
-#include <vector>
-#include <string>
+#include "stdafx.h"
+#include "civilian.h"
 
 
-class Actor;
+#include "libtcod_cpp_hpp\libtcod.hpp"
 
-class Civilian
+
+Civilian::Civilian()
 {
-    public:
-        int disposition;
-        Actor* master;
-        std::vector<std::string>* chat_lines;
-        
-        Civilian();
-        ~Civilian();
-        std::string talk_general_topic();
-        void start_combat(){}; //once its fought create a combat for this->master
+    this->disposition = 50;
+    this->master = NULL;
+    this->chat_lines = new std::vector<std::string>();
+    this->chat_lines->push_back("Nice day outside, isn't it?");
+    this->chat_lines->push_back("FREAKING OUT.");
+}
+
+Civilian::~Civilian()
+{
+    delete this->chat_lines;
+}
+
+std::string Civilian::talk_general_topic()
+{
+    int index = TCODRandom::getInstance()->getInt(0, this->chat_lines->size()-1);
+    return this->chat_lines->at(index);
 };
-#endif
