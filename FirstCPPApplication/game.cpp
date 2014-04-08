@@ -135,7 +135,6 @@ void Game::fill_town(Map* world)
 void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
-    // bool is_troll = true;
     TCODRandom *spawning_rng = TCODRandom::getInstance();
     spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
     TCODRandom* linear_rng = new TCODRandom();
@@ -146,84 +145,23 @@ void Game::fill_dungeon(Map* world)
         int creature_x, creature_y;
         if (spawn_type == SpawnTypes::TrollSpawn)
         {
-
             Troll* the_creature = spawn_creature<Troll>( spawning_rng, linear_rng, *it, "Random Troll", 34, 'T', "troll combat");
         }
         else if (spawn_type == SpawnTypes::JackalSpawn)
         {
-
             Jackal* the_creature = spawn_creature<Jackal>( spawning_rng, linear_rng, *it, "Random Jackal", 31, 'j', "Jackal combat");
-            //int enemy_count = spawning_rng->getInt(1, Jackal::pack_size, 10);
-            //for (int i = 0; i <= enemy_count; i++)
-            //{
-            //    creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
-            //    creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
-            //    if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
-            //    Jackal* the_creature;
-            //    the_creature = Game::create_creature<Jackal>("Random Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
-            //    if (linear_rng->getInt(1, 100) < 10) 
-            //    {
-            //        the_creature->championize();
-            //    };
-            //    world->enemies.push_back(the_creature);
-            //}
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
             Ogre* the_creature = spawn_creature<Ogre>( spawning_rng, linear_rng, *it, "Random Ogre", 103, 'O', "Ogre combat");
-            //int enemy_count = spawning_rng->getInt(1, Ogre::pack_size, 2);
-            //for (int i = 0; i <= enemy_count; i++)
-            //{
-            //    creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
-            //    creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
-            //    if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
-            //    Ogre* the_creature;
-            //    the_creature = Game::create_ogre("Random Ogre", 103, creature_x, creature_y, 'O', world, "ogre combat");
-            //    if (linear_rng->getInt(1, 100) < 10) 
-            //    {
-            //        // the_creature = Game::create_ogre("Strong Ogre", 103, creature_x, creature_y, 'O', world, "strong ogre combat");
-            //        the_creature->championize();
-            //    };
-            //    world->enemies.push_back(the_creature);
-            //}
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
             Skeleton* the_creature = spawn_creature<Skeleton>( spawning_rng, linear_rng, *it, "Random Skeleton", 92, 's', "Skeleton combat");
-            //int enemy_count = spawning_rng->getInt(1, Skeleton::pack_size, 5);
-            //for (int i = 0; i <= enemy_count; i++)
-            //{
-            //    creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
-            //    creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
-            //    Skeleton* the_creature;
-            //    if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
-            //    the_creature = Game::create_skeleton("Random Skeleton", 92, creature_x, creature_y, 's', world, "skeleton combat");
-            //    if (linear_rng->getInt(1, 100) < 10) 
-            //    {
-            //        // the_creature = Game::create_skeleton("Strong Skeleton", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
-            //        the_creature->championize();
-            //    };
-            //    world->enemies.push_back(the_creature);
-            //}
         }
         else if (spawn_type == SpawnTypes::BadMotherSpawn)
         {
             BadMother* the_creature = spawn_creature<BadMother>( spawning_rng, linear_rng, *it, "Random BadMother", 92, 'b', "BadMother combat");
-        //    int enemy_count = spawning_rng->getInt(1, BadMother::pack_size, 5);
-        //    for (int i = 0; i <= enemy_count; i++)
-        //    {
-        //        creature_x = linear_rng->getInt(2, (*it)->width-2) + (*it)->x;
-        //        creature_y = linear_rng->getInt(2, (*it)->height-2) + (*it)->y;
-        //        BadMother* the_creature;
-        //        if (!world->getTileAt(creature_x, creature_y)->is_walkable()) { continue;};
-        //        the_creature = Game::create_bad_mother("Random BadMother", 92, creature_x, creature_y, 'b', world, "bad mother combat");
-        //        if (linear_rng->getInt(1, 100) < 10) 
-        //        {
-        //            // the_creature = Game::create_skeleton("Strong BadMother", 92, creature_x, creature_y, 's', world, "strong skeleton combat");
-        //            the_creature->championize();
-        //        };
-        //        world->enemies.push_back(the_creature);
-        //    }
         }
     }
 
@@ -343,79 +281,6 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr, std
     return new_pers;
 };
 
-// Troll * Game::create_troll(std::string name, int age, int x, int y, char repr, 
-//         Map* map, std::string Combat_name)
-// {
-//     //build the Person
-//     Troll * new_pers = new Troll(name, age, x, y, repr, Combat_name);
-// 
-//     //put it on the map somewhere
-//     Tile * next_tile = map->getTileAt(x,y);
-//     new_pers->putPerson(next_tile, x, y);
-// 
-//     return new_pers;
-// 
-// };
-// 
-// BadMother * Game::create_bad_mother(std::string name, int age, int x, int y, char repr, 
-//         Map* map, std::string Combat_name)
-// {
-//     //build the Person
-//     BadMother * new_pers = new BadMother(name, age, x, y, repr, Combat_name);
-// 
-//     //put it on the map somewhere
-//     Tile * next_tile = map->getTileAt(x,y);
-//     new_pers->putPerson(next_tile, x, y);
-// 
-//     return new_pers;
-// 
-// };
-// 
-// Jackal * Game::create_jackal(std::string name, int age, int x, int y, char repr, 
-//         Map* map, std::string Combat_name)
-// {
-//     //build the Person
-//     Jackal * new_pers = new Jackal(name, age, x, y, repr, Combat_name);
-// 
-//     //put it on the map somewhere
-//     Tile * next_tile = map->getTileAt(x,y);
-//     new_pers->putPerson(next_tile, x, y);
-// 
-//     return new_pers;
-// 
-// };
-// 
-// Ogre * Game::create_ogre(std::string name, int age, int x, int y, char repr,
-//         Map* map, std::string Combat_name)
-// {
-// 
-//     //build the Person
-//     Ogre * new_pers = new Ogre(name, age, x, y, repr, Combat_name);
-// 
-// 
-//     //put it on the map somewhere
-//     Tile * next_tile = map->getTileAt(x,y);
-//     new_pers->putPerson(next_tile, x, y);
-// 
-//     return new_pers;
-// 
-// };
-// 
-// Skeleton * Game::create_skeleton(std::string name, int age, int x, int y, char repr,
-//         Map* map, std::string Combat_name)
-// {
-// 
-//     //build the Person
-//     Skeleton * new_pers = new Skeleton(name, age, x, y, repr, Combat_name);
-// 
-// 
-//     //put it on the map somewhere
-//     Tile * next_tile = map->getTileAt(x,y);
-//     new_pers->putPerson(next_tile, x, y);
-// 
-//     return new_pers;
-// 
-// };
 
 //creates a bunch of items on the map
 void  Game::initialize_items(){
@@ -438,13 +303,13 @@ void  Game::initialize_items(){
 
 };
 
-//creates a bunch of enemies on the map
-void  Game::initialize_enemies()
-{
-    //Game::current_map->enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', Game::current_map, "First Person"));
-    //Game::current_map->enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
-    //Game::current_map->enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
-};
+// //creates a bunch of enemies on the map
+// void  Game::initialize_enemies()
+// {
+//     //Game::current_map->enemies.push_back(Game::create_person("First", 99, 20, 2, 'p', Game::current_map, "First Person"));
+//     //Game::current_map->enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
+//     //Game::current_map->enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
+// };
 
 Person*  Game::initialize_player()
 {
