@@ -1,0 +1,5 @@
+id,name,xp_value,champ_chance,pack_size,preferred_pack_size,age
+1,ogre,50,10,5,3,99
+2,jackal,10,,15,10,33
+3,troll,10,25,10,7,100
+4,skeleton,50,,7,5,200

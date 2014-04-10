@@ -1,0 +1,21 @@
+{
+    "monsters" : {
+        "1": {
+            "name" : "Troll",
+                "xp_value" : 10,
+                "champ_chance" : 10,
+                "pack_size" : 10,
+                "preferred_pack_size" : 10,
+                "age" : 10
+        },
+            "2" : {
+                "name" : "Skeleton",
+                "xp_value" : 10,
+                "champ_chance" : 10,
+                "pack_size" : 10,
+                "preferred_pack_size" : 10
+            }
+    }
+
+
+}
