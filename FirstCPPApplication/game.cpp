@@ -85,6 +85,9 @@ Map* Game::current_map = NULL;
 int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
 
+TCODRandom* Game::spawning_rng = new TCODRandom(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
+
 
 enum SpawnTypes {
     TrollSpawn = 1,
@@ -135,48 +138,44 @@ void Game::fill_town(Map* world)
 void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
-    TCODRandom *spawning_rng = TCODRandom::getInstance();
-    spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-    TCODRandom* linear_rng = new TCODRandom();
-    spawning_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
     for (std::vector<Room*>::iterator it = world->roomVector->begin(); it != world->roomVector->end(); ++it)
     {
         SpawnTypes spawn_type = get_spawn_type();
         int creature_x, creature_y;
         if (spawn_type == SpawnTypes::TrollSpawn)
         {
-            Troll* the_creature = spawn_creature<Troll>( spawning_rng, linear_rng, *it, "Random Troll", 34, 'T', "troll combat");
+            Troll* the_creature = spawn_creature<Troll>(*it, "Random Troll", 34, 'T', "troll combat");
         }
         else if (spawn_type == SpawnTypes::JackalSpawn)
         {
-            Jackal* the_creature = spawn_creature<Jackal>( spawning_rng, linear_rng, *it, "Random Jackal", 31, 'j', "Jackal combat");
+            Jackal* the_creature = spawn_creature<Jackal>(*it, "Random Jackal", 31, 'j', "Jackal combat");
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
-            Ogre* the_creature = spawn_creature<Ogre>( spawning_rng, linear_rng, *it, "Random Ogre", 103, 'O', "Ogre combat");
+            Ogre* the_creature = spawn_creature<Ogre>(*it, "Random Ogre", 103, 'O', "Ogre combat");
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
-            Skeleton* the_creature = spawn_creature<Skeleton>( spawning_rng, linear_rng, *it, "Random Skeleton", 92, 's', "Skeleton combat");
+            Skeleton* the_creature = spawn_creature<Skeleton>(*it, "Random Skeleton", 92, 's', "Skeleton combat");
         }
         else if (spawn_type == SpawnTypes::BadMotherSpawn)
         {
-            BadMother* the_creature = spawn_creature<BadMother>( spawning_rng, linear_rng, *it, "Random BadMother", 92, 'b', "BadMother combat");
+            BadMother* the_creature = spawn_creature<BadMother>(*it, "Random BadMother", 92, 'b', "BadMother combat");
         }
     }
 
 };
 
 template<class T>
-T* Game::spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room, std::string name, int age, char repr, std::string combat_name)
+T* Game::spawn_creature(Room* room, std::string name, int age, char repr, std::string combat_name)
 {
-    int enemy_count = spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
+    int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
     for (int i = 0; i <= enemy_count; i++)
     {
-        int enemy_count = spawning_rng->getInt(1, Troll::pack_size, 5);
+        int enemy_count = Game::spawning_rng->getInt(1, Troll::pack_size, 5);
         int creature_x, creature_y;
-        creature_x = linear_rng->getInt(2, room->width-3) + room->x;
-        creature_y = linear_rng->getInt(2, room->height-3) + room->y;
+        creature_x = Game::linear_rng->getInt(2, room->width-3) + room->x;
+        creature_y = Game::linear_rng->getInt(2, room->height-3) + room->y;
 
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {continue;};
 

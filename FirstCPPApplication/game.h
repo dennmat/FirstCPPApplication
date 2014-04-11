@@ -81,6 +81,8 @@ class Game
         static bool buildmode;
         static Tile *clipboard;
 
+        static TCODRandom* spawning_rng;
+        static TCODRandom* linear_rng;
 
         static std::string last_cmd;
 
@@ -108,7 +110,7 @@ class Game
         static Tile* get_player_tile();
 
         template<class T>
-            static T* spawn_creature( TCODRandom* spawning_rng, TCODRandom* linear_rng, Room* room, std::string name, int age, char repr, std::string combat_name);
+            static T* spawn_creature(Room* room, std::string name, int age, char repr, std::string combat_name);
 
         static void start_game();
         static void mainloop();
