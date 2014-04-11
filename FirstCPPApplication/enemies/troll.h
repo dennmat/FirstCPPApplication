@@ -6,7 +6,7 @@
 class Troll : public Person
 {
     public:
-        Troll(std::string name, int age, int x, int y, char repr, std::string combat_name);
+        Troll(std::string name, int age, int x, int y, char repr);
         static const int Troll::pack_size = 10;
         void championize();
         void Die() ;

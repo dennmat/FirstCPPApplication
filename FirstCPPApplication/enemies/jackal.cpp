@@ -16,7 +16,7 @@
 #include "attribute_container.h"
 #include "combat.h"
 
-Jackal::Jackal(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
+Jackal::Jackal(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
     this->xp_value = 7;
     this->cls_name = "Jackal";

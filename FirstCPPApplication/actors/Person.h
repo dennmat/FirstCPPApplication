@@ -19,7 +19,7 @@ class Person : public Actor
         int age;
 
         Person();
-        Person(std::string name, int age, int x, int y, char repr, std::string combat_name);
+        Person(std::string name, int age, int x, int y, char repr);
         ~Person();
 
         void attack(Actor * target);

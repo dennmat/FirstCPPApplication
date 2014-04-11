@@ -20,7 +20,7 @@
 #include "ui.h"
 #include "civilian.h"
 
-Person::Person(std::string name, int age, int x, int y, char repr, std::string combat_name)
+Person::Person(std::string name, int age, int x, int y, char repr)
 {
     this->cls_name = "Person";
     this->name = name;

@@ -6,7 +6,7 @@
 class Jackal : public Person
 {
     public:
-        Jackal(std::string name, int age, int x, int y, char repr, std::string combat_name);
+        Jackal(std::string name, int age, int x, int y, char repr);
         static const int pack_size = 10;
         static const int preferred_pack_size = 10;
         void championize();

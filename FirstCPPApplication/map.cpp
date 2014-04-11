@@ -212,7 +212,7 @@ class TownListener : public ITCODBspCallback
                 // {
                 Room* new_room = this->map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
                 int center_x = new_room->center_x, center_y =new_room->center_y+1;
-                Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, center_x, center_y, 't', &this->map, "To be deleted");
+                Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, center_x, center_y, 't', &this->map);
 
                 //if the Townsmen can path to (0, 0), remove him because the
                 //room is not walled in

@@ -131,7 +131,7 @@ Tile* Game::get_player_tile()
 
 void Game::fill_town(Map* world)
 {
-    Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, 10, 10, 't', world, "To be deleted");
+    Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, 10, 10, 't', world);
     world->enemies.push_back(the_townsmen);
 };
 
@@ -144,30 +144,30 @@ void Game::fill_dungeon(Map* world)
         int creature_x, creature_y;
         if (spawn_type == SpawnTypes::TrollSpawn)
         {
-            Troll* the_creature = spawn_creature<Troll>(*it, "Random Troll", 34, 'T', "troll combat");
+            Troll* the_creature = spawn_creature<Troll>(*it, "Random Troll", 34, 'T');
         }
         else if (spawn_type == SpawnTypes::JackalSpawn)
         {
-            Jackal* the_creature = spawn_creature<Jackal>(*it, "Random Jackal", 31, 'j', "Jackal combat");
+            Jackal* the_creature = spawn_creature<Jackal>(*it, "Random Jackal", 31, 'j');
         }
         else if (spawn_type == SpawnTypes::OgreSpawn)
         {
-            Ogre* the_creature = spawn_creature<Ogre>(*it, "Random Ogre", 103, 'O', "Ogre combat");
+            Ogre* the_creature = spawn_creature<Ogre>(*it, "Random Ogre", 103, 'O');
         }
         else if (spawn_type == SpawnTypes::SkeletonSpawn)
         {
-            Skeleton* the_creature = spawn_creature<Skeleton>(*it, "Random Skeleton", 92, 's', "Skeleton combat");
+            Skeleton* the_creature = spawn_creature<Skeleton>(*it, "Random Skeleton", 92, 's');
         }
         else if (spawn_type == SpawnTypes::BadMotherSpawn)
         {
-            BadMother* the_creature = spawn_creature<BadMother>(*it, "Random BadMother", 92, 'b', "BadMother combat");
+            BadMother* the_creature = spawn_creature<BadMother>(*it, "Random BadMother", 92, 'b');
         }
     }
 
 };
 
 template<class T>
-T* Game::spawn_creature(Room* room, std::string name, int age, char repr, std::string combat_name)
+T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
 {
     int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
     for (int i = 0; i <= enemy_count; i++)
@@ -179,7 +179,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, std::s
 
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {continue;};
 
-        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, combat_name);
+        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr);
         if (linear_rng->getInt(1, 100) < 10) 
         {
             the_creature->championize();
@@ -234,11 +234,10 @@ Map* Game:: build_world()
 }
 
 //creates a person and places them on the current map
-Person * Game::create_person(std::string name, int age, int x, int y, char repr, 
-        Map* map, std::string Combat_name)
+Person * Game::create_person(std::string name, int age, int x, int y, char repr, Map* map)
 {
     //build the Person
-    Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
+    Person * new_pers = new Person(name, age, x, y, repr);
 
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);
@@ -249,10 +248,10 @@ Person * Game::create_person(std::string name, int age, int x, int y, char repr,
 
 //creates a person and places them on the current map
 Person * Game::create_townsmen(std::string name, int age, int x, int y, char repr, 
-        Map* map, std::string Combat_name)
+        Map* map)
 {
     //build the Person
-    Person * new_pers = new Person(name, age, x, y, repr, Combat_name);
+    Person * new_pers = new Person(name, age, x, y, repr);
 
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);
@@ -268,10 +267,10 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 };
 
 template<class T>
-T* Game::create_creature(std::string name, int age, int x, int y, char repr, std::string Combat_name)
+T* Game::create_creature(std::string name, int age, int x, int y, char repr)
 {
     //build the Person
-    T * new_pers = new T(name, age, x, y, repr, Combat_name);
+    T * new_pers = new T(name, age, x, y, repr);
 
     //put it on the map somewhere
     Tile * next_tile = Game::world->getTileAt(x,y);
@@ -312,7 +311,7 @@ void  Game::initialize_items(){
 
 Person*  Game::initialize_player()
 {
-    player = new Person("Josh", 23, 3, 3, '@', "PLAYER ONE");
+    player = new Person("Josh", 23, 3, 3, '@');
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
 

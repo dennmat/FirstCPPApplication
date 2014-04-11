@@ -101,16 +101,16 @@ class Game
         static void fill_dungeon(Map* world);
         static void fill_town(Map* world);
 
-        static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
-        static Person * create_townsmen(std::string name, int age, int x, int y, char repr, Map* map, std::string Combat_name = "");
+        static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map);
+        static Person * create_townsmen(std::string name, int age, int x, int y, char repr, Map* map);
         template<class T>
-            static T* create_creature(std::string name, int age, int x, int y, char repr, std::string Combat_name = "");
+            static T* create_creature(std::string name, int age, int x, int y, char repr);
 
         static Tile* get_mouse_tile();
         static Tile* get_player_tile();
 
         template<class T>
-            static T* spawn_creature(Room* room, std::string name, int age, char repr, std::string combat_name);
+            static T* spawn_creature(Room* room, std::string name, int age, char repr);
 
         static void start_game();
         static void mainloop();

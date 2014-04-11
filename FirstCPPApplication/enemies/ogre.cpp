@@ -17,7 +17,7 @@
 #include "attribute_container.h"
 #include "combat.h"
 
-Ogre::Ogre(std::string name, int age, int x, int y, char repr, std::string combat_name) : Person(name, age, x, y, repr, combat_name)
+Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
     this->xp_value = 55;
     // this->name = name;
