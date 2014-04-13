@@ -311,7 +311,7 @@ void  Game::initialize_items(){
 
 Person*  Game::initialize_player()
 {
-    player = new Person("Josh", 23, 3, 3, '@');
+    player = new Person("Josh", 23, 0, 0, '@');
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
 
@@ -334,8 +334,14 @@ Person*  Game::initialize_player()
     player->spells->back()->mana_cost = 10;
     player->spells->back()->max_range = 10;
 
-    Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
-    player->putPerson(next_tile, player->x, player->y);
+    //Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
+    Room* room = Game::current_map->roomVector->front();
+    int x = room->center_x;
+    int y = room->center_y;
+    Game::player->putPerson(world->getTileAt(x, y), x, y);
+    Game::camera_x = player->x;
+    Game::camera_y = player->y;
+    //player->putPerson(next_tile, player->x, player->y);
 
     return player;
 
