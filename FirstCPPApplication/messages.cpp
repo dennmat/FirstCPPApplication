@@ -130,7 +130,7 @@ bool sorting_by_type(Message* a, Message* b)
 {
     // std::cout << a->content;
     // std::cout << b->content;
-    bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) >= (b->turn));
+    bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) <= (b->turn));
     // std::cout << BoolToString(result);
     // std::cout << std::endl;
     return result;
