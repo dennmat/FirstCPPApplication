@@ -68,6 +68,11 @@ class Game
         static int camera_x;
         static int camera_y;
 
+        static void center_camera_on(int abs_x, int abs_y);
+        static void center_camera_on(Actor* actor);
+        static void center_camera_on(Tile* tile);
+        static void center_camera_on_player();
+
         static unsigned long int turn_count;
         static unsigned long long int tick_count;
 

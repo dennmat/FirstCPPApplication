@@ -353,13 +353,34 @@ Person*  Game::initialize_player()
     int x = room->center_x;
     int y = room->center_y;
     Game::player->putPerson(world->getTileAt(x, y), x, y);
-    Game::camera_x = player->x - (Game::game_console->getWidth()/2);
-    Game::camera_y = player->y - (Game::game_console->getHeight()/2);
     //player->putPerson(next_tile, player->x, player->y);
     Game::initialize_items();
 
+    Game::center_camera_on_player();
+
     return player;
 
+};
+
+void Game::center_camera_on(int abs_x, int abs_y)
+{
+    Game::camera_x = abs_x - (Game::game_console->getWidth()/2);
+    Game::camera_y = abs_y - (Game::game_console->getHeight()/2);
+};
+
+void Game::center_camera_on(Actor* actor)
+{
+    Game::center_camera_on(actor->x, actor->y);
+};
+
+void Game::center_camera_on(Tile* tile)
+{
+    Game::center_camera_on(tile->tile_x, tile->tile_y);
+};
+
+void Game::center_camera_on_player()
+{
+    Game::center_camera_on(Game::player);
 };
 
 // Game::Game()
@@ -391,7 +412,6 @@ Person*  Game::initialize_player()
 
 void Game::update()
 {
-
     //update player
     Game::player->update();
 

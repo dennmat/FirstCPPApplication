@@ -37,6 +37,7 @@ enum basic_cmds_t {
     OpenMagic, ConfirmCast,
     OpenCharacterSheet,
     OpenHelp, OpenClassSelect,
+    CenterScreenToMouse,
     NO_MATCHING_BASIC_CMD
 };
 
@@ -58,6 +59,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
     char_movemap['m'] = basic_cmds_t::OpenMagic;
     char_movemap['k'] = basic_cmds_t::ConfirmCast;
     char_movemap['p'] = basic_cmds_t::OpenClassSelect;
+    spec_movemap[TCODK_SPACE] = basic_cmds_t::CenterScreenToMouse;
 
     return find_key(key, char_movemap, spec_movemap, basic_cmds_t::NO_MATCHING_BASIC_CMD);
 };
@@ -237,6 +239,11 @@ bool process_basic_cmd(TCOD_key_t request)
     {
         Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::InventoryScreen;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::CenterScreenToMouse )
+    {
+        Game::center_camera_on(Game::get_mouse_tile());
     }
 
     else if ( basic_cmd == basic_cmds_t::OpenMagic )
