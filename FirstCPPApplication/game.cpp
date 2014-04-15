@@ -44,8 +44,8 @@ DebugOptions* Game::debug_opts = new DebugOptions;
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
-int Game::map_width = 160;
-int Game::map_height = 140;
+int Game::map_width = 60;
+int Game::map_height = 40;
 int Game::town_width = 60;
 int Game::town_height = 40;
 
@@ -114,7 +114,7 @@ SpawnTypes get_spawn_type()
         return SpawnTypes::BadMotherSpawn;
     else
         assert(false && "Math is bad.");
-        return SpawnTypes::ErrorSpawn;
+    return SpawnTypes::ErrorSpawn;
 };
 
 Tile* Game::get_mouse_tile()
@@ -135,38 +135,52 @@ void Game::fill_town(Map* world)
     world->enemies.push_back(the_townsmen);
 };
 
+void Game::fill_generic_room(Room* room)
+{
+    SpawnTypes spawn_type = get_spawn_type();
+    int creature_x, creature_y;
+    if (spawn_type == SpawnTypes::TrollSpawn)
+    {
+        spawn_creature<Troll>(room, "Random Troll", 34, 'T');
+    }
+    else if (spawn_type == SpawnTypes::JackalSpawn)
+    {
+        spawn_creature<Jackal>(room, "Random Jackal", 31, 'j');
+    }
+    else if (spawn_type == SpawnTypes::OgreSpawn)
+    {
+        spawn_creature<Ogre>(room, "Random Ogre", 103, 'O');
+    }
+    else if (spawn_type == SpawnTypes::SkeletonSpawn)
+    {
+        spawn_creature<Skeleton>(room, "Random Skeleton", 92, 's');
+    }
+    else if (spawn_type == SpawnTypes::BadMotherSpawn)
+    {
+        spawn_creature<BadMother>(room, "Random BadMother", 92, 'b');
+    }
+};
+
 void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
     for (std::vector<Room*>::iterator it = world->roomVector->begin(); it != world->roomVector->end(); ++it)
     {
-        SpawnTypes spawn_type = get_spawn_type();
-        int creature_x, creature_y;
-        if (spawn_type == SpawnTypes::TrollSpawn)
+        if (it == world->roomVector->begin())
         {
-            Troll* the_creature = spawn_creature<Troll>(*it, "Random Troll", 34, 'T');
+            //spawn one dude to whom you can sell your shit
+            Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, 10, 10, 't', world);
         }
-        else if (spawn_type == SpawnTypes::JackalSpawn)
+
+        else
         {
-            Jackal* the_creature = spawn_creature<Jackal>(*it, "Random Jackal", 31, 'j');
-        }
-        else if (spawn_type == SpawnTypes::OgreSpawn)
-        {
-            Ogre* the_creature = spawn_creature<Ogre>(*it, "Random Ogre", 103, 'O');
-        }
-        else if (spawn_type == SpawnTypes::SkeletonSpawn)
-        {
-            Skeleton* the_creature = spawn_creature<Skeleton>(*it, "Random Skeleton", 92, 's');
-        }
-        else if (spawn_type == SpawnTypes::BadMotherSpawn)
-        {
-            BadMother* the_creature = spawn_creature<BadMother>(*it, "Random BadMother", 92, 'b');
+            fill_generic_room(*it);
         }
     }
 
 };
 
-template<class T>
+    template<class T>
 T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
 {
     int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
@@ -199,7 +213,7 @@ Map* Game:: build_town()
     return world;
 }
 
-Map* Game:: build_world()
+Map* Game::build_world()
 {
 
     std::cout << get_exe_path() << std::endl;
@@ -266,7 +280,7 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
     return new_pers;
 };
 
-template<class T>
+    template<class T>
 T* Game::create_creature(std::string name, int age, int x, int y, char repr)
 {
     //build the Person
@@ -284,7 +298,7 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr)
 void  Game::initialize_items(){
 
     //put it on the map somewhere
-    Tile * next_tile = current_map->getTileAt(1,1);
+    // Tile * next_tile = current_map->getTileAt(1,1);
 
     // Item* item = new Item();
     // next_tile->place_item_down(item);
@@ -342,6 +356,7 @@ Person*  Game::initialize_player()
     Game::camera_x = player->x;
     Game::camera_y = player->y;
     //player->putPerson(next_tile, player->x, player->y);
+    Game::initialize_items();
 
     return player;
 
@@ -403,20 +418,20 @@ void Game::update_ui()
         case GameStates::GameplayState: 
             Ui::update_ui();
             break;
-        // case GameStates::MenuState:
-        //     Ui::update_inventory_ui();
-        //     break;
+            // case GameStates::MenuState:
+            //     Ui::update_inventory_ui();
+            //     break;
     };
 }
 
 void Game::draw_ui()
 {
     if (Game::current_state == GameStates::GameplayState)
-    // switch(Game::current_state)
+        // switch(Game::current_state)
     {
         // case GameStates::GameplayState: 
-            Ui::draw_ui();
-            // break;
+        Ui::draw_ui();
+        // break;
     }
     else
     {
@@ -459,16 +474,16 @@ bool gameplay_loop(bool incr_turn)
         if (item_count == 1)
         {
             std::string msg_str =  "%s is on the ground.";
-             new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
+            new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
         }
         else if (item_count > 1)
         {
             std::string msg_str = "%d items are on the ground.";
-             new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
+            new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
         }
         else 
         {
-             new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "Nothing on the ground.");
+            new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "Nothing on the ground.");
         }
 
         //tile description
@@ -517,7 +532,7 @@ void Game::start_game()
     std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world();
     std::cout << "ending world gen" << std::endl;
-     // Map* last_map = Game::build_town();
+    // Map* last_map = Game::build_town();
     Game::current_map = new_map;
 
     Game::initialize_player(); //created the Person player

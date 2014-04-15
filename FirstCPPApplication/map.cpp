@@ -392,7 +392,6 @@ int Map::build_dungeon_from_random(int seed)
             //light passes though, walkable
             l_map -> setProperties(x, y, true, true);
         }
-
         else 
         {
             //light does NOT pass through nor is walkable
