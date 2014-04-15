@@ -353,8 +353,8 @@ Person*  Game::initialize_player()
     int x = room->center_x;
     int y = room->center_y;
     Game::player->putPerson(world->getTileAt(x, y), x, y);
-    Game::camera_x = player->x;
-    Game::camera_y = player->y;
+    Game::camera_x = player->x - (Game::game_console->getWidth()/2);
+    Game::camera_y = player->y - (Game::game_console->getHeight()/2);
     //player->putPerson(next_tile, player->x, player->y);
     Game::initialize_items();
 
