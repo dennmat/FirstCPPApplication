@@ -210,7 +210,7 @@ void Ui::draw_mouse_helpbox()
     TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
 };
 
-void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con)
+void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con, int& y)
 {
     //is moving in a direction
     bool ml = Game::player->is_moving_left;
@@ -229,9 +229,9 @@ void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con)
     else if (ml) { sl= "-"; }
     else if (mr) { sr= "-"; };
 
-    ui_sidebar_con->print(1,  8, "%s%s%s", stl.c_str(), st.c_str(), str.c_str());
-    ui_sidebar_con->print(1,  9, "%so%s", sl.c_str(), sr.c_str());
-    ui_sidebar_con->print(1, 10, "%s%s%s", sbl.c_str(), sb.c_str(), sbr.c_str());
+    ui_sidebar_con->print(1,  y++, "%s%s%s", stl.c_str(), st.c_str(), str.c_str());
+    ui_sidebar_con->print(1,  y++, "%so%s", sl.c_str(), sr.c_str());
+    ui_sidebar_con->print(1, y++, "%s%s%s", sbl.c_str(), sb.c_str(), sbr.c_str());
 
 };
 
@@ -274,9 +274,9 @@ void Ui::draw_ui_sidebar()
         TCODConsole::setColorControl(TCOD_COLCTRL_1, player_hp_color, TCODColor::black);
     };
 
-    ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
-    first_y++;
-    ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d%c", TCOD_COLCTRL_1, Ui::game->player->attrs->health->current_val, TCOD_COLCTRL_STOP);
+    // ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
+    // first_y++;
+    ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d/%d%c", TCOD_COLCTRL_1, Ui::game->player->attrs->health->current_val, Ui::game->player->attrs->health->max_val, TCOD_COLCTRL_STOP);
     first_y++;
     first_y++;
 
@@ -285,19 +285,20 @@ void Ui::draw_ui_sidebar()
     first_y++;
     ui_sidebar_con->print(0, first_y, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
     first_y++;
+    first_y++;
 
     //facing direction
-    Ui::draw_facing_angle(ui_sidebar_con);
+    Ui::draw_facing_angle(ui_sidebar_con, first_y);
 
     //draw player inventory info
-    ui_sidebar_con->print(0, 12, "Items in inventory:");
-    ui_sidebar_con->print(0, 13, "%d", Ui::game->player->inventory->get_count());
+    ui_sidebar_con->print(0, first_y++, "Items in inventory:");
+    ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_count());
+    //draw player burden
+    ui_sidebar_con->print(0, first_y++, "Total burden");
+    ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_total_weight());
+    first_y++;
 
-    //draw player inventory info
-    ui_sidebar_con->print(0, 15, "Total burden");
-    ui_sidebar_con->print(0, 16, "%d", Ui::game->player->inventory->get_total_weight());
-
-    int initial_y = 18;
+    int initial_y = first_y++;
     int y = initial_y;
     Ui::draw_xp(y, ui_sidebar_con, ui_sidebar_fore);
     y++;
