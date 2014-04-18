@@ -24,17 +24,17 @@ bool process_key_event(TCOD_key_t request);
 
 extern enum directions_t;
 directions_t direction_pressed(TCOD_key_t key);
-bool is_request_move_cmd(TCOD_key_t request);
-bool process_movement(TCOD_key_t request);
+bool is_key_move_command(TCOD_key_t request);
+bool process_movement_keys(TCOD_key_t request);
 
 extern enum inventory_items_active_t;
 inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key);
-bool is_request_inventory_item_active_cmd(TCOD_key_t request);
-bool process_inventory_item_active(TCOD_key_t request);
+bool is_key_inventory_command(TCOD_key_t request);
+bool process_inventory_keys(TCOD_key_t request);
 
 extern enum basic_cmds_t;
 basic_cmds_t  basic_cmd_pressed(TCOD_key_t key);
-bool is_request_basic_cmd(TCOD_key_t request);
+bool is_key_basic_command(TCOD_key_t request);
 bool process_basic_cmd(TCOD_key_t request);
 
 typedef std::unordered_map<char, int> generic_keypair_t;

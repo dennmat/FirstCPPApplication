@@ -376,7 +376,7 @@ bool process_basic_cmd(TCOD_key_t request)
     };
 };
 
-bool process_inventory_item_active(TCOD_key_t request)
+bool process_inventory_keys(TCOD_key_t request)
 {
     inventory_items_active_t action = inventory_items_active_pressed(request);
 
@@ -431,7 +431,7 @@ bool process_inventory_item_active(TCOD_key_t request)
     return false;
 };
 
-bool process_classes_active(TCOD_key_t request)
+bool process_classes_keys(TCOD_key_t request)
 {
     classes_active_t action = classes_active_pressed(request);
 
@@ -498,7 +498,7 @@ bool process_classes_active(TCOD_key_t request)
     return false;
 };
 
-bool process_spells_active(TCOD_key_t request)
+bool process_spells_keys(TCOD_key_t request)
 {
     spells_active_t action = spells_active_pressed(request);
 
@@ -637,7 +637,7 @@ void move_camera(int dir_x, int dir_y)
 };
 
 //returns whether or not the player has moved and should increment the turn
-bool process_movement(TCOD_key_t request)
+bool process_movement_keys(TCOD_key_t request)
 {
     Map *world = Game::world;
     bool buildmode = Game::buildmode;
@@ -762,106 +762,29 @@ bool process_movement(TCOD_key_t request)
 
 };
 
-bool is_request_basic_cmd(TCOD_key_t request)
+bool is_key_basic_command(TCOD_key_t request)
 {
     return basic_cmd_pressed(request) != basic_cmds_t::NO_MATCHING_BASIC_CMD;
 };
 
-bool is_request_move_cmd(TCOD_key_t request)
+bool is_key_move_command(TCOD_key_t request)
 {
     return direction_pressed(request) != directions_t::NO_MATCHING_DIRECTION;
 };
 
-bool is_request_inventory_item_active_cmd(TCOD_key_t request)
+bool is_key_inventory_command(TCOD_key_t request)
 {
     return inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
 };
 
-bool is_request_spell_active_cmd(TCOD_key_t request)
+bool is_key_spell_command(TCOD_key_t request)
 {
     return spells_active_pressed(request) != spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
 };
 
-bool is_request_class_active_cmd(TCOD_key_t request)
+bool is_key_class_command(TCOD_key_t request)
 {
     return classes_active_pressed(request) != classes_active_t::NO_MATCHING_CLASSES_ACTIVE;
-};
-
-void process_buildmode(TCOD_key_t request, int current_tile)
-{
-    // Map *world = Game::world;
-    // bool buildmode = Game::buildmode;
-    // if(request.c == 'c')
-    // {
-    //     // do the stuff to make a new tile
-    //     std::cout << "type_id: ";
-    //     Tile this_tile = Game::current_map->tileArray[current_tile];
-    //     std::cin >> this_tile.type_id;
-    //     if(this_tile.type_id == TileTypes::WarpTileTypeType)
-    //     {
-    //         WarpTileType* warp_tile;
-    //         warp_tile = (WarpTileType*) this_tile.tile;
-
-    //         std::cout << "Warp Map: ";
-    //         std::cin >> warp_tile->warpMap;
-    //         std::cout << "WarpX: ";
-    //         std::cin >> warp_tile->warpX;
-    //         std::cout << "WarpY: ";
-    //         std::cin >> warp_tile->warpY;
-    //     }
-    //     std::cout << std::endl << "Description: ";
-    //     getline(std::cin, this_tile.tile->description);  // do this twice because hitting enter... whatever
-    //     getline(std::cin, this_tile.tile->description);
-    //     std::cout << std::endl << "Representation: ";
-    //     std::cin >> this_tile.tile->representation->repr;
-    // }
-    // else if(request.c == 'i')
-    // {
-    //     // Write the map to a file
-    //     std::ofstream myfile;
-    //     std::string filename;
-    //     std::cout << "Filename: ";
-    //     getline(std::cin, filename); // do this twice because hitting enter... whatever
-    //     myfile.open (filename);
-    //     int i,j;
-
-    //     // Map this_map = Game::current_map;
-    //     myfile << Game::current_map->width << std::endl;
-    //     myfile << Game::current_map->height << std::endl;  
-    //     myfile << Game::current_map->description << std::endl;  
-
-    //     for(i=0; i<Game::current_map->height; i++)
-    //         for(j=0; j<Game::current_map->width; j++)
-    //         {
-    //             Tile active_tile = Game::current_map->tileArray[(i*Game::current_map->width)+j];
-    //             myfile << active_tile.tile->representation << std::endl;
-    //             myfile << active_tile.type_id << std::endl;
-    //             if(active_tile.type_id == TileTypes::WarpTileTypeType)
-    //             {
-    //                 WarpTileType* warp_tile;
-    //                 warp_tile = (WarpTileType*) active_tile.tile;
-
-    //                 myfile << warp_tile->warpMap << std::endl;
-    //                 myfile << warp_tile->warpX << std::endl;
-    //                 myfile << warp_tile->warpY << std::endl;
-    //             }
-    //             myfile << active_tile.tile->description << std::endl;  
-    //         }
-    //     myfile.close();
-    // }
-
-    // else if(request.c == 'o')
-    // {
-    //     // Copy a tile
-    //     Game::clipboard = &Game::current_map->tileArray[current_tile];
-    // }
-
-    // else if(request.c == 'p')
-    // {
-    //     // paste a tile
-    //     Game::current_map->tileArray[current_tile] = *Game::clipboard;
-    // }
-
 };
 
 void process_mouse_inv_event()
@@ -948,9 +871,9 @@ bool process_key_event(TCOD_key_t request)
     {
         case GameStates::GameplayState: 
 
-            if(is_request_move_cmd(request))
+            if(is_key_move_command(request))
             {
-                incr_turn = process_movement(request);
+                incr_turn = process_movement_keys(request);
                 if (incr_turn)
                 {
                     //stop the targetting so that user has to retry
@@ -960,7 +883,7 @@ bool process_key_event(TCOD_key_t request)
                 }
             }
 
-            else if (is_request_basic_cmd(request))
+            else if (is_key_basic_command(request))
             {
                 incr_turn = process_basic_cmd(request);
             }
@@ -982,19 +905,19 @@ bool process_key_event(TCOD_key_t request)
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
                 std::vector<Spell*>* spells = Game::player->spells;
-                select_generic(request, spells, is_request_spell_active_cmd, process_spells_active);
+                select_generic(request, spells, is_key_spell_command, process_spells_keys);
 
             }
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
-                select_generic(request, classes, is_request_class_active_cmd, process_classes_active);
+                select_generic(request, classes, is_key_class_command, process_classes_keys);
             }
 
             else if (Game::current_screen == Screens::InventoryScreen)
             {
                 std::vector<Item*>* items = Game::player->inventory->items;
-                select_generic(request, items, is_request_inventory_item_active_cmd, process_inventory_item_active);
+                select_generic(request, items, is_key_inventory_command, process_inventory_keys);
             }
             break;
     }
