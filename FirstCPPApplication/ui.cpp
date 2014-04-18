@@ -831,35 +831,35 @@ void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<T
     else if (color_vector.size() == 1)
         con->print(x, i, msg, color_vector.at(0), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 2)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 3)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 4)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 5)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 6)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 7)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 8)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 9)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 10)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 11)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), color_vector.at(12), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 12)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), color_vector.at(12), color_vector.at(11), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 13)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), color_vector.at(12), color_vector.at(11), color_vector.at(12), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 14)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), color_vector.at(12), color_vector.at(11), color_vector.at(12), color_vector.at(13), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 15)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), color_vector.at(12), color_vector.at(11), color_vector.at(12), color_vector.at(13), color_vector.at(14), TCOD_COLCTRL_STOP);
     else if (color_vector.size() == 16)
-        con->print(x, i, msg, color_vector.at(0), color_vector.at(2-1), color_vector.at(3-1), color_vector.at(4-1), color_vector.at(5-1), color_vector.at(6-1), color_vector.at(7-1), color_vector.at(8-1), color_vector.at(9-1), color_vector.at(10-1), color_vector.at(11-1), color_vector.at(12-1), color_vector.at(13-1), color_vector.at(14-1), color_vector.at(15-1), color_vector.at(16-1), TCOD_COLCTRL_STOP);
+        con->print(x, i, msg, color_vector.at(0), color_vector.at(1), color_vector.at(2), color_vector.at(3), color_vector.at(4), color_vector.at(5), color_vector.at(6), color_vector.at(7), color_vector.at(10), color_vector.at(11), color_vector.at(12), color_vector.at(11), color_vector.at(12), color_vector.at(13), color_vector.at(14), color_vector.at(15), TCOD_COLCTRL_STOP);
 };
 
 void Ui::draw_class_select_msg()
