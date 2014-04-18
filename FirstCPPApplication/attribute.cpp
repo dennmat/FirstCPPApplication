@@ -187,3 +187,11 @@ DamageAttribute::DamageAttribute() : Attribute()
     this->regen_rate = 0;
 
 };
+HungerAttribute::HungerAttribute() : Attribute()
+{
+    this->max_val = 99999;
+    this->current_val = 10;
+
+    this->regen_rate = 0;
+
+};

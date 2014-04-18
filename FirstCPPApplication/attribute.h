@@ -69,4 +69,10 @@ class DamageAttribute : public Attribute
         DamageAttribute();
 };
 
+class HungerAttribute : public Attribute
+{
+    public:
+        HungerAttribute();
+};
+
 #endif
