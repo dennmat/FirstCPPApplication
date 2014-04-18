@@ -39,11 +39,11 @@ ItemEffect::ItemEffect()
 
 void ItemEffect::set_all_vals_to(int new_val)
 {
-    this->set_health_vals_to(new_val)
-    this->set_mana_vals_to(new_val)
-    this->set_armor_vals_to(new_val)
-    this->set_damage_vals_to(new_val)
-    this->set_hunger_vals_to(new_val)
+    this->set_health_vals_to(new_val);
+    this->set_mana_vals_to(new_val);
+    this->set_armor_vals_to(new_val);
+    this->set_damage_vals_to(new_val);
+    this->set_hunger_vals_to(new_val);
 };
 
 void ItemEffect::set_health_vals_to(int new_val)
@@ -261,6 +261,21 @@ void ItemEffect::mark_applied_damage(Actor* actor)
     };
 };
 
+void ItemEffect::mark_applied_hunger(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+           ((*it)->hunger.all = true);
+        };
+
+    };
+};
+
 void ItemEffect::mark_applied_all(Actor* actor)
 {
     //loop through the actors_applied_to vector and find one with the actor
@@ -312,6 +327,7 @@ void ItemEffect::ApplyAllEffects(Actor* actor)
     this->ApplyManaEffects(actor);
     this->ApplyArmorEffects(actor);
     this->ApplyDamageEffects(actor);
+    this->ApplyHungerEffects(actor);
 };
 
 void ItemEffect::ApplyHealthEffects(Actor* actor)
@@ -359,6 +375,18 @@ void ItemEffect::ApplyDamageEffects(Actor* actor)
         actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
         actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
         this->mark_applied_damage(actor);
+    }
+};
+
+void ItemEffect::ApplyHungerEffects(Actor* actor)
+{
+    if (! this->already_applied_hunger(actor))
+    {
+        actor->attrs->hunger->AddToMaxVal(this->hunger_max_val);
+        actor->attrs->hunger->AddToCurrentVal(this->hunger_current_val);
+        actor->attrs->hunger->AddToRegenRate(this->hunger_regen_rate);
+        actor->attrs->hunger->AddToRegenInterval(this->hunger_regen_interval);
+        this->mark_applied_hunger(actor);
     }
 };
 

@@ -167,6 +167,7 @@ Item* Actor::CreateCorpse()
     corpse->item_effect->set_all_vals_to(0);
     corpse->item_effect->health_regen_interval=1;
     corpse->item_effect->health_regen_rate=1;
+    corpse->item_effect->hunger_current_val=-50;
     corpse->usable = true;
     corpse->equippable = false;
 
