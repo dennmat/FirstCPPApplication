@@ -73,6 +73,11 @@ enum inventory_items_active_t {
     NO_MATCHING_ITEMS_ACTIVE
 };
 
+enum generic_menu_active_t {
+    EscapeGenericMenu,
+    NO_MATCHING_GENERIC_MENU_ACTIVE
+};
+
 enum spells_active_t {
     ExamineSpell,
     EquipSpell, UnequipSpell,
@@ -374,6 +379,41 @@ bool process_basic_cmd(TCOD_key_t request)
 
         return false;
     };
+};
+
+
+generic_menu_active_t generic_menu_active_pressed(TCOD_key_t key)
+{
+    std::map<int, generic_menu_active_t> spec_genmenactivemap; //Keypad, punctuation
+    std::map<char, generic_menu_active_t> char_genmenactivemap; //regular letters
+    // 
+    spec_genmenactivemap[TCODK_ESCAPE] = generic_menu_active_t::EscapeGenericMenu;
+    //     spec_genmenactivemap['\''] = generic_menu_active_t::N;
+
+    // char_genmenactivemap['x'] = generic_menu_active_t::ExamineItem;
+    // char_genmenactivemap['d'] = generic_menu_active_t::DropItem;
+    // char_genmenactivemap['u'] = generic_menu_active_t::UseItem;
+    // char_genmenactivemap['e'] = generic_menu_active_t::EquipItem;
+    // char_genmenactivemap['y'] = generic_menu_active_t::UnequipItem;
+    // char_genmenactivemap['q'] = generic_menu_active_t::EscapeMenuItem;
+
+    return find_key(key, char_genmenactivemap,
+            spec_genmenactivemap, generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE);
+};
+
+bool process_generic_menu_keys(TCOD_key_t request)
+{
+    generic_menu_active_t action = generic_menu_active_pressed(request);
+
+    if( action == generic_menu_active_t::EscapeGenericMenu )
+    {
+        Ui::generic_active = false;
+        Ui::chosen_generic = false;
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
+        return true;
+    }
+
+    return false;
 };
 
 bool process_inventory_keys(TCOD_key_t request)
@@ -777,6 +817,11 @@ bool is_key_inventory_command(TCOD_key_t request)
     return inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
 };
 
+bool is_key_generic_menu_command(TCOD_key_t request)
+{
+    return generic_menu_active_pressed(request) != generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE;
+};
+
 bool is_key_spell_command(TCOD_key_t request)
 {
     return spells_active_pressed(request) != spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
@@ -896,7 +941,8 @@ bool process_key_event(TCOD_key_t request)
             else
             {
                 std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                std::cout << "nswe or numpad to move, i to open inventory, q to quit, o to open doors" << std::endl;
+                std::cout << "nswe or numpad to move, i to open inventory, ESC to quit, o to open doors" << std::endl;
+                std::cout << "c to open character sheet, m and k to cast spells, ? for help, > to go down" << std::endl;
             }
 
             break;
@@ -918,6 +964,13 @@ bool process_key_event(TCOD_key_t request)
             {
                 std::vector<Item*>* items = Game::player->inventory->items;
                 select_generic(request, items, is_key_inventory_command, process_inventory_keys);
+            }
+            else 
+            {
+                printf("defaulting to generic screen\n");
+                std::vector<void*>* _ = new std::vector<void*>;
+                select_generic(request, _, is_key_generic_menu_command, process_generic_menu_keys);
+                delete _;
             }
             break;
     }
