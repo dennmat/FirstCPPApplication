@@ -823,9 +823,28 @@ void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<T
     //add a col stop to end
     if (color_vector.size() != 0)
         msg_str.append("%c");
-    const char* msg = msg_str.c_str();
+    auto msg = msg_str.c_str();
+    // char to_print[500];
+    // std::strcpy(to_print, msg_str.c_str());
 
+    // std::ostringstream out;
+    // out << msg_str;
+
+
+    // auto it = color_vector.begin();
+    // for (it; it != color_vector.end(); it++)
+    // {
+        //const char* const_char_ptr = &to_print[0];
+        //sprintf(to_print, const_char_ptr, (*it));
+	// out << (*it);
+
+	// printf(std::string(std::string(out.str())+"\n").c_str());
+    // };
+    // out << TCOD_COLCTRL_STOP;
+    //sprintf(to_print, &to_print[0], TCOD_COLCTRL_STOP);
     int x = 4;
+    // con->print(x, i, out.str().c_str());
+
     if (color_vector.size() == 0)
         con->print(x, i, msg);
     else if (color_vector.size() == 1)
