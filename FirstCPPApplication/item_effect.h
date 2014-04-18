@@ -35,6 +35,7 @@ struct applied_to_s
     type_applied_s mana;
     type_applied_s armor;
     type_applied_s damage;
+    type_applied_s hunger;
     Actor* actor;
 };
 
@@ -62,6 +63,11 @@ class ItemEffect
         int damage_regen_rate;
         int damage_regen_interval; 
 
+        int hunger_current_val;
+        int hunger_max_val;
+        int hunger_regen_rate;
+        int hunger_regen_interval; 
+
         applied_to_s  applied_to;
         std::vector<applied_to_s*>* actors_applied_to;
 
@@ -71,24 +77,28 @@ class ItemEffect
         void ApplyManaEffects(Actor* actor);
         void ApplyArmorEffects(Actor* actor);
         void ApplyDamageEffects(Actor* actor);
+        void ApplyHungerEffects(Actor* actor);
 
         void RemoveAllEffects(Actor* actor);
         void RemoveHealthEffects(Actor* actor);
         void RemoveManaEffects(Actor* actor);
         void RemoveArmorEffects(Actor* actor);
         void RemoveDamageEffects(Actor* actor);
+        void RemoveHungerEffects(Actor* actor);
 
         bool already_applied_all(Actor* actor);
         bool already_applied_health(Actor* actor);
         bool already_applied_mana(Actor* actor);
         bool already_applied_armor(Actor* actor);
         bool already_applied_damage(Actor* actor);
+        bool already_applied_hunger(Actor* actor);
 
         void mark_applied_all(Actor* actor);
         void mark_applied_health(Actor* actor);
         void mark_applied_mana(Actor* actor);
         void mark_applied_armor(Actor* actor);
         void mark_applied_damage(Actor* actor);
+        void mark_applied_hunger(Actor* actor);
 
         std::string ItemEffect::small_convert(std::string prefix, long double val);
         std::string full_str();
@@ -101,6 +111,7 @@ class ItemEffect
         void set_mana_vals_to(int new_val);
         void set_armor_vals_to(int new_val);
         void set_damage_vals_to(int new_val);
+        void set_hunger_vals_to(int new_val);
 };
 
 #endif

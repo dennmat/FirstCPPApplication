@@ -514,11 +514,13 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     ManaAttribute* mana = player_attrs->mana;
     DamageAttribute* damage = player_attrs->damage;
     ArmorAttribute* armor = player_attrs->armor;
+    HungerAttribute* hunger = player_attrs->hunger;
 
     Ui::print_attribute(con, health, buffer, i, "HEALTH");
     Ui::print_attribute(con, mana, buffer, i, "MANA");
     Ui::print_attribute(con, damage, buffer, i, "DAMAGE");
     Ui::print_attribute(con, armor, buffer, i, "ARMOR");
+    Ui::print_attribute(con, hunger, buffer, i, "HUNGER");
 
     print_experience(con, i);
 

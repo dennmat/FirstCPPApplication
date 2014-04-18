@@ -15,6 +15,7 @@ AttributeContainer::AttributeContainer()
     this->mana = new ManaAttribute;
     this->armor = new ArmorAttribute;
     this->damage = new DamageAttribute;
+    this->hunger = new HungerAttribute;
 };
 
 void AttributeContainer::Update()
@@ -23,6 +24,7 @@ void AttributeContainer::Update()
     this->mana->Update();
     this->armor->Update();
     this->damage->Update();
+    this->hunger->Update();
 };
 
 void AttributeContainer::RegenerateAll()

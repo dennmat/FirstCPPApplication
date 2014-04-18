@@ -29,31 +29,21 @@ ItemEffect::ItemEffect()
     this->damage_regen_rate = 0;
     this->damage_regen_interval = 0; 
 
+    this->hunger_current_val = 0;
+    this->hunger_max_val = 0;
+    this->hunger_regen_rate = 0;
+    this->hunger_regen_interval = 0; 
+
     this->actors_applied_to = new std::vector<applied_to_s*>;
 };
 
 void ItemEffect::set_all_vals_to(int new_val)
 {
-    this->health_current_val = new_val;
-    this->health_max_val = new_val;
-    this->health_regen_rate = new_val;
-    this->health_regen_interval = new_val; 
-
-    this->mana_current_val = new_val;
-    this->mana_max_val = new_val;
-    this->mana_regen_rate = new_val;
-    this->mana_regen_interval = new_val; 
-
-    this->armor_current_val = new_val;
-    this->armor_max_val = new_val;
-    this->armor_regen_rate = new_val;
-    this->armor_regen_interval = new_val; 
-
-    this->damage_current_val = new_val;
-    this->damage_max_val = new_val;
-    this->damage_regen_rate = new_val;
-    this->damage_regen_interval = new_val; 
-
+    this->set_health_vals_to(new_val)
+    this->set_mana_vals_to(new_val)
+    this->set_armor_vals_to(new_val)
+    this->set_damage_vals_to(new_val)
+    this->set_hunger_vals_to(new_val)
 };
 
 void ItemEffect::set_health_vals_to(int new_val)
@@ -86,6 +76,14 @@ void ItemEffect::set_damage_vals_to(int new_val)
     this->damage_max_val = new_val;
     this->damage_regen_rate = new_val;
     this->damage_regen_interval = new_val; 
+};
+
+void ItemEffect::set_hunger_vals_to(int new_val)
+{
+    this->hunger_current_val = new_val;
+    this->hunger_max_val = new_val;
+    this->hunger_regen_rate = new_val;
+    this->hunger_regen_interval = new_val; 
 };
 
 bool ItemEffect::already_applied_health(Actor* actor)
@@ -150,6 +148,23 @@ bool ItemEffect::already_applied_damage(Actor* actor)
         if ((*it)->actor == actor)
         {
             return ((*it)->damage.all);
+        };
+
+    };
+    return false;
+};
+
+bool ItemEffect::already_applied_hunger(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            return ((*it)->hunger.all);
         };
 
     };

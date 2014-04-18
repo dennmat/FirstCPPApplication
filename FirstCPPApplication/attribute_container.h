@@ -17,6 +17,7 @@ class HealthAttribute;
 class ManaAttribute;
 class ArmorAttribute;
 class DamageAttribute;
+class HungerAttribute;
 class Actor;
 
 class AttributeContainer
@@ -28,6 +29,7 @@ class AttributeContainer
         ManaAttribute* mana;
         ArmorAttribute* armor;
         DamageAttribute* damage;
+        HungerAttribute* hunger;
 
         AttributeContainer();
 
