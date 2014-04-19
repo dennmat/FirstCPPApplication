@@ -76,6 +76,7 @@ class Ui
         static void Ui::print_experience(TCODConsole* con, int& i);
         static void draw_char_sheet_ui();
         static void character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key);
+        static void help_screen_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key);
         static void draw_spell_select_ui();

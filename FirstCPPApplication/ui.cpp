@@ -526,6 +526,14 @@ void Ui::print_experience(TCODConsole* con, int& i)
     con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
 };
 
+void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
+{
+    TCODColor foreground, background;
+    foreground = TCODColor::white;
+    
+    con->print(offset, i, "mappings'll go here.");
+
+};
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
@@ -533,7 +541,6 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 
     char buffer [100];
 
-    std::string msg_str;
     AttributeContainer* player_attrs = Game::player->attrs;
 
     HealthAttribute* health = player_attrs->health;
@@ -843,7 +850,7 @@ void Ui::draw_char_sheet_ui()
 
 void Ui::draw_help_ui()
 {
-    Ui::draw_screen("Help Information", NULL);
+    Ui::draw_screen("Help Information", &Ui::help_screen_ui_loop);
 };
 
 void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
