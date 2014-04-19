@@ -97,11 +97,11 @@ std::vector<std::string> make_classes_active_char()
 {
     std::vector<std::string> vec;
     vec.push_back("ExamineClass");
-   vec.push_back("EquipClass"); vec.push_back("UnequipClass");
-   vec.push_back("DropClass"); vec.push_back("EscapeMenuClass");
-   vec.push_back("CastClass");
-   vec.push_back("NO_MATCHING_CLASSES_ACTIVE");
-       return vec;
+    vec.push_back("EquipClass"); vec.push_back("UnequipClass");
+    vec.push_back("DropClass"); vec.push_back("EscapeMenuClass");
+    vec.push_back("CastClass");
+    vec.push_back("NO_MATCHING_CLASSES_ACTIVE");
+    return vec;
 };
 std::vector<std::string> Input::classes_active_char = make_classes_active_char();
 

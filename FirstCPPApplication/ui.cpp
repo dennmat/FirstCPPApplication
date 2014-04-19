@@ -558,24 +558,15 @@ void print_keys_for(TCODConsole* con, int offset, int& i, std::map<char, T1> cha
 };
 void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
-    TCODColor foreground, background;
-    foreground = TCODColor::white;
-
     print_keys_for(con, offset, i, Input::char_active_map, Input::spec_active_map, Input::basic_cmds_char, "Gameplay Keys");
     i++;
     print_keys_for(con, offset, i, Input::char_invitemactivemap, Input::spec_invitemactivemap, Input::inventory_items_active_char, "Inventory Keys");
     i++;
     print_keys_for(con, offset, i, Input::char_spellactivemap, Input::spec_spellactivemap, Input::spells_active_char, "Spell Selection Keys");
-
-
 };
+
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
-    TCODColor foreground, background;
-    foreground = TCODColor::white;
-
-    char buffer [100];
-
     AttributeContainer* player_attrs = Game::player->attrs;
 
     HealthAttribute* health = player_attrs->health;
@@ -584,6 +575,7 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     ArmorAttribute* armor = player_attrs->armor;
     HungerAttribute* hunger = player_attrs->hunger;
 
+    char buffer [100];
     Ui::print_attribute(con, health, buffer, i, "HEALTH");
     Ui::print_attribute(con, mana, buffer, i, "MANA");
     Ui::print_attribute(con, damage, buffer, i, "DAMAGE");
