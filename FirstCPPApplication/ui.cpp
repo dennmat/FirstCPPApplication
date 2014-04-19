@@ -528,12 +528,12 @@ void Ui::print_experience(TCODConsole* con, int& i)
 };
 
     template<typename T1, typename T2>
-void print_keys_for(TCODConsole* con, int offset, int i, std::map<char, T1> char_map,std::map<int, T2> spec_map, std::vector<std::string> string_map, std::string title)
+void print_keys_for(TCODConsole* con, int offset, int& i, std::map<char, T1> char_map,std::map<int, T2> spec_map, std::vector<std::string> string_map, std::string title)
 {
     con->print(offset, i++, "__ %s", title.c_str());
     i++;
 
-    std::map<char, T1> char_commands = Input::char_active_map;
+    std::map<char, T1> char_commands = char_map;
     for (std::map<char, T1>::iterator it=  char_commands.begin(); it != char_commands.end(); ++it)
     {
         char key = it->first;
@@ -543,7 +543,7 @@ void print_keys_for(TCODConsole* con, int offset, int i, std::map<char, T1> char
 
     }
 
-    std::map<int, T2> spec_commands = Input::spec_active_map;
+    std::map<int, T2> spec_commands = spec_map;
     for (std::map<int, T2>::iterator it=  spec_commands.begin(); it != spec_commands.end(); ++it)
     {
         int ikey = it->first;
@@ -562,6 +562,10 @@ void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
     foreground = TCODColor::white;
 
     print_keys_for(con, offset, i, Input::char_active_map, Input::spec_active_map, Input::basic_cmds_char, "Gameplay Keys");
+    i++;
+    print_keys_for(con, offset, i, Input::char_invitemactivemap, Input::spec_invitemactivemap, Input::inventory_items_active_char, "Inventory Keys");
+    i++;
+    print_keys_for(con, offset, i, Input::char_spellactivemap, Input::spec_spellactivemap, Input::spells_active_char, "Spell Selection Keys");
 
 
 };
