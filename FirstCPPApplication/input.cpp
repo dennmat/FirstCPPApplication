@@ -45,14 +45,14 @@ std::map<char, classes_active_t> Input::char_classactivemap = Input::build_char_
 std::vector<std::string> make_basic_cmds_char()
 {
     std::vector<std::string> vec;
-    vec.push_back("Pickup"); vec.push_back("Drop");
-    vec.push_back("OpenInventory");
-    vec.push_back("Look"); vec.push_back("ActivateDoor");
-    vec.push_back("DownStairs"); vec.push_back("UpStairs");
-    vec.push_back("OpenMagic"); vec.push_back("ConfirmCast");
-    vec.push_back("OpenCharacterSheet");
-    vec.push_back("OpenHelp"); vec.push_back("OpenClassSelect");
-    vec.push_back("CenterScreenToMouse");
+    vec.push_back("Pickup an item"); vec.push_back("Drop an item");
+    vec.push_back("Open your inventory");
+    vec.push_back("Look around the map"); vec.push_back("Open or close a door");
+    vec.push_back("Go down stairs"); vec.push_back("Go upstairs");
+    vec.push_back("Open magic menu"); vec.push_back("Cast the currently selected spell");
+    vec.push_back("Open your character sheet");
+    vec.push_back("Open this help screen"); vec.push_back("Select your class");
+    vec.push_back("Center the screen on the mouse");
     vec.push_back("NO_MATCHING_BASIC_CMD");
 
     return vec;
@@ -63,10 +63,10 @@ std::vector<std::string> Input::basic_cmds_char = make_basic_cmds_char();
 std::vector<std::string> make_inventory_items_active_char()
 {
     std::vector<std::string> vec;
-    vec.push_back("ExamineItem");
-    vec.push_back("EquipItem"); vec.push_back("UnequipItem");
-    vec.push_back("DropItem"); vec.push_back("EscapeMenuItem");
-    vec.push_back("UseItem");
+    vec.push_back("Examine the item");
+    vec.push_back("Equip the active item"); vec.push_back("Unequip the active item");
+    vec.push_back("Drop the active item"); vec.push_back("Exit the menu");
+    vec.push_back("Use the active item");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
     return vec;
 };
@@ -75,7 +75,7 @@ std::vector<std::string> Input::inventory_items_active_char = make_inventory_ite
 std::vector<std::string> make_generic_menu_active_char()
 {
     std::vector<std::string> vec;
-    vec.push_back("EscapeGenericMenu");
+    vec.push_back("Exit the menu");
     vec.push_back("NO_MATCHING_GENERIC_MENU_ACTIVE");
     return vec;
 };
@@ -84,10 +84,10 @@ std::vector<std::string> Input::generic_menu_active_char = make_generic_menu_act
 std::vector<std::string> make_spells_active_char()
 {
     std::vector<std::string> vec;
-    vec.push_back("ExamineSpell");
-    vec.push_back("EquipSpell"); vec.push_back("UnequipSpell");
-    vec.push_back("DropSpell"); vec.push_back("EscapeMenuSpell");
-    vec.push_back("CastSpell");
+    vec.push_back("Examine the spell");
+    vec.push_back("Equip the spell"); vec.push_back("Unequip the spell");
+    vec.push_back("Drop the spell"); vec.push_back("Exit the menu");
+    vec.push_back("Cast the spell");
     vec.push_back("NO_MATCHING_SPELLS_ACTIVE");
     return vec;
 };
