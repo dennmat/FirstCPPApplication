@@ -28,6 +28,19 @@
 #include "item_effect.h"
 #include "class.h"
 
+std::map<int, directions_t> Input::spec_movemap; //Keypad, punctuation
+std::map<char, directions_t>Input::char_movemap; //regular letters
+std::map<int, inventory_items_active_t> Input::spec_invitemactivemap; //Keypad, punctuation
+std::map<char, inventory_items_active_t>Input::char_invitemactivemap; //regular letters
+std::map<int, generic_menu_active_t> Input::spec_genmenactivemap; //Keypad, punctuation
+std::map<char, generic_menu_active_t>Input::char_genmenactivemap; //regular letters
+std::map<int, basic_cmds_t> Input::spec_active_map; //Keypad, punctuation
+std::map<char, basic_cmds_t>Input::char_active_map; //regular letters
+std::map<int, spells_active_t> Input::spec_spellactivemap; //Keypad, punctuation
+std::map<char, spells_active_t>Input::char_spellactivemap; //regular letters
+std::map<int, classes_active_t> Input::spec_classactivemap; //Keypad, punctuation
+std::map<char, classes_active_t> Input::char_classactivemap; //regular letters
+
 
 enum basic_cmds_t {
     Pickup, Drop,
