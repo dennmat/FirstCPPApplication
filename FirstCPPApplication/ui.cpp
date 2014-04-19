@@ -531,13 +531,17 @@ void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
     foreground = TCODColor::white;
-    
-    for (int i = 0; i < 1000; i++)
+
+
+    std::map<char, basic_cmds_t> vec2 = Input::char_active_map;
+    for (std::map<char, basic_cmds_t>::iterator it=  vec2.begin(); it != vec2.end(); ++it)
     {
-	if (basic_cmds_char[i] == "NO_MATCHING_BASIC_CMD") break;
-        printf("ASDASDA");
+        char key = it->first;
+        basic_cmds_t val = it->second;
+        std::string text = Input::basic_cmds_char.at((int)val);
+        con->print(offset, i++, "%c -> %s", key, text.c_str());
+
     }
-    con->print(offset, i, "mappings'll go here.");
 
 };
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
@@ -875,11 +879,11 @@ void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<T
     // auto it = color_vector.begin();
     // for (it; it != color_vector.end(); it++)
     // {
-        //const char* const_char_ptr = &to_print[0];
-        //sprintf(to_print, const_char_ptr, (*it));
-	// out << (*it);
+    //const char* const_char_ptr = &to_print[0];
+    //sprintf(to_print, const_char_ptr, (*it));
+    // out << (*it);
 
-	// printf(std::string(std::string(out.str())+"\n").c_str());
+    // printf(std::string(std::string(out.str())+"\n").c_str());
     // };
     // out << TCOD_COLCTRL_STOP;
     //sprintf(to_print, &to_print[0], TCOD_COLCTRL_STOP);

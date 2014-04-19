@@ -42,7 +42,68 @@ std::map<char, spells_active_t>Input::char_spellactivemap = Input::build_char_sp
 std::map<int, classes_active_t> Input::spec_classactivemap = Input::build_spec_classactivemap(); //Keypad, punctuation
 std::map<char, classes_active_t> Input::char_classactivemap = Input::build_char_classactivemap(); //regular letters
 
+std::vector<std::string> make_basic_cmds_char()
+{
+    std::vector<std::string> vec;
+    vec.push_back("Pickup"); vec.push_back("Drop");
+    vec.push_back("OpenInventory");
+    vec.push_back("Look"); vec.push_back("ActivateDoor");
+    vec.push_back("DownStairs"); vec.push_back("UpStairs");
+    vec.push_back("OpenMagic"); vec.push_back("ConfirmCast");
+    vec.push_back("OpenCharacterSheet");
+    vec.push_back("OpenHelp"); vec.push_back("OpenClassSelect");
+    vec.push_back("CenterScreenToMouse");
+    vec.push_back("NO_MATCHING_BASIC_CMD");
 
+    return vec;
+
+};
+std::vector<std::string> Input::basic_cmds_char = make_basic_cmds_char();
+
+std::vector<std::string> make_inventory_items_active_char()
+{
+    std::vector<std::string> vec;
+    vec.push_back("ExamineItem");
+    vec.push_back("EquipItem"); vec.push_back("UnequipItem");
+    vec.push_back("DropItem"); vec.push_back("EscapeMenuItem");
+    vec.push_back("UseItem");
+    vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
+    return vec;
+};
+std::vector<std::string> Input::inventory_items_active_char = make_inventory_items_active_char();
+
+std::vector<std::string> make_generic_menu_active_char()
+{
+    std::vector<std::string> vec;
+    vec.push_back("EscapeGenericMenu");
+    vec.push_back("NO_MATCHING_GENERIC_MENU_ACTIVE");
+    return vec;
+};
+std::vector<std::string> Input::generic_menu_active_char = make_generic_menu_active_char();
+
+std::vector<std::string> make_spells_active_char()
+{
+    std::vector<std::string> vec;
+    vec.push_back("ExamineSpell");
+    vec.push_back("EquipSpell"); vec.push_back("UnequipSpell");
+    vec.push_back("DropSpell"); vec.push_back("EscapeMenuSpell");
+    vec.push_back("CastSpell");
+    vec.push_back("NO_MATCHING_SPELLS_ACTIVE");
+    return vec;
+};
+std::vector<std::string> Input::spells_active_char = make_spells_active_char();
+
+std::vector<std::string> make_classes_active_char()
+{
+    std::vector<std::string> vec;
+    vec.push_back("ExamineClass");
+   vec.push_back("EquipClass"); vec.push_back("UnequipClass");
+   vec.push_back("DropClass"); vec.push_back("EscapeMenuClass");
+   vec.push_back("CastClass");
+   vec.push_back("NO_MATCHING_CLASSES_ACTIVE");
+       return vec;
+};
+std::vector<std::string> Input::classes_active_char = make_classes_active_char();
 
 std::map<int, basic_cmds_t> Input::build_spec_active_map()
 {

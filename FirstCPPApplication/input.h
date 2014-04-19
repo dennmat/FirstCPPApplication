@@ -24,6 +24,12 @@ typedef std::pair<char, int> generic_keypair;
 class Input 
 {
     public:
+        static std::vector<std::string> directions_char;
+        static std::vector<std::string> inventory_items_active_char;
+        static std::vector<std::string> basic_cmds_char;
+        static std::vector<std::string> classes_active_char;
+        static std::vector<std::string> spells_active_char;
+        static std::vector<std::string> generic_menu_active_char;
 
         static bool process_debug_event(TCOD_key_t request);
         static bool process_mouse_event(TCOD_mouse_t request);
