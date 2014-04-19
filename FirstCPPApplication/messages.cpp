@@ -142,8 +142,8 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 {
     std::vector<std::string> prerendered_msgs;
 
-    int last_turn = Game::turn_count-1;
-    int turn_count = 0;
+    double last_turn = Game::turn_count-1;
+    double turn_count = 0;
     int copy_count = 2;
     std::string prerendered_single = "";
     std::string last_msg = "";

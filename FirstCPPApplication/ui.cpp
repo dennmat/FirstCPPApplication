@@ -348,13 +348,13 @@ void Ui::draw_hunger(int first_y, TCODConsole* console)
     else if (hunger_percentage > 60)
         hunger_message = "You are very hungry!";
     else if (hunger_percentage > 40)
-        hunger_message = "You are hungry.";
+        hunger_message = "You feel hungry.";
     else if (hunger_percentage > 20)
-        hunger_message = "You are peckish.";
+        hunger_message = "You feel peckish.";
     else if (hunger_percentage > 10)
-        hunger_message = "You are satisfied.";
+        hunger_message = "You feel satisfied.";
     else 
-        hunger_message = "You are bloated.";
+        hunger_message = "You feel bloated.";
 
     console->print(0, first_y++, hunger_message.c_str());
 };

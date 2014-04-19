@@ -62,6 +62,6 @@ void Jackal::championize()
     this->representation->setFGColor(TCODColor::sepia+TCODColor::sepia+TCODColor::darkYellow, true, false, true);
     this->attrs->health->current_val+=this->attrs->health->current_val;
     this->attrs->health->max_val+=this->attrs->health->max_val;
-    this->xp_value= floor(this->xp_value*1.5);
+    this->xp_value = (int)std::floor(this->xp_value*1.5);
 
 };

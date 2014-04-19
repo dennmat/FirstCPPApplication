@@ -62,6 +62,6 @@ void Skeleton::championize()
     this->attrs->health->max_val+=this->attrs->health->max_val;
     this->attrs->damage->current_val+=this->attrs->damage->current_val;
     this->attrs->damage->max_val+=this->attrs->damage->max_val;
-    this->xp_value= this->xp_value*1.5;
+    this->xp_value= (int)std::floor(this->xp_value*1.5);
 
 };
