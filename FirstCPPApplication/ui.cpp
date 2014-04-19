@@ -335,7 +335,28 @@ void Ui::draw_ui_sidebar()
 
 void Ui::draw_hunger(int first_y, TCODConsole* console)
 {
-    console->print(0, first_y++, "You are hungry");
+    float hunger_percentage = (float)(Game::player->attrs->hunger->current_val)/ ((float)Game::player->attrs->hunger->max_val) * 100;
+    std::string hunger_message;
+    if (hunger_percentage > 98)
+        hunger_message = "You are wasting away!";
+    else if (hunger_percentage > 95)
+        hunger_message = "You are near death!";
+    else if (hunger_percentage > 90)
+        hunger_message = "You are famished!";
+    else if (hunger_percentage > 80)
+        hunger_message = "You are starving!";
+    else if (hunger_percentage > 60)
+        hunger_message = "You are very hungry!";
+    else if (hunger_percentage > 40)
+        hunger_message = "You are hungry.";
+    else if (hunger_percentage > 20)
+        hunger_message = "You are peckish.";
+    else if (hunger_percentage > 10)
+        hunger_message = "You are satisfied.";
+    else 
+        hunger_message = "You are bloated.";
+
+    console->print(0, first_y++, hunger_message.c_str());
 };
 bool Ui::toggle_targetting()
 {
