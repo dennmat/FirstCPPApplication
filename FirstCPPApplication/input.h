@@ -93,6 +93,7 @@ class Input
         template<typename T1, typename T2, typename T3>
             static T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice);
 
+        static std::map<int, std::string> get_tcodkey_to_string_map();
 };
 
 #endif

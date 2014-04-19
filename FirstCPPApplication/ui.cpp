@@ -533,8 +533,19 @@ void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
     foreground = TCODColor::white;
 
 
-    std::map<char, basic_cmds_t> vec2 = Input::char_active_map;
-    for (std::map<char, basic_cmds_t>::iterator it=  vec2.begin(); it != vec2.end(); ++it)
+    std::map<int, basic_cmds_t> spec_commands = Input::spec_active_map;
+    for (std::map<int, basic_cmds_t>::iterator it=  spec_commands.begin(); it != spec_commands.end(); ++it)
+    {
+        int ikey = it->first;
+        auto keymap = Input::get_tcodkey_to_string_map();
+        std::string key = keymap[ikey];
+        basic_cmds_t val = it->second;
+        std::string text = Input::basic_cmds_char.at((int)val);
+        con->print(offset, i++, "%s -> %s", key.c_str(), text.c_str());
+    }
+
+    std::map<char, basic_cmds_t> char_commands = Input::char_active_map;
+    for (std::map<char, basic_cmds_t>::iterator it=  char_commands.begin(); it != char_commands.end(); ++it)
     {
         char key = it->first;
         basic_cmds_t val = it->second;
