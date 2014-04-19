@@ -308,6 +308,9 @@
     <ClInclude Include="class.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enums\input_enums.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

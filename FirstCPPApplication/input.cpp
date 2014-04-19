@@ -28,6 +28,7 @@
 #include "item_effect.h"
 #include "class.h"
 
+//build key mappings. Took DRY out behind the shed.
 std::map<int, directions_t> Input::spec_movemap = Input::build_spec_movemap();  //Keypad, punctuation
 std::map<char, directions_t>Input::char_movemap  = Input::build_char_movemap();  //Keypad, punctuation//regular letters
 std::map<int, inventory_items_active_t> Input::spec_invitemactivemap = Input::build_spec_invitemactivemap(); //Keypad, punctuation
@@ -42,29 +43,6 @@ std::map<int, classes_active_t> Input::spec_classactivemap = Input::build_spec_c
 std::map<char, classes_active_t> Input::char_classactivemap = Input::build_char_classactivemap(); //regular letters
 
 
-enum basic_cmds_t {
-    Pickup, Drop,
-    OpenInventory,
-    Look, ActivateDoor,
-    DownStairs, UpStairs,
-    OpenMagic, ConfirmCast,
-    OpenCharacterSheet,
-    OpenHelp, OpenClassSelect,
-    CenterScreenToMouse,
-    NO_MATCHING_BASIC_CMD
-};
-
-const char* basic_cmds_char[] = {
-    "Pickup", "Drop",
-    "OpenInventory",
-    "Look", "ActivateDoor",
-    "DownStairs", "UpStairs",
-    "OpenMagic", "ConfirmCast",
-    "OpenCharacterSheet",
-    "OpenHelp", "OpenClassSelect",
-    "CenterScreenToMouse",
-    "NO_MATCHING_BASIC_CMD"
-};
 
 std::map<int, basic_cmds_t> Input::build_spec_active_map()
 {
@@ -96,62 +74,6 @@ basic_cmds_t  Input::basic_cmd_pressed(TCOD_key_t key)
     return Input::find_key(key, Input::char_active_map, Input::spec_active_map, basic_cmds_t::NO_MATCHING_BASIC_CMD);
 };
 
-enum inventory_items_active_t {
-    ExamineItem,
-    EquipItem, UnequipItem,
-    DropItem, EscapeMenuItem,
-    UseItem,
-    NO_MATCHING_ITEMS_ACTIVE
-};
-
-const char* inventory_items_active_char[] = {
-    "ExamineItem",
-    "EquipItem", "UnequipItem",
-    "DropItem", "EscapeMenuItem",
-    "UseItem",
-    "NO_MATCHING_ITEMS_ACTIVE"
-};
-
-enum generic_menu_active_t {
-    EscapeGenericMenu,
-    NO_MATCHING_GENERIC_MENU_ACTIVE
-};
-
-const char* generic_menu_active_char[] = {
-    "EscapeGenericMenu",
-    "NO_MATCHING_GENERIC_MENU_ACTIVE"
-};
-
-enum spells_active_t {
-    ExamineSpell,
-    EquipSpell, UnequipSpell,
-    DropSpell, EscapeMenuSpell,
-    CastSpell,
-    NO_MATCHING_SPELLS_ACTIVE
-};
-
-const char* spells_active_char[] = {
-    "ExamineSpell",
-    "EquipSpell", "UnequipSpell",
-    "DropSpell", "EscapeMenuSpell",
-    "CastSpell",
-    "NO_MATCHING_SPELLS_ACTIVE"
-};
-
-enum classes_active_t {
-    ExamineClass,
-    EquipClass, UnequipClass,
-    DropClass, EscapeMenuClass,
-    CastClass,
-    NO_MATCHING_CLASSES_ACTIVE
-};
-const char* classes_active_char[] = {
-    "ExamineClass",
-    "EquipClass", "UnequipClass",
-    "DropClass", "EscapeMenuClass",
-    "CastClass",
-    "NO_MATCHING_CLASSES_ACTIVE"
-};
 std::map<int, spells_active_t>  Input::build_spec_spellactivemap()
 {
     std::map<int, spells_active_t> spec_spellactivemap; //Keypad, punctuation
@@ -266,12 +188,6 @@ inventory_items_active_t Input::inventory_items_active_pressed(TCOD_key_t key)
             Input::spec_invitemactivemap, inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE);
 };
 
-enum directions_t {
-    NW=0, N, NE,
-    W,    X,  E,
-    SW,   S, SE,
-    NO_MATCHING_DIRECTION
-};
 
 
 std::map<int, directions_t>  Input::build_spec_movemap()

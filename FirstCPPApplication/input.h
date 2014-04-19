@@ -12,17 +12,13 @@
 #include "libtcod_cpp_hpp\mouse_types.h"
 #include "libtcod_cpp_hpp\console_types.h"
 
+#include "enums\input_enums.h"
+
 
 class Person;
 class Map;
 class Game;
 
-extern enum directions_t;
-extern enum inventory_items_active_t;
-extern enum basic_cmds_t;
-extern enum classes_active_t;
-extern enum spells_active_t;
-extern enum generic_menu_active_t;
 typedef std::unordered_map<char, int> generic_keypair_t;
 typedef std::pair<char, int> generic_keypair;
 class Input 

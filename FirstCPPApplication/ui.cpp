@@ -3,6 +3,7 @@
 //#include <cmath>
 
 #include "game.h"
+#include "input.h"
 #include <actors\Person.h>
 #include "utils.h"
 #include "inventory.h"
@@ -531,6 +532,11 @@ void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
     TCODColor foreground, background;
     foreground = TCODColor::white;
     
+    for (int i = 0; i < 1000; i++)
+    {
+	if (basic_cmds_char[i] == "NO_MATCHING_BASIC_CMD") break;
+        printf("ASDASDA");
+    }
     con->print(offset, i, "mappings'll go here.");
 
 };
