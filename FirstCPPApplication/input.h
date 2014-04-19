@@ -17,34 +17,59 @@ class Person;
 class Map;
 class Game;
 
-bool process_debug_event(TCOD_key_t request);
-bool process_mouse_event(TCOD_mouse_t request);
-void process_mouse_inv_event();
-bool process_key_event(TCOD_key_t request);
-
 extern enum directions_t;
-directions_t direction_pressed(TCOD_key_t key);
-bool is_key_move_command(TCOD_key_t request);
-bool process_movement_keys(TCOD_key_t request);
-
 extern enum inventory_items_active_t;
-inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key);
-bool is_key_inventory_command(TCOD_key_t request);
-bool process_inventory_keys(TCOD_key_t request);
-
 extern enum basic_cmds_t;
-basic_cmds_t  basic_cmd_pressed(TCOD_key_t key);
-bool is_key_basic_command(TCOD_key_t request);
-bool process_basic_cmd(TCOD_key_t request);
-
+extern enum classes_active_t;
+extern enum spells_active_t;
+extern enum generic_menu_active_t;
 typedef std::unordered_map<char, int> generic_keypair_t;
 typedef std::pair<char, int> generic_keypair;
-generic_keypair_t build_keypairs(int limit);
+class Input 
+{
+    public:
 
-template<class T>
-void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t));
+        static bool process_debug_event(TCOD_key_t request);
+        static bool process_mouse_event(TCOD_mouse_t request);
+        static void process_mouse_inv_event();
+        static bool process_key_event(TCOD_key_t request);
 
-template<typename T1, typename T2, typename T3>
-T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice);
+        static directions_t direction_pressed(TCOD_key_t key);
+        static bool is_key_move_command(TCOD_key_t request);
+        static bool process_movement_keys(TCOD_key_t request);
+
+        static inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key);
+        static bool is_key_inventory_command(TCOD_key_t request);
+        static bool process_inventory_keys(TCOD_key_t request);
+
+        static generic_menu_active_t generic_menu_active_pressed(TCOD_key_t key);
+        static bool process_generic_menu_keys(TCOD_key_t request);
+        static bool is_key_generic_menu_command(TCOD_key_t request);
+
+        static basic_cmds_t  basic_cmd_pressed(TCOD_key_t key);
+        static bool is_key_basic_command(TCOD_key_t request);
+        static bool process_basic_keys(TCOD_key_t request);
+
+        static spells_active_t  spells_active_pressed(TCOD_key_t key);
+        static bool is_key_spell_command(TCOD_key_t request);
+        static bool process_spells_keys(TCOD_key_t request);
+
+        static classes_active_t  classes_active_pressed(TCOD_key_t key);
+        static bool is_key_class_command(TCOD_key_t request);
+        static bool process_classes_keys(TCOD_key_t request);
+
+
+        static std::map<int, basic_cmds_t> spec_movemap2; //Keypad, punctuation
+        static std::map<char, basic_cmds_t> char_movemap2; //regular letters
+
+        static generic_keypair_t build_keypairs(int limit);
+
+        template<class T>
+            static void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t));
+
+        template<typename T1, typename T2, typename T3>
+            static T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice);
+
+};
 
 #endif

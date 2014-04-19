@@ -517,14 +517,14 @@ bool gameplay_loop(bool incr_turn)
 
     // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
     if (Game::key_evt.c != NULL && Game::key_evt.pressed == 1 ){
-        incr_turn = process_key_event(Game::key_evt);
+        incr_turn = Input::process_key_event(Game::key_evt);
     }
     if (Game::key_evt.pressed == 1)
     {
-        process_debug_event(Game::key_evt);
+        Input::process_debug_event(Game::key_evt);
     }
 
-    process_mouse_event(Game::mouse_evt);
+    Input::process_mouse_event(Game::mouse_evt);
 
     //AIs update
     if (incr_turn == true)
@@ -608,30 +608,30 @@ void Game::mainloop()
 
             case GameStates::MenuState:
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = process_key_event(key_evt);
+                    incr_turn = Input::process_key_event(key_evt);
                 };
 
                 Game::draw_ui();
-                process_mouse_inv_event();
+                Input::process_mouse_inv_event();
 
                 break;
 
             case GameStates::InventoryState:
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = process_key_event(key_evt);
+                    incr_turn = Input::process_key_event(key_evt);
                 };
 
                 Game::draw_ui();
-                process_mouse_inv_event();
+                Input::process_mouse_inv_event();
                 break;
 
             case GameStates::MagicState:
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = process_key_event(key_evt);
+                    incr_turn = Input::process_key_event(key_evt);
                 };
 
                 Game::draw_ui();
-                process_mouse_inv_event();
+                Input::process_mouse_inv_event();
                 break;
 
             default:

@@ -53,7 +53,7 @@ const char* basic_cmds_char[] = {
     "NO_MATCHING_BASIC_CMD"
 };
 
-basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
+basic_cmds_t  Input::basic_cmd_pressed(TCOD_key_t key)
 {
     std::map<int, basic_cmds_t> spec_movemap; //Keypad, punctuation
     std::map<char, basic_cmds_t> char_movemap; //regular letters
@@ -74,7 +74,7 @@ basic_cmds_t  basic_cmd_pressed(TCOD_key_t key)
 
     spec_movemap[TCODK_SPACE] = basic_cmds_t::CenterScreenToMouse;
 
-    return find_key(key, char_movemap, spec_movemap, basic_cmds_t::NO_MATCHING_BASIC_CMD);
+    return Input::find_key(key, char_movemap, spec_movemap, basic_cmds_t::NO_MATCHING_BASIC_CMD);
 };
 
 enum inventory_items_active_t {
@@ -134,7 +134,7 @@ const char* classes_active_char[] = {
     "NO_MATCHING_CLASSES_ACTIVE"
 };
 
-spells_active_t spells_active_pressed(TCOD_key_t key)
+spells_active_t Input::spells_active_pressed(TCOD_key_t key)
 {
     std::map<int, spells_active_t> spec_spellactivemap; //Keypad, punctuation
     std::map<char, spells_active_t> char_spellactivemap; //regular letters
@@ -149,11 +149,11 @@ spells_active_t spells_active_pressed(TCOD_key_t key)
     // char_spellactivemap['y'] = spells_active_t::UnequipSpell;
     char_spellactivemap['q'] = spells_active_t::EscapeMenuSpell;
 
-    return find_key(key, char_spellactivemap,
+    return Input::find_key(key, char_spellactivemap,
             spec_spellactivemap, spells_active_t::NO_MATCHING_SPELLS_ACTIVE);
 };
 
-classes_active_t classes_active_pressed(TCOD_key_t key)
+classes_active_t Input::classes_active_pressed(TCOD_key_t key)
 {
     std::map<int, classes_active_t> spec_classactivemap; //Keypad, punctuation
     std::map<char, classes_active_t> char_classactivemap; //regular letters
@@ -168,12 +168,12 @@ classes_active_t classes_active_pressed(TCOD_key_t key)
     // char_classactivemap['y'] = classes_active_t::Unequipclass;
     char_classactivemap['q'] = classes_active_t::EscapeMenuClass;
 
-    return find_key(key, char_classactivemap,
+    return Input::find_key(key, char_classactivemap,
             spec_classactivemap, classes_active_t::NO_MATCHING_CLASSES_ACTIVE);
 };
 
 template<typename T1, typename T2, typename T3>
-T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice)
+T1 Input::find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_choice)
 {
     if (key.vk == TCODK_CHAR) 
     {
@@ -197,7 +197,7 @@ T1 find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 error_cho
 };
 
 
-inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key)
+inventory_items_active_t Input::inventory_items_active_pressed(TCOD_key_t key)
 {
     std::map<int, inventory_items_active_t> spec_invitemactivemap; //Keypad, punctuation
     std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
@@ -223,7 +223,7 @@ enum directions_t {
     NO_MATCHING_DIRECTION
 };
 
-directions_t direction_pressed(TCOD_key_t key)
+directions_t Input::direction_pressed(TCOD_key_t key)
 {
     std::map<int, directions_t> spec_movemap; //Keypad, punctuation
     std::map<char, directions_t> char_movemap; //regular letters
@@ -252,9 +252,9 @@ directions_t direction_pressed(TCOD_key_t key)
             directions_t::NO_MATCHING_DIRECTION);
 };
 
-bool process_basic_cmd(TCOD_key_t request)
+bool Input::process_basic_keys(TCOD_key_t request)
 {
-    basic_cmds_t basic_cmd = basic_cmd_pressed(request);
+    basic_cmds_t basic_cmd = Input::basic_cmd_pressed(request);
 
     //ignore key releases
     if (request.pressed == false)
@@ -422,7 +422,7 @@ bool process_basic_cmd(TCOD_key_t request)
 };
 
 
-generic_menu_active_t generic_menu_active_pressed(TCOD_key_t key)
+generic_menu_active_t Input::generic_menu_active_pressed(TCOD_key_t key)
 {
     std::map<int, generic_menu_active_t> spec_genmenactivemap; //Keypad, punctuation
     std::map<char, generic_menu_active_t> char_genmenactivemap; //regular letters
@@ -437,13 +437,13 @@ generic_menu_active_t generic_menu_active_pressed(TCOD_key_t key)
     // char_genmenactivemap['y'] = generic_menu_active_t::UnequipItem;
     // char_genmenactivemap['q'] = generic_menu_active_t::EscapeMenuItem;
 
-    return find_key(key, char_genmenactivemap,
+    return Input::find_key(key, char_genmenactivemap,
             spec_genmenactivemap, generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE);
 };
 
-bool process_generic_menu_keys(TCOD_key_t request)
+bool Input::process_generic_menu_keys(TCOD_key_t request)
 {
-    generic_menu_active_t action = generic_menu_active_pressed(request);
+    generic_menu_active_t action = Input::generic_menu_active_pressed(request);
 
     if( action == generic_menu_active_t::EscapeGenericMenu )
     {
@@ -456,7 +456,7 @@ bool process_generic_menu_keys(TCOD_key_t request)
     return false;
 };
 
-bool process_inventory_keys(TCOD_key_t request)
+bool Input::process_inventory_keys(TCOD_key_t request)
 {
     inventory_items_active_t action = inventory_items_active_pressed(request);
 
@@ -511,7 +511,7 @@ bool process_inventory_keys(TCOD_key_t request)
     return false;
 };
 
-bool process_classes_keys(TCOD_key_t request)
+bool Input::process_classes_keys(TCOD_key_t request)
 {
     classes_active_t action = classes_active_pressed(request);
 
@@ -578,7 +578,7 @@ bool process_classes_keys(TCOD_key_t request)
     return false;
 };
 
-bool process_spells_keys(TCOD_key_t request)
+bool Input::process_spells_keys(TCOD_key_t request)
 {
     spells_active_t action = spells_active_pressed(request);
 
@@ -717,7 +717,7 @@ void move_camera(int dir_x, int dir_y)
 };
 
 //returns whether or not the player has moved and should increment the turn
-bool process_movement_keys(TCOD_key_t request)
+bool Input::process_movement_keys(TCOD_key_t request)
 {
     Map *world = Game::world;
     bool buildmode = Game::buildmode;
@@ -842,37 +842,37 @@ bool process_movement_keys(TCOD_key_t request)
 
 };
 
-bool is_key_basic_command(TCOD_key_t request)
+bool Input::is_key_basic_command(TCOD_key_t request)
 {
-    return basic_cmd_pressed(request) != basic_cmds_t::NO_MATCHING_BASIC_CMD;
+    return Input::basic_cmd_pressed(request) != basic_cmds_t::NO_MATCHING_BASIC_CMD;
 };
 
-bool is_key_move_command(TCOD_key_t request)
+bool Input::is_key_move_command(TCOD_key_t request)
 {
-    return direction_pressed(request) != directions_t::NO_MATCHING_DIRECTION;
+    return Input::direction_pressed(request) != directions_t::NO_MATCHING_DIRECTION;
 };
 
-bool is_key_inventory_command(TCOD_key_t request)
+bool Input::is_key_inventory_command(TCOD_key_t request)
 {
-    return inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
+    return Input::inventory_items_active_pressed(request) != inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE;
 };
 
-bool is_key_generic_menu_command(TCOD_key_t request)
+bool Input::is_key_generic_menu_command(TCOD_key_t request)
 {
-    return generic_menu_active_pressed(request) != generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE;
+    return Input::generic_menu_active_pressed(request) != generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE;
 };
 
-bool is_key_spell_command(TCOD_key_t request)
+bool Input::is_key_spell_command(TCOD_key_t request)
 {
-    return spells_active_pressed(request) != spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
+    return Input::spells_active_pressed(request) != spells_active_t::NO_MATCHING_SPELLS_ACTIVE;
 };
 
-bool is_key_class_command(TCOD_key_t request)
+bool Input::is_key_class_command(TCOD_key_t request)
 {
-    return classes_active_pressed(request) != classes_active_t::NO_MATCHING_CLASSES_ACTIVE;
+    return Input::classes_active_pressed(request) != classes_active_t::NO_MATCHING_CLASSES_ACTIVE;
 };
 
-void process_mouse_inv_event()
+void Input::process_mouse_inv_event()
 {
     if (Game::mouse_evt.lbutton_pressed)
     {
@@ -880,7 +880,7 @@ void process_mouse_inv_event()
     };
 };
 
-bool process_mouse_event(TCOD_mouse_t request)
+bool Input::process_mouse_event(TCOD_mouse_t request)
 {
 
     if (request.dx > Ui::mouse_move_threshold || request.dy > Ui::mouse_move_threshold)
@@ -900,7 +900,7 @@ bool process_mouse_event(TCOD_mouse_t request)
     return 0;
 };
 
-bool process_debug_event(TCOD_key_t request)
+bool Input::process_debug_event(TCOD_key_t request)
 {
     if (request.vk == TCODK_F2)
     {
@@ -945,7 +945,7 @@ bool process_debug_event(TCOD_key_t request)
     return false;
 };
 
-bool process_key_event(TCOD_key_t request)
+bool Input::process_key_event(TCOD_key_t request)
 {
 
     Ui::tick_key_pressed = Game::tick_count;
@@ -960,7 +960,7 @@ bool process_key_event(TCOD_key_t request)
 
             if(is_key_move_command(request))
             {
-                incr_turn = process_movement_keys(request);
+                incr_turn = Input::process_movement_keys(request);
                 if (incr_turn)
                 {
                     //stop the targetting so that user has to retry
@@ -972,7 +972,7 @@ bool process_key_event(TCOD_key_t request)
 
             else if (is_key_basic_command(request))
             {
-                incr_turn = process_basic_cmd(request);
+                incr_turn = Input::process_basic_keys(request);
             }
 
             else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
@@ -993,25 +993,25 @@ bool process_key_event(TCOD_key_t request)
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
                 std::vector<Spell*>* spells = Game::player->spells;
-                select_generic(request, spells, is_key_spell_command, process_spells_keys);
+                Input::select_generic(request, spells, is_key_spell_command, Input::process_spells_keys);
 
             }
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
-                select_generic(request, classes, is_key_class_command, process_classes_keys);
+                Input::select_generic(request, classes, is_key_class_command, Input::process_classes_keys);
             }
 
             else if (Game::current_screen == Screens::InventoryScreen)
             {
                 std::vector<Item*>* items = Game::player->inventory->items;
-                select_generic(request, items, is_key_inventory_command, process_inventory_keys);
+                Input::select_generic(request, items, is_key_inventory_command, Input::process_inventory_keys);
             }
             else 
             {
                 printf("defaulting to generic screen\n");
                 std::vector<void*>* _ = new std::vector<void*>;
-                select_generic(request, _, is_key_generic_menu_command, process_generic_menu_keys);
+                Input::select_generic(request, _, is_key_generic_menu_command, Input::process_generic_menu_keys);
                 delete _;
             }
             break;
@@ -1021,7 +1021,7 @@ bool process_key_event(TCOD_key_t request)
 
 };
 
-generic_keypair_t build_keypairs(int limit)
+generic_keypair_t Input::build_keypairs(int limit)
 {
     generic_keypair_t keymap;
     char key = 'a';
@@ -1037,10 +1037,10 @@ generic_keypair_t build_keypairs(int limit)
 };
 
     template<class T>
-void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
+void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
 {
     int size = generic_vector->size();
-    generic_keypair_t class_map = build_keypairs(size);
+    generic_keypair_t class_map = Input::build_keypairs(size);
     generic_keypair_t::iterator it = class_map.find(request.c);
     bool successful_action = true;
     if (Ui::generic_active == false)
