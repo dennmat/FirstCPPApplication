@@ -335,6 +335,7 @@ Person*  Game::initialize_player()
     player->attrs->damage->max_val=10;
     player->attrs->armor->current_val=3;
     player->attrs->armor->max_val=3;
+    player->attrs->hunger->current_val=210;
 
     player->actor_class = new FighterClass;
     player->actor_class->master = player;
