@@ -527,32 +527,42 @@ void Ui::print_experience(TCODConsole* con, int& i)
     con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
 };
 
+    template<typename T1, typename T2>
+void print_keys_for(TCODConsole* con, int offset, int i, std::map<char, T1> char_map,std::map<int, T2> spec_map, std::vector<std::string> string_map, std::string title)
+{
+    con->print(offset, i++, "__ %s", title.c_str());
+    i++;
+
+    std::map<char, T1> char_commands = Input::char_active_map;
+    for (std::map<char, T1>::iterator it=  char_commands.begin(); it != char_commands.end(); ++it)
+    {
+        char key = it->first;
+        T1 val = it->second;
+        std::string text = string_map.at((int)val);
+        con->print(offset, i++, "%c -> %s", key, text.c_str());
+
+    }
+
+    std::map<int, T2> spec_commands = Input::spec_active_map;
+    for (std::map<int, T2>::iterator it=  spec_commands.begin(); it != spec_commands.end(); ++it)
+    {
+        int ikey = it->first;
+        auto keymap = Input::get_tcodkey_to_string_map();
+        std::string key = keymap[ikey];
+        T2 val = it->second;
+        std::string text = string_map.at((int)val);
+        con->print(offset, i++, "%s -> %s", key.c_str(), text.c_str());
+    }
+
+
+};
 void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     TCODColor foreground, background;
     foreground = TCODColor::white;
 
+    print_keys_for(con, offset, i, Input::char_active_map, Input::spec_active_map, Input::basic_cmds_char, "Gameplay Keys");
 
-    std::map<int, basic_cmds_t> spec_commands = Input::spec_active_map;
-    for (std::map<int, basic_cmds_t>::iterator it=  spec_commands.begin(); it != spec_commands.end(); ++it)
-    {
-        int ikey = it->first;
-        auto keymap = Input::get_tcodkey_to_string_map();
-        std::string key = keymap[ikey];
-        basic_cmds_t val = it->second;
-        std::string text = Input::basic_cmds_char.at((int)val);
-        con->print(offset, i++, "%s -> %s", key.c_str(), text.c_str());
-    }
-
-    std::map<char, basic_cmds_t> char_commands = Input::char_active_map;
-    for (std::map<char, basic_cmds_t>::iterator it=  char_commands.begin(); it != char_commands.end(); ++it)
-    {
-        char key = it->first;
-        basic_cmds_t val = it->second;
-        std::string text = Input::basic_cmds_char.at((int)val);
-        con->print(offset, i++, "%c -> %s", key, text.c_str());
-
-    }
 
 };
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
