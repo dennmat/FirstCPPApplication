@@ -297,13 +297,13 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_con->print(0, first_y++, "Total burden");
     ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_total_weight());
     first_y++;
+    Ui::draw_hunger(first_y, ui_sidebar_con);
 
     int initial_y = first_y++;
-    int y = initial_y;
-    Ui::draw_xp(y, ui_sidebar_con, ui_sidebar_fore);
-    y++;
+    Ui::draw_xp(++first_y, ui_sidebar_con, ui_sidebar_fore);
+    first_y++;
 
-    initial_y = y;
+    initial_y = first_y;
 
     int ci = 0;
     TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
@@ -311,20 +311,20 @@ void Ui::draw_ui_sidebar()
     for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
     {
         ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
-        ui_sidebar_con->print(0, y, "%s", (it->c_str()));
-        ++y;
+        ui_sidebar_con->print(0, first_y, "%s", (it->c_str()));
+        ++first_y;
 
         //add a space between the 4 types of attrs
-        if ((y - (initial_y-1)) % 5 == 0)
+        if ((first_y - (initial_y-1)) % 5 == 0)
         {
-            ui_sidebar_con->print(0, y, " ");
-            y++;
+            ui_sidebar_con->print(0, first_y, " ");
+            first_y++;
             ci++;
         }
 
     };
 
-    y++;
+    first_y++;
 
 
 
@@ -333,6 +333,10 @@ void Ui::draw_ui_sidebar()
     delete ui_sidebar_con;
 };
 
+void Ui::draw_hunger(int first_y, TCODConsole* console)
+{
+    console->print(0, first_y++, "You are hungry");
+};
 bool Ui::toggle_targetting()
 {
     Ui::is_targetting = !Ui::is_targetting;
