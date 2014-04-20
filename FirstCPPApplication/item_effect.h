@@ -42,6 +42,7 @@ struct applied_to_s
 class ItemEffect
 {
     public:
+        int duration;
 
         int health_current_val;
         int health_max_val;

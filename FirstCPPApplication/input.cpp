@@ -591,7 +591,9 @@ bool Input::process_classes_keys(TCOD_key_t request)
 
     else if( action == classes_active_t::EquipClass )
     {
+        delete Game::player->actor_class;
         Game::player->actor_class = (IClass*)Ui::chosen_generic;
+        Game::player->actor_class->master = Game::player;
         std::cout << "Class changed to " << ((IClass*)Ui::chosen_generic)->name << std::endl;
         // Ui::chosen_spell->equip(Game::player);
         // Game::player->equipment->equip_spell(Ui::chosen_item);
