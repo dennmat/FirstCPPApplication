@@ -32,7 +32,7 @@ void Item::use(Actor* target)
         this->uses--;
         if (this->item_effect->is_timed())
         {
-          TimedEffect* timed_effect = new TimedEffect;
+            TimedEffect* timed_effect = new TimedEffect;
             timed_effect->effect = this->item_effect;
             timed_effect->turn_applied = Game::turn_count;
             target->timed_item_effects->push_back(timed_effect);

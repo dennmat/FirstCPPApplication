@@ -7,6 +7,11 @@
 #include "utils.h"
 #include "libtcod.hpp"
 
+bool TimedEffect::is_expired(long double turn_count)
+{
+    return (this->effect->duration + this->turn_applied) <= turn_count;
+};
+
 ItemEffect::ItemEffect()
 {
     this->health_current_val = 100;

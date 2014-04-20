@@ -111,6 +111,38 @@ void Person::update()
     this->equipment->Update();
 
     //apply regen
+    std::vector<TimedEffect*>* timed_items = this->timed_item_effects;
+    auto it = timed_items->begin();
+    for (it; it != timed_items->end(); )
+    {
+        if ((*it)->is_expired(Game::turn_count))
+        {
+            (*it)->effect->RemoveAllEffects(this);
+        delete *(it);
+	    it = timed_items->erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
+    //std::remove_if(timed_items->begin(), timed_items->end(), )
+    std::vector<TimedEffect*>* timed_spells = this->timed_spell_effects;
+    it = timed_spells->begin();
+    for (it; it != timed_spells->end();)
+    {
+        if ((*it)->is_expired(Game::turn_count))
+        {
+            (*it)->effect->RemoveAllEffects(this);
+	delete *(it);
+	    it = timed_spells->erase(it);
+        }
+        else
+        {
+            it++;
+        };
+    }
+
     this->attrs->Update();
 
     //TODO intervals

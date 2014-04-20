@@ -48,6 +48,8 @@ class TimedEffect
     public:
         ItemEffect* effect;
         long double turn_applied;
+
+        bool is_expired(long double turn_count);
 };
 
 class ItemEffect
