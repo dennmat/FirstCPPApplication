@@ -130,10 +130,23 @@ bool sorting_by_type(Message* a, Message* b)
 {
     // std::cout << a->content;
     // std::cout << b->content;
-    bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) <= (b->turn));
-    // std::cout << BoolToString(result);
-    // std::cout << std::endl;
-    return result;
+    if (a->turn > b->turn)
+    {
+        return true;
+    }
+    else if (a->turn == b->turn)
+    {
+        return getIndex(a->type) < getIndex(b->type);
+    }
+    else if (a->turn < b->turn)
+    {
+        return false;
+    }
+
+    // bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) <= (b->turn));
+    // // std::cout << BoolToString(result);
+    // // std::cout << std::endl;
+    // return result;
 };
 
 //goes through all the vectors of this turn and creates a std::string of the
@@ -166,7 +179,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     }
 
     //TODO: This'll get slower the longer the game goes on
-    std::sort(limited_messages.begin(), limited_messages.end(),
+    std::stable_sort(limited_messages.begin(), limited_messages.end(),
             sorting_by_type);
 
     // for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
