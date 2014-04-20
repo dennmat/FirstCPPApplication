@@ -34,7 +34,8 @@ void FighterClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Water Bomb";
             this->master->spells->back()->element = WaterElement;
-            this->master->spells->back()->spell_effect->health_current_val = 7;
+            this->master->spells->back()->spell_effect->health_current_val = -70;
+            this->master->spells->back()->spell_effect->duration = 2;
             this->master->spells->back()->mana_cost = 5;
             this->master->spells->back()->max_range = 11;
             break;
