@@ -39,6 +39,11 @@ ItemEffect::ItemEffect()
     this->actors_applied_to = new std::vector<applied_to_s*>;
 };
 
+bool ItemEffect::is_timed()
+{
+    return this->duration != NO_DURATION;
+};
+
 void ItemEffect::set_all_vals_to(int new_val)
 {
     this->set_health_vals_to(new_val);

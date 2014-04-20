@@ -1,6 +1,7 @@
 
 #include "stdafx.h"
 #include "item.h"
+#include "game.h"
 #include "Representation.h"
 #include "item_effect.h"
 #include "actors/actor.h"
@@ -29,10 +30,17 @@ void Item::use(Actor* target)
     {
         this->item_effect->ApplyAllEffects(target);
         this->uses--;
+        if (this->item_effect->is_timed())
+        {
+          TimedEffect* timed_effect = new TimedEffect;
+            timed_effect->effect = this->item_effect;
+            timed_effect->turn_applied = Game::turn_count;
+            target->timed_item_effects->push_back(timed_effect);
+        };
         if (this->uses <= 0)
         {
             target->inventory->remove_item(this);
-	    delete this;
+            // delete this; //dont want to delete it if its a timed item
         }
     }
     else

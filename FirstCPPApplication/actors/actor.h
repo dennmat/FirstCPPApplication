@@ -22,6 +22,8 @@ class Townsmen;
 class Spell;
 class IClass;
 
+class TimedEffect;
+
 
 
 class Actor : public Object 
@@ -57,9 +59,8 @@ class Actor : public Object
         static int pack_size;
         static int preferred_pack_size;
 
-        std::vector<ItemEffect*>* timed_item_effects;
-        std::vector<ItemEffect*>* timed_spell_effects;
-
+        std::vector<TimedEffect*>* timed_item_effects;
+        std::vector<TimedEffect*>* timed_spell_effects;
 
         IClass* actor_class;
         static std::vector<IClass*>* actor_class_choices;

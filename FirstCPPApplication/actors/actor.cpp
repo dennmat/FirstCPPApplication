@@ -37,8 +37,8 @@ Actor::Actor()
     this->level = 1;
 
     this->is_champion = false;
-    this->timed_item_effects = new std::vector<ItemEffect*>;
-    this->timed_spell_effects = new std::vector<ItemEffect*>;
+    this->timed_item_effects = new std::vector<TimedEffect*>;
+    this->timed_spell_effects = new std::vector<TimedEffect*>;
 
     this->representation = new Representation;
     this->inventory = new Inventory;

@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 
+const int NO_DURATION = -1;
+
 class Actor;
 class Person;
 class Combat;
@@ -39,10 +41,20 @@ struct applied_to_s
     Actor* actor;
 };
 
+class ItemEffect;
+
+class TimedEffect
+{
+    public:
+        ItemEffect* effect;
+        long double turn_applied;
+};
+
 class ItemEffect
 {
     public:
         int duration;
+        bool is_timed();
 
         int health_current_val;
         int health_max_val;
