@@ -66,7 +66,7 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Examine the item");
     vec.push_back("Equip the active item"); vec.push_back("Unequip the active item");
     vec.push_back("Drop the active item"); vec.push_back("Exit the menu");
-    vec.push_back("Use the active item");
+    vec.push_back("Use the active item \(if its a corpse, eat it for food\)");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
     return vec;
 };
@@ -1046,17 +1046,20 @@ bool Input::process_key_event(TCOD_key_t request)
             }
             else if (Game::current_screen == Screens::ClassSelectScreen)
             {
+                Ui::is_targetting = false;
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
                 Input::select_generic(request, classes, is_key_class_command, Input::process_classes_keys);
             }
 
             else if (Game::current_screen == Screens::InventoryScreen)
             {
+                Ui::is_targetting = false;
                 std::vector<Item*>* items = Game::player->inventory->items;
                 Input::select_generic(request, items, is_key_inventory_command, Input::process_inventory_keys);
             }
             else 
             {
+                Ui::is_targetting = false;
                 printf("defaulting to generic screen\n");
                 std::vector<void*>* _ = new std::vector<void*>;
                 Input::select_generic(request, _, is_key_generic_menu_command, Input::process_generic_menu_keys);
