@@ -233,6 +233,14 @@ Combat* Combat::GetLastAttacker()
     return assailant;
 };
 
+void Combat::TryToDie()
+{
+    if (this->CheckDeath())
+    {
+        this->Die();
+    };
+}
+
 void Combat::TakeDamage(Combat* combat_attacker, int dmg)
 {
     if (dmg > 0) 
@@ -248,10 +256,7 @@ void Combat::TakeDamage(Combat* combat_attacker, int dmg)
         //save attacker in history
         this->RememberAttacker(combat_attacker);
 
-        if (this->CheckDeath())
-        {
-            this->Die();
-        };
+        this->TryToDie();
     }
     else
     {

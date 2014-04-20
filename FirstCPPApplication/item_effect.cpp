@@ -6,6 +6,7 @@
 #include <actors/actor.h>
 #include "utils.h"
 #include "libtcod.hpp"
+#include "combat.h"
 
 bool TimedEffect::is_expired(long double turn_count)
 {
@@ -340,6 +341,10 @@ void ItemEffect::ApplyAllEffects(Actor* actor)
     this->ApplyArmorEffects(actor);
     this->ApplyDamageEffects(actor);
     this->ApplyHungerEffects(actor);
+    if (actor->combat!= NULL)
+        actor->combat->TryToDie();
+    else
+        std::cout << "this thing has no combat... why are you a dick?" << std::endl;
 };
 
 void ItemEffect::ApplyHealthEffects(Actor* actor)

@@ -28,6 +28,7 @@ class Combat
         void TakeDamage(Combat* Combat_attacker, int dmg);
         bool CheckDeath();
         void RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
+        void TryToDie();
         void Die();
         Combat* GetLastAttacker();
         void update();
