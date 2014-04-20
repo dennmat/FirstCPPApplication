@@ -348,7 +348,7 @@ Person*  Game::initialize_player()
 
     player->spells->push_back(new Spell);
     player->spells->back()->name = "Fireball";
-    player->spells->back()->spell_effect->health_current_val = 10;
+    player->spells->back()->spell_effect->health_current_val = -10;
     player->spells->back()->mana_cost = 10;
     player->spells->back()->max_range = 10;
 
