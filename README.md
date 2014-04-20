@@ -14,14 +14,17 @@ It's too early to have a distinct direction for the game, but I want to be able 
 * ~~6 monster types with their own drop rates~~
 * ~~a random dungeon generation with at least 2 room types, square and round~~
 * ~~levelling and experience~~
-* some sort of over the top stat tracking
+* ~~add a close range spell~~, ~~a healing spell,~~ and ~~a buff spell~~
+* ~~spell selection screen~~, ~~character viewing screen~~
 
 New goals:
 
 * selling inventory
 * going back up floors
-* ~~add a close range spell~~, ~~a healing spell,~~ and a buff spell
-* ~~spell selection screen~~, ~~character viewing screen~~
+* some sort of over the top stat tracking
+* different environments. There's just dull brown now
+* throwing items
+* enemies who can throw/cast
 
 
-![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/Screenshot_20Mar2014.png)
+![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/Screenshot_20Apr2014.png)
