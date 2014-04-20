@@ -552,6 +552,7 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new BrawlerClass);
     std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world();
+    // Map* new_map = NULL;
     std::cout << "ending world gen" << std::endl;
     // Map* last_map = Game::build_town();
     Game::current_map = new_map;
@@ -564,6 +565,7 @@ void Game::start_game()
 void Game::mainloop()
 {
 
+    TCODConsole::setCustomFont("data/terminal.png");
     TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
     TCODConsole::setKeyboardRepeat(1000, 1);
 

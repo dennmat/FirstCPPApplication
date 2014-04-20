@@ -142,6 +142,10 @@ bool sorting_by_type(Message* a, Message* b)
     {
         return false;
     }
+    else
+    {
+        assert(false && "this means turn is not anything rational, I guess.");
+    };
 
     // bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) <= (b->turn));
     // // std::cout << BoolToString(result);
