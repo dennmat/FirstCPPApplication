@@ -503,28 +503,45 @@ void Ui::format_attribute(Attribute* attr, char buffer[])
     sprintf(buffer, msg_template.c_str(), attr->current_val, attr->max_val, attr->regen_rate, attr->regen_interval);
 };
 
-void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& i, std::string name)
+void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name)
 {
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, name.c_str());
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, name.c_str());
     i++;
     Ui::format_attribute(attr, buffer);
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
     i++;
     i++;
 };
 
-void Ui::print_experience(TCODConsole* con, int& i)
+void Ui::print_experience(TCODConsole* con, int& offset, int& i)
 {
     char buffer[100];
     Person* player = Game::player;
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "EXPERIENCE");
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "EXPERIENCE");
     i++;
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "Level %i", player->level);
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "Level %i", player->level);
     i++;
 
     std::string msg_template = "%i out of %i XP to next level, with %i total.";
     sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required, player->xp);
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+    i++;
+    i++;
+};
+
+void Ui::print_class(TCODConsole* con, int& offset, int& i)
+{
+    // char buffer[100];
+    Person* player = Game::player;
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "CLASS");
+    i++;
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "%s", player->actor_class->name.c_str());
+    i++;
+    i++;
+
+    //std::string msg_template = "%i out of %i XP to next level, with %i total.";
+    //sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required, player->xp);
+    //con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
 };
 
     template<typename T1, typename T2>
@@ -576,13 +593,14 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     HungerAttribute* hunger = player_attrs->hunger;
 
     char buffer [100];
-    Ui::print_attribute(con, health, buffer, i, "HEALTH");
-    Ui::print_attribute(con, mana, buffer, i, "MANA");
-    Ui::print_attribute(con, damage, buffer, i, "DAMAGE");
-    Ui::print_attribute(con, armor, buffer, i, "ARMOR");
-    Ui::print_attribute(con, hunger, buffer, i, "HUNGER");
+    Ui::print_attribute(con, health, buffer, offset, i, "HEALTH");
+    Ui::print_attribute(con, mana, buffer, offset, i, "MANA");
+    Ui::print_attribute(con, damage, buffer, offset, i, "DAMAGE");
+    Ui::print_attribute(con, armor, buffer, offset, i, "ARMOR");
+    Ui::print_attribute(con, hunger, buffer, offset, i, "HUNGER");
 
-    print_experience(con, i);
+    print_experience(con, offset,  i);
+    print_class(con, offset,  i);
 
 };
 
@@ -726,7 +744,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         //print the spell effects
         std::string msg = (*it)->spell_effect->oneline_str();
         std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->spell_effect->oneline_str_colours();
-        one_line_helper(con, i, msg, colctrl_vec);
+        one_line_helper(con, offset, i, msg, colctrl_vec);
         i++;
         i++;
 
@@ -803,7 +821,7 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
         TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
         const char *msg_char = msg_str.c_str();
-        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+        con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
                 TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2,
                 (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
                 (*it)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->weight, TCOD_COLCTRL_STOP);
@@ -812,7 +830,7 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
         //print the item effects
         std::string msg = (*it)->item_effect->oneline_str();
         std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->item_effect->oneline_str_colours();
-        one_line_helper(con, i, msg, colctrl_vec);
+        one_line_helper(con, offset, i, msg, colctrl_vec);
         i++;
         i++;
 
@@ -880,7 +898,7 @@ void Ui::draw_help_ui()
     Ui::draw_screen("Help Information", &Ui::help_screen_ui_loop);
 };
 
-void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
+void one_line_helper(TCODConsole* con,int& offset, int& i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector)
 {
     //add a col stop to end
     if (color_vector.size() != 0)
@@ -904,7 +922,7 @@ void one_line_helper(TCODConsole* con, int i, std::string msg_str, std::vector<T
     // };
     // out << TCOD_COLCTRL_STOP;
     //sprintf(to_print, &to_print[0], TCOD_COLCTRL_STOP);
-    int x = 4;
+    int x = offset;
     // con->print(x, i, out.str().c_str());
 
     if (color_vector.size() == 0)

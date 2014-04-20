@@ -14,7 +14,7 @@ class TCODConsole;
 class Spell;
 class IClass;
 
-void one_line_helper(TCODConsole* ui_inv_con, int i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
+void one_line_helper(TCODConsole* ui_inv_con,int& offset, int& i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
 
 class Ui
 {
@@ -71,9 +71,10 @@ class Ui
 
         static void draw_main_menu_ui();
 
-        static void Ui::format_attribute(Attribute* attr, char buffer[]);
-        static void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& i, std::string name);
-        static void Ui::print_experience(TCODConsole* con, int& i);
+        static void format_attribute(Attribute* attr, char buffer[]);
+        static void print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name);
+        static void print_experience(TCODConsole* con, int& offset, int& i);
+        static void print_class(TCODConsole* con, int& offset, int& i);
         static void draw_char_sheet_ui();
         static void character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key);
         static void help_screen_ui_loop(TCODConsole* con, int offset, int i, char key);
