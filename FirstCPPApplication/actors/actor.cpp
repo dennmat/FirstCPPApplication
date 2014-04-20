@@ -37,6 +37,8 @@ Actor::Actor()
     this->level = 1;
 
     this->is_champion = false;
+    this->timed_item_effects = new std::vector<ItemEffect*>;
+    this->timed_spell_effects = new std::vector<ItemEffect*>;
 
     this->representation = new Representation;
     this->inventory = new Inventory;
@@ -59,6 +61,19 @@ Actor::Actor()
 
     this->l_path = NULL;
     this->has_attacked = false;
+};
+
+Actor::~Actor()
+{
+    delete this->timed_item_effects;
+    delete this->timed_spell_effects;
+
+    delete this->actors_in_sight;
+    delete this->inventory;
+    delete this->representation;
+    delete this->attrs;
+    delete this->spells;
+    delete this->thinker;
 };
 
 void Actor::resetIsMoving()

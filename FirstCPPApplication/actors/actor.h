@@ -4,6 +4,7 @@
 
 
 #include "object.h"
+#include <item_effect.h>
 
 class Representation;
 
@@ -56,6 +57,9 @@ class Actor : public Object
         static int pack_size;
         static int preferred_pack_size;
 
+        std::vector<ItemEffect*>* timed_item_effects;
+        std::vector<ItemEffect*>* timed_spell_effects;
+
 
         IClass* actor_class;
         static std::vector<IClass*>* actor_class_choices;
@@ -75,6 +79,7 @@ class Actor : public Object
         bool has_attacked;
 
         Actor();
+        virtual ~Actor();
         std::string GetName();
         const char* GetNameC();
 
