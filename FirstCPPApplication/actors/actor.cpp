@@ -373,7 +373,7 @@ Item* spawnItem(int result)
         dropped_item->equippable = false;
         dropped_item->usable = true;
         dropped_item->repr->repr = '!';
-        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
+        dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
         dropped_item->name = "A glowing health potion";
         dropped_item->description = "It looks like it's probably safe to drink.";
         dropped_item->item_effect->set_all_vals_to(0);
@@ -382,7 +382,7 @@ Item* spawnItem(int result)
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-        int health = rng->getInt(5, 25, 5);
+        int health = rng->getInt(5, 50, 15);
         dropped_item->item_effect->health_current_val = health;
         dropped_item->item_effect->health_max_val = health;
     }
@@ -404,6 +404,43 @@ Item* spawnItem(int result)
         int health = rng->getInt(1, 5, 1);
         dropped_item->item_effect->health_regen_rate = health;
         dropped_item->item_effect->health_regen_interval = -floor((double)health/2);
+    }
+    else if (result <= 87)
+    {
+        dropped_item = new Item;
+        dropped_item->equippable = false;
+        dropped_item->usable = true;
+        dropped_item->repr->repr = '!';
+        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
+        dropped_item->name = "A glowing blue potion";
+        dropped_item->description = "It looks like a good time.";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::NoSlot;
+        dropped_item->weight = 1;
+
+        //health restore
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int health = rng->getInt(1, 5, 1);
+        dropped_item->item_effect->mana_regen_rate = mana;
+        dropped_item->item_effect->mana_regen_interval = -floor((double)mana/2);
+    }
+    else if (result <= 90)
+    {
+        dropped_item = new Item;
+        dropped_item->equippable = false;
+        dropped_item->usable = true;
+        dropped_item->repr->repr = '!';
+        dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
+        dropped_item->name = "A blue potion";
+        dropped_item->description = "It looks like a small bit of essence is trapped inside. Better drink it.";
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->slot_type = slots_t::NoSlot;
+        dropped_item->weight = 1;
+
+        //health restore
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int health = rng->getInt(1, 50, 10);
+        dropped_item->item_effect->mana_current_val = mana;
     }
     else
     {

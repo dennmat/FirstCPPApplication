@@ -19,6 +19,7 @@ It's too early to have a distinct direction for the game, but I want to be able 
 
 New goals:
 
+* choosing some information on game load
 * selling inventory
 * going back up floors
 * some sort of over the top stat tracking
