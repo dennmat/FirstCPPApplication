@@ -48,8 +48,8 @@ void FighterClass::LevelUpSkills(int levels)
     switch (this->master->level)
     {
         case 2:
-            // new Message(Ui::msg_handler_main, NOTYPE_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new technique!");
+            // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Water Bomb";
             this->master->spells->back()->element = WaterElement;
@@ -59,7 +59,7 @@ void FighterClass::LevelUpSkills(int levels)
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "AutoChemistry: Health Potion";
             this->master->spells->back()->element = LifeElement;
@@ -69,7 +69,7 @@ void FighterClass::LevelUpSkills(int levels)
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Poison Cough";
             this->master->spells->back()->element = DeathElement;
@@ -79,7 +79,7 @@ void FighterClass::LevelUpSkills(int levels)
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Inner Sanctuary";
             this->master->spells->back()->element = LifeElement;
@@ -111,8 +111,8 @@ void MageClass::LevelUpSkills(int levels)
     switch (this->master->level)
     {
         case 2:
-            // new Message(Ui::msg_handler_main, NOTYPE_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Ice bolt";
             this->master->spells->back()->element = WaterElement;
@@ -122,7 +122,7 @@ void MageClass::LevelUpSkills(int levels)
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Healing Touch";
             this->master->spells->back()->element = LifeElement;
@@ -132,7 +132,7 @@ void MageClass::LevelUpSkills(int levels)
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Death's Touch";
             this->master->spells->back()->element = DeathElement;
@@ -142,7 +142,7 @@ void MageClass::LevelUpSkills(int levels)
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Inner Fountain";
             this->master->spells->back()->element = CrystalElement;
@@ -174,8 +174,8 @@ void BrawlerClass::LevelUpSkills(int levels)
     switch (this->master->level)
     {
         case 2:
-            // new Message(Ui::msg_handler_main, NOTYPE_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Ice fist";
             this->master->spells->back()->element = WaterElement;
@@ -185,7 +185,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Sacred Kick";
             this->master->spells->back()->element = LifeElement;
@@ -195,7 +195,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Death's Touch";
             this->master->spells->back()->element = DeathElement;
@@ -205,7 +205,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Inner Strength";
             this->master->spells->back()->element = DeathElement;
