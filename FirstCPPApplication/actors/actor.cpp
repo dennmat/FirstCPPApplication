@@ -420,7 +420,7 @@ Item* spawnItem(int result)
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-        int health = rng->getInt(1, 5, 1);
+        int mana = rng->getInt(1, 5, 1);
         dropped_item->item_effect->mana_regen_rate = mana;
         dropped_item->item_effect->mana_regen_interval = -floor((double)mana/2);
     }
@@ -439,7 +439,7 @@ Item* spawnItem(int result)
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-        int health = rng->getInt(1, 50, 10);
+        int mana = rng->getInt(1, 50, 10);
         dropped_item->item_effect->mana_current_val = mana;
     }
     else
