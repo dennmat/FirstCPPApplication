@@ -12,6 +12,11 @@ class IClass
         virtual ~IClass() {};
         virtual void LevelUpStats(int levels) = 0;
         virtual void LevelUpSkills(int levels) = 0;
+
+        void LevelUpHealth(int change);
+        void LevelUpMana(int change);
+        void LevelUpArmor(int change);
+        void LevelUpDamage(int change);
 };
 
 class FighterClass : public IClass
