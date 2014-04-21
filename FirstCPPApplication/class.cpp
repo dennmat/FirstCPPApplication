@@ -41,11 +41,6 @@ void FighterClass::LevelUpStats(int levels)
     this->LevelUpMana(2);
     this->LevelUpArmor(1);
     this->LevelUpDamage(1);
-    // this->master->attrs->health->current_val+=3;
-    // this->master->attrs->health->max_val+=3;
-
-    // this->master->attrs->damage->current_val+=1;
-    // this->master->attrs->damage->max_val+=1;
 };
 
 void FighterClass::LevelUpSkills(int levels)
@@ -109,15 +104,6 @@ void MageClass::LevelUpStats(int levels)
     this->LevelUpMana(4);
     this->LevelUpArmor(0);
     this->LevelUpDamage(1);
-    // this->master->attrs->health->current_val+=2;
-    // this->master->attrs->health->max_val+=2;
-
-    // this->master->attrs->mana->current_val+=1;
-    // this->master->attrs->mana->max_val+=1;
-
-    // this->master->attrs->damage->current_val+=1;
-    // this->master->attrs->damage->max_val+=1;
-
 };
 
 void MageClass::LevelUpSkills(int levels)
@@ -181,11 +167,6 @@ void BrawlerClass::LevelUpStats(int levels)
     this->LevelUpMana(1);
     this->LevelUpArmor(1);
     this->LevelUpDamage(2);
-    // this->master->attrs->health->current_val+=3;
-    // this->master->attrs->health->max_val+=3;
-
-    // this->master->attrs->damage->current_val+=1;
-    // this->master->attrs->damage->max_val+=1;
 };
 
 void BrawlerClass::LevelUpSkills(int levels)
