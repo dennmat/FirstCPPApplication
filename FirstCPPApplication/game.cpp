@@ -100,8 +100,8 @@ enum SpawnTypes {
 
 SpawnTypes get_spawn_type()
 {
-    TCODRandom *spawning_rng = TCODRandom::getInstance();
-    int dice_roll = spawning_rng->getInt(0, 100);
+    // TCODRandom *spawning_rng = TCODRandom::getInstance();
+    int dice_roll = Game::spawning_rng->getInt(0, 100);
     if (dice_roll <= 30)
         return SpawnTypes::TrollSpawn;
     else if (dice_roll <= 60)
@@ -186,7 +186,6 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
     int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
     for (int i = 0; i <= enemy_count; i++)
     {
-        int enemy_count = Game::spawning_rng->getInt(1, Troll::pack_size, 5);
         int creature_x, creature_y;
         creature_x = Game::linear_rng->getInt(2, room->width-3) + room->x;
         creature_y = Game::linear_rng->getInt(2, room->height-3) + room->y;
