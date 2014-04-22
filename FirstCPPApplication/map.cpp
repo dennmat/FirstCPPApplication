@@ -387,16 +387,16 @@ int Map::build_dungeon_from_random(int seed)
         this_tile->map = this;
         this_tile->updateTileType(TileTypes::WallTileTypeType);
         // this_tile->updateTileType(TileTypes::FloorTileTypeType);
-        if(this_tile->type_id == TileTypes::FloorTileTypeType)
-        {
-            //light passes though, walkable
-            l_map -> setProperties(x, y, true, true);
-        }
-        else 
-        {
-            //light does NOT pass through nor is walkable
-            l_map -> setProperties(x, y, false, false);
-        }
+        // if(this_tile->type_id == TileTypes::FloorTileTypeType)
+        // {
+        //     //light passes though, walkable
+        //     l_map -> setProperties(x, y, true, true);
+        // }
+        // else 
+        // {
+        //     //light does NOT pass through nor is walkable
+        //     l_map -> setProperties(x, y, false, false);
+        // }
 
         this_tile->tile_x = x;
         this_tile->tile_y = y;
@@ -504,13 +504,13 @@ Room* Map::build_circle_room(int room_x, int room_y,
             if (adj_y >= this->height)
             {
                 // break;
-                adj_y = this->height-2;
+                adj_y = this->height-1;
             }
 
             if (adj_y >= this->width)
             {
                 // break;
-                adj_y = this->width-2;
+                adj_y = this->width-1;
             }
 
             Tile* tile = getTileAt(adj_x, adj_y);
@@ -585,7 +585,6 @@ Room* Map::build_rect_room(int room_x, int room_y,
                     l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
-
             //everything else
             else 
             {
@@ -598,7 +597,6 @@ Room* Map::build_rect_room(int room_x, int room_y,
     }
 
     return room;
-
 
 };
 
