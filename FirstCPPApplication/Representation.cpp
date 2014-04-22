@@ -90,7 +90,7 @@ DeadRepresentation::DeadRepresentation(): Representation()
 {
     repr = 'X';
     int r,b,g;
-    this->getRGBFromColor(r, g, b, TCODColor::black);
+    this->getRGBFromColor(r, g, b, TCODColor::lightRed);
     fg_color = this->createColorFromRGB(r, g, b);
     temp_fg_color = this->createColorFromRGB(r, g, b);
     orig_fg_color = this->createColorFromRGB(r, g, b);

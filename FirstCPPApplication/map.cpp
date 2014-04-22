@@ -164,9 +164,11 @@ class DungeonListener : public ITCODBspCallback
                     tile = map.getTileAt(x, y);
                     if ( tile->type_id == TileTypes::FloorTileTypeType)
                     {
-                        tile->get_representation()->repr = ',';
-                        tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
-                        tile->get_description() = "A small stone lays here.";
+                        Representation* stone_repr = new FloorRepresentation;
+                        stone_repr->repr = ',';
+                        stone_repr->setFGColor(TCODColor::darkerGrey, true, true, true);
+                        tile->set_description("A small stone lays here.");
+                        tile->set_representation(stone_repr);
                     }
                 }
             }
@@ -532,7 +534,7 @@ Room* Map::build_circle_room(int room_x, int room_y,
             else 
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
-                tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
+                //tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
                 tile->get_description() = "Crumbling bricks scattered here.";
             }
 
@@ -589,7 +591,7 @@ Room* Map::build_rect_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //set darker indoor color
-                tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); 
+                // tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); 
             }
 
         }
