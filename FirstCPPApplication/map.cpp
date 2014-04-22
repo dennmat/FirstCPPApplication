@@ -501,17 +501,16 @@ Room* Map::build_circle_room(int room_x, int room_y,
             int adj_y = room_y + new_y;
 
             //done to save time later on for getTileAt recursion
-            if (adj_x >= this->width)
+            if (adj_x >= this->width-1) //adjusting since its 0 index
             {
                 // break;
-                adj_x = this->width-1;
+                adj_x = this->width-2;
             }
-            if (adj_y >= this->height)
+            if (adj_y >= this->height-1)
             {
                 // break;
-                adj_y = this->height-1;
+                adj_y = this->height-2;
             }
-
 
             Tile* tile = getTileAt(adj_x, adj_y);
             //check for outer perimeter
@@ -559,12 +558,12 @@ Room* Map::build_rect_room(int room_x, int room_y,
             int adj_y = room_y + new_y;
 
             //done to save time later on for getTileAt recursion
-            if (adj_x >= this->width)
+            if (adj_x >= this->width-1) //adjusting since its 0 index
             {
                 // break;
                 adj_x = this->width-2;
-            };
-            if (adj_y >= this->height)
+            }
+            if (adj_y >= this->height-1)
             {
                 // break;
                 adj_y = this->height-2;
