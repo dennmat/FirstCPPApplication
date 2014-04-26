@@ -49,6 +49,8 @@ class Message
         Message(MessageHandler* handler, message_types_t type, std::string content, ...);
         void Init();
 
+        static int getIndex(message_types_t type);
+
 
 };
 

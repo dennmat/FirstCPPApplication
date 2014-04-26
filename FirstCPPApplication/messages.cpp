@@ -9,9 +9,12 @@
 #include "utils.h"
 
 //message ordering. started as array and transformed into a vector
-message_types_t MessageHandler::initial_message_order [9] = { HUNGER_MSG, BURDEN_MSG,
-    MOOD_MSG, DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG, CHAT_MSG,
-    TILE_DESCRIPTION_MSG, NOTYPE_MSG };
+message_types_t MessageHandler::initial_message_order [9] = {
+    HUNGER_MSG, CHAT_MSG,
+    BURDEN_MSG, ITEM_MSG,
+    MOOD_MSG, DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG, 
+    TILE_DESCRIPTION_MSG, NOTYPE_MSG 
+};
 
 typedef MessageHandler MH;
 std::vector<message_types_t>
@@ -30,6 +33,11 @@ MessageHandler::MessageHandler()
 
 void MessageHandler::new_msg(Message* message)
 {
+    //debugging order
+    // std::stringstream ss;
+    //ss <<  "T"<< (int)message->type;
+    // ss <<  "I"<< Message::getIndex(message->type);
+    // message->content.append(ss.str());
 
     Message* last_msg = this->msg_list.back();
     //compare messages to see if the count should increment
@@ -110,13 +118,14 @@ void MessageHandler::draw(TCODConsole* console)
 
 };
 
-int getIndex(message_types_t type)
+int Message::getIndex(message_types_t type)
 {
     std::vector<message_types_t> vec = MessageHandler::message_order;
     auto it = std::find(vec.begin(), vec.end(), type);
     if (it == vec.end())
     {
-        // name not in vector
+        // message_type not in message_order
+        assert(false && "fix missing type");
         return -2;
     } 
     else
@@ -136,7 +145,7 @@ bool sorting_by_type(Message* a, Message* b)
     }
     else if (a->turn == b->turn)
     {
-        return getIndex(a->type) < getIndex(b->type);
+        return Message::getIndex(a->type) < Message::getIndex(b->type);
     }
     else if (a->turn < b->turn)
     {
@@ -182,7 +191,6 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         // };
     }
 
-    //TODO: This'll get slower the longer the game goes on
     std::stable_sort(limited_messages.begin(), limited_messages.end(),
             sorting_by_type);
 
