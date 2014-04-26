@@ -16,11 +16,11 @@ class Attribute
         bool is_ready;
 
     public:
-        int current_val;
-        int max_val;
+        double current_val;
+        double max_val;
 
-        int regen_rate; //per turn
-        int regen_interval; //per x turns? 
+        double regen_rate; //per turn
+        double regen_interval; //per x turns? 
 
         Attribute();
 

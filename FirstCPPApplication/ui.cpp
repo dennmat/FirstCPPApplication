@@ -277,7 +277,7 @@ void Ui::draw_ui_sidebar()
 
     // ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
     // first_y++;
-    ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d/%d%c", TCOD_COLCTRL_1, Ui::game->player->attrs->health->current_val, Ui::game->player->attrs->health->max_val, TCOD_COLCTRL_STOP);
+    ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d/%d%c", TCOD_COLCTRL_1, (int)Ui::game->player->attrs->health->current_val, (int)Ui::game->player->attrs->health->max_val, TCOD_COLCTRL_STOP);
     first_y++;
     first_y++;
 
@@ -499,8 +499,8 @@ TCODConsole* Ui::create_screen()
 
 void Ui::format_attribute(Attribute* attr, char buffer[])
 {
-    std::string msg_template = "%i out of %i, regenerating %i every %i turns";
-    sprintf(buffer, msg_template.c_str(), attr->current_val, attr->max_val, attr->regen_rate, attr->regen_interval);
+    std::string msg_template = "%d out of %d, regenerating %d every %d turns";
+    sprintf(buffer, msg_template.c_str(), (int)attr->current_val, (int)attr->max_val, (int)attr->regen_rate, (int)attr->regen_interval);
 };
 
 void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name)

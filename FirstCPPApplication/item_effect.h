@@ -115,7 +115,7 @@ class ItemEffect
         void mark_applied_damage(Actor* actor);
         void mark_applied_hunger(Actor* actor);
 
-        std::string ItemEffect::small_convert(std::string prefix, long double val);
+        std::string ItemEffect::small_convert(std::string prefix, int val);
         std::string full_str();
         std::string oneline_str();
         // std::vector<TCODColor> oneline_str_colours();

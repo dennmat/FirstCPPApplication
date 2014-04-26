@@ -9,22 +9,22 @@
 #include "item_effect.h"
 #include "item.h"
 
-void IClass::LevelUpHealth(int change)
+void IClass::LevelUpHealth(double change)
 {
     this->master->attrs->health->current_val+=change;
     this->master->attrs->health->max_val+=change;
 };
-void IClass::LevelUpMana(int change)
+void IClass::LevelUpMana(double change)
 {
     this->master->attrs->mana->current_val+=change;
     this->master->attrs->mana->max_val+=change;
 };
-void IClass::LevelUpArmor(int change)
+void IClass::LevelUpArmor(double change)
 {
     this->master->attrs->armor->current_val+=change;
     this->master->attrs->armor->max_val+=change;
 };
-void IClass::LevelUpDamage(int change)
+void IClass::LevelUpDamage(double change)
 {
     this->master->attrs->damage->current_val+=change;
     this->master->attrs->damage->max_val+=change;
@@ -39,8 +39,8 @@ void FighterClass::LevelUpStats(int levels)
 {
     this->LevelUpHealth(2);
     this->LevelUpMana(2);
-    this->LevelUpArmor(1);
-    this->LevelUpDamage(1);
+    this->LevelUpArmor(0.25);
+    this->LevelUpDamage(0.25);
 };
 
 void FighterClass::LevelUpSkills(int levels)
@@ -102,8 +102,8 @@ void MageClass::LevelUpStats(int levels)
 {
     this->LevelUpHealth(2);
     this->LevelUpMana(4);
-    this->LevelUpArmor(0);
-    this->LevelUpDamage(1);
+    this->LevelUpArmor(0.1);
+    this->LevelUpDamage(0.1);
 };
 
 void MageClass::LevelUpSkills(int levels)
@@ -165,8 +165,8 @@ void BrawlerClass::LevelUpStats(int levels)
 {
     this->LevelUpHealth(4);
     this->LevelUpMana(1);
-    this->LevelUpArmor(1);
-    this->LevelUpDamage(2);
+    this->LevelUpArmor(0.7);
+    this->LevelUpDamage(.9);
 };
 
 void BrawlerClass::LevelUpSkills(int levels)
