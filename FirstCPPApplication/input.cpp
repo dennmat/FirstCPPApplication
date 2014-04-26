@@ -982,14 +982,13 @@ bool Input::process_debug_event(TCOD_key_t request)
 
     if (request.vk == TCODK_F6)
     {
-        //this'll redraw the entire screen incase shit goes black
-        // TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        //this'll let you see the type and index of *new* messages
         Game::debug_opts->show_msg_debug = !Game::debug_opts->show_msg_debug;
     }
 
     if (request.vk == TCODK_F7)
     {
-        //this'll redraw the entire screen incase shit goes black
+        //this'll level the player up
         if (request.shift == true)
         {
             Game::player->combat->LevelUp(10);
@@ -1016,7 +1015,6 @@ bool Input::process_key_event(TCOD_key_t request)
     //std::cout << "key event" << std::endl;
     //determine if movement command
     bool incr_turn = false;
-    int current_tile = Game::player->x+(Game::player->y*(Game::current_map->width));
 
     switch(Game::current_state)
     {
