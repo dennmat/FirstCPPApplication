@@ -304,11 +304,11 @@ void  Game::initialize_items()
     // next_tile->place_item_down(item);
     // items.push_back(item);
 
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 52; i++)
     {
         Item* item2 = new Item();
         item2->name = "Item of Holding";
-        item2->name.append(std::to_string((long double)i));
+        item2->name.append(std::to_string((long double)i+1));
         item2->item_effect->health_current_val = 1;
         item2->item_effect->mana_current_val = 1;
         item2->item_effect->armor_current_val = 1;

@@ -1122,13 +1122,16 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
         }
         else if ( request.c == '+'&& request.pressed == 1) 
         {
-            Ui::page_num++;
-            Ui::offset = Ui::per_page*Ui::page_num;
+                Ui::page_num++;
+                Ui::offset = Ui::per_page*Ui::page_num;
         }
         else if ( request.c == '-'&& request.pressed == 1) 
         {
-            Ui::page_num--;
-            Ui::offset = Ui::per_page*Ui::page_num;
+            if (Ui::offset > 0)
+            {
+                Ui::page_num--;
+                Ui::offset = Ui::per_page*Ui::page_num;
+            };
         };
         //choose class
         generic_keypair_t::iterator it = class_map.find(request.c);
