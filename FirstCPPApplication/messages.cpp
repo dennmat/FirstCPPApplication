@@ -6,6 +6,7 @@
 
 #include <libtcod.hpp>
 #include "game.h"
+#include "debug_options.h"
 #include "utils.h"
 
 //message ordering. started as array and transformed into a vector
@@ -34,10 +35,13 @@ MessageHandler::MessageHandler()
 void MessageHandler::new_msg(Message* message)
 {
     //debugging order
-    // std::stringstream ss;
+    if (Game::debug_opts->show_msg_debug)
+    {
+    std::stringstream ss;
     //ss <<  "T"<< (int)message->type;
-    // ss <<  "I"<< Message::getIndex(message->type);
-    // message->content.append(ss.str());
+    ss <<  "I"<< Message::getIndex(message->type);
+    message->content.append(ss.str());
+    };
 
     Message* last_msg = this->msg_list.back();
     //compare messages to see if the count should increment

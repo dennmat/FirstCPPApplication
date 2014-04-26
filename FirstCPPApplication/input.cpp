@@ -983,13 +983,21 @@ bool Input::process_debug_event(TCOD_key_t request)
     if (request.vk == TCODK_F6)
     {
         //this'll redraw the entire screen incase shit goes black
-        TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        // TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        Game::debug_opts->show_msg_debug = !Game::debug_opts->show_msg_debug;
     }
 
     if (request.vk == TCODK_F7)
     {
         //this'll redraw the entire screen incase shit goes black
-        Game::player->combat->LevelUp(1);
+        if (request.shift == true)
+        {
+            Game::player->combat->LevelUp(10);
+        }
+        else if (request.shift == false) 
+        {
+            Game::player->combat->LevelUp(1);
+        };
     }
 
     if (request.vk == TCODK_F8)

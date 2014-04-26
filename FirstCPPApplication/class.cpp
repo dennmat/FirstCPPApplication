@@ -37,10 +37,15 @@ FighterClass::FighterClass()
 
 void FighterClass::LevelUpStats(int levels)
 {
+    int i = 0;
+    while (i < levels)
+    {
     this->LevelUpHealth(2);
     this->LevelUpMana(2);
     this->LevelUpArmor(0.25);
     this->LevelUpDamage(0.25);
+    i++;
+    };
 };
 
 void FighterClass::LevelUpSkills(int levels)
