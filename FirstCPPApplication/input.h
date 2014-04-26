@@ -85,7 +85,7 @@ class Input
         static std::map<int, classes_active_t> build_spec_classactivemap(); //Keypad, punctuation
         static std::map<char, classes_active_t> build_char_classactivemap(); //regular letters
 
-        static generic_keypair_t build_keypairs(int limit);
+        static generic_keypair_t build_keypairs(int limit, int offset);
 
         template<class T>
             static void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t));

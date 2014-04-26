@@ -42,6 +42,10 @@ unsigned long long int Ui::tick_key_released = 0;
 
 bool Ui::is_targetting = false;
 
+int Ui::per_page = 10;
+int Ui::page_num = 0;
+int Ui::offset = Ui::per_page * Ui::page_num;
+
 int Ui::ui_inv_w = 0;
 int Ui::ui_inv_h = 0;
 int Ui::ui_inv_msg_w = 0;
@@ -760,7 +764,9 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
 
     bool is_chosen, is_active;
     std::vector<Item*>* v  = Ui::game->player->inventory->items;
-    for (std::vector<Item*>::iterator it = v->begin(); it != v->end(); ++it) 
+    // int per_page = 10; //TODO combine with the input one
+    // int page_num = 1;
+    for (std::vector<Item*>::iterator it = v->begin() + Ui::offset; it != v->end() && it - v->begin() != Ui::per_page; ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
         is_chosen = (*it) == Ui::chosen_generic;

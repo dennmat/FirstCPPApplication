@@ -1086,7 +1086,7 @@ bool Input::process_key_event(TCOD_key_t request)
 
 };
 
-generic_keypair_t Input::build_keypairs(int limit)
+generic_keypair_t Input::build_keypairs(int limit, int offset)
 {
     generic_keypair_t keymap;
     char key = 'a';
@@ -1105,7 +1105,10 @@ generic_keypair_t Input::build_keypairs(int limit)
 void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
 {
     int size = generic_vector->size();
-    generic_keypair_t class_map = Input::build_keypairs(size);
+    // int per_page = 10;
+    // int page_num = 1;
+    // int offset = Ui::per_page*Ui::page_num;
+    generic_keypair_t class_map = Input::build_keypairs(size, Ui::offset);
     generic_keypair_t::iterator it = class_map.find(request.c);
     bool successful_action = true;
     if (Ui::generic_active == false)

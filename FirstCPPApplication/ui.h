@@ -33,6 +33,10 @@ class Ui
 
         static bool is_targetting;
 
+        static int per_page;
+        static int page_num;
+        static int offset;
+
         static Game* game;
         static MessageHandler* msg_handler_main;
         static MessageHandler* msg_handler_inv;
