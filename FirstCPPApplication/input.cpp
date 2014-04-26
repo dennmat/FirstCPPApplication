@@ -1091,7 +1091,7 @@ generic_keypair_t Input::build_keypairs(int limit, int offset)
     generic_keypair_t keymap;
     char key = 'a';
     // for (std::vector<int>::iterator it = indices.begin(); it != indices.end(); it++)
-    for (int index = 0; index < limit; index++)
+    for (int index = offset; index < limit; index++)
     {
         keymap.insert(generic_keypair(key, index));
         if (key == 'z') break;
