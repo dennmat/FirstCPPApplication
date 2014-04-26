@@ -517,7 +517,7 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     if( action == inventory_items_active_t::ExamineItem )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s", ((Item*)Ui::chosen_generic)->description);
-        std::cout << ((Item*)Ui::chosen_generic)->description << std::endl;
+        std::cout << ((Item*)Ui::chosen_generic)->name << ". " << ((Item*)Ui::chosen_generic)->description << std::endl;
         return true;
     }
     else if( action == inventory_items_active_t::DropItem )
@@ -1120,6 +1120,16 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             Ui::generic_active = false;
             Game::current_state = GameStates::GameplayState;
         }
+        else if ( request.c == '+'&& request.pressed == 1) 
+        {
+            Ui::page_num++;
+            Ui::offset = Ui::per_page*Ui::page_num;
+        }
+        else if ( request.c == '-'&& request.pressed == 1) 
+        {
+            Ui::page_num--;
+            Ui::offset = Ui::per_page*Ui::page_num;
+        };
         //choose class
         generic_keypair_t::iterator it = class_map.find(request.c);
         if (it != class_map.end())

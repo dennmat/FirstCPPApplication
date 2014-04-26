@@ -766,7 +766,7 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
     std::vector<Item*>* v  = Ui::game->player->inventory->items;
     // int per_page = 10; //TODO combine with the input one
     // int page_num = 1;
-    for (std::vector<Item*>::iterator it = v->begin() + Ui::offset; it != v->end() && it - v->begin() != Ui::per_page; ++it) 
+    for (std::vector<Item*>::iterator it = v->begin() + Ui::offset; it != v->end() && it - v->begin() != (Ui::offset + Ui::per_page); ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
         is_chosen = (*it) == Ui::chosen_generic;
