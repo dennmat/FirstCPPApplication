@@ -10,8 +10,11 @@ Civilian::Civilian()
     this->disposition = 50;
     this->master = NULL;
     this->chat_lines = new std::vector<std::string>();
-    this->chat_lines->push_back("Nice day outside, isn't it?");
-    this->chat_lines->push_back("FREAKING OUT.");
+    this->chat_lines->push_back("Nice day outside, isn't it? I wouldn't actually know.");
+    this->chat_lines->push_back("I smell peanut butter.");
+    this->chat_lines->push_back("You know what, I don't care for you at all.");
+    this->chat_lines->push_back("If you had any sense at all, you'd be happy to let me touch you.");
+    this->chat_lines->push_back("I'm pretty sure I'm trapped in here.");
 }
 
 Civilian::~Civilian()
