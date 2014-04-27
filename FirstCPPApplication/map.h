@@ -30,6 +30,7 @@ class Map : public Object
         std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
 
         int width, height;
+        bool pos_in_map(int x, int y);
         std::string description; // default description if tile does not have one
 
         int build_from_file(std::string filename);

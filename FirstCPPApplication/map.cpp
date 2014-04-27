@@ -849,6 +849,11 @@ int Map::draw()
     return 1;
 }
 
+bool Map::pos_in_map(int x, int y)
+{
+    return x < this->width && x >= 0 && y < this->height && y >= 0;
+};
+
 bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 {
     // std::cout << "trying to move player" << std::endl;
@@ -858,7 +863,8 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     new_y = thePerson->y+y2;
 
     //check to make sure the target tile's position would be valid
-    if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
+    // if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
+    if (!this->pos_in_map(new_x, new_y))
     {
         std::cout << "invalid move fool" << std::endl;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Leave the outer limits alone");
@@ -875,8 +881,9 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     std::vector<int> vec_ints(vec, vec+4);
     bool in_types = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id)!=vec_ints.end();
 
-    if (new_x < width && new_x > -1 && new_y < height && new_y > -1 &&
-            (in_types) && !target_tile->is_occupied())
+    if (this->pos_in_map(new_x, new_y) && in_types && !target_tile->is_occupied())
+    // if (new_x < width && new_x > -1 && new_y < height && new_y > -1 &&
+            // in_types && !target_tile->is_occupied())
     {
         thePerson->has_attacked = false;
         thePerson->putPerson(target_tile, new_x, new_y);
@@ -918,7 +925,8 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     {
         std::cout << std::endl << "invalid move." << std::endl;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "That's probably a wall.");
-        if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
+        // if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
+        if (this->pos_in_map(new_x, new_y))
         {
             std::cout << target_tile->get_description() << std::endl;
         }
