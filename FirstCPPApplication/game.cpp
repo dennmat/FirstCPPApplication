@@ -629,6 +629,10 @@ void Game::mainloop()
 
         // assert(Game::tick_count!= -1);
         Game::tick_count++;
+
+        //when the game is moved, the screen goes black for some reason. This
+        //redraws the whole screen to make up for it. f8 does it manually.
+        if (Game::tick_count % 50 == 0)         TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 
     std::cout << "Hit enter to exit" << std::endl;
