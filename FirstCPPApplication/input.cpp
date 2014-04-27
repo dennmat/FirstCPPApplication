@@ -690,6 +690,7 @@ bool Input::process_spells_keys(TCOD_key_t request)
     {
         Ui::generic_active = false;
         Ui::chosen_generic = false;
+        Ui::is_targetting = false;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular spellmenu mode.");
         std::cout <<  "Escape back to regular spellmenu mode." << std::endl;
         return true;
