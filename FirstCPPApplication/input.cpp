@@ -440,13 +440,13 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 {
                     // mouse_tile->occupant->combat->TakeDamage(Game::player->combat, spell_damage);
                     spell->spell_effect->ApplyAllEffects(mouse_tile->occupant);
-		    if (mouse_tile->occupant != NULL) // assuming NULL if they died
-            {
-                TimedEffect* timed_effect = new TimedEffect;
-                timed_effect->effect = spell->spell_effect;
-                timed_effect->turn_applied = Game::turn_count;
-                mouse_tile->occupant->timed_spell_effects->push_back(timed_effect);
-            };
+                    if (mouse_tile->occupant != NULL) // assuming NULL if they died
+                    {
+                        TimedEffect* timed_effect = new TimedEffect;
+                        timed_effect->effect = spell->spell_effect;
+                        timed_effect->turn_applied = Game::turn_count;
+                        mouse_tile->occupant->timed_spell_effects->push_back(timed_effect);
+                    };
                     Game::player->attrs->mana->current_val -= mana_cost;
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
                     return true;
@@ -1122,8 +1122,8 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
         }
         else if ( request.c == '+'&& request.pressed == 1) 
         {
-                Ui::page_num++;
-                Ui::offset = Ui::per_page*Ui::page_num;
+            Ui::page_num++;
+            Ui::offset = Ui::per_page*Ui::page_num;
         }
         else if ( request.c == '-'&& request.pressed == 1) 
         {
