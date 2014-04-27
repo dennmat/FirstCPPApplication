@@ -10,8 +10,9 @@
 #include "utils.h"
 
 //message ordering. started as array and transformed into a vector
-message_types_t MessageHandler::initial_message_order [9] = {
+message_types_t MessageHandler::initial_message_order [] = {
     HUNGER_MSG, CHAT_MSG,
+    HELP_MSG,
     BURDEN_MSG, ITEM_MSG,
     MOOD_MSG, DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG, 
     TILE_DESCRIPTION_MSG, NOTYPE_MSG 
@@ -160,10 +161,6 @@ bool sorting_by_type(Message* a, Message* b)
         assert(false && "this means turn is not anything rational, I guess.");
     };
 
-    // bool result = (getIndex(a->type) < getIndex(b->type)) && ((a->turn) <= (b->turn));
-    // // std::cout << BoolToString(result);
-    // // std::cout << std::endl;
-    // return result;
 };
 
 //goes through all the vectors of this turn and creates a std::string of the
@@ -183,16 +180,9 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     int message_limit = 200;
     int i = 1;
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
-        // if ((*it)->turn <= std::max(last_turn - turn_limit, 0))
-        // {
-        //     break;
-        // }
-        // else
-        // {
         limited_messages.push_back((*it));
 
         if (++i>message_limit) break;
-        // };
     }
 
     std::stable_sort(limited_messages.begin(), limited_messages.end(),
@@ -246,7 +236,6 @@ void Message::Init()
 {
     this->type = message_types_t::NOTYPE_MSG;
     this->content = "Unspecified %s";
-    // this->vlist = "content";
     this->count = 0;
     this->turn = Game::turn_count;
 };

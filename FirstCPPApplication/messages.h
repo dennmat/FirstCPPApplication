@@ -21,7 +21,7 @@ enum message_types_t {
 class MessageHandler
 {
     private:
-        static message_types_t initial_message_order [9];
+        static message_types_t initial_message_order [];
 
     public:
         static std::vector<message_types_t> message_order;
