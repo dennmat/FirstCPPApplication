@@ -336,8 +336,10 @@ Person*  Game::initialize_player()
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
 
-    player->attrs->health->current_val=30;
-    player->attrs->health->max_val=30;
+    player->attrs->health->current_val=200;
+    player->attrs->health->max_val=200;
+    // player->attrs->health->current_val=30;
+    // player->attrs->health->max_val=30;
     player->attrs->damage->current_val=10;
     player->attrs->damage->max_val=10;
     player->attrs->armor->current_val=3;
@@ -390,33 +392,6 @@ void Game::center_camera_on_player()
 {
     Game::center_camera_on(Game::player);
 };
-
-// Game::Game()
-// {
-//     // ui = new Ui(this);
-//     Ui::game = this;
-//     Game::debug_opts = new DebugOptions;
-// 
-//     screen_w = 80; //the average RL resolution
-//     screen_h = 50;
-// 
-//     enemies_size = 255; //hardcoded
-//     buildmode = false;
-// 
-//     fps_limit= 120; //default
-// 
-//     buildworld();
-//     current_map = world; //I'm not so sure about this, but it solved the mem issue
-// 
-//     initialize_player(); //created the Person player
-//     initialize_enemies(); // create the enemies
-//     initialize_items(); // create the items
-// 
-//     last_cmd = "not set";
-// 
-//     Game::current_state = GameStates::GameplayState;
-// 
-// };
 
 void Game::update()
 {
@@ -492,7 +467,6 @@ void Game::draw_ui()
 
 bool gameplay_loop(bool incr_turn)
 {
-
     if (incr_turn)
     {
 
@@ -617,23 +591,23 @@ void Game::mainloop()
                 break;
 
             case GameStates::MenuState:
-                if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = Input::process_key_event(key_evt);
-                };
+                // if (key_evt.c != NULL && key_evt.pressed == 1 ){
+                //     incr_turn = Input::process_key_event(key_evt);
+                // };
 
-                Game::draw_ui();
-                Input::process_mouse_inv_event();
+                // Game::draw_ui();
+                // Input::process_mouse_inv_event();
 
-                break;
+                // break;
 
             case GameStates::InventoryState:
-                if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                    incr_turn = Input::process_key_event(key_evt);
-                };
+                // if (key_evt.c != NULL && key_evt.pressed == 1 ){
+                //     incr_turn = Input::process_key_event(key_evt);
+                // };
 
-                Game::draw_ui();
-                Input::process_mouse_inv_event();
-                break;
+                // Game::draw_ui();
+                // Input::process_mouse_inv_event();
+                // break;
 
             case GameStates::MagicState:
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
