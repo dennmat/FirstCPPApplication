@@ -207,9 +207,10 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
             {
                 last_msg = prerendered_single;
                 //convert turn number to string and append it
-                std::stringstream ss;
-                ss << copy_count;
-                std::string copy_str = ss.str();
+                // std::stringstream ss;
+                // ss << copy_count;
+                // std::string copy_str = ss.str();
+                std::string copy_str = std::to_string((long double)copy_count);
                 copy_count++;
 
                 prerendered_single.append("(x"+copy_str+")");
