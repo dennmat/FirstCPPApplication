@@ -816,7 +816,7 @@ bool Input::move_player_or_target(int x, int y)
 bool Input::process_movement_keys(TCOD_key_t request)
 {
     Map *world = Game::world;
-    bool buildmode = Game::buildmode;
+    bool has_moved = false;
 
     int orig_plr_pos_x, orig_plr_pos_y;
     orig_plr_pos_x = Game::player->x;
@@ -837,24 +837,24 @@ bool Input::process_movement_keys(TCOD_key_t request)
     if( direction == directions_t::N )
     {
         Game::player->is_moving_up = true;
-        return Input::move_player_or_target(0, -1);
+        has_moved = Input::move_player_or_target(0, -1);
     }
     else if( direction == directions_t::NE )
     {
         Game::player->is_moving_up = true;
         Game::player->is_moving_right = true;
-        return Input::move_player_or_target(1, -1);
+        has_moved = Input::move_player_or_target(1, -1);
     }
     else if( direction == directions_t::S )
     {
         Game::player->is_moving_down = true;
-        return Input::move_player_or_target(0, 1);
+        has_moved = Input::move_player_or_target(0, 1);
     }
     else if( direction == directions_t::SE)
     {
         Game::player->is_moving_down = true;
         Game::player->is_moving_right = true;
-        return Input::move_player_or_target(1, 1);
+        has_moved = Input::move_player_or_target(1, 1);
         // if(Game::current_map->attackMovePlayer(Game::player, 1, 1) )
         // {
         //     move_camera(1, 1);
@@ -864,7 +864,7 @@ bool Input::process_movement_keys(TCOD_key_t request)
     else if( direction == directions_t::E)
     {
         Game::player->is_moving_right = true;
-        return Input::move_player_or_target(1, 0);
+        has_moved = Input::move_player_or_target(1, 0);
         // if(Game::current_map->attackMovePlayer(Game::player, 1, 0) )
         // {
         //     move_camera(1, 0);
@@ -876,14 +876,14 @@ bool Input::process_movement_keys(TCOD_key_t request)
     {
         Game::player->is_moving_left = true;
         Game::player->is_moving_down = true;
-        return Input::move_player_or_target(-1, 1);
+        has_moved = Input::move_player_or_target(-1, 1);
 
     }
     else if( direction == directions_t::NW)
     {
         Game::player->is_moving_left = true;
         Game::player->is_moving_up = true;
-        return Input::move_player_or_target(-1, -1);
+        has_moved = Input::move_player_or_target(-1, -1);
         // if(Game::current_map->attackMovePlayer(Game::player, -1, -1) )
         // { 
         //     move_camera(-1, -1);
@@ -894,7 +894,7 @@ bool Input::process_movement_keys(TCOD_key_t request)
     else if( direction == directions_t::W)
     {
         Game::player->is_moving_left = true;
-        return Input::move_player_or_target(-1, 0);
+        has_moved = Input::move_player_or_target(-1, 0);
         // if(Game::current_map->attackMovePlayer(Game::player, -1, 0) )
         // { 
         //     move_camera(-1, 0);
@@ -911,6 +911,8 @@ bool Input::process_movement_keys(TCOD_key_t request)
         return true;
         // }
     };
+
+    if (has_moved) return true;
 
 
     //if the player has moved or attacked this update, increment the turn
