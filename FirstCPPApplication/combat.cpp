@@ -97,18 +97,18 @@ void Combat::update()
 void Combat::LevelUp(int levels)
 {
     //reset, accounting for left over exp
-        int i = 0;
+    int i = 0;
     while (i < levels)
     {
 
-    this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
+        this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
 
-    this->master->level+=1;
-    std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
+        this->master->level+=1;
+        std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
 
-    this->LevelUpStats(1);
-    this->LevelUpSkills(1);
-    i++;
+        this->LevelUpStats(1);
+        this->LevelUpSkills(1);
+        i++;
     }
 
     //animate

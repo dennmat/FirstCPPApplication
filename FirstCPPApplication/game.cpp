@@ -336,10 +336,10 @@ Person*  Game::initialize_player()
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
 
-    player->attrs->health->current_val=200;
-    player->attrs->health->max_val=200;
-    // player->attrs->health->current_val=30;
-    // player->attrs->health->max_val=30;
+    // player->attrs->health->current_val=200;
+    // player->attrs->health->max_val=200;
+    player->attrs->health->current_val=30;
+    player->attrs->health->max_val=30;
     player->attrs->damage->current_val=10;
     player->attrs->damage->max_val=10;
     player->attrs->armor->current_val=3;

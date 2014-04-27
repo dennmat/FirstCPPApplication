@@ -457,7 +457,7 @@ void Actor::Die()
     TCODRandom *rng = TCODRandom::getInstance();
     Item* dropped_item = NULL;
     int result = rng->getInt(0, 100);
-    if (result <= 15)
+    if (result <= 25)
     {
         dropped_item = this->CreateCorpse();
     }
