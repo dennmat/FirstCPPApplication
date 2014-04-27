@@ -101,10 +101,12 @@ void Combat::LevelUp(int levels)
     while (i < levels)
     {
 
-        this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
 
         this->master->level+=1;
         std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
+	//log(lvl * 10) * 100
+        this->master->xp_required = std::floor(std::log(this->master->level *10.0f) * 100.0f);
+        this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
 
         this->LevelUpStats(1);
         this->LevelUpSkills(1);
