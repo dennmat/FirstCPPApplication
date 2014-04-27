@@ -377,31 +377,63 @@ void Ui::draw_misc()
     //spell casting
     if (Ui::is_targetting)
     {
-        Tile* mouse_tile = Game::get_mouse_tile();
-        TCODColor line_color;
-        if (mouse_tile->is_occupied() && mouse_tile->is_known())
+        bool use_mouse = false;
+        if (use_mouse)
         {
-            TCODConsole::root->setChar(mouse_tile->tile_x-Game::camera_x, mouse_tile->tile_y-Game::camera_y, 'X');
-            line_color = TCODColor::darkGreen;
-        }
-        else
-        {
-            line_color = TCODColor::grey;
-        }
-
-        // draw line from player to mouse
-        int count = 0;
-        int x = Game::player->x-Game::camera_x, y2 = Game::player->y -Game::camera_y;
-        TCODLine::init(x, y2,
-                Game::mouse_evt.cx, Game::mouse_evt.cy);
-        do {
-            count++;
-            if (count > ((Spell*)Ui::chosen_generic)->max_range)
+            Tile* mouse_tile = Game::get_mouse_tile();
+            TCODColor line_color;
+            if (mouse_tile->is_occupied() && mouse_tile->is_known())
             {
-                line_color = TCODColor::darkRed;
+                Game::game_console->setChar(mouse_tile->tile_x-Game::camera_x, mouse_tile->tile_y-Game::camera_y, 'X');
+                line_color = TCODColor::darkGreen;
             }
-            TCODConsole::root->setCharBackground(x, y2, line_color);
-        } while (!TCODLine::step(&x,&y2));
+            else
+            {
+                line_color = TCODColor::grey;
+            }
+
+            // draw line from player to mouse
+            int count = 0;
+            int x = Game::player->x-Game::camera_x, y2 = Game::player->y -Game::camera_y;
+            TCODLine::init(x, y2,
+                    Game::mouse_evt.cx, Game::mouse_evt.cy);
+            do {
+                count++;
+                if (count > ((Spell*)Ui::chosen_generic)->max_range)
+                {
+                    line_color = TCODColor::darkRed;
+                }
+                Game::game_console->setCharBackground(x, y2, line_color);
+            } while (!TCODLine::step(&x,&y2));
+        }
+        else if (!use_mouse)
+        {
+            Tile* mouse_tile = Ui::targetted_tile;
+            TCODColor line_color;
+            if (mouse_tile->is_occupied() && mouse_tile->is_known())
+            {
+                Game::game_console->setChar(mouse_tile->tile_x, mouse_tile->tile_y, 'X');
+                line_color = TCODColor::darkGreen;
+            }
+            else
+            {
+                line_color = TCODColor::grey;
+            }
+
+            // draw line from player to mouse
+            int count = 0;
+            int x = Game::player->x, y2 = Game::player->y;
+            TCODLine::init(x, y2,
+                    mouse_tile->tile_x, mouse_tile->tile_y);
+            do {
+                count++;
+                if (count > ((Spell*)Ui::chosen_generic)->max_range)
+                {
+                    line_color = TCODColor::darkRed;
+                }
+                Game::game_console->setCharBackground(x, y2, line_color);
+            } while (!TCODLine::step(&x,&y2));
+        }
 
 
     }

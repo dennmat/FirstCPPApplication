@@ -423,8 +423,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
             std::cout << "no spell chosen" << std::endl;
             return false;
         }
-        Tile* stair_tile = Game::player->my_tile;
-        Tile* mouse_tile = Game::get_mouse_tile();
+        Tile* mouse_tile = Ui::targetted_tile;
+        // Tile* mouse_tile = Game::get_mouse_tile();
         // Spell* spell = Game::player->spells->back();
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
@@ -658,6 +658,7 @@ bool Input::process_spells_keys(TCOD_key_t request)
     else if( action == spells_active_t::CastSpell )
     {
         Ui::toggle_targetting();
+        Ui::targetted_tile = Game::player->my_tile;
         Game::current_state = GameStates::GameplayState;
         std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;
         // Game::current_screen = Screens::Game
@@ -707,10 +708,20 @@ void move_camera(int dir_x, int dir_y)
     int cam_y2 = Game::camera_y + Game::camera_h;
 
     //relative player pos
-    int plr_x = Game::player->x - Game::camera_x;
-    int plr_y = Game::player->y - Game::camera_y;
+    int plr_x;
+    int plr_y;
+    if (!Ui::is_targetting)
+    {
+        plr_x = Game::player->x - Game::camera_x; 
+        plr_y = Game::player->y - Game::camera_y;
+    }
+    else
+    {
+        plr_x = Ui::targetted_tile->tile_x;
+        plr_y = Ui::targetted_tile->tile_y;
+    };
 
-    int border_threshold = 10;
+ int border_threshold = 10;
     //std::cout << "cam w" << Game::camera_w << std::endl;
 
     int change = 1;
@@ -774,6 +785,8 @@ void move_camera(int dir_x, int dir_y)
 
 bool Input::move_target(int x, int y)
 {
+    std::cout << "move_target" << std::endl;
+    Ui::targetted_tile = Ui::targetted_tile->getTileAtRelative(x, y);
     move_camera(x, y);
     return false;
 };
