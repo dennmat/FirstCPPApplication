@@ -40,6 +40,9 @@ class Input
         static bool is_key_move_command(TCOD_key_t request);
         static bool process_movement_keys(TCOD_key_t request);
 
+        static bool move_player_or_target(int x, int y);
+        static bool move_target(int x, int y);
+
         static std::map<int, directions_t> spec_movemap; //Keypad, punctuation
         static std::map<char, directions_t> char_movemap; //regular letters
         static std::map<int, directions_t> build_spec_movemap(); //Keypad, punctuation

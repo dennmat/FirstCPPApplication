@@ -772,6 +772,30 @@ void move_camera(int dir_x, int dir_y)
     };
 };
 
+bool Input::move_target(int x, int y)
+{
+    move_camera(x, y);
+    return false;
+};
+
+bool Input::move_player_or_target(int x, int y)
+{
+    if (! Ui::is_targetting)
+    {
+        if(Game::current_map->attackMovePlayer(Game::player, x, y) )
+        { 
+            move_camera(x, y);
+            return true;
+        }
+    }
+    else 
+    {
+        Input::move_target(x, y);
+    };
+
+    return false;
+};
+
 //returns whether or not the player has moved and should increment the turn
 bool Input::process_movement_keys(TCOD_key_t request)
 {
@@ -797,82 +821,70 @@ bool Input::process_movement_keys(TCOD_key_t request)
     if( direction == directions_t::N )
     {
         Game::player->is_moving_up = true;
-        if(Game::current_map->attackMovePlayer(Game::player, 0, -1) )
-        { 
-            move_camera(0, -1);
-            return true;
-        }
+        return Input::move_player_or_target(0, -1);
     }
     else if( direction == directions_t::NE )
     {
         Game::player->is_moving_up = true;
         Game::player->is_moving_right = true;
-        if(Game::current_map->attackMovePlayer(Game::player, 1, -1) )
-        { 
-            move_camera(1, -1);
-            return true;
-        }
+        return Input::move_player_or_target(1, -1);
     }
     else if( direction == directions_t::S )
     {
         Game::player->is_moving_down = true;
-        if(Game::current_map->attackMovePlayer(Game::player, 0, 1) )
-        { 
-            move_camera(0, 1);
-            return true;
-        }
+        return Input::move_player_or_target(0, 1);
     }
     else if( direction == directions_t::SE)
     {
         Game::player->is_moving_down = true;
         Game::player->is_moving_right = true;
-        if(Game::current_map->attackMovePlayer(Game::player, 1, 1) )
-        {
-            move_camera(1, 1);
-            return true;
-        }
+        return Input::move_player_or_target(1, 1);
+        // if(Game::current_map->attackMovePlayer(Game::player, 1, 1) )
+        // {
+        //     move_camera(1, 1);
+        //     return true;
+        // }
     }
     else if( direction == directions_t::E)
     {
         Game::player->is_moving_right = true;
-        if(Game::current_map->attackMovePlayer(Game::player, 1, 0) )
-        {
-            move_camera(1, 0);
+        return Input::move_player_or_target(1, 0);
+        // if(Game::current_map->attackMovePlayer(Game::player, 1, 0) )
+        // {
+        //     move_camera(1, 0);
 
-            return true;
-        }
+        //     return true;
+        // }
     }
     else if( direction == directions_t::SW)
     {
         Game::player->is_moving_left = true;
         Game::player->is_moving_down = true;
-        if(Game::current_map->attackMovePlayer(Game::player, -1, 1) )
-        { 
-            move_camera(-1, 1);
+        return Input::move_player_or_target(-1, 1);
 
-            return true;
-        }
     }
     else if( direction == directions_t::NW)
     {
         Game::player->is_moving_left = true;
         Game::player->is_moving_up = true;
-        if(Game::current_map->attackMovePlayer(Game::player, -1, -1) )
-        { 
-            move_camera(-1, -1);
+        return Input::move_player_or_target(-1, -1);
+        // if(Game::current_map->attackMovePlayer(Game::player, -1, -1) )
+        // { 
+        //     move_camera(-1, -1);
 
-            return true;
-        }
+        //     return true;
+        // }
     }
     else if( direction == directions_t::W)
     {
         Game::player->is_moving_left = true;
-        if(Game::current_map->attackMovePlayer(Game::player, -1, 0) )
-        { 
-            move_camera(-1, 0);
+        return Input::move_player_or_target(-1, 0);
+        // if(Game::current_map->attackMovePlayer(Game::player, -1, 0) )
+        // { 
+        //     move_camera(-1, 0);
 
-            return true;
-        }
+        //     return true;
+        // }
     }
     else if( direction == directions_t::X)
     {

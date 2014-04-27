@@ -41,6 +41,8 @@ unsigned long long int Ui::tick_key_pressed = 0;
 unsigned long long int Ui::tick_key_released = 0;
 
 bool Ui::is_targetting = false;
+Tile* Ui::targetted_tile = NULL;
+
 
 int Ui::per_page = 10;
 int Ui::page_num = 0;

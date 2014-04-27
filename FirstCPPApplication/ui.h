@@ -8,6 +8,7 @@
 
 class Item;
 class Game;
+class Tile;
 class TCODColor;
 class Attribute;
 class TCODConsole;
@@ -32,6 +33,7 @@ class Ui
         static unsigned long long int tick_key_released;
 
         static bool is_targetting;
+        static Tile* targetted_tile;
 
         static int per_page;
         static int page_num;
