@@ -182,6 +182,6 @@ void Person::talk_to(Actor* target)
     if (target->thinker->civilian != NULL)
     {
         std::string text = this->talk_wrap(target, target->thinker->civilian->talk_general_topic());
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, text);
+        new Message(Ui::msg_handler_main, CHAT_MSG, text);
     }
 };

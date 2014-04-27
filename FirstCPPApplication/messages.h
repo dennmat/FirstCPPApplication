@@ -10,12 +10,12 @@ class Game;
 
 enum message_types_t {
     NOTYPE_MSG = 0,
-    MOOD_MSG,
-    TILE_DESCRIPTION_MSG,
-    DAMAGE_GIVEN_MSG, DAMAGE_TAKEN_MSG,
-    HELP_MSG, CHAT_MSG,
-    HUNGER_MSG, BURDEN_MSG,
-    ITEM_MSG
+    MOOD_MSG = 1,
+    TILE_DESCRIPTION_MSG = 2,
+    DAMAGE_GIVEN_MSG = 3, DAMAGE_TAKEN_MSG = 4,
+    HELP_MSG = 5, CHAT_MSG = 6,
+    HUNGER_MSG = 7, BURDEN_MSG = 8,
+    ITEM_MSG = 9
 };
 
 class MessageHandler

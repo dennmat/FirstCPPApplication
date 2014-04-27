@@ -19,7 +19,7 @@ message_types_t MessageHandler::initial_message_order [9] = {
 
 typedef MessageHandler MH;
 std::vector<message_types_t>
-MH::message_order(MH::initial_message_order, MH::initial_message_order + sizeof(MH::initial_message_order) / sizeof(MH::initial_message_order[0]));
+MH::message_order(MH::initial_message_order, MH::initial_message_order + sizeof(MH::initial_message_order) / sizeof(*MH::initial_message_order));
 
 MessageHandler::MessageHandler()
 {
