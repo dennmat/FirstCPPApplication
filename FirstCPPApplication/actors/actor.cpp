@@ -458,11 +458,10 @@ void Actor::Die()
     rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
     Item* dropped_item = NULL;
     int  result;
-    for (int xx =0; xx < 100; xx++){
-
-    result = rng->getInt(0, 100);
-    std::cout << result << std::endl;
-    }
+    // for (int xx =0; xx < 100; xx++){
+    //     result = rng->getInt(0, 100);
+    //     std::cout << result << std::endl;
+    // }
     if (result <= 15)
     {
         dropped_item = this->CreateCorpse();
