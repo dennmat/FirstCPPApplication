@@ -19,6 +19,7 @@
 
 Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
+    this->cls_name = "Ogre";
     this->xp_value = 55;
     // this->name = name;
     // this->age = age;
@@ -58,10 +59,10 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, ag
 
 void Ogre::championize()
 {
-                    this->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
-                    this->attrs->health->current_val+=this->attrs->health->current_val;
-                    this->attrs->health->max_val+=this->attrs->health->max_val;
-                    this->attrs->damage->current_val+=this->attrs->damage->current_val;
-                    this->attrs->damage->max_val+=this->attrs->damage->max_val;
+    this->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
+    this->attrs->health->current_val+=this->attrs->health->current_val;
+    this->attrs->health->max_val+=this->attrs->health->max_val;
+    this->attrs->damage->current_val+=this->attrs->damage->current_val;
+    this->attrs->damage->max_val+=this->attrs->damage->max_val;
     this->xp_value= (int)std::floor(this->xp_value*1.5);
 }

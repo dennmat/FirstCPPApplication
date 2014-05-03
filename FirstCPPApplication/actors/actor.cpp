@@ -463,7 +463,7 @@ void Actor::Die()
     result = rng->getInt(0, 100);
     std::cout << result << std::endl;
     }
-    if (result <= 25)
+    if (result <= 15)
     {
         dropped_item = this->CreateCorpse();
     }
