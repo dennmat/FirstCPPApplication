@@ -96,6 +96,17 @@ enum SpawnTypes {
     SkeletonSpawn,
     OgreSpawn,
     BadMotherSpawn,
+    HulkingMantisSpawn,
+    IdolSpawn,
+    ImpSpawn,
+    MutantFishSpawn,
+    SpinyLizardSpawn,
+    CrazedCookSpawn,
+    WildlingSpawn,
+    SludgeSpawn,
+    JumperSpawn,
+
+
     ErrorSpawn
 };
 

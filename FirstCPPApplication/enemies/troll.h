@@ -10,7 +10,6 @@ class Troll : public Person
         static const int Troll::pack_size = 10;
         void championize();
         void Die() ;
-
 };
 
 #endif
