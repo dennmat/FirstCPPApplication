@@ -454,12 +454,11 @@ void Actor::Die()
 {
     //make the master's tile no longer occupied by him
     //drop corpse on floor or another item
-    TCODRandom *rng = TCODRandom::getInstance();
-    rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    TCODRandom *rng = Game::item_spawn_rng;
     Item* dropped_item = NULL;
     int  result;
     // for (int xx =0; xx < 100; xx++){
-    //     result = rng->getInt(0, 100);
+    result = rng->getInt(0, 100);
     //     std::cout << result << std::endl;
     // }
     if (result <= 15)

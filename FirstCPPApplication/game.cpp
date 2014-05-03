@@ -86,6 +86,7 @@ int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
 
 TCODRandom* Game::spawning_rng = new TCODRandom(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+TCODRandom* Game::item_spawn_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 
 
