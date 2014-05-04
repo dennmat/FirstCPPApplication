@@ -233,6 +233,7 @@
     <ClInclude Include="libtcod_cpp_hpp\zip.hpp" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="randsys.h" />
     <ClInclude Include="Representation.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="slots_t.h" />
@@ -279,6 +280,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="item_effect.cpp" />
     <ClCompile Include="messages.cpp" />
+    <ClCompile Include="randsys.cpp" />
     <ClCompile Include="Representation.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="spells.cpp" />
