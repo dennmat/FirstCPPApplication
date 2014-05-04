@@ -39,6 +39,15 @@
 #include "enums\screens.h"
 #include "spells.h"
 #include "class.h"
+#include <enemies\hulkingmantis.h>
+#include <enemies\idol.h>
+#include <enemies\imp.h>
+#include <enemies\mutantfish.h>
+#include <enemies\lizard.h>
+#include <enemies\crazedcook.h>
+#include <enemies\wildling.h>
+#include <enemies\sludge.h>
+#include <enemies\jumper.h>
 
 
 // Game initialization
@@ -98,12 +107,21 @@ SpawnTypes get_spawn_type()
 {
     RandomWeightMap<SpawnTypes> rwm = RandomWeightMap<SpawnTypes>();
     // TCODRandom *spawning_rng = TCODRandom::getInstance();
-    // int dice_roll = Game::spawning_rng->getInt(0, 100);
-    rwm.add_item(10, TrollSpawn);
-    rwm.add_item(10, JackalSpawn);
-    rwm.add_item(5, SkeletonSpawn);
-    rwm.add_item(5, OgreSpawn);
-    rwm.add_item(2, BadMotherSpawn);
+    // int dice_roll = Game::spawning_rng->getInt(100, 0);
+    rwm.add_item(TrollSpawn, 10);
+    rwm.add_item(JackalSpawn, 10);
+
+    rwm.add_item(IdolSpawn, 10);
+    rwm.add_item(MutantFishSpawn, 10);
+    rwm.add_item(ImpSpawn, 10);
+    rwm.add_item(CrazedCookSpawn, 10);
+    rwm.add_item(WildlingSpawn, 10);
+    rwm.add_item(SludgeSpawn, 10);
+    rwm.add_item(JumperSpawn, 10);
+
+    rwm.add_item(SkeletonSpawn, 5);
+    rwm.add_item(OgreSpawn, 5);
+    rwm.add_item(BadMotherSpawn, 2);
 
     return rwm.get_item(Game::spawning_rng);
     // if (dice_roll <= 30)
@@ -142,7 +160,6 @@ void Game::fill_town(Map* world)
 void Game::fill_generic_room(Room* room)
 {
     SpawnTypes spawn_type = get_spawn_type();
-    int creature_x, creature_y;
     if (spawn_type == SpawnTypes::TrollSpawn)
     {
         spawn_creature<Troll>(room, "Random Troll", 34, 'T');
@@ -150,6 +167,42 @@ void Game::fill_generic_room(Room* room)
     else if (spawn_type == SpawnTypes::JackalSpawn)
     {
         spawn_creature<Jackal>(room, "Random Jackal", 31, 'j');
+    }
+    else if (spawn_type == SpawnTypes::HulkingMantisSpawn)
+    {
+        spawn_creature<HulkingMantis>(room, "Random HulkingMantis", 31, 'm');
+    }
+    else if (spawn_type == SpawnTypes::IdolSpawn)
+    {
+        spawn_creature<Idol>(room, "Random Idol", 31, 'i');
+    }
+    else if (spawn_type == SpawnTypes::ImpSpawn)
+    {
+        spawn_creature<Imp>(room, "Random Imp", 31, 'I');
+    }
+    else if (spawn_type == SpawnTypes::MutantFishSpawn)
+    {
+        spawn_creature<MutantFish>(room, "Random MutantFish", 31, 'f');
+    }
+    else if (spawn_type == SpawnTypes::SpinyLizardSpawn)
+    {
+        spawn_creature<SpinyLizard>(room, "Random SpinyLizard", 31, 'l');
+    }
+    else if (spawn_type == SpawnTypes::CrazedCookSpawn)
+    {
+        spawn_creature<CrazedCook>(room, "Random CrazedCook", 31, 'c');
+    }
+    else if (spawn_type == SpawnTypes::WildlingSpawn)
+    {
+        spawn_creature<Wildling>(room, "Random Wildling", 31, 'w');
+    }
+    else if (spawn_type == SpawnTypes::SludgeSpawn)
+    {
+        spawn_creature<Sludge>(room, "Random Sludge", 31, 's');
+    }
+    else if (spawn_type == SpawnTypes::JumperSpawn)
+    {
+        spawn_creature<Jumper>(room, "Random Jumper", 31, 'j');
     }
     else if (spawn_type == SpawnTypes::OgreSpawn)
     {

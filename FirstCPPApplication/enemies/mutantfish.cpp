@@ -37,7 +37,7 @@ MutantFish::MutantFish(std::string name, int age, int x, int y, char repr) : Per
     TCODRandom* rnd = TCODRandom::getInstance();
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
-    this->representation->setFGColor(TCODColor::darkGreen * (variant/10.0f), true, true, true);
+    this->representation->setFGColor(TCODColor::lightGrey * (variant/10.0f), true, true, true);
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;
