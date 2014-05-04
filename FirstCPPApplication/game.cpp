@@ -6,6 +6,8 @@
 
 #include "libtcod.hpp"
 
+#include "enums\spawntypes_t.h"
+#include "randsys.h"
 #include "game.h"
 #include <actors/person.h>
 #include "map.h"
@@ -37,6 +39,7 @@
 #include "enums\screens.h"
 #include "spells.h"
 #include "class.h"
+
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -90,43 +93,32 @@ TCODRandom* Game::item_spawn_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 
 
-enum SpawnTypes {
-    TrollSpawn = 1,
-    JackalSpawn,
-    SkeletonSpawn,
-    OgreSpawn,
-    BadMotherSpawn,
-    HulkingMantisSpawn,
-    IdolSpawn,
-    ImpSpawn,
-    MutantFishSpawn,
-    SpinyLizardSpawn,
-    CrazedCookSpawn,
-    WildlingSpawn,
-    SludgeSpawn,
-    JumperSpawn,
-
-
-    ErrorSpawn
-};
 
 SpawnTypes get_spawn_type()
 {
+    RandomWeightMap<SpawnTypes> rwm = RandomWeightMap<SpawnTypes>();
     // TCODRandom *spawning_rng = TCODRandom::getInstance();
-    int dice_roll = Game::spawning_rng->getInt(0, 100);
-    if (dice_roll <= 30)
-        return SpawnTypes::TrollSpawn;
-    else if (dice_roll <= 60)
-        return SpawnTypes::JackalSpawn;
-    else if (dice_roll <= 80)
-        return SpawnTypes::SkeletonSpawn;
-    else if (dice_roll <= 95)
-        return SpawnTypes::OgreSpawn;
-    else if (dice_roll > 95)
-        return SpawnTypes::BadMotherSpawn;
-    else
-        assert(false && "Math is bad.");
-    return SpawnTypes::ErrorSpawn;
+    // int dice_roll = Game::spawning_rng->getInt(0, 100);
+    rwm.add_item(10, TrollSpawn);
+    rwm.add_item(10, JackalSpawn);
+    rwm.add_item(5, SkeletonSpawn);
+    rwm.add_item(5, OgreSpawn);
+    rwm.add_item(2, BadMotherSpawn);
+
+    return rwm.get_item(Game::spawning_rng);
+    // if (dice_roll <= 30)
+    //     return SpawnTypes::TrollSpawn;
+    // else if (dice_roll <= 60)
+    //     return SpawnTypes::JackalSpawn;
+    // else if (dice_roll <= 80)
+    //     return SpawnTypes::SkeletonSpawn;
+    // else if (dice_roll <= 95)
+    //     return SpawnTypes::OgreSpawn;
+    // else if (dice_roll > 95)
+         // return SpawnTypes::BadMotherSpawn;
+    // else
+    //     assert(false && "Math is bad.");
+    // return SpawnTypes::ErrorSpawn;
 };
 
 Tile* Game::get_mouse_tile()

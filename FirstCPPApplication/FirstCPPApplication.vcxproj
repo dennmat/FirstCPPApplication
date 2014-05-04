@@ -175,6 +175,7 @@
     <ClInclude Include="enums\elements_t.h" />
     <ClInclude Include="enums\input_enums.h" />
     <ClInclude Include="enums\screens.h" />
+    <ClInclude Include="enums\spawntypes_t.h" />
     <ClInclude Include="enums\tiletypes_t.h" />
     <ClInclude Include="equipment.h" />
     <ClInclude Include="FirstCPPApplication.h" />
