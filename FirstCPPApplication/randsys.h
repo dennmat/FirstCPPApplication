@@ -4,6 +4,7 @@
 #include <map>
 #include "enums\spawntypes_t.h"
 #include <assert.h>
+#include <sstream>
 
 
 class TCODRandom;

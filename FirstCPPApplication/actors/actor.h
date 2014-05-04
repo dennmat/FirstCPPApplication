@@ -88,6 +88,8 @@ class Actor : public Object
 
         Item* Actor::CreateCorpse();
         void Die();
+        static Item* item_drop_handler(Actor* actor);
+
 
         bool IsActorInSight(Actor * actor);
         void ActorInSight(int x, int y, Actor * actor);

@@ -17,6 +17,8 @@
 #include "messages.h"
 #include "game.h"
 #include "class.h"
+#include <enums\spawntypes_t.h>
+#include <randsys.h>
 
 
 int Actor::pack_size = 10;
@@ -400,34 +402,51 @@ Item* spawnItem(int result)
     return dropped_item;
 };
 
-void Actor::Die()
+Item* Actor::item_drop_handler(Actor* actor)
 {
+    RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
+    rwm.add_item(CorpseSpawn, 20);
+    rwm.add_item(GenericSpawn, 30);
+    rwm.add_item(NothingItemSpawn, 50);
+    ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     //make the master's tile no longer occupied by him
     //drop corpse on floor or another item
     TCODRandom *rng = Game::item_spawn_rng;
     Item* dropped_item = NULL;
-    int  result;
+    //int  result;
     // for (int xx =0; xx < 100; xx++){
-    result = rng->getInt(0, 100);
+    //result = rng->getInt(0, 100);
     //     std::cout << result << std::endl;
     // }
-    if (result <= 15)
+    if (result == CorpseSpawn)
     {
-        dropped_item = this->CreateCorpse();
+        dropped_item = actor->CreateCorpse();
     }
-    else if (result > 60)
+    else if (result == GenericSpawn)
     {
         dropped_item = spawnItem(result);
     }
-    else 
+    else  if (result == NothingItemSpawn)
     {
         //nothing happens between result of 15 and 60
+    }
+    else 
+    {
+        assert(false && "RandomWeightMap returned invalid variable");
     };
+
+    return dropped_item;
+};
+
+void Actor::Die()
+{
+    Item* dropped_item = NULL;
+    dropped_item = Actor::item_drop_handler(this);
+
     if (dropped_item != NULL)
     {
         this->my_tile->place_item_down(dropped_item);
     }
-
 
     //remove master from ai update list
     this->is_active = false;
