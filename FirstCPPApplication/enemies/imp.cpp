@@ -36,7 +36,7 @@ Imp::Imp(std::string name, int age, int x, int y, char repr) : Person(name, age,
     TCODRandom* rnd = TCODRandom::getInstance();
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
-    this->representation->setFGColor(TCODColor::darkGreen * (variant/10.0f), true, true, true);
+    this->representation->setFGColor(TCODColor::crimson * (variant/10.0f), true, true, true);
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;
@@ -71,8 +71,4 @@ void Imp::championize()
 void Imp::Die() 
 {
     Actor::Die();
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
 };
