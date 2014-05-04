@@ -50,13 +50,15 @@ T RandomWeightMap<T>::get_item(int score)
     for (auto it = this->_map.begin(); it != this->_map.end(); it++)
     {
         cumulative_weight+=it->first;
-        if (score < cumulative_weight)
+        if (score <= cumulative_weight)
         {
             return it->second;
         };
     };
 
-    //assert(false && "score: " << score << " out of range: " << total_weight);
+    std::stringstream ss;
+    ss << "score: " << score << " out of range: " << total_weight;
+    assert(false && ss.str().c_str());
 };
 
 template<typename T>
