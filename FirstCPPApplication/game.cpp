@@ -103,9 +103,9 @@ TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 
 
 
-SpawnTypes get_spawn_type()
+MonsterSpawnTypes get_spawn_type()
 {
-    RandomWeightMap<SpawnTypes> rwm = RandomWeightMap<SpawnTypes>();
+    RandomWeightMap<MonsterSpawnTypes> rwm = RandomWeightMap<MonsterSpawnTypes>();
     // TCODRandom *spawning_rng = TCODRandom::getInstance();
     // int dice_roll = Game::spawning_rng->getInt(100, 0);
     rwm.add_item(TrollSpawn, 10);
@@ -146,60 +146,60 @@ void Game::fill_town(Map* world)
 
 void Game::fill_generic_room(Room* room)
 {
-    SpawnTypes spawn_type = get_spawn_type();
-    if (spawn_type == SpawnTypes::TrollSpawn)
+    MonsterSpawnTypes spawn_type = get_spawn_type();
+    if (spawn_type == MonsterSpawnTypes::TrollSpawn)
     {
         spawn_creature<Troll>(room, "Random Troll", 34, 'T');
     }
-    else if (spawn_type == SpawnTypes::JackalSpawn)
+    else if (spawn_type == MonsterSpawnTypes::JackalSpawn)
     {
         spawn_creature<Jackal>(room, "Random Jackal", 31, 'j');
     }
-    else if (spawn_type == SpawnTypes::HulkingMantisSpawn)
+    else if (spawn_type == MonsterSpawnTypes::HulkingMantisSpawn)
     {
         spawn_creature<HulkingMantis>(room, "Random HulkingMantis", 31, 'm');
     }
-    else if (spawn_type == SpawnTypes::IdolSpawn)
+    else if (spawn_type == MonsterSpawnTypes::IdolSpawn)
     {
         spawn_creature<Idol>(room, "Random Idol", 31, 'i');
     }
-    else if (spawn_type == SpawnTypes::ImpSpawn)
+    else if (spawn_type == MonsterSpawnTypes::ImpSpawn)
     {
         spawn_creature<Imp>(room, "Random Imp", 31, 'i');
     }
-    else if (spawn_type == SpawnTypes::MutantFishSpawn)
+    else if (spawn_type == MonsterSpawnTypes::MutantFishSpawn)
     {
         spawn_creature<MutantFish>(room, "Random MutantFish", 31, 'f');
     }
-    else if (spawn_type == SpawnTypes::SpinyLizardSpawn)
+    else if (spawn_type == MonsterSpawnTypes::SpinyLizardSpawn)
     {
         spawn_creature<SpinyLizard>(room, "Random SpinyLizard", 31, 'l');
     }
-    else if (spawn_type == SpawnTypes::CrazedCookSpawn)
+    else if (spawn_type == MonsterSpawnTypes::CrazedCookSpawn)
     {
         spawn_creature<CrazedCook>(room, "Random CrazedCook", 31, 'c');
     }
-    else if (spawn_type == SpawnTypes::WildlingSpawn)
+    else if (spawn_type == MonsterSpawnTypes::WildlingSpawn)
     {
         spawn_creature<Wildling>(room, "Random Wildling", 31, 'w');
     }
-    else if (spawn_type == SpawnTypes::SludgeSpawn)
+    else if (spawn_type == MonsterSpawnTypes::SludgeSpawn)
     {
         spawn_creature<Sludge>(room, "Random Sludge", 31, 's');
     }
-    else if (spawn_type == SpawnTypes::JumperSpawn)
+    else if (spawn_type == MonsterSpawnTypes::JumperSpawn)
     {
         spawn_creature<Jumper>(room, "Random Jumper", 31, 'j');
     }
-    else if (spawn_type == SpawnTypes::OgreSpawn)
+    else if (spawn_type == MonsterSpawnTypes::OgreSpawn)
     {
         spawn_creature<Ogre>(room, "Random Ogre", 103, 'O');
     }
-    else if (spawn_type == SpawnTypes::SkeletonSpawn)
+    else if (spawn_type == MonsterSpawnTypes::SkeletonSpawn)
     {
         spawn_creature<Skeleton>(room, "Random Skeleton", 92, 's');
     }
-    else if (spawn_type == SpawnTypes::BadMotherSpawn)
+    else if (spawn_type == MonsterSpawnTypes::BadMotherSpawn)
     {
         spawn_creature<BadMother>(room, "Random BadMother", 92, 'B');
     }
