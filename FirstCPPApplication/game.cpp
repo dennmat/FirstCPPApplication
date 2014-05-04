@@ -124,19 +124,6 @@ SpawnTypes get_spawn_type()
     rwm.add_item(BadMotherSpawn, 2);
 
     return rwm.get_item(Game::spawning_rng);
-    // if (dice_roll <= 30)
-    //     return SpawnTypes::TrollSpawn;
-    // else if (dice_roll <= 60)
-    //     return SpawnTypes::JackalSpawn;
-    // else if (dice_roll <= 80)
-    //     return SpawnTypes::SkeletonSpawn;
-    // else if (dice_roll <= 95)
-    //     return SpawnTypes::OgreSpawn;
-    // else if (dice_roll > 95)
-         // return SpawnTypes::BadMotherSpawn;
-    // else
-    //     assert(false && "Math is bad.");
-    // return SpawnTypes::ErrorSpawn;
 };
 
 Tile* Game::get_mouse_tile()
@@ -178,7 +165,7 @@ void Game::fill_generic_room(Room* room)
     }
     else if (spawn_type == SpawnTypes::ImpSpawn)
     {
-        spawn_creature<Imp>(room, "Random Imp", 31, 'I');
+        spawn_creature<Imp>(room, "Random Imp", 31, 'i');
     }
     else if (spawn_type == SpawnTypes::MutantFishSpawn)
     {
@@ -214,7 +201,7 @@ void Game::fill_generic_room(Room* room)
     }
     else if (spawn_type == SpawnTypes::BadMotherSpawn)
     {
-        spawn_creature<BadMother>(room, "Random BadMother", 92, 'b');
+        spawn_creature<BadMother>(room, "Random BadMother", 92, 'B');
     }
 };
 
@@ -228,7 +215,6 @@ void Game::fill_dungeon(Map* world)
             //spawn one dude to whom you can sell your shit
             Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, 10, 10, 't', world);
         }
-
         else
         {
             fill_generic_room(*it);

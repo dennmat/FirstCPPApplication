@@ -3,6 +3,7 @@
 #define RANDSYS_H
 #include <map>
 #include "enums\spawntypes_t.h"
+#include <assert.h>
 
 
 class TCODRandom;

@@ -225,6 +225,32 @@ int* Actor::get_direction_heading()
 
 };
 
+Item* spawnItemBase(std::string name, std::string description, char repr, slots_t slot, int weight)
+{
+        Item* dropped_item = new Item;
+        dropped_item->equippable = true;
+        dropped_item->repr->repr = repr;
+        dropped_item->name = name;
+        dropped_item->description = description;
+        dropped_item->slot_type = slot;
+        dropped_item->weight = weight;
+        return dropped_item;
+};
+
+Item* spawnEquippable(std::string name, std::string description, char repr, slots_t slot, int weight)
+{
+    Item* dropped_item = spawnItemBase(name, description, repr, slot, weight);
+    dropped_item->equippable = true;
+    return dropped_item;
+};
+
+Item* spawnUsable(std::string name, std::string description, char repr, slots_t slot, int weight)
+{
+    Item* dropped_item = spawnItemBase(name, description, repr, slot, weight);
+    dropped_item->usable = true;
+    return dropped_item;
+};
+
 Item* spawnItem(int result)
 {
     Item* dropped_item;
@@ -234,15 +260,10 @@ Item* spawnItem(int result)
 
     if (result <= 25)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = true;
-        dropped_item->repr->repr = '&';
+        std::string description = "It looks like it's made up of smaller more delicate pieces.";
+        dropped_item = spawnEquippable("Chainmail", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        dropped_item->name = "Chainmail";
-        dropped_item->description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::Chest;
-        dropped_item->weight = 10;
 
         //sword damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -252,16 +273,10 @@ Item* spawnItem(int result)
     }
     else if (result <= 35)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = true;
-        dropped_item->repr->repr = '/';
+        std::string description = "It looks like it can swipe left to right and up and down. Wow.";
+        dropped_item = spawnEquippable("A sword", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        dropped_item->name = "A sword";
-        dropped_item->description = "It looks like it can swipe left to right and up and down. Wow.";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::MainHand;
-        dropped_item->weight = 12;
-
 
         //sword damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -271,17 +286,12 @@ Item* spawnItem(int result)
     }
     else if (result <= 45)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = true;
-        dropped_item->repr->repr = ']';
+        std::string description = "It looks like it can take a few hits.";
+        dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->name = "A shield";
-        dropped_item->description = "It looks like it can take a few hits.";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::OffHand;
-        dropped_item->weight = 6;
 
-        //dagger damage
+        //shield armor
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
@@ -289,15 +299,11 @@ Item* spawnItem(int result)
     }
     else if (result <= 55)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = true;
-        dropped_item->repr->repr = '/';
+
+        std::string description = "It looks like your mom.";
+        dropped_item = spawnEquippable("A mace", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        dropped_item->name = "A mace";
-        dropped_item->description = "It looks like your mom.";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::MainHand;
-        dropped_item->weight = 12;
 
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -307,18 +313,13 @@ Item* spawnItem(int result)
     }
     else if (result <= 65)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = true;
-        dropped_item->repr->repr = '^';
+        std::string description = "It looks sturdy.";
+        dropped_item = spawnEquippable("A helmet", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->name = "A helmet";
-        dropped_item->description = "It looks sturdy.";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::Head;
-        dropped_item->weight = 5;
 
 
-        //dagger damage
+        //armor
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
@@ -326,15 +327,11 @@ Item* spawnItem(int result)
     }
     else if (result <= 70)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = true;
-        dropped_item->repr->repr = '|';
+
+        std::string description = "It glows.";
+        dropped_item = spawnEquippable("A amulet", description, '|', slots_t::Neck, 2);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->name = "An amulet";
-        dropped_item->description = "It glows.";
         dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::Neck;
-        dropped_item->weight = 2;
 
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -351,16 +348,11 @@ Item* spawnItem(int result)
     }
     else if (result <= 80)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = false;
-        dropped_item->usable = true;
-        dropped_item->repr->repr = '!';
+
+        std::string description = "It looks like it's safe to drink.";
+        dropped_item = spawnUsable("A health potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
-        dropped_item->name = "A health potion";
-        dropped_item->description = "It looks like it's safe to drink.";
-        dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::NoSlot;
-        dropped_item->weight = 1;
+        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -369,16 +361,10 @@ Item* spawnItem(int result)
     }
     else if (result <= 82)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = false;
-        dropped_item->usable = true;
-        dropped_item->repr->repr = '!';
+        std::string description = "It looks like it's probably safe to drink.";
+        dropped_item = spawnUsable("A glowing health potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
-        dropped_item->name = "A glowing health potion";
-        dropped_item->description = "It looks like it's probably safe to drink.";
-        dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::NoSlot;
-        dropped_item->weight = 1;
+        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -388,16 +374,11 @@ Item* spawnItem(int result)
     }
     else if (result <= 83)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = false;
-        dropped_item->usable = true;
-        dropped_item->repr->repr = '!';
+
+        std::string description = "It looks like could be safe to drink.";
+        dropped_item = spawnUsable("A pulsating health potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
-        dropped_item->name = "A pulsating health potion";
-        dropped_item->description = "It looks like it could be safe to drink.";
-        dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::NoSlot;
-        dropped_item->weight = 1;
+        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -407,18 +388,13 @@ Item* spawnItem(int result)
     }
     else if (result <= 87)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = false;
-        dropped_item->usable = true;
-        dropped_item->repr->repr = '!';
-        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
-        dropped_item->name = "A glowing blue potion";
-        dropped_item->description = "It looks like a good time.";
-        dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::NoSlot;
-        dropped_item->weight = 1;
+        std::string description = "It looks like a good time.";
+        dropped_item = spawnUsable("A glowing blue potion", description, '!', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lightestBlue, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0); 
 
-        //health restore
+
+        //mana regen
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int mana = rng->getInt(1, 5, 1);
         dropped_item->item_effect->mana_regen_rate = mana;
@@ -426,16 +402,10 @@ Item* spawnItem(int result)
     }
     else if (result <= 90)
     {
-        dropped_item = new Item;
-        dropped_item->equippable = false;
-        dropped_item->usable = true;
-        dropped_item->repr->repr = '!';
-        dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
-        dropped_item->name = "A blue potion";
-        dropped_item->description = "It looks like a small bit of essence is trapped inside. Better drink it.";
-        dropped_item->item_effect->set_all_vals_to(0);
-        dropped_item->slot_type = slots_t::NoSlot;
-        dropped_item->weight = 1;
+        std::string description = "It looks like a small bit of essence is trapped inside. Better drink it.";
+        dropped_item = spawnUsable("A blue potion", description, '!', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lightBlue, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
