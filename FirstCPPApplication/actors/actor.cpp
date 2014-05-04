@@ -194,35 +194,16 @@ int* Actor::get_direction_heading()
     int dir_array[2];
 
     //handle x coord
-    if (this->is_moving_left)
-    {
-        dir_array[0] = -1;
-    }
-    else if (this->is_moving_right)
-    {
-        dir_array[0] =  1;
-    }
-    else 
-    {
-        dir_array[0] = 0;
-    };
+    if (this->is_moving_left) { dir_array[0] = -1; }
+    else if (this->is_moving_right) { dir_array[0] =  1; }
+    else { dir_array[0] = 0; };
 
     //handle y coord
-    if (this->is_moving_up)
-    {
-        dir_array[1] = -1;
-    }
-    else if (this->is_moving_down)
-    {
-        dir_array[1] =  1;
-    }
-    else 
-    {
-        dir_array[1] = 0;
-    };
+    if (this->is_moving_up) { dir_array[1] = -1; }
+    else if (this->is_moving_down) { dir_array[1] =  1; }
+    else { dir_array[1] = 0; };
 
     return dir_array;
-
 };
 
 Item* spawnItemBase(std::string name, std::string description, char repr, slots_t slot, int weight)
@@ -257,7 +238,6 @@ Item* spawnItem(int result)
     TCODRandom *rng = TCODRandom::getInstance();
     result = rng->getInt(0, 100);
     
-
     if (result <= 25)
     {
         std::string description = "It looks like it's made up of smaller more delicate pieces.";
