@@ -16,6 +16,8 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include "combat.h"
+#include "messages.h"
+#include <ui.h>
 
 BadMother::BadMother(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
@@ -70,4 +72,8 @@ void BadMother::championize()
 void BadMother::Die() 
 {
     Actor::Die();
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
 };

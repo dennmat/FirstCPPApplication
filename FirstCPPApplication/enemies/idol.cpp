@@ -72,8 +72,4 @@ void Idol::championize()
 void Idol::Die() 
 {
     Actor::Die();
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
 };
