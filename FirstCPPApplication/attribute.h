@@ -32,6 +32,7 @@ class Attribute
         // bool CanRegenerate();
         void Regenerate();
         
+        float GetValPercentage();
 
         virtual void AddToCurrentVal(int difference);
         virtual void AddToMaxVal(int difference);

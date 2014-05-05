@@ -20,6 +20,7 @@
 #include "Representation.h"
 #include "spells.h"
 #include "class.h"
+#include "enums\hunger_threshold.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -344,23 +345,23 @@ void Ui::draw_hunger(int first_y, TCODConsole* console)
 {
     float hunger_percentage = (float)(Game::player->attrs->hunger->current_val)/ ((float)Game::player->attrs->hunger->max_val) * 100;
     std::string hunger_message;
-    if (hunger_percentage > 98)
+    if (hunger_percentage > WastingAwayHunger)
         hunger_message = "You are wasting away!";
-    else if (hunger_percentage > 95)
+    else if (hunger_percentage > NearDeathHunger)
         hunger_message = "You are near death!";
-    else if (hunger_percentage > 90)
+    else if (hunger_percentage > FamishedHunger)
         hunger_message = "You are famished!";
-    else if (hunger_percentage > 80)
+    else if (hunger_percentage > StarvingHunger)
         hunger_message = "You are starving!";
-    else if (hunger_percentage > 60)
+    else if (hunger_percentage > VeryHunger)
         hunger_message = "You are very hungry!";
-    else if (hunger_percentage > 40)
+    else if (hunger_percentage > HungryHunger)
         hunger_message = "You feel hungry.";
-    else if (hunger_percentage > 20)
+    else if (hunger_percentage > DefaultHunger)
         hunger_message = " ";
-    else if (hunger_percentage > 10)
+    else if (hunger_percentage > SatisfiedHunger)
         hunger_message = "You feel satisfied.";
-    else 
+    else if (hunger_percentage > BloatedHunger)
         hunger_message = "You feel bloated.";
 
     console->print(0, first_y++, hunger_message.c_str());
@@ -368,7 +369,6 @@ void Ui::draw_hunger(int first_y, TCODConsole* console)
 bool Ui::toggle_targetting()
 {
     Ui::is_targetting = !Ui::is_targetting;
-
     return Ui::is_targetting;
 };
 

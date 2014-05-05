@@ -344,6 +344,9 @@
     <ClInclude Include="enums\spawntypes_t.h">
       <Filter>Header Files\Enums</Filter>
     </ClInclude>
+    <ClInclude Include="enums\hunger_threshold.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

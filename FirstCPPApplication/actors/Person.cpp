@@ -110,7 +110,10 @@ void Person::update()
     //been equipped already
     this->equipment->Update();
 
-    //apply regen
+    //update hunger
+    Attribute* hunger = this->attrs->hunger;
+
+    //item buffs
     std::vector<TimedEffect*>* timed_items = this->timed_item_effects;
     auto it = timed_items->begin();
     for (it; it != timed_items->end(); )
@@ -118,15 +121,16 @@ void Person::update()
         if ((*it)->is_expired(Game::turn_count))
         {
             (*it)->effect->RemoveAllEffects(this);
-        delete *(it);
-	    it = timed_items->erase(it);
+            delete *(it);
+            it = timed_items->erase(it);
         }
         else
         {
             it++;
         }
     }
-    //std::remove_if(timed_items->begin(), timed_items->end(), )
+
+    //spell bufs
     std::vector<TimedEffect*>* timed_spells = this->timed_spell_effects;
     it = timed_spells->begin();
     for (it; it != timed_spells->end();)
@@ -134,8 +138,8 @@ void Person::update()
         if ((*it)->is_expired(Game::turn_count))
         {
             (*it)->effect->RemoveAllEffects(this);
-	delete *(it);
-	    it = timed_spells->erase(it);
+            delete *(it);
+            it = timed_spells->erase(it);
         }
         else
         {

@@ -173,6 +173,7 @@
     <ClInclude Include="enemies\troll.h" />
     <ClInclude Include="enemies\wildling.h" />
     <ClInclude Include="enums\elements_t.h" />
+    <ClInclude Include="enums\hunger_threshold.h" />
     <ClInclude Include="enums\input_enums.h" />
     <ClInclude Include="enums\screens.h" />
     <ClInclude Include="enums\spawntypes_t.h" />

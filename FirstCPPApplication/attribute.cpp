@@ -12,6 +12,12 @@ Attribute::Attribute()
 
 };
 
+float Attribute::GetValPercentage()
+{
+    float percent = (float)(this->current_val)/ ((float)this->max_val) * 100;
+    return percent;
+
+};
 
 void Attribute::Update()
 {
