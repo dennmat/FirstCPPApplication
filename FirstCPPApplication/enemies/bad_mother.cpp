@@ -72,8 +72,5 @@ void BadMother::championize()
 void BadMother::Die() 
 {
     Actor::Die();
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
+    new Message(Ui::msg_handler_main, CHAT_MSG, "YOU KILLED THE BADMOTHER YOU WIN");
 };

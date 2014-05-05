@@ -87,7 +87,7 @@ class Actor : public Object
         virtual void update() = 0;
 
         Item* Actor::CreateCorpse();
-        void Die();
+        virtual void Die();
         static Item* item_drop_handler(Actor* actor);
 
 
