@@ -19,6 +19,7 @@
 #include "game.h"
 #include "ui.h"
 #include "civilian.h"
+#include "enums\hunger_threshold.h"
 
 Person::Person(std::string name, int age, int x, int y, char repr)
 {
@@ -112,6 +113,30 @@ void Person::update()
 
     //update hunger
     Attribute* hunger = this->attrs->hunger;
+    if (hunger->GetValPercentage() > WastingAwayHunger)
+    {
+        this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.25;
+    }
+    else if (hunger->GetValPercentage() > NearDeathHunger)
+    {
+        this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.1;
+    }
+    else if (hunger->GetValPercentage() > FamishedHunger)
+    {
+        this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.05;
+    }
+    else if (hunger->GetValPercentage() > StarvingHunger)
+    {
+        this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.025;
+    }
+    // else if (hunger->GetValPercentage() > VeryHunger)
+    // {
+    //     this->attrs->health->regen_rate -= (float)this->attrs->health->max_val*0.25;
+    // }
+    // else if (hunger->GetValPercentage() > DefaultHunger)
+    // {
+    //     this->attrs->health->regen_rate -= (float)this->attrs->health->max_val*0.05;
+    // }
 
     //item buffs
     std::vector<TimedEffect*>* timed_items = this->timed_item_effects;
@@ -163,6 +188,11 @@ void Person::update()
             printf("no combat\n");
         }
     }
+
+    if (this->combat != NULL)
+    {
+        this->combat->TryToDie();
+    };
 };
 
 void Person::attack(Actor * target)

@@ -50,6 +50,7 @@ class HealthAttribute : public Attribute
 {
     public:
         HealthAttribute();
+	//void Regenerate();
 };
 
 class ManaAttribute : public Attribute

@@ -155,6 +155,12 @@ bool Attribute::CheckIsReady()
     return this->is_ready;
 };
 
+//void HealthAttribute::Regenerate()
+//{
+//	Attribute::Regenerate();
+//
+//};
+
 HealthAttribute::HealthAttribute() : Attribute()
 {
     this->max_val = 100;
@@ -196,7 +202,7 @@ DamageAttribute::DamageAttribute() : Attribute()
 HungerAttribute::HungerAttribute() : Attribute()
 {
     this->max_val = 1000;
-    this->current_val = 10;
+    this->current_val = 0;
 
     this->regen_rate = 2;
 
