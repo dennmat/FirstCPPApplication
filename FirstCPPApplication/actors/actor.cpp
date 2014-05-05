@@ -466,6 +466,7 @@ Item* spawnItem()
 {
     Item* dropped_item;
     TCODRandom *rng = Game::item_spawn_rng;
+    rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
     rwm.add_item(ArmorSpawn, 50);
@@ -503,7 +504,7 @@ Item* Actor::item_drop_handler(Actor* actor)
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
     rwm.add_item(CorpseSpawn, 20);
     rwm.add_item(GenericSpawn, 30);
-    rwm.add_item(NothingItemSpawn, 50);
+    rwm.add_item(NothingItemSpawn, 80);
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     //make the master's tile no longer occupied by him
     //drop corpse on floor or another item

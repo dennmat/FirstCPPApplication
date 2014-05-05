@@ -668,7 +668,7 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     Ui::print_attribute(con, mana, buffer, offset, i, "MANA");
     Ui::print_attribute(con, damage, buffer, offset, i, "DAMAGE");
     Ui::print_attribute(con, armor, buffer, offset, i, "ARMOR");
-    Ui::print_attribute(con, hunger, buffer, offset, i, "HUNGER");
+    // Ui::print_attribute(con, hunger, buffer, offset, i, "HUNGER");
 
     print_experience(con, offset,  i);
     print_class(con, offset,  i);
