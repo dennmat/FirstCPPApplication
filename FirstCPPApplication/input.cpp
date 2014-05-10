@@ -660,7 +660,7 @@ bool Input::process_spells_keys(TCOD_key_t request)
 
     else if( action == spells_active_t::CastSpell )
     {
-        Ui::toggle_targetting();
+        Ui::is_targetting = true;
         Ui::targetted_tile = Game::player->my_tile;
         Game::current_state = GameStates::GameplayState;
         std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;

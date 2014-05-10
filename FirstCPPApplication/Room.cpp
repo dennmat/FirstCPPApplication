@@ -63,10 +63,10 @@ bool Room::isCircle(int point_x, int point_y)
     //     return true;
     // }
     // return false;
-    int x = (int)std::pow((double)point_x - this->center_x, 2);
-    int y = (int)std::pow((double)point_y - this->center_y, 2);
-    int rad = (int)std::pow((double)this->radius, 2);
-    return rad*0.5 < x+y && x+y < rad*1.5;
+
+    return is_part_of_circle((double)point_x, (double)point_y,
+            (double)this->center_x, (double)this->center_y,
+            (double)this->radius);
     //return rad-3 > x + y > rad+3;
 };
 

@@ -17,6 +17,15 @@ std::string ToUpper(std::string data){
     return data;
 };
 
+bool is_part_of_circle(double point_x, double point_y, double center_x, double center_y, double radius)
+{
+    double x = std::pow(point_x - center_x, 2);
+    double y = std::pow(point_y - center_y, 2);
+    double rad = std::pow(radius, 2);
+    return rad*0.5 < x+y && x+y < rad*1.5;
+
+};
+
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
     std::stringstream ss(s);
     std::string item;

@@ -29,6 +29,9 @@ std::string get_images_path();
 // class T;
 // void stripNullsFromVector(std::vector<T*>* vect);
 
+bool is_part_of_circle(double point_x, double point_y,
+        double center_x, double center_y, double radius);
+
 std::string char_to_str(char chr);
 
 void move_window(int x, int y);
