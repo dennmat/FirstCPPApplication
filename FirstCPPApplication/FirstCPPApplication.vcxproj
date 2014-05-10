@@ -147,7 +147,6 @@
     <None Include="world.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Debug\jansson.h" />
     <ClInclude Include="actors\actor.h" />
     <ClInclude Include="actors\Person.h" />
     <ClInclude Include="attribute.h" />
@@ -173,19 +172,21 @@
     <ClInclude Include="enemies\troll.h" />
     <ClInclude Include="enemies\wildling.h" />
     <ClInclude Include="enums\elements_t.h" />
+    <ClInclude Include="enums\gamestate.h" />
     <ClInclude Include="enums\hunger_threshold.h" />
     <ClInclude Include="enums\input_enums.h" />
     <ClInclude Include="enums\screens.h" />
+    <ClInclude Include="enums\slots_t.h" />
     <ClInclude Include="enums\spawntypes_t.h" />
     <ClInclude Include="enums\tiletypes_t.h" />
     <ClInclude Include="equipment.h" />
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="gamestate.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="item_effect.h" />
+    <ClInclude Include="jansson.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.hpp" />
     <ClInclude Include="libtcod_cpp_hpp\bsp.h" />
@@ -238,7 +239,6 @@
     <ClInclude Include="randsys.h" />
     <ClInclude Include="Representation.h" />
     <ClInclude Include="Room.h" />
-    <ClInclude Include="slots_t.h" />
     <ClInclude Include="spells.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

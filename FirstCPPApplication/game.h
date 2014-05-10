@@ -11,6 +11,7 @@
 
 #include <enums\gamestate.h>
 #include <enums\screens.h>
+#include <enums\spawntypes_t.h>
 
 
 class Map;
@@ -116,6 +117,7 @@ class Game
         static Tile* get_mouse_tile();
         static Tile* get_player_tile();
 
+        static MonsterSpawnTypes get_spawn_type(int floor);
         template<class T>
             static T* spawn_creature(Room* room, std::string name, int age, char repr);
 

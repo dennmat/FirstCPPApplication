@@ -254,12 +254,6 @@
     <ClInclude Include="enemies\skeleton.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="gamestate.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="slots_t.h">
-      <Filter>Header Files\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="actors\actor.h">
       <Filter>Header Files\Actors</Filter>
     </ClInclude>
@@ -274,9 +268,6 @@
     </ClInclude>
     <ClInclude Include="enums\tiletypes_t.h">
       <Filter>Header Files\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Debug\jansson.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="draw_utils.h">
       <Filter>Header Files</Filter>
@@ -346,6 +337,15 @@
     </ClInclude>
     <ClInclude Include="enums\hunger_threshold.h">
       <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="enums\gamestate.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="enums\slots_t.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

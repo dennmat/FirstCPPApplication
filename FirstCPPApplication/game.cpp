@@ -103,25 +103,51 @@ TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 
 
 
-MonsterSpawnTypes get_spawn_type()
+MonsterSpawnTypes Game::get_spawn_type(int floor)
 {
     RandomWeightMap<MonsterSpawnTypes> rwm = RandomWeightMap<MonsterSpawnTypes>();
-    // TCODRandom *spawning_rng = TCODRandom::getInstance();
-    // int dice_roll = Game::spawning_rng->getInt(100, 0);
-    rwm.add_item(TrollSpawn, 10);
-    rwm.add_item(JackalSpawn, 10);
+    if (floor == 1)
+    {
+        rwm.add_item(TrollSpawn, 10);
+        rwm.add_item(JackalSpawn, 10);
+        rwm.add_item(SkeletonSpawn, 5);
+        rwm.add_item(IdolSpawn, 5);
+    }
+    else if (floor == 2)
+    {
+        rwm.add_item(IdolSpawn, 10);
+        rwm.add_item(MutantFishSpawn, 10);
+        rwm.add_item(ImpSpawn, 5);
+        rwm.add_item(CrazedCookSpawn, 5);
+    }
+    else if (floor == 3)
+    {
+        rwm.add_item(MutantFishSpawn, 10);
+        rwm.add_item(ImpSpawn, 10);
+        rwm.add_item(CrazedCookSpawn, 10);
+        rwm.add_item(WildlingSpawn, 5);
+        rwm.add_item(SludgeSpawn, 5);
+        rwm.add_item(JumperSpawn, 1);
+    }
+    else if (floor == 4)
+    {
+        rwm.add_item(CrazedCookSpawn, 10);
+        rwm.add_item(WildlingSpawn, 10);
+        rwm.add_item(SludgeSpawn, 10);
+        rwm.add_item(JumperSpawn, 5);
 
-    rwm.add_item(IdolSpawn, 10);
-    rwm.add_item(MutantFishSpawn, 10);
-    rwm.add_item(ImpSpawn, 10);
-    rwm.add_item(CrazedCookSpawn, 10);
-    rwm.add_item(WildlingSpawn, 10);
-    rwm.add_item(SludgeSpawn, 10);
-    rwm.add_item(JumperSpawn, 10);
+    }
+    else if (floor >= 5)
+    {
+        rwm.add_item(CrazedCookSpawn, 5);
+        rwm.add_item(WildlingSpawn, 5);
+        rwm.add_item(SludgeSpawn, 5);
+        rwm.add_item(JumperSpawn, 10);
+        rwm.add_item(OgreSpawn, 10);
+        rwm.add_item(BadMotherSpawn, 2);
 
-    rwm.add_item(SkeletonSpawn, 5);
-    rwm.add_item(OgreSpawn, 5);
-    rwm.add_item(BadMotherSpawn, 2);
+    };
+
 
     return rwm.get_item(Game::spawning_rng);
 };
@@ -146,7 +172,8 @@ void Game::fill_town(Map* world)
 
 void Game::fill_generic_room(Room* room)
 {
-    MonsterSpawnTypes spawn_type = get_spawn_type();
+    int floor = 1;
+    MonsterSpawnTypes spawn_type = get_spawn_type(floor);
     if (spawn_type == MonsterSpawnTypes::TrollSpawn)
     {
         spawn_creature<Troll>(room, "Random Troll", 34, 'T');

@@ -831,13 +831,8 @@ void Ui::inventory_ui_loop(TCODConsole* con, int offset, int i, char key)
 
     bool is_chosen, is_active;
     std::vector<Item*>* v  = Ui::game->player->inventory->items;
-    // int per_page = 10; //TODO combine with the input one
-    // int page_num = 1;
     int num_items = v->size();
-    // std::cout << "offset, per_page, page_num" << std::endl;
-    // std::cout << Ui::offset << std::endl;
-    // std::cout << Ui::per_page << std::endl;
-    // std::cout << Ui::page_num << std::endl;
+
     if (Ui::offset >= num_items && num_items > 0) //if the offset is passed the end of the list
     {
         Ui::page_num = std::ceil(((float)num_items/Ui::per_page))-1; //round up and then take off a page
