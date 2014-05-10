@@ -312,6 +312,38 @@ Map* Game::build_world(int floor)
         exit(EXIT_FAILURE);
     };
 
+    //set the colors
+    if (floor == 1)
+    {
+        Tile::FloorType->representation->setFGColor(TCODColor::red, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkRed, true, false, true);
+    }
+    else if (floor == 2)
+    {
+        Tile::FloorType->representation->setFGColor(TCODColor::blue, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkBlue, true, false, true);
+    }
+    else if (floor == 3)
+    {
+        Tile::FloorType->representation->setFGColor(TCODColor::green, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkGreen, true, false, true);
+    }
+    else if (floor == 4)
+    {
+        Tile::FloorType->representation->setFGColor(TCODColor::yellow, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkYellow, true, false, true);
+    }
+    else if (floor == 5)
+    {
+        Tile::FloorType->representation->setFGColor(TCODColor::magenta, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkMagenta, true, false, true);
+    }
+    else if (floor == 6)
+    {
+        Tile::FloorType->representation->setFGColor(TCODColor::grey, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkGrey, true, false, true);
+    }
+
     Game::fill_dungeon(world);
     //_CrtMemDumpAllObjectsSince( NULL );
 
