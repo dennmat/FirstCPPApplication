@@ -30,11 +30,12 @@ class Map : public Object
         std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
 
         int width, height;
+        int depth;
         bool pos_in_map(int x, int y);
         std::string description; // default description if tile does not have one
 
         int build_from_file(std::string filename);
-        int build_dungeon_from_random(int seed);
+        int build_dungeon_from_random(int seed, int floor);
         int build_town_from_random(int seed);
 
         Room* build_circle_room(int room_x, int room_y,

@@ -30,6 +30,7 @@ Map::Map()
 
     this->width = NULL;
     this->height = NULL;
+    this->depth = 1;
 
 }
 
@@ -338,7 +339,7 @@ int Map::build_town_from_random(int seed)
 
 };
 
-int Map::build_dungeon_from_random(int seed)
+int Map::build_dungeon_from_random(int seed, int floor)
 {
     std::string path = get_data_path()+"testing_jansson.json";
     std::ifstream myfile(path);
@@ -365,6 +366,7 @@ int Map::build_dungeon_from_random(int seed)
 
     width = Game::map_width;
     height = Game::map_height;
+    this->depth = floor;
     l_map = new TCODMap(width, height);
     //the default tile description
     description = "poppycock";

@@ -421,7 +421,7 @@ StairsDownTileType::StairsDownTileType() : BaseTileType()
 
 void StairsDownTileType::GoDown()
 {
-    auto map = Game::build_world();
+    auto map = Game::build_world(Game::current_map->depth+1);
     Game::current_map = map;
 
 };

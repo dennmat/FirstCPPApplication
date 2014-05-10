@@ -311,6 +311,9 @@ void Ui::draw_ui_sidebar()
     Ui::draw_xp(++first_y, ui_sidebar_con, ui_sidebar_fore);
     first_y++;
 
+    //draw floor
+    ui_sidebar_con->print(0, first_y++, "Floor %d", Game::current_map->depth);
+
     initial_y = first_y;
 
     int ci = 0;

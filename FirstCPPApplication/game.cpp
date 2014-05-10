@@ -172,7 +172,9 @@ void Game::fill_town(Map* world)
 
 void Game::fill_generic_room(Room* room)
 {
-    int floor = 1;
+    int floor;
+    if (Game::current_map == NULL) { floor = 1; }
+    else { floor = Game::current_map->depth; };
     MonsterSpawnTypes spawn_type = get_spawn_type(floor);
     if (spawn_type == MonsterSpawnTypes::TrollSpawn)
     {
@@ -282,7 +284,7 @@ Map* Game:: build_town()
     return world;
 }
 
-Map* Game::build_world()
+Map* Game::build_world(int floor)
 {
 
     std::cout << get_exe_path() << std::endl;
@@ -299,7 +301,7 @@ Map* Game::build_world()
 
         world = new Map;
         //world->the_game = this;
-        world->build_dungeon_from_random(0);
+        world->build_dungeon_from_random(0, floor);
     }
     else
     {
@@ -602,7 +604,7 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
     std::cout << "starting world gen" << std::endl;
-    Map* new_map = Game::build_world();
+    Map* new_map = Game::build_world(1);
     // Map* new_map = NULL;
     std::cout << "ending world gen" << std::endl;
     // Map* last_map = Game::build_town();

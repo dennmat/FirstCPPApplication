@@ -94,7 +94,7 @@ class Game
         static std::string last_cmd;
 
         // Game();
-        static Map* build_world();
+        static Map* build_world(int floor);
         static Map* build_town();
         static void update();
 
