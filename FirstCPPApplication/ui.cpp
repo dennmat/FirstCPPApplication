@@ -425,6 +425,19 @@ void Ui::draw_misc()
 
 
     }
+            Tile* mouse_tile = Game::get_mouse_tile();
+    auto pts = points_around_circle(Game::misc_int, mouse_tile->tile_x, mouse_tile->tile_y);
+    for (auto it = pts.begin(); it != pts.end(); it++)
+    {
+	int x = it->at(0);
+    int y = it->at(1);
+    Game::game_console->setCharBackground(x, y, TCODColor::white);
+	//Tile* tile = Game::current_map->getTileAt(it->at(0), it->at(1));
+ //  Representation* repr = new Representation;
+ //  repr->fg_color = new TCODColor(TCODColor::white);
+ //   tile->set_representation(repr);
+
+    }
 
 }
 

@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <vector>
+#include <array>
 
 std::string ToLower(std::string data);
 std::string ToUpper(std::string data);
@@ -31,6 +32,9 @@ std::string get_images_path();
 
 bool is_part_of_circle(double point_x, double point_y,
         double center_x, double center_y, double radius);
+
+std::vector<std::array<int, 2>> points_around_circle(double radius,
+        double center_x, double center_y);
 
 std::string char_to_str(char chr);
 

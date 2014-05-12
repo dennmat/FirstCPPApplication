@@ -109,6 +109,8 @@ std::map<int, basic_cmds_t> Input::build_spec_active_map()
 {
     std::map<int, basic_cmds_t> spec_movemap; //Keypad, punctuation
     spec_movemap[TCODK_SPACE] = basic_cmds_t::CenterScreenToMouse;
+    spec_movemap[TCODK_PAGEUP] = basic_cmds_t::NextTarget;
+    spec_movemap[TCODK_PAGEDOWN] = basic_cmds_t::PrevTarget;
     return spec_movemap;
 };//Keypad, punctuation
 
@@ -400,20 +402,16 @@ bool Input::process_basic_keys(TCOD_key_t request)
             new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's no stair here.");
         };
     }
-
-    // else if ( basic_cmd == basic_cmds_t::OpenMagic )
-    // {
-    //     Tile* stair_tile = Game::player->my_tile;
-    //     if (Ui::toggle_targetting())
-    //     {
-    //         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Select a target.");
-    //     }
-    //     else
-    //     {
-    //         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Done targetting");
-    //     }
-    //     //start targetting mode
-    // }
+    else if ( basic_cmd == basic_cmds_t::NextTarget )
+    {
+        Game::misc_int++;
+        printf("next\n");
+    }
+    else if ( basic_cmd == basic_cmds_t::PrevTarget )
+    {
+        Game::misc_int--;
+        printf("prev\n");
+    }
 
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
@@ -470,6 +468,10 @@ bool Input::process_basic_keys(TCOD_key_t request)
         };
         //start targetting mode
 
+    }
+    else 
+    {
+        printf("nothing\n");
     };
     return false;
 };

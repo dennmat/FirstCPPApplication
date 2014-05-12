@@ -56,6 +56,8 @@ class Game
         static int screen_w;
         static int screen_h;
 
+        static int misc_int;
+
         static int map_width;
         static int map_height;
         static int town_width;

@@ -31,6 +31,7 @@ enum basic_cmds_t {
     OpenCharacterSheet,
     OpenHelp, OpenClassSelect,
     CenterScreenToMouse,
+    NextTarget, PrevTarget,
     NO_MATCHING_BASIC_CMD
 };
 

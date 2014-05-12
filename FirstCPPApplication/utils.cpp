@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include "windows.h"
 #include <fstream>
+#include <array>
+#include <algorithm>
 
 #include "utils.h"
 
@@ -24,6 +26,27 @@ bool is_part_of_circle(double point_x, double point_y, double center_x, double c
     double rad = std::pow(radius, 2);
     return rad*0.5 < x+y && x+y < rad*1.5;
 
+};
+
+std::vector<std::array<int, 2>> points_around_circle(double radius, double center_x, double center_y)
+{
+    std::vector<std::array<int, 2>> result;
+    double x, y;
+    for (double angle = 0; angle <= 360; angle++)
+    {
+        std::array<int, 2> arr;
+        x = (std::cos(angle)*radius) + center_x;
+        y = (std::sin(angle)*radius) + center_y;
+        arr[0] = x;
+        arr[1] = y;
+        result.push_back(arr);
+    };
+
+    std::sort(result.begin(), result.end());
+    auto last_it = std::unique(result.begin(), result.end());
+    result.resize(std::distance(result.begin(), last_it));
+
+    return result;
 };
 
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {

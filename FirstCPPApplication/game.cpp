@@ -48,6 +48,7 @@
 #include <enemies\wildling.h>
 #include <enemies\sludge.h>
 #include <enemies\jumper.h>
+#include "utils.h"
 
 
 // Game initialization
@@ -55,6 +56,8 @@ DebugOptions* Game::debug_opts = new DebugOptions;
 
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
+
+int Game::misc_int = 10;
 
 int Game::map_width = 60;
 int Game::map_height = 40;
@@ -602,7 +605,7 @@ bool gameplay_loop(bool incr_turn)
     }
 
     // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
-    if (Game::key_evt.c != NULL && Game::key_evt.pressed == 1 ){
+    if ((Game::key_evt.vk != NULL || Game::key_evt.c != NULL) && Game::key_evt.pressed == 1 ){
         incr_turn = Input::process_key_event(Game::key_evt);
     }
     if (Game::key_evt.pressed == 1)
@@ -636,6 +639,8 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
     std::cout << "starting world gen" << std::endl;
+
+    
     Map* new_map = Game::build_world(1);
     // Map* new_map = NULL;
     std::cout << "ending world gen" << std::endl;
