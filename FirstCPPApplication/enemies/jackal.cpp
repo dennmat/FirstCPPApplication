@@ -46,7 +46,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr) : Person(name
     // has_live_combat = true;
 
     // my_tile = NULL;
-    // this->pack_size = 20;
+    //this->pack_size = 20;
 
     this->attrs->health->max_val = 20;
     this->attrs->health->current_val = 20;

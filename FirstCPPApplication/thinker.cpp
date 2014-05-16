@@ -32,6 +32,8 @@ Thinker::Thinker()
     this->is_civ = false;
     this->is_shopkeep = false;
 
+    this->turn_last_seen_by_player = 0;
+    this->tracking_memory = 1;
 };
 
 Thinker::~Thinker()
@@ -209,6 +211,7 @@ void Thinker::update()
     // aisItr = std::find(Game::player->actors_in_sight->begin(), Game::player->actors_in_sight->end(),  this->master);
     if (Game::player->IsActorInSight(this->master))
     {
+        this->turn_last_seen_by_player = Game::turn_count;
         auto player = Game::player;
         int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
         if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
@@ -222,5 +225,26 @@ void Thinker::update()
             this->dumb_update();
         }
     }
+    else 
+    {
+        if (Game::turn_count - this->turn_last_seen_by_player < this->tracking_memory)
+        {
+            std::cout << "i remember" << std::endl;
+            auto player = Game::player;
+            int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
+            if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
+            {
+                //aka pathing and fighting
+                this->smart_update();
+            }
+            else
+            {
+                //walking adjacent
+                this->dumb_update();
+            }
+
+        };
+
+    };
 
 };

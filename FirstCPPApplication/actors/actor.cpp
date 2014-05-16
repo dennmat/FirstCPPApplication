@@ -99,9 +99,9 @@ const char* Actor::GetNameC()
 bool Actor::IsActorInSight(Actor * actor)
 {
 
-    std::vector<Actor*>::iterator aisItr;
-    aisItr = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
-    if (aisItr != this->actors_in_sight->end()) 
+    std::vector<Actor*>::iterator it;
+    it = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
+    if (it != this->actors_in_sight->end()) 
     {
         return true; 
     }

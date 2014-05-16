@@ -19,9 +19,10 @@ class Thinker
         int fail_threshold;
 
 
-
     public:
         static int visibility_threshold;
+        double turn_last_seen_by_player;
+        double tracking_memory;
 
         Actor* master;
         Civilian* civilian;
