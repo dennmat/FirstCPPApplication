@@ -33,7 +33,7 @@ Thinker::Thinker()
     this->is_shopkeep = false;
 
     this->turn_last_seen_by_player = 0;
-    this->tracking_memory = 1;
+    this->tracking_memory = 25;
 };
 
 Thinker::~Thinker()
@@ -211,7 +211,8 @@ void Thinker::update()
     // aisItr = std::find(Game::player->actors_in_sight->begin(), Game::player->actors_in_sight->end(),  this->master);
     if (Game::player->IsActorInSight(this->master))
     {
-        this->turn_last_seen_by_player = Game::turn_count;
+        //this->turn_last_seen_by_player = Game::turn_count;
+        //    std::cout << "START: " << this->turn_last_seen_by_player << " END."  << std::endl;
         auto player = Game::player;
         int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
         if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
@@ -227,7 +228,8 @@ void Thinker::update()
     }
     else 
     {
-        if (Game::turn_count - this->turn_last_seen_by_player < this->tracking_memory)
+            //std::cout << this->turn_last_seen_by_player << std::endl;
+        if ((Game::turn_count - this->turn_last_seen_by_player) < this->tracking_memory)
         {
             std::cout << "i remember" << std::endl;
             auto player = Game::player;
@@ -243,6 +245,10 @@ void Thinker::update()
                 this->dumb_update();
             }
 
+        }
+        else 
+        {
+            // std::cout << "i forget" << std::endl;
         };
 
     };

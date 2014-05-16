@@ -92,6 +92,7 @@ class Actor : public Object
 
 
         bool IsActorInSight(Actor * actor);
+        void ActorIsNotInSight(Actor* actor);
         void ActorInSight(int x, int y, Actor * actor);
 
         void putPerson( Tile * next_tile, int new_x, int new_y);

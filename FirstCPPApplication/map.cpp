@@ -783,7 +783,17 @@ int Map::draw()
 
             }
             //tile isn't in FOV
-            else {
+            else 
+            {
+                if(the_tile->is_occupied())
+                {
+                    //check for item first, so it'll get drawn over by actors
+                    Game::player->ActorIsNotInSight(the_tile->occupant);
+
+                    the_char = the_tile->occupant->representation->repr;
+                    the_fg_color = the_tile->occupant->representation->fg_color;
+                    the_bg_color = the_tile->occupant->representation->bg_color;
+                }
 
                 if (the_tile->is_known() == true)
                 {

@@ -103,6 +103,7 @@ bool Actor::IsActorInSight(Actor * actor)
     it = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
     if (it != this->actors_in_sight->end()) 
     {
+        std::cout << "hes in sight" << std::endl;
         return true; 
     }
     else 
@@ -111,6 +112,18 @@ bool Actor::IsActorInSight(Actor * actor)
     }
 };
 
+void Actor::ActorIsNotInSight(Actor * actor)
+{
+    // std::cout << "removing from sight" << std::endl;
+    std::vector<Actor*>* ais = this->actors_in_sight;
+    //if the actor is in sight and isnt this actor:
+    if (actor == this) 
+    {
+        return;
+    }
+    ais->erase(std::remove(ais->begin(), ais->end(), actor), ais->end());
+
+}
 void Actor::ActorInSight(int x, int y, Actor * actor)
 {
     std::vector<Actor*>* ais = this->actors_in_sight;
