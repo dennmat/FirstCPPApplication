@@ -407,69 +407,74 @@ bool Input::process_basic_keys(TCOD_key_t request)
         Game::misc_int++;
         printf("next\n");
 
-        int max_range = ((Spell*)Ui::chosen_generic)->max_range;
-        std::vector<Actor*> targets;
-        Tile* mouse_tile = Game::get_mouse_tile();
-        for (int i = 0; i < max_range; i++) {
-            auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
-            for (auto it = pts.begin(); it != pts.end(); it++)
-            {
-                int x = it->at(0);
-                int y = it->at(1);
-                Tile* tile = Game::current_map->getTileAt(x, y);
-                if ( tile->is_occupied() )
+        if (Ui::is_targetting) 
+        {
+            int max_range = ((Spell*)Ui::chosen_generic)->max_range;
+            std::vector<Actor*> targets;
+            Tile* mouse_tile = Game::get_mouse_tile();
+            for (int i = 0; i < max_range; i++) {
+                auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
+                for (auto it = pts.begin(); it != pts.end(); it++)
                 {
-                    targets.push_back(tile->occupant);
+                    int x = it->at(0);
+                    int y = it->at(1);
+                    Tile* tile = Game::current_map->getTileAt(x, y);
+                    if ( tile->is_occupied() )
+                    {
+                        targets.push_back(tile->occupant);
+                    }
+
                 }
+            };
 
+            printf("%d\n", Game::misc_int);
+            if ( Game::misc_int < targets.size())
+            {
+
+                Ui::targetted_tile = targets.at(Game::misc_int)->my_tile;
             }
-        };
-
-        printf("%d\n", Game::misc_int);
-        if ( Game::misc_int < targets.size())
-        {
-
-            Ui::targetted_tile = targets.at(Game::misc_int)->my_tile;
-        }
-        else
-        {
-            Ui::targetted_tile = targets.back()->my_tile;
+            else
+            {
+                Ui::targetted_tile = targets.back()->my_tile;
+            }
         }
     }
     else if ( basic_cmd == basic_cmds_t::PrevTarget )
     {
         Game::misc_int--;
         printf("prev\n");
+        if (Ui::is_targetting) 
+        {
 
-        int max_range = ((Spell*)Ui::chosen_generic)->max_range;
-        std::vector<Actor*> targets;
-        Tile* mouse_tile = Game::get_mouse_tile();
-        for (int i = 0; i < max_range; i++) {
-            auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
-            for (auto it = pts.begin(); it != pts.end(); it++)
-            {
-                int x = it->at(0);
-                int y = it->at(1);
-                Tile* tile = Game::current_map->getTileAt(x, y);
-                if ( tile->is_occupied() )
+            int max_range = ((Spell*)Ui::chosen_generic)->max_range;
+            std::vector<Actor*> targets;
+            Tile* mouse_tile = Game::get_mouse_tile();
+            for (int i = 0; i < max_range; i++) {
+                auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
+                for (auto it = pts.begin(); it != pts.end(); it++)
                 {
-                    targets.push_back(tile->occupant);
+                    int x = it->at(0);
+                    int y = it->at(1);
+                    Tile* tile = Game::current_map->getTileAt(x, y);
+                    if ( tile->is_occupied() )
+                    {
+                        targets.push_back(tile->occupant);
+                    }
+
                 }
+            };
+            printf("%d\n", Game::misc_int);
+            if ( Game::misc_int < targets.size())
+            {
 
+                Ui::targetted_tile = targets.at(Game::misc_int)->my_tile;
             }
-        };
-        printf("%d\n", Game::misc_int);
-        if ( Game::misc_int < targets.size())
-        {
-
-            Ui::targetted_tile = targets.at(Game::misc_int)->my_tile;
-        }
-        else
-        {
-            Ui::targetted_tile = targets.back()->my_tile;
+            else
+            {
+                Ui::targetted_tile = targets.back()->my_tile;
+            }
         }
     }
-
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {
         Spell* spell = (Spell*)Ui::chosen_generic;
