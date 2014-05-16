@@ -847,7 +847,6 @@ int Map::draw()
     TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
     Game::game_console->clear();
-
     return 1;
 }
 
