@@ -54,7 +54,7 @@
 
 
 int Game::__version_major = 0;
-int Game::__version_minor = 1;
+int Game::__version_minor = 2;
 int Game::__version_mini = 0;
 
 
