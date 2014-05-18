@@ -253,6 +253,7 @@ void Ui::draw_ui_sidebar()
     {
         draw_mouse_helpbox();
     }
+
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
     TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();
@@ -263,14 +264,11 @@ void Ui::draw_ui_sidebar()
 
     //draw floor
     ui_sidebar_con->print(0, first_y++, "Floor %d", Game::current_map->depth);
-    //draw the message text
+
+    //draw the turn
     ui_sidebar_con->print(0, first_y, "TURN %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
     first_y++;
 
-
-    // ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
-    // first_y++;
-    // ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d/%d%c", TCOD_COLCTRL_1, (int)Ui::game->player->attrs->health->current_val, (int)Ui::game->player->attrs->health->max_val, TCOD_COLCTRL_STOP);
     //draw attributes
     Ui::draw_attrs(first_y, ui_sidebar_con);
     first_y++;
@@ -289,19 +287,17 @@ void Ui::draw_ui_sidebar()
     //draw player inventory info
     ui_sidebar_con->print(0, first_y++, "Items in inventory:");
     ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_count());
+
     //draw player burden
     ui_sidebar_con->print(0, first_y++, "Total burden");
     ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_total_weight());
     first_y++;
+
     Ui::draw_hunger(first_y, ui_sidebar_con);
 
     int initial_y = first_y++;
     Ui::draw_xp(++first_y, ui_sidebar_con, ui_sidebar_fore);
     first_y++;
-
-
-
-
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, Ui::game->screen_w-ui_sidebar_w, 0 );
