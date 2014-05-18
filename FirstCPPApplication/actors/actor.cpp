@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include <fstream>
+#include <time.h>
 
 // #include "libtcod_cpp_hpp\libtcod.hpp"
 
@@ -556,7 +557,17 @@ void Actor::ScorePrintout()
 {
     printf("%s", get_data_path());
     std::stringstream ss;
-    ss << Game::tick_count;
+    time_t timer;
+    struct tm y2k;
+    int seconds;
+    time(&timer);
+ y2k.tm_hour = 0;   y2k.tm_min = 0; y2k.tm_sec = 0;
+  y2k.tm_year = 114; y2k.tm_mon = 0; y2k.tm_mday = 1;
+    // seconds = difftime(timer, mktime(&y2k));
+  struct tm* now = localtime(&timer);
+    ss << now->tm_year << "_" << now->tm_mon << "_" << now->tm_mday << "_" << now->tm_hour << "_" << now->tm_min << "_" << now->tm_sec;
+
+    // ss << seconds;
     std::ofstream necro((get_data_path()+"necropolis_"+ss.str()+".log" ).c_str(), std::ofstream::out);
     //game version
     necro << Game::get_version() << std::endl;

@@ -497,6 +497,7 @@ Person*  Game::initialize_player()
     player->attrs->armor->current_val=0;
     player->attrs->armor->max_val=0;
     player->attrs->hunger->current_val=210;
+    player->attrs->hunger->regen_interval=5;
 
     player->actor_class = new FighterClass;
     player->actor_class->master = player;
