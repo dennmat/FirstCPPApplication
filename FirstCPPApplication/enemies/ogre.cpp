@@ -59,6 +59,7 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, ag
 
 void Ogre::championize()
 {
+    Person::championize();
     this->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
     this->attrs->health->current_val+=this->attrs->health->current_val;
     this->attrs->health->max_val+=this->attrs->health->max_val;

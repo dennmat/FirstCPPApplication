@@ -203,7 +203,8 @@ void Person::attack(Actor * target)
 
 void Person::championize()
 {
-
+    this->name = "Champion "+this->name;
+    this->is_champion = true;
 }
 
 std::string Person::talk_wrap(Actor* target, std::string text)

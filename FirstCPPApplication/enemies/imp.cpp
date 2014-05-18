@@ -62,6 +62,7 @@ Imp::Imp(std::string name, int age, int x, int y, char repr) : Person(name, age,
 
 void Imp::championize()
 {
+    Person::championize();
     this->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
     this->attrs->health->current_val+=this->attrs->health->current_val;
     this->attrs->health->max_val+=this->attrs->health->max_val;

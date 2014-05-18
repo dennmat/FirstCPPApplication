@@ -57,6 +57,7 @@ Skeleton::Skeleton(std::string name, int age, int x, int y, char repr) : Person(
 
 void Skeleton::championize()
 {
+    Person::championize();
     this->representation->setFGColor(TCODColor::white*(TCODColor::darkBlue-TCODColor::darkYellow), true, false, true);
     this->attrs->health->current_val+=this->attrs->health->current_val;
     this->attrs->health->max_val+=this->attrs->health->max_val;

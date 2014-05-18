@@ -153,6 +153,7 @@ std::map<int, spells_active_t>  Input::build_spec_spellactivemap()
     spec_spellactivemap[TCODK_ESCAPE] = spells_active_t::EscapeMenuSpell;
     return spec_spellactivemap;
 }; //Keypad, punctuation
+
 std::map<char, spells_active_t> Input::build_char_spellactivemap()
 {
     std::map<char, spells_active_t> char_spellactivemap; //regular letters

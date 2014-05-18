@@ -58,6 +58,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr) : Person(name
 
 void Jackal::championize()
 {
+    Person::championize();
     // the_jackal = Game::create_jackal("Burly Jackal", 31, creature_x, creature_y, 'j', world, "jackal combat");
     this->representation->setFGColor(TCODColor::sepia+TCODColor::sepia+TCODColor::darkYellow, true, false, true);
     this->attrs->health->current_val+=this->attrs->health->current_val;

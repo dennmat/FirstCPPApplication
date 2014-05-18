@@ -170,28 +170,28 @@ void Ui::draw_mouse_helpbox()
         help_text = "Unknown tile";
     else if (mouse_tile->is_occupied())
 
-        if (mouse_tile->occupant->cls_name == "Jackal")
-        {
-            if (Game::turn_count % 2 == 0)
-            {
-                help_text = "Is it a Jackal?";
-            }
-            else if (Game::turn_count % 3 == 0)
-            {
-                help_text = "Jackal?";
-            }
-            else if (Game::turn_count % 5 == 0)
-            {
-                help_text = "Jackal!";
-            }
-            else 
-            {
-                help_text = "It's a Jackal!";
-            }
-        }
-        else{
+        // if (mouse_tile->occupant->cls_name == "Jackal")
+        // {
+        //     if (Game::turn_count % 2 == 0)
+        //     {
+        //         help_text = "Is it a Jackal?";
+        //     }
+        //     else if (Game::turn_count % 3 == 0)
+        //     {
+        //         help_text = "Jackal?";
+        //     }
+        //     else if (Game::turn_count % 5 == 0)
+        //     {
+        //         help_text = "Jackal!";
+        //     }
+        //     else 
+        //     {
+        //         help_text = "It's a Jackal!";
+        //     }
+        // }
+        // else{
             help_text = mouse_tile->occupant->name;
-        }
+        // }
     else if (mouse_tile->inventory->get_count() > 0)
         help_text = mouse_tile->inventory->items->back()->name;
     else
