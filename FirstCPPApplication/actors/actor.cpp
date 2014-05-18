@@ -334,7 +334,7 @@ Item* spawnWeapon()
     else if (result == KatanaSpawn)
     {
         std::string description = "It looks very sharp.";
-        dropped_item = spawnEquippable("A katana", description, '\', slots_t::MainHand, 12);
+        dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
         dropped_item->item_effect->set_all_vals_to(0);
 
@@ -382,8 +382,8 @@ Item* spawnArmor()
     else if (result == LeatherChestSpawn)
     {
         std::string description = "It looks like it's made up of leather hide.";
-        dropped_item = spawnEquippable("Leather", description, '&', slots_t::Chest, 10);
-        dropped_item->repr->setFGColor(TCODColor::lightBrown, true, false, true);
+        dropped_item = spawnEquippable("Leather Chestpiece", description, '&', slots_t::Chest, 10);
+        dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
         dropped_item->item_effect->set_all_vals_to(0);
 
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
@@ -551,6 +551,7 @@ Item* spawnSpecial()
 
     RandomWeightMap<SpecialSpawnTypes> rwm = RandomWeightMap<SpecialSpawnTypes>();
     rwm.add_item(GlowingAmuletSpawn, 50);
+    rwm.add_item(GoldenRingSpawn, 10);
 
     SpecialSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == GlowingAmuletSpawn)
@@ -572,6 +573,24 @@ Item* spawnSpecial()
         dropped_item->item_effect->damage_max_val = damage;
         dropped_item->item_effect->mana_regen_rate = mana;
         dropped_item->item_effect->mana_regen_interval = mana;
+
+    }
+    else if (result == GoldenRingSpawn)
+    {
+
+        std::string description = "It glows a golden hue.";
+        dropped_item = spawnEquippable("A golden ring", description, '|', slots_t::Fingers, 2);
+        dropped_item->repr->setFGColor(TCODColor::gold, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(1, 5, 2);
+        int health = rng->getInt(10, 50, 20);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+        dropped_item->item_effect->health_current_val = health;
+        dropped_item->item_effect->health_max_val = health;
 
     }
     else
