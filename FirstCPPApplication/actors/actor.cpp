@@ -358,9 +358,12 @@ Item* spawnArmor()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<ArmorSpawnTypes> rwm = RandomWeightMap<ArmorSpawnTypes>();
-    rwm.add_item(ChainmailSpawn, 50);
+    rwm.add_item(ChainmailSpawn, 25);
+    rwm.add_item(LeatherChestSpawn, 50);
     rwm.add_item(ShieldSpawn, 50);
+    rwm.add_item(TargetShieldSpawn, 25);
     rwm.add_item(HelmetSpawn, 50);
+    rwm.add_item(CrownSpawn, 10);
 
     ArmorSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == ChainmailSpawn)
@@ -371,6 +374,18 @@ Item* spawnArmor()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //sword damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(3, 8, 3);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+    }
+    else if (result == LeatherChestSpawn)
+    {
+        std::string description = "It looks like it's made up of leather hide.";
+        dropped_item = spawnEquippable("Leather", description, '&', slots_t::Chest, 10);
+        dropped_item->repr->setFGColor(TCODColor::lightBrown, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 2);
         dropped_item->item_effect->armor_current_val = armor;
@@ -389,6 +404,19 @@ Item* spawnArmor()
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
     }
+    else if (result == TargetShieldSpawn)
+    {
+        std::string description = "It looks like it can block several hits.";
+        dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
+        dropped_item->repr->setFGColor(TCODColor::lighterGrey, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //shield armor
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(3, 7, 3);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+    }
     else if (result == HelmetSpawn)
     {
         std::string description = "It looks sturdy.";
@@ -396,12 +424,30 @@ Item* spawnArmor()
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         dropped_item->item_effect->set_all_vals_to(0);
 
-
         //armor
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
+    }
+    else if (result == CrownSpawn)
+    {
+        std::string description = "It looks shiny.";
+        dropped_item = spawnEquippable("A crown", description, '^', slots_t::Head, 5);
+        dropped_item->repr->setFGColor(TCODColor::gold, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //armor
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int armor = rng->getInt(1, 5, 3);
+        int health = rng->getInt(1, 5, 3);
+        int mana = rng->getInt(1, 5, 3);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+        dropped_item->item_effect->health_current_val = health;
+        dropped_item->item_effect->health_max_val = health;
+        dropped_item->item_effect->mana_current_val = mana;
+        dropped_item->item_effect->mana_max_val = mana;
     }
     else 
     {

@@ -49,8 +49,11 @@ enum WeaponSpawnTypes {
 
 enum ArmorSpawnTypes {
     ChainmailSpawn,
+    LeatherChestSpawn,
     ShieldSpawn,
+    TargetShieldSpawn,
     HelmetSpawn,
+    CrownSpawn,
     NothingArmorSpawn
 };
 
