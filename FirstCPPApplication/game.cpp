@@ -54,8 +54,8 @@
 
 
 int Game::__version_major = 0;
-int Game::__version_minor = 2;
-int Game::__version_mini = 1;
+int Game::__version_minor = 3;
+int Game::__version_mini = 0;
 
 
 // Game initialization
@@ -681,7 +681,7 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::start_game()
 {
-    printf("YOU ARE PLAYING: BiochRL++ %s", Game::get_version().c_str());
+    printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);

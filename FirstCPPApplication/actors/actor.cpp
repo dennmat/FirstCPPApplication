@@ -610,7 +610,7 @@ Item* spawnItem()
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
     rwm.add_item(ArmorSpawn, 50);
     rwm.add_item(WeaponSpawn, 50);
-    rwm.add_item(PotionSpawn, 20);
+    rwm.add_item(PotionSpawn, 30);
     rwm.add_item(SpecialSpawn, 10);
 
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
