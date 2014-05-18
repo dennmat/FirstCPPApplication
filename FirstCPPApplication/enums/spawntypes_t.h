@@ -41,6 +41,9 @@ enum WeaponSpawnTypes {
     SwordSpawn,
     MaceSpawn,
     DaggerSpawn,
+    TridentSpawn,
+    WhipSpawn,
+    KatanaSpawn,
     NothingWeaponSpawn
 };
 

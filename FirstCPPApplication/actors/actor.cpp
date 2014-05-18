@@ -258,8 +258,12 @@ Item* spawnWeapon()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<WeaponSpawnTypes> rwm = RandomWeightMap<WeaponSpawnTypes>();
-    rwm.add_item(SwordSpawn, 50);
+    rwm.add_item(SwordSpawn, 25);
     rwm.add_item(MaceSpawn, 50);
+    rwm.add_item(DaggerSpawn, 50);
+    rwm.add_item(TridentSpawn, 10);
+    rwm.add_item(WhipSpawn, 30);
+    rwm.add_item(KatanaSpawn, 2);
 
     WeaponSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == SwordSpawn)
@@ -285,6 +289,58 @@ Item* spawnWeapon()
         //dagger damage
         rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(1, 5, 3);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+    }
+    else if (result == DaggerSpawn)
+    {
+        std::string description = "It cuts quickly and deeply";
+        dropped_item = spawnEquippable("A dagger", description, '/', slots_t::OffHand, 6);
+        dropped_item->repr->setFGColor(TCODColor::lighterSepia, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int damage = rng->getInt(1, 5, 3);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+    }
+    else if (result == TridentSpawn)
+    {
+        std::string description = "It looks like it could kill a man.";
+        dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 12);
+        dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int damage = rng->getInt(4, 20, 5);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+    }
+    else if (result == WhipSpawn)
+    {
+        std::string description = "It looks as if it had been used on something recently.";
+        dropped_item = spawnEquippable("A whip", description, '&', slots_t::MainHand, 5);
+        dropped_item->repr->setFGColor(TCODColor::darkerOrange, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int damage = rng->getInt(4, 9, 4);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+    }
+    else if (result == KatanaSpawn)
+    {
+        std::string description = "It looks very sharp.";
+        dropped_item = spawnEquippable("A katana", description, '\', slots_t::MainHand, 12);
+        dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int damage = rng->getInt(10, 20, 11);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
     }
@@ -362,10 +418,10 @@ Item* spawnPotion()
 
     RandomWeightMap<PotionSpawnTypes> rwm = RandomWeightMap<PotionSpawnTypes>();
     rwm.add_item(HealthPotionSpawn, 50);
-    rwm.add_item(GlowingHealthPotionSpawn, 50);
-    rwm.add_item(PulsatingHealthSpawn, 50);
-    rwm.add_item(GlowingManaPotionSpawn, 50);
+    rwm.add_item(GlowingHealthPotionSpawn, 30);
+    rwm.add_item(PulsatingHealthSpawn, 10);
     rwm.add_item(ManaPotionSpawn, 50);
+    rwm.add_item(GlowingManaPotionSpawn, 25);
 
     PotionSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == HealthPotionSpawn)
@@ -408,6 +464,18 @@ Item* spawnPotion()
         dropped_item->item_effect->health_regen_rate = health;
         dropped_item->item_effect->health_regen_interval = -floor((double)health/2);
     }
+    else if (result == ManaPotionSpawn)
+    {
+        std::string description = "It looks like a small bit of essence is trapped inside. Better drink it.";
+        dropped_item = spawnUsable("A blue potion", description, '!', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lightBlue, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0); 
+
+        //health restore
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        int mana = rng->getInt(1, 50, 10);
+        dropped_item->item_effect->mana_current_val = mana;
+    }
     else if (result == GlowingManaPotionSpawn)
     {
         std::string description = "It looks like a good time.";
@@ -421,18 +489,6 @@ Item* spawnPotion()
         int mana = rng->getInt(1, 5, 1);
         dropped_item->item_effect->mana_regen_rate = mana;
         dropped_item->item_effect->mana_regen_interval = -floor((double)mana/2);
-    }
-    else if (result == ManaPotionSpawn)
-    {
-        std::string description = "It looks like a small bit of essence is trapped inside. Better drink it.";
-        dropped_item = spawnUsable("A blue potion", description, '!', slots_t::NoSlot, 1);
-        dropped_item->repr->setFGColor(TCODColor::lightBlue, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0); 
-
-        //health restore
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-        int mana = rng->getInt(1, 50, 10);
-        dropped_item->item_effect->mana_current_val = mana;
     }
     else
     {
