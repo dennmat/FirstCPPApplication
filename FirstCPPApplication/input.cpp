@@ -53,6 +53,7 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Open your character sheet");
     vec.push_back("Open this help screen"); vec.push_back("Select your class");
     vec.push_back("Center the screen on the mouse");
+    vec.push_back("Target Mode: Cycle forwards through the targets"); vec.push_back("Target Mode: Cycle backwards through the targets");
     vec.push_back("NO_MATCHING_BASIC_CMD");
 
     return vec;
