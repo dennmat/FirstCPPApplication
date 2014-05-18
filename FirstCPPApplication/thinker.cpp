@@ -32,7 +32,7 @@ Thinker::Thinker()
     this->is_civ = false;
     this->is_shopkeep = false;
 
-    this->turn_last_seen_by_player = 0;
+    this->turn_last_seen_by_player = -999;
     this->tracking_memory = 25;
 };
 
