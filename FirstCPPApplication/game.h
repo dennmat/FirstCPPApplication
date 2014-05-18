@@ -48,8 +48,6 @@ class Game
         static TCOD_mouse_t mouse_evt;
 
         static int fov_radius;
-        static int enemies_size ;   //don't really know how else to get the size of the
-        // static enemies list.  sizeof(type_inst_array)/sizeof(type) maybe.
         static std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
         static std::vector<Item*> items;  //later, this will be an array of all the enemies 
 

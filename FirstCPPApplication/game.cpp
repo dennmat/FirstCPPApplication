@@ -80,7 +80,6 @@ int Game::camera_x = 0;
 int Game::camera_y = 0;
 
 int Game::fov_radius = 6;
-int Game::enemies_size = 255; //hardcoded
 bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
 TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_height);
