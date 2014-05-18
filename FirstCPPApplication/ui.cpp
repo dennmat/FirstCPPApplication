@@ -21,6 +21,8 @@
 #include "spells.h"
 #include "class.h"
 #include "enums\hunger_threshold.h"
+#include <attribute_container.h>
+#include <attribute.h>
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -165,10 +167,39 @@ void Ui::draw_mouse_helpbox()
 {
     //get help text
     std::string help_text = "";
+    std::string health_text = "";
     Tile* mouse_tile = Game::get_mouse_tile();
+    int help_text_height = 3;
     if (! mouse_tile->is_known())
+    {
         help_text = "Unknown tile";
+    }
     else if (mouse_tile->is_occupied())
+    {
+        help_text_height = 5;
+        help_text = mouse_tile->occupant->name;
+        float health_percent = mouse_tile->occupant->attrs->health->GetValPercentage();
+        if (health_percent > 75.0f)
+        {
+            health_text = "It's healthy.";
+        }
+        else if  (health_percent > 50.0f )
+        {
+            health_text = "It's hurt.";
+        }
+        else if  (health_percent > 25.0f )
+        {
+            health_text = "It's very hurt.";
+        }
+        else if  (health_percent > 10.0f )
+        {
+            health_text = "It's in critical condition.";
+        }
+        else
+        {
+            health_text = "It's near death.";
+        }
+
 
         // if (mouse_tile->occupant->cls_name == "Jackal")
         // {
@@ -190,17 +221,20 @@ void Ui::draw_mouse_helpbox()
         //     }
         // }
         // else{
-            help_text = mouse_tile->occupant->name;
         // }
+    }
     else if (mouse_tile->inventory->get_count() > 0)
+    {
         help_text = mouse_tile->inventory->items->back()->name;
+    }
     else
+    {
         help_text = mouse_tile->get_description();
+    };
 
     //draw the right sizes
     int left_pad=1, right_pad=2, top_pad=1, bot_pad=1;
-    int help_text_width = help_text.size()+1;
-    int help_text_height = 3;
+    int help_text_width = std::max((double)help_text.size(), (double)health_text.size())+1;
     int adjusted_w = help_text_width+left_pad+right_pad;
     int adjusted_h = help_text_height+top_pad+bot_pad;
     TCODConsole help_con = TCODConsole(adjusted_w, adjusted_h);
@@ -214,6 +248,7 @@ void Ui::draw_mouse_helpbox()
         draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
 
     help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
+    help_con.print(1+left_pad, 3+top_pad, health_text.c_str());
 
     TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
 };
