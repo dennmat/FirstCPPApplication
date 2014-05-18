@@ -52,11 +52,11 @@ BadMother::BadMother(std::string name, int age, int x, int y, char repr) : Perso
     // my_tile = NULL;
     // this->pack_size = 10;
 
-    this->attrs->health->max_val = 300;
-    this->attrs->health->current_val = 300;
+    this->attrs->health->max_val = 600;
+    this->attrs->health->current_val = 600;
 
-    this->attrs->damage->max_val = 30;
-    this->attrs->damage->current_val = 30;
+    this->attrs->damage->max_val = 50;
+    this->attrs->damage->current_val = 50;
 
 };
 

@@ -53,11 +53,11 @@ CrazedCook::CrazedCook(std::string name, int age, int x, int y, char repr) : Per
     // my_tile = NULL;
     // this->pack_size = 10;
 
-    this->attrs->health->max_val = 30;
-    this->attrs->health->current_val = 30;
+    this->attrs->health->max_val = 90;
+    this->attrs->health->current_val = 90;
 
-    this->attrs->damage->max_val = 3;
-    this->attrs->damage->current_val = 3;
+    this->attrs->damage->max_val = 13;
+    this->attrs->damage->current_val = 13;
 
 };
 

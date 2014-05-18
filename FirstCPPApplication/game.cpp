@@ -137,7 +137,6 @@ MonsterSpawnTypes Game::get_spawn_type(int floor)
     }
     else if (floor == 3)
     {
-        rwm.add_item(MutantFishSpawn, 10);
         rwm.add_item(ImpSpawn, 10);
         rwm.add_item(CrazedCookSpawn, 10);
         rwm.add_item(WildlingSpawn, 5);

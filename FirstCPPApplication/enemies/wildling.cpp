@@ -55,11 +55,11 @@ Wildling::Wildling(std::string name, int age, int x, int y, char repr) : Person(
     // my_tile = NULL;
     // this->pack_size = 10;
 
-    this->attrs->health->max_val = 30;
-    this->attrs->health->current_val = 30;
+    this->attrs->health->max_val = 120;
+    this->attrs->health->current_val = 120;
 
-    this->attrs->damage->max_val = 3;
-    this->attrs->damage->current_val = 3;
+    this->attrs->damage->max_val = 20;
+    this->attrs->damage->current_val = 20;
 
 };
 
