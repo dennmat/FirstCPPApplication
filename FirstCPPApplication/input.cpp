@@ -445,7 +445,14 @@ bool Input::process_basic_keys(TCOD_key_t request)
             }
             else
             {
-                Ui::targetted_tile = targets.back()->my_tile;
+                if (targets.size() != 0)
+                {
+                    Ui::targetted_tile = targets.back()->my_tile;
+                }
+                else
+                {
+                    Ui::targetted_tile == Game::player->my_tile;
+                }
             }
         }
     }
@@ -484,7 +491,14 @@ bool Input::process_basic_keys(TCOD_key_t request)
             }
             else
             {
-                Ui::targetted_tile = targets.back()->my_tile;
+                if (targets.size() != 0)
+                {
+                    Ui::targetted_tile = targets.back()->my_tile;
+                }
+                else
+                {
+                    Ui::targetted_tile == Game::player->my_tile;
+                }
             }
         }
     }
