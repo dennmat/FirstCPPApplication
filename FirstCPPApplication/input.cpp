@@ -293,13 +293,13 @@ std::map<char, directions_t> Input::build_char_movemap()
 
 
     // char_movemap[TCODK_KP7] = directions_t::NW;
-    char_movemap['n'] = directions_t::N;
+    // char_movemap['n'] = directions_t::N;
     // char_movemap[TCODK_KP9] = directions_t::NE;
-    char_movemap['e'] = directions_t::E;
+    // char_movemap['e'] = directions_t::E;
     // char_movemap[TCODK_KP3] = directions_t::SE;
-    char_movemap['s'] = directions_t::S;
+    // char_movemap['s'] = directions_t::S;
     // char_movemap[TCODK_KP1] = directions_t::SW;
-    char_movemap['w'] = directions_t::W;
+    // char_movemap['w'] = directions_t::W;
     return char_movemap;
 };  //Keypad, punctuation//regular letters
 
