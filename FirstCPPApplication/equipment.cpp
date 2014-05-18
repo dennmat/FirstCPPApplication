@@ -73,6 +73,7 @@ void Slot::remove_item_effect()
         this->equipped_item->item_effect->RemoveManaEffects(master);
         this->equipped_item->item_effect->RemoveArmorEffects(master);
         this->equipped_item->item_effect->RemoveDamageEffects(master);
+        this->equipped_item->item_effect->unmark_applied_all(master);
 
     }
 
@@ -151,6 +152,9 @@ Equipment::Equipment()
 
 void Equipment::equip_item(Item* item)
 {
+
+    // NOTE DOESNT apply item effects
+
     //get item slot type
     slots_t slot_type = item->slot_type;
 
@@ -167,8 +171,6 @@ void Equipment::equip_item(Item* item)
             }
         }
     }
-
-    // NOTE DOESNT apply item effects
 
 };
 

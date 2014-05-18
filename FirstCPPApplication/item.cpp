@@ -53,7 +53,7 @@ void Item::unequip(Actor* target)
 {
     if ( this->equippable )
     {
-        this->item_effect->RemoveAllEffects(target);
+        //this->item_effect->RemoveAllEffects(target);
     }
     else
     {

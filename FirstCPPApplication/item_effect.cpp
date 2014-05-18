@@ -184,6 +184,24 @@ bool ItemEffect::already_applied_hunger(Actor* actor)
     return false;
 };
 
+void ItemEffect::unmark_applied_all(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            (*it)->health.all = false;
+            (*it)->mana.all = false;
+            (*it)->armor.all  = false;
+            (*it)->damage.all = false;
+        };
+
+    };
+};
 bool ItemEffect::already_applied_all(Actor* actor)
 {
 
@@ -228,6 +246,7 @@ void ItemEffect::mark_applied_health(Actor* actor)
 
     };
 };
+
 
 void ItemEffect::mark_applied_mana(Actor* actor)
 {
