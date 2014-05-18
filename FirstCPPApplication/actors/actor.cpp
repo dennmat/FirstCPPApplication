@@ -555,7 +555,9 @@ Item* Actor::item_drop_handler(Actor* actor)
 void Actor::ScorePrintout()
 {
     printf("%s", get_data_path());
-    std::ofstream necro((get_data_path()+"necropolis.log").c_str(), std::ofstream::out);
+    std::stringstream ss;
+    ss << Game::tick_count;
+    std::ofstream necro((get_data_path()+"necropolis_"+ss.str()+".log" ).c_str(), std::ofstream::out);
     //game version
     necro << Game::get_version() << std::endl;
     necro  << std::endl;
