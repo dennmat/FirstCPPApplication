@@ -362,7 +362,7 @@ int Map::build_dungeon_from_random(int seed, int floor)
         std::cout << error.text << std::endl;
         throw std::exception("help");
     }
-    std::cout << json_string_value(text) << std::endl;
+    //std::cout << json_string_value(text) << std::endl;
 
     width = Game::map_width;
     height = Game::map_height;

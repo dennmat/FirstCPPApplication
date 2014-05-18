@@ -29,7 +29,7 @@ void Slot::AddToSlot(Item* item)
     if (this->HasRoomFor(item))
     {
         //add item to slot
-        std::cout << "added item to slot" << std::endl;
+        //std::cout << "added item to slot" << std::endl;
         this->equipped_item = item;
         // this->equipped_item->item_effect->ApplyAllEffects(this->equipment->master);
         this->apply_item_effect();

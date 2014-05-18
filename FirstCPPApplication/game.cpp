@@ -302,7 +302,7 @@ Map* Game:: build_town()
 Map* Game::build_world(int floor)
 {
 
-    std::cout << get_exe_path() << std::endl;
+    // std::cout << get_exe_path() << std::endl;
 
     std::string line;
     std::ifstream myfile (get_data_path()+"world.txt");

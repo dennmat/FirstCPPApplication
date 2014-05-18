@@ -233,16 +233,15 @@ T1 Input::find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 er
 std::map<int, inventory_items_active_t>  Input::build_spec_invitemactivemap()
 {
 
-    std::map<int, inventory_items_active_t> spec_invitemactivemap; //Keypad, punctuation
-    // 
+    std::map<int, inventory_items_active_t> spec_invitemactivemap; 
     spec_invitemactivemap[TCODK_ESCAPE] = inventory_items_active_t::EscapeMenuItem;
     return spec_invitemactivemap;
-}; //Keypad, punctuation
+}; 
+
 std::map<char, inventory_items_active_t> Input::build_char_invitemactivemap()
 {
 
-    std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
-    // 
+    std::map<char, inventory_items_active_t> char_invitemactivemap; 
 
     char_invitemactivemap['x'] = inventory_items_active_t::ExamineItem;
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
@@ -252,7 +251,7 @@ std::map<char, inventory_items_active_t> Input::build_char_invitemactivemap()
     char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem;
 
     return char_invitemactivemap;
-}; //regular letters
+}; 
 
 inventory_items_active_t Input::inventory_items_active_pressed(TCOD_key_t key)
 {
@@ -292,16 +291,12 @@ std::map<char, directions_t> Input::build_char_movemap()
     std::map<char, directions_t> char_movemap; //regular letters
 
 
-    // char_movemap[TCODK_KP7] = directions_t::NW;
     // char_movemap['n'] = directions_t::N;
-    // char_movemap[TCODK_KP9] = directions_t::NE;
     // char_movemap['e'] = directions_t::E;
-    // char_movemap[TCODK_KP3] = directions_t::SE;
     // char_movemap['s'] = directions_t::S;
-    // char_movemap[TCODK_KP1] = directions_t::SW;
     // char_movemap['w'] = directions_t::W;
     return char_movemap;
-};  //Keypad, punctuation//regular letters
+};  
 
 directions_t Input::direction_pressed(TCOD_key_t key)
 {
@@ -388,7 +383,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         door_tile = Game::world->getTileAt(x, y);
 
         //get the door that's on it
-        if (door_tile->type_id == TileTypes::DoorTileTypeType) //TODO: make an enum or something for type_ids
+        if (door_tile->type_id == TileTypes::DoorTileTypeType) 
         {
             std::cout << "there's a door here, its gon get open" << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
@@ -419,7 +414,6 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::NextTarget )
     {
         Game::targetting_index++;
-        printf("next\n");
 
         if (Ui::is_targetting) 
         {
@@ -441,7 +435,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
             };
 
-            printf("%d\n", Game::targetting_index);
+            // printf("%d\n", Game::targetting_index);
             if ( Game::targetting_index < targets.size())
             {
 
@@ -463,7 +457,6 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::PrevTarget )
     {
         Game::targetting_index--;
-        printf("prev\n");
         if (Ui::is_targetting) 
         {
 
@@ -487,7 +480,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
 
                 }
             };
-            printf("%d\n", Game::targetting_index);
+            // printf("%d\n", Game::targetting_index);
             if ( Game::targetting_index < targets.size())
             {
 
