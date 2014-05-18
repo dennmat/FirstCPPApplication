@@ -49,6 +49,8 @@
 #include <enemies\sludge.h>
 #include <enemies\jumper.h>
 #include "utils.h"
+#include <equipment.h>
+#include <enums\slots_t.h>
 
 
 // Game initialization
@@ -410,6 +412,39 @@ void  Game::initialize_items()
     // Item* item = new Item();
     // next_tile->place_item_down(item);
     // items.push_back(item);
+
+    Item* dagger = new Item();
+    dagger->name = "Prisoner's Shank";
+    dagger->description = "You hid this in your clothes";
+    dagger->item_effect->set_all_vals_to(0);
+    dagger->item_effect->damage_current_val = 3;
+    dagger->item_effect->damage_max_val = 3;
+    dagger->slot_type= MainHand;
+    dagger->equippable = true;
+    player->inventory->add_item(dagger);
+    player->equipment->equip_item(dagger);
+
+    Item* amulet = new Item();
+    amulet->name = "Bent Amulet";
+    amulet->description = "You swore to never take this off.";
+    amulet->item_effect->set_all_vals_to(0);
+    amulet->item_effect->health_current_val = 3;
+    amulet->item_effect->health_max_val = 3;
+    amulet->slot_type = Neck;
+    amulet->equippable = true;
+    player->inventory->add_item(amulet);
+    player->equipment->equip_item(amulet);
+
+    Item* chest_armor = new Item();
+    chest_armor->name = "Prisoner's Robes";
+    chest_armor->description = "You were only able to wear these";
+    chest_armor->item_effect->set_all_vals_to(0);
+    chest_armor->item_effect->armor_current_val = 1;
+    chest_armor->item_effect->armor_max_val = 1;
+    chest_armor->slot_type = Chest;
+    chest_armor->equippable = true;
+    player->inventory->add_item(chest_armor);
+    player->equipment->equip_item(chest_armor);
 
     // for (int i = 0; i < 52; i++)
     // {
