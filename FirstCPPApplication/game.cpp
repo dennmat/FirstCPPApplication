@@ -54,8 +54,8 @@
 
 
 int Game::__version_major = 0;
-int Game::__version_minor = 3;
-int Game::__version_mini = 1;
+int Game::__version_minor = 4;
+int Game::__version_mini = 0;
 
 
 // Game initialization
