@@ -548,6 +548,19 @@ Item* Actor::item_drop_handler(Actor* actor)
     return dropped_item;
 };
 
+void Actor::ScorePrintout()
+{
+    //game version
+    //
+    //xp == score
+    //
+    //stats 
+    //
+    //equipment
+    //
+    //inventory
+};
+
 void Actor::Die()
 {
     Item* dropped_item = NULL;
@@ -584,6 +597,9 @@ void Actor::Die()
         }
         exit(1);
         TCODSystem::setFps(Game::fps_limit);
+
+        std::cout << "Death log is being prepared..." << std::endl;
+        this->ScorePrintout();
     };
 
 };

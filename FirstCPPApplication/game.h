@@ -125,6 +125,13 @@ class Game
 
         static void start_game();
         static void mainloop();
+
+
+        static int __version_major;
+        static int __version_minor;
+        static int __version_mini;
+
+        static std::string get_version();
 };
 
 

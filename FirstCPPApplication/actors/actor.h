@@ -90,6 +90,7 @@ class Actor : public Object
         virtual void Die();
         static Item* item_drop_handler(Actor* actor);
 
+        void ScorePrintout();
 
         bool IsActorInSight(Actor * actor);
         void ActorIsNotInSight(Actor* actor);

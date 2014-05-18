@@ -53,6 +53,11 @@
 #include <enums\slots_t.h>
 
 
+int Game::__version_major = 0;
+int Game::__version_minor = 1;
+int Game::__version_mini = 0;
+
+
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
 
@@ -107,6 +112,12 @@ TCODRandom* Game::item_spawn_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 
 
+std::string Game::get_version()
+{
+    std::stringstream ss;
+    ss << "v" << Game::__version_major << "." << Game::__version_minor << "." << Game::__version_mini << std::endl;
+    return ss.str();
+};
 
 MonsterSpawnTypes Game::get_spawn_type(int floor)
 {
@@ -670,12 +681,13 @@ bool gameplay_loop(bool incr_turn)
 
 void Game::start_game()
 {
+    printf("YOU ARE PLAYING: BiochRL++ %s", Game::get_version().c_str());
+
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
-    std::cout << "starting world gen" << std::endl;
 
-    
+    std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world(1);
     // Map* new_map = NULL;
     std::cout << "ending world gen" << std::endl;
