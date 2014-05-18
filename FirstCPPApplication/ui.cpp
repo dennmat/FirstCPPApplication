@@ -261,26 +261,12 @@ void Ui::draw_ui_sidebar()
 
     int first_y = 0;
 
+    //draw floor
+    ui_sidebar_con->print(0, first_y++, "Floor %d", Game::current_map->depth);
     //draw the message text
     ui_sidebar_con->print(0, first_y, "TURN %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
     first_y++;
 
-    //  player stats
-    //generate a color for the percent of players' cur hp to max hp between red and green
-    float player_hp_percent = (float)Ui::game->player->attrs->health->current_val / (float)Ui::game->player->attrs->health->max_val;
-    TCODColor player_hp_color = TCODColor::lerp ( TCODColor::red, TCODColor::green, player_hp_percent);
-    if (player_hp_percent >= 1.0)
-    {
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::green, TCODColor::black);
-    }
-    else if (player_hp_percent <= 0)
-    {
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red, TCODColor::black);
-    }
-    else
-    {
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, player_hp_color, TCODColor::black);
-    };
 
     // ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
     // first_y++;
@@ -313,8 +299,6 @@ void Ui::draw_ui_sidebar()
     Ui::draw_xp(++first_y, ui_sidebar_con, ui_sidebar_fore);
     first_y++;
 
-    //draw floor
-    ui_sidebar_con->print(0, first_y++, "Floor %d", Game::current_map->depth);
 
 
 
@@ -330,8 +314,15 @@ void Ui::draw_attrs(int& y, TCODConsole* con)
     AttributeContainer* attrs  = Game::player->attrs;
     TCODColor def = con->getDefaultForeground();
 
-    con->setDefaultForeground(TCODColor::lightGreen);
-    con->print(0, ++y, "HP  %d/%d", (int)attrs->health->current_val, (int)attrs->health->max_val);
+    //  player stats
+    //generate a color for the percent of players' cur hp to max hp between red and green
+    double hcv = attrs->health->current_val, hmv = attrs->health->max_val;
+    float player_hp_percent = (float)hcv / (float)hmv;
+    TCODColor player_hp_color = TCODColor::lerp ( TCODColor::red, TCODColor::green, player_hp_percent);
+    if (player_hp_percent >= 1.0) { con->setDefaultForeground(TCODColor::green); }
+    else if (player_hp_percent <= 0) { con->setDefaultForeground(TCODColor::red); }
+    else { con->setDefaultForeground(player_hp_color); };
+    con->print(0, ++y, "HP  %d/%d", (int)hcv, (int)hmv);
 
     con->setDefaultForeground(TCODColor::lightBlue);
     con->print(10, y, "MAN %d/%d", (int)attrs->mana->current_val, (int)attrs->mana->max_val);
