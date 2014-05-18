@@ -270,12 +270,16 @@ std::map<int, directions_t>  Input::build_spec_movemap()
 
     spec_movemap[TCODK_KP7] = directions_t::NW;
     spec_movemap[TCODK_KP8] = directions_t::N;
+    spec_movemap[TCODK_UP] = directions_t::N;
     spec_movemap[TCODK_KP9] = directions_t::NE;
     spec_movemap[TCODK_KP6] = directions_t::E;
+    spec_movemap[TCODK_RIGHT] = directions_t::E;
     spec_movemap[TCODK_KP3] = directions_t::SE;
     spec_movemap[TCODK_KP2] = directions_t::S;
+    spec_movemap[TCODK_DOWN] = directions_t::S;
     spec_movemap[TCODK_KP1] = directions_t::SW;
     spec_movemap[TCODK_KP4] = directions_t::W;
+    spec_movemap[TCODK_LEFT] = directions_t::W;
 
     spec_movemap[TCODK_KP5] = directions_t::X;
 
