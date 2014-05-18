@@ -318,33 +318,33 @@ Map* Game::build_world(int floor)
     //set the colors
     if (floor == 1)
     {
-        Tile::FloorType->representation->setFGColor(TCODColor::red, true, false, true);
-        Tile::WallType->representation->setFGColor(TCODColor::darkRed, true, false, true);
+        Tile::FloorType->representation->setFGColor(TCODColor::desaturatedRed, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkestRed, true, false, true);
     }
     else if (floor == 2)
     {
-        Tile::FloorType->representation->setFGColor(TCODColor::blue, true, false, true);
-        Tile::WallType->representation->setFGColor(TCODColor::darkBlue, true, false, true);
+        Tile::FloorType->representation->setFGColor(TCODColor::desaturatedBlue, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkestBlue, true, false, true);
     }
     else if (floor == 3)
     {
-        Tile::FloorType->representation->setFGColor(TCODColor::green, true, false, true);
-        Tile::WallType->representation->setFGColor(TCODColor::darkGreen, true, false, true);
+        Tile::FloorType->representation->setFGColor(TCODColor::desaturatedGreen, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkestGreen, true, false, true);
     }
     else if (floor == 4)
     {
-        Tile::FloorType->representation->setFGColor(TCODColor::yellow, true, false, true);
-        Tile::WallType->representation->setFGColor(TCODColor::darkYellow, true, false, true);
+        Tile::FloorType->representation->setFGColor(TCODColor::desaturatedYellow, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkestYellow, true, false, true);
     }
     else if (floor == 5)
     {
-        Tile::FloorType->representation->setFGColor(TCODColor::magenta, true, false, true);
-        Tile::WallType->representation->setFGColor(TCODColor::darkMagenta, true, false, true);
+        Tile::FloorType->representation->setFGColor(TCODColor::desaturatedMagenta, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkestMagenta, true, false, true);
     }
     else if (floor == 6)
     {
         Tile::FloorType->representation->setFGColor(TCODColor::grey, true, false, true);
-        Tile::WallType->representation->setFGColor(TCODColor::darkGrey, true, false, true);
+        Tile::WallType->representation->setFGColor(TCODColor::darkestGrey, true, false, true);
     }
 
     Game::fill_dungeon(world);

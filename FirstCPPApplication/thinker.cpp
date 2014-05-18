@@ -231,7 +231,7 @@ void Thinker::update()
             //std::cout << this->turn_last_seen_by_player << std::endl;
         if ((Game::turn_count - this->turn_last_seen_by_player) < this->tracking_memory)
         {
-            std::cout << "i remember" << std::endl;
+            // std::cout << "i remember" << std::endl;
             auto player = Game::player;
             int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
             if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
