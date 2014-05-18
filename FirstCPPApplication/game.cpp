@@ -55,7 +55,7 @@
 
 int Game::__version_major = 0;
 int Game::__version_minor = 3;
-int Game::__version_mini = 0;
+int Game::__version_mini = 1;
 
 
 // Game initialization
@@ -64,7 +64,7 @@ DebugOptions* Game::debug_opts = new DebugOptions;
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
-int Game::targetting_index = 10;
+int Game::targetting_index = 1;
 
 int Game::map_width = 60;
 int Game::map_height = 40;
@@ -484,7 +484,7 @@ void  Game::initialize_items()
 
 Person*  Game::initialize_player()
 {
-    player = new Person("Josh", 23, 0, 0, '@');
+    player = new Person("Player", 23, 0, 0, '@');
     // player->representation->fg_color = &(TCODColor)(TCODColor::celadon);
     player->representation->setFGColor(TCODColor::celadon, true, true, true);
 
