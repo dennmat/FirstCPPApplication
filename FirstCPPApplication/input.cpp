@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <cstdlib>
 #include <unordered_map>
+#include <assert.h>
 
 #include <windows.h>
 
@@ -56,6 +57,8 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Target Mode: Cycle forwards through the targets"); vec.push_back("Target Mode: Cycle backwards through the targets");
     vec.push_back("NO_MATCHING_BASIC_CMD");
 
+    assert(vec.size() == basic_cmds_t::NO_MATCHING_BASIC_CMD+1 && "Missing a help command for basic chars");
+
     return vec;
 
 };
@@ -69,6 +72,8 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Drop the active item"); vec.push_back("Exit the menu");
     vec.push_back("Use the active item \(if its a corpse, eat it for food\)");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
+
+    assert(vec.size() == NO_MATCHING_ITEMS_ACTIVE+1 && "Missing a help command for inventory chars");
     return vec;
 };
 std::vector<std::string> Input::inventory_items_active_char = make_inventory_items_active_char();
@@ -78,6 +83,7 @@ std::vector<std::string> make_generic_menu_active_char()
     std::vector<std::string> vec;
     vec.push_back("Exit the menu");
     vec.push_back("NO_MATCHING_GENERIC_MENU_ACTIVE");
+    assert(vec.size() == NO_MATCHING_GENERIC_MENU_ACTIVE+1 && "Missing a help command for generic chars");
     return vec;
 };
 std::vector<std::string> Input::generic_menu_active_char = make_generic_menu_active_char();
@@ -90,6 +96,7 @@ std::vector<std::string> make_spells_active_char()
     vec.push_back("Drop the spell"); vec.push_back("Exit the menu");
     vec.push_back("Cast the spell");
     vec.push_back("NO_MATCHING_SPELLS_ACTIVE");
+    assert(vec.size() == NO_MATCHING_SPELLS_ACTIVE+1 && "Missing a help command for spell chars");
     return vec;
 };
 std::vector<std::string> Input::spells_active_char = make_spells_active_char();
@@ -102,6 +109,7 @@ std::vector<std::string> make_classes_active_char()
     vec.push_back("DropClass"); vec.push_back("EscapeMenuClass");
     vec.push_back("CastClass");
     vec.push_back("NO_MATCHING_CLASSES_ACTIVE");
+    assert(vec.size() == NO_MATCHING_CLASSES_ACTIVE+1 && "Missing a help command for class chars");
     return vec;
 };
 std::vector<std::string> Input::classes_active_char = make_classes_active_char();
