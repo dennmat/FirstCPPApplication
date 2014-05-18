@@ -262,7 +262,7 @@ void Ui::draw_ui_sidebar()
     int first_y = 0;
 
     //draw the message text
-    ui_sidebar_con->print(0, first_y, "TURN COUNT %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
+    ui_sidebar_con->print(0, first_y, "TURN %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
     first_y++;
 
     //  player stats
@@ -316,26 +316,27 @@ void Ui::draw_ui_sidebar()
 
     initial_y = first_y;
 
-    int ci = 0;
-    TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
-    std::vector<std::string> player_attrs = Ui::game->player->attrs->PrettyVector();
-    for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
-    {
-        ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
-        ui_sidebar_con->print(0, first_y, "%s", (it->c_str()));
-        ++first_y;
+    //draw attributes
+   // int ci = 0;
+    // TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
+    // std::vector<std::string> player_attrs = Ui::game->player->attrs->PrettyVector();
+    // for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
+    // {
+    //     ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
+    //     ui_sidebar_con->print(0, first_y, "%s", (it->c_str()));
+    //     ++first_y;
 
-        //add a space between the 4 types of attrs
-        if ((first_y - (initial_y-1)) % 5 == 0)
-        {
-            ui_sidebar_con->print(0, first_y, " ");
-            first_y++;
-            ci++;
-        }
+    //     //add a space between the 4 types of attrs
+    //     if ((first_y - (initial_y-1)) % 5 == 0)
+    //     {
+    //         ui_sidebar_con->print(0, first_y, " ");
+    //         first_y++;
+    //         ci++;
+    //     }
 
-    };
+    // };
 
-    first_y++;
+    // first_y++;
 
 
 
