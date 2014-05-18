@@ -417,8 +417,8 @@ void  Game::initialize_items()
     dagger->name = "Prisoner's Shank";
     dagger->description = "You hid this in your clothes";
     dagger->item_effect->set_all_vals_to(0);
-    dagger->item_effect->damage_current_val = 3;
-    dagger->item_effect->damage_max_val = 3;
+    dagger->item_effect->damage_current_val = 1;
+    dagger->item_effect->damage_max_val = 1;
     dagger->slot_type= MainHand;
     dagger->equippable = true;
     player->inventory->add_item(dagger);
