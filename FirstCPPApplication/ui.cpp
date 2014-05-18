@@ -318,7 +318,7 @@ void Ui::draw_attrs(int& y, TCODConsole* con)
     //generate a color for the percent of players' cur hp to max hp between red and green
     double hcv = attrs->health->current_val, hmv = attrs->health->max_val;
     float player_hp_percent = (float)hcv / (float)hmv;
-    TCODColor player_hp_color = TCODColor::lerp ( TCODColor::red, TCODColor::green, player_hp_percent);
+    TCODColor player_hp_color = TCODColor::lerp(TCODColor::red, TCODColor::green, player_hp_percent);
     if (player_hp_percent >= 1.0) { con->setDefaultForeground(TCODColor::green); }
     else if (player_hp_percent <= 0) { con->setDefaultForeground(TCODColor::red); }
     else { con->setDefaultForeground(player_hp_color); };
@@ -334,27 +334,6 @@ void Ui::draw_attrs(int& y, TCODConsole* con)
     con->print(10, y, "ARM %d", (int)attrs->armor->current_val);
 
     con->setDefaultForeground(def);
-    // int initial_y = y;
-   // int ci = 0;
-    // TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
-    // std::vector<std::string> player_attrs = Ui::game->player->attrs->PrettyVector();
-    // for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
-    // {
-    //     ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
-    //     ui_sidebar_con->print(0, y, "%s", (it->c_str()));
-    //     ++y;
-
-    //     //add a space between the 4 types of attrs
-    //     if ((y - (initial_y-1)) % 5 == 0)
-    //     {
-    //         ui_sidebar_con->print(0, y, " ");
-    //         y++;
-    //         ci++;
-    //     }
-
-    // };
-
-    // y++;
 
 };
 
