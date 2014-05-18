@@ -114,7 +114,7 @@ TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
 std::string Game::get_version()
 {
     std::stringstream ss;
-    ss << "v" << Game::__version_major << "." << Game::__version_minor << "." << Game::__version_mini << std::endl;
+    ss << "v" << Game::__version_major << "." << Game::__version_minor << "." << Game::__version_mini;
     return ss.str();
 };
 
@@ -447,7 +447,7 @@ void  Game::initialize_items()
 
     Item* chest_armor = new Item();
     chest_armor->name = "Prisoner's Robes";
-    chest_armor->description = "You were only able to wear these";
+    chest_armor->description = "You were only able to wear these before they found you.";
     chest_armor->item_effect->set_all_vals_to(0);
     chest_armor->item_effect->armor_current_val = 1;
     chest_armor->item_effect->armor_max_val = 1;

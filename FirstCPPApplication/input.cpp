@@ -1127,6 +1127,13 @@ bool Input::process_debug_event(TCOD_key_t request)
         TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 
+    if (request.vk == TCODK_F12)
+    {
+        //this'll redraw the entire screen incase shit goes black
+        // TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        Game::player->Die();
+    }
+
     return false;
 };
 

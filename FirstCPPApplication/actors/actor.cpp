@@ -1,8 +1,11 @@
 #include "stdafx.h"
 
+#include <fstream>
+
 // #include "libtcod_cpp_hpp\libtcod.hpp"
 
 #include "actor.h"
+#include "Person.h"
 
 #include "thinker.h"
 #include "inventory.h"
@@ -19,6 +22,7 @@
 #include "class.h"
 #include <enums\spawntypes_t.h>
 #include <randsys.h>
+#include <utils.h>
 
 
 int Actor::pack_size = 10;
@@ -550,15 +554,35 @@ Item* Actor::item_drop_handler(Actor* actor)
 
 void Actor::ScorePrintout()
 {
+    printf("%s", get_data_path());
+    std::ofstream necro((get_data_path()+"necropolis.log").c_str(), std::ofstream::out);
     //game version
-    //
+    necro << Game::get_version() << std::endl;
+    necro  << std::endl;
     //xp == score
-    //
+    necro << "XP: " << Game::player->xp << std::endl;
+    necro << "LEVEL: " << Game::player->level << std::endl;
+    necro  << std::endl;
     //stats 
-    //
+
+    necro << "----- STATS -----"  << std::endl;
+    necro << Game::player->attrs->PrettyPrint() << std::endl;
+    necro  << std::endl;
+
     //equipment
-    //
+    necro << std::endl;
+
     //inventory
+    necro << "----- INVENTORY -----"  << std::endl;
+    for (auto it = Game::player->inventory->items->begin(); it!=Game::player->inventory->items->end(); it++)
+    {
+	necro << (*it)->name << std::endl;
+	necro << (*it)->description << std::endl;
+	necro << (*it)->item_effect->full_str().c_str() << std::endl;
+    }
+    necro  << std::endl;
+
+    necro.close();
 };
 
 void Actor::Die()
@@ -595,11 +619,11 @@ void Actor::Die()
                 printf("YOU'RE DEAD GIVE UP");
             };
         }
+        this->ScorePrintout();
         exit(1);
         TCODSystem::setFps(Game::fps_limit);
 
         std::cout << "Death log is being prepared..." << std::endl;
-        this->ScorePrintout();
     };
 
 };
