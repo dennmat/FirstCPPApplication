@@ -57,7 +57,7 @@ DebugOptions* Game::debug_opts = new DebugOptions;
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
-int Game::misc_int = 10;
+int Game::targetting_index = 10;
 
 int Game::map_width = 60;
 int Game::map_height = 40;

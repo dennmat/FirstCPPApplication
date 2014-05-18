@@ -404,7 +404,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     }
     else if ( basic_cmd == basic_cmds_t::NextTarget )
     {
-        Game::misc_int++;
+        Game::targetting_index++;
         printf("next\n");
 
         if (Ui::is_targetting) 
@@ -427,11 +427,11 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
             };
 
-            printf("%d\n", Game::misc_int);
-            if ( Game::misc_int < targets.size())
+            printf("%d\n", Game::targetting_index);
+            if ( Game::targetting_index < targets.size())
             {
 
-                Ui::targetted_tile = targets.at(Game::misc_int)->my_tile;
+                Ui::targetted_tile = targets.at(Game::targetting_index)->my_tile;
             }
             else
             {
@@ -441,7 +441,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     }
     else if ( basic_cmd == basic_cmds_t::PrevTarget )
     {
-        Game::misc_int--;
+        Game::targetting_index--;
         printf("prev\n");
         if (Ui::is_targetting) 
         {
@@ -456,18 +456,21 @@ bool Input::process_basic_keys(TCOD_key_t request)
                     int x = it->at(0);
                     int y = it->at(1);
                     Tile* tile = Game::current_map->getTileAt(x, y);
-                    if ( tile->is_occupied() )
+                    if ( tile->is_occupied())
                     {
-                        targets.push_back(tile->occupant);
+                        if (Game::player->IsActorInSight(tile->occupant))
+                        {
+                            targets.push_back(tile->occupant);
+                        };
                     }
 
                 }
             };
-            printf("%d\n", Game::misc_int);
-            if ( Game::misc_int < targets.size())
+            printf("%d\n", Game::targetting_index);
+            if ( Game::targetting_index < targets.size())
             {
 
-                Ui::targetted_tile = targets.at(Game::misc_int)->my_tile;
+                Ui::targetted_tile = targets.at(Game::targetting_index)->my_tile;
             }
             else
             {
