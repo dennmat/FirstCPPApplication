@@ -334,13 +334,13 @@ void Ui::draw_attrs(int& y, TCODConsole* con)
     con->print(0, ++y, "HP  %d/%d", (int)attrs->health->current_val, (int)attrs->health->max_val);
 
     con->setDefaultForeground(TCODColor::lightBlue);
-    con->print(0, ++y, "MAN %d/%d", (int)attrs->mana->current_val, (int)attrs->mana->max_val);
+    con->print(10, y, "MAN %d/%d", (int)attrs->mana->current_val, (int)attrs->mana->max_val);
 
     con->setDefaultForeground(TCODColor::lightRed);
     con->print(0, ++y, "DMG %d", (int)attrs->damage->current_val);
 
     con->setDefaultForeground(TCODColor::darkerGrey);
-    con->print(0, ++y, "ARM %d", (int)attrs->armor->current_val);
+    con->print(10, y, "ARM %d", (int)attrs->armor->current_val);
 
     con->setDefaultForeground(def);
     // int initial_y = y;
