@@ -552,6 +552,7 @@ Item* spawnSpecial()
     RandomWeightMap<SpecialSpawnTypes> rwm = RandomWeightMap<SpecialSpawnTypes>();
     rwm.add_item(GlowingAmuletSpawn, 50);
     rwm.add_item(GoldenRingSpawn, 10);
+    rwm.add_item(RedFireFlySpawn, 10);
 
     SpecialSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == GlowingAmuletSpawn)
@@ -591,6 +592,26 @@ Item* spawnSpecial()
         dropped_item->item_effect->armor_max_val = armor;
         dropped_item->item_effect->health_current_val = health;
         dropped_item->item_effect->health_max_val = health;
+
+    }
+    else if (result == RedFireFlySpawn)
+    {
+
+        std::string description = "Auburn Fireflies in a bottle";
+        dropped_item = spawnEquippable("A bottle of red fireflies", description, '0', slots_t::Fingers, 1);
+        dropped_item->repr->setFGColor(TCODColor::fuchsia, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->usable = true;
+        dropped_item->equippable = false;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        // int armor = rng->getInt(1, 5, 2);
+        int damage = rng->getInt(10, 50, 20);
+        dropped_item->item_effect->damage_current_val = damage;
+        dropped_item->item_effect->damage_max_val = damage;
+        dropped_item->item_effect->duration = 15;
+
 
     }
     else

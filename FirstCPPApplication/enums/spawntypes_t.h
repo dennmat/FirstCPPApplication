@@ -69,6 +69,7 @@ enum PotionSpawnTypes {
 enum SpecialSpawnTypes {
     GlowingAmuletSpawn,
     GoldenRingSpawn,
+    RedFireFlySpawn,
     NothingAmuletSpawn
 };
 #endif
