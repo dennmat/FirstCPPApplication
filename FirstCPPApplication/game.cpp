@@ -55,7 +55,7 @@
 
 int Game::__version_major = 0;
 int Game::__version_minor = 2;
-int Game::__version_mini = 0;
+int Game::__version_mini = 1;
 
 
 // Game initialization
@@ -106,9 +106,9 @@ Map* Game::current_map = NULL;
 int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
 
-TCODRandom* Game::spawning_rng = new TCODRandom(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-TCODRandom* Game::item_spawn_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
-TCODRandom* Game::linear_rng = new TCODRandom(TCOD_DISTRIBUTION_LINEAR);
+TCODRandom* Game::spawning_rng = new TCODRandom();
+TCODRandom* Game::item_spawn_rng = new TCODRandom();
+TCODRandom* Game::linear_rng = new TCODRandom();
 
 
 std::string Game::get_version()
@@ -685,6 +685,11 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
+
+    Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+    Game::item_spawn_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::linear_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+
 
     std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world(1);

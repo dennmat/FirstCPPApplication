@@ -488,8 +488,8 @@ Item* spawnItem()
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
     rwm.add_item(ArmorSpawn, 50);
     rwm.add_item(WeaponSpawn, 50);
-    rwm.add_item(PotionSpawn, 50);
-    rwm.add_item(SpecialSpawn, 50);
+    rwm.add_item(PotionSpawn, 20);
+    rwm.add_item(SpecialSpawn, 10);
 
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == WeaponSpawn)
@@ -519,7 +519,7 @@ Item* spawnItem()
 Item* Actor::item_drop_handler(Actor* actor)
 {
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
-    rwm.add_item(CorpseSpawn, 40);
+    rwm.add_item(CorpseSpawn, 50);
     rwm.add_item(GenericSpawn, 30);
     rwm.add_item(NothingItemSpawn, 80);
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
@@ -564,6 +564,8 @@ void Actor::ScorePrintout()
     //xp == score
     necro << "XP: " << Game::player->xp << std::endl;
     necro << "LEVEL: " << Game::player->level << std::endl;
+    necro << "CLASS: " << Game::player->actor_class->name << std::endl;
+
     necro  << std::endl;
     //stats 
 
