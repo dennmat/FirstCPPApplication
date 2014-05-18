@@ -70,6 +70,9 @@ enum SpecialSpawnTypes {
     GlowingAmuletSpawn,
     GoldenRingSpawn,
     RedFireFlySpawn,
+    GreenFireFlySpawn,
+    BlueFireFlySpawn,
+    GreyFireFlySpawn,
     NothingAmuletSpawn
 };
 #endif

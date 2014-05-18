@@ -552,7 +552,10 @@ Item* spawnSpecial()
     RandomWeightMap<SpecialSpawnTypes> rwm = RandomWeightMap<SpecialSpawnTypes>();
     rwm.add_item(GlowingAmuletSpawn, 50);
     rwm.add_item(GoldenRingSpawn, 10);
-    rwm.add_item(RedFireFlySpawn, 10);
+    rwm.add_item(RedFireFlySpawn, 15);
+    rwm.add_item(GreenFireFlySpawn, 15);
+    rwm.add_item(BlueFireFlySpawn, 15);
+    rwm.add_item(GreyFireFlySpawn, 15);
 
     SpecialSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == GlowingAmuletSpawn)
@@ -613,6 +616,60 @@ Item* spawnSpecial()
         dropped_item->item_effect->duration = 15;
 
 
+    }
+    else if (result == BlueFireFlySpawn)
+    {
+
+        std::string description = "Azure Fireflies in a bottle";
+        dropped_item = spawnEquippable("A bottle of azure fireflies", description, '0', slots_t::Fingers, 1);
+        dropped_item->repr->setFGColor(TCODColor::azure, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->usable = true;
+        dropped_item->equippable = false;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        // int armor = rng->getInt(1, 5, 2);
+        int mana = rng->getInt(10, 50, 20);
+        dropped_item->item_effect->mana_current_val = mana;
+        dropped_item->item_effect->mana_max_val = mana;
+        dropped_item->item_effect->duration = 15;
+    }
+    else if (result == GreenFireFlySpawn)
+    {
+
+        std::string description = "Celadon Fireflies in a bottle";
+        dropped_item = spawnEquippable("A bottle of celadon fireflies", description, '0', slots_t::Fingers, 1);
+        dropped_item->repr->setFGColor(TCODColor::celadon, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->usable = true;
+        dropped_item->equippable = false;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        // int armor = rng->getInt(1, 5, 2);
+        int health = rng->getInt(10, 50, 20);
+        dropped_item->item_effect->health_current_val = health;
+        dropped_item->item_effect->health_max_val = health;
+        dropped_item->item_effect->duration = 15;
+    }
+    else if (result == GreyFireFlySpawn)
+    {
+
+        std::string description = "Sepia Fireflies in a bottle";
+        dropped_item = spawnEquippable("A bottle of sepia fireflies", description, '0', slots_t::Fingers, 1);
+        dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
+        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->usable = true;
+        dropped_item->equippable = false;
+
+        //dagger damage
+        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+        // int armor = rng->getInt(1, 5, 2);
+        int armor = rng->getInt(5, 20, 10);
+        dropped_item->item_effect->armor_current_val = armor;
+        dropped_item->item_effect->armor_max_val = armor;
+        dropped_item->item_effect->duration = 15;
     }
     else
     {
