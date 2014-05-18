@@ -519,7 +519,7 @@ Item* spawnItem()
 Item* Actor::item_drop_handler(Actor* actor)
 {
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
-    rwm.add_item(CorpseSpawn, 20);
+    rwm.add_item(CorpseSpawn, 40);
     rwm.add_item(GenericSpawn, 30);
     rwm.add_item(NothingItemSpawn, 80);
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
