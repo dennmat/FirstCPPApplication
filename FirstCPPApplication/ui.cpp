@@ -284,7 +284,9 @@ void Ui::draw_ui_sidebar()
 
     // ui_sidebar_con->print(0, first_y, "PLAYER NAME %s", Ui::game->player->GetNameC());
     // first_y++;
-    ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d/%d%c", TCOD_COLCTRL_1, (int)Ui::game->player->attrs->health->current_val, (int)Ui::game->player->attrs->health->max_val, TCOD_COLCTRL_STOP);
+    // ui_sidebar_con->print(0, first_y, "PLAYER HP %c%d/%d%c", TCOD_COLCTRL_1, (int)Ui::game->player->attrs->health->current_val, (int)Ui::game->player->attrs->health->max_val, TCOD_COLCTRL_STOP);
+    //draw attributes
+    Ui::draw_attrs(first_y, ui_sidebar_con);
     first_y++;
     first_y++;
 
@@ -314,35 +316,55 @@ void Ui::draw_ui_sidebar()
     //draw floor
     ui_sidebar_con->print(0, first_y++, "Floor %d", Game::current_map->depth);
 
-    initial_y = first_y;
-
-    //draw attributes
-   // int ci = 0;
-    // TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
-    // std::vector<std::string> player_attrs = Ui::game->player->attrs->PrettyVector();
-    // for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
-    // {
-    //     ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
-    //     ui_sidebar_con->print(0, first_y, "%s", (it->c_str()));
-    //     ++first_y;
-
-    //     //add a space between the 4 types of attrs
-    //     if ((first_y - (initial_y-1)) % 5 == 0)
-    //     {
-    //         ui_sidebar_con->print(0, first_y, " ");
-    //         first_y++;
-    //         ci++;
-    //     }
-
-    // };
-
-    // first_y++;
 
 
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, Ui::game->screen_w-ui_sidebar_w, 0 );
     delete ui_sidebar_con;
+};
+
+void Ui::draw_attrs(int& y, TCODConsole* con)
+{
+
+    AttributeContainer* attrs  = Game::player->attrs;
+    TCODColor def = con->getDefaultForeground();
+
+    con->setDefaultForeground(TCODColor::lightGreen);
+    con->print(0, ++y, "HP  %d/%d", (int)attrs->health->current_val, (int)attrs->health->max_val);
+
+    con->setDefaultForeground(TCODColor::lightBlue);
+    con->print(0, ++y, "MAN %d/%d", (int)attrs->mana->current_val, (int)attrs->mana->max_val);
+
+    con->setDefaultForeground(TCODColor::lightRed);
+    con->print(0, ++y, "DMG %d", (int)attrs->damage->current_val);
+
+    con->setDefaultForeground(TCODColor::darkerGrey);
+    con->print(0, ++y, "ARM %d", (int)attrs->armor->current_val);
+
+    con->setDefaultForeground(def);
+    // int initial_y = y;
+   // int ci = 0;
+    // TCODColor attr_colors[4] = {TCODColor::lightGreen, TCODColor::lightBlue, TCODColor::darkerGrey, TCODColor::lightRed};
+    // std::vector<std::string> player_attrs = Ui::game->player->attrs->PrettyVector();
+    // for (std::vector<std::string>::iterator it = player_attrs.begin(); it !=player_attrs.end(); ++it)
+    // {
+    //     ui_sidebar_con->setDefaultForeground(attr_colors[ci]);
+    //     ui_sidebar_con->print(0, y, "%s", (it->c_str()));
+    //     ++y;
+
+    //     //add a space between the 4 types of attrs
+    //     if ((y - (initial_y-1)) % 5 == 0)
+    //     {
+    //         ui_sidebar_con->print(0, y, " ");
+    //         y++;
+    //         ci++;
+    //     }
+
+    // };
+
+    // y++;
+
 };
 
 void Ui::draw_hunger(int first_y, TCODConsole* console)

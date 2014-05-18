@@ -71,6 +71,7 @@ class Ui
         static void draw_xp();
         static void draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore);
         static void draw_hunger(int y, TCODConsole* ui_sidebar_con);
+        static void draw_attrs(int& y, TCODConsole* con);
 
         static TCODConsole* create_screen();
         static void draw_screen_title(std::string title, TCODConsole* con);
