@@ -33,14 +33,9 @@ Screen::Screen()
     this->hline = 2;
 };
 
-InventoryScreen::InventoryScreen() : Screen()
-{
-    this->title = "Untitled Screen";
-
-    this->offset = 5;
-    this->key = 'a';
-    this->hline = 2;
-};
+// InventoryScreen::InventoryScreen() : Screen()
+// {
+// };
 
 void Screen::drawn_screen_title(TCODConsole* con)
 {

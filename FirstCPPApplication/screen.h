@@ -25,7 +25,7 @@ class InventoryScreen : private Screen
     public:
         void loop(TCODConsole* con, int i);
 
-        InventoryScreen();
+        InventoryScreen() : Screen() {};
         void draw();
 };
 
