@@ -760,7 +760,7 @@ void Game::mainloop()
                 break;
 
             case GameStates::MenuState:
-                if (key_evt.c != NULL && key_evt.pressed == 1 ){
+                if ((key_evt.vk != NULL || key_evt.c != NULL) && key_evt.pressed == 1 ){
                     incr_turn = Input::process_key_event(key_evt);
                 };
 

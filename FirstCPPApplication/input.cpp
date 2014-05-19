@@ -1187,8 +1187,6 @@ bool Input::process_key_event(TCOD_key_t request)
 
         case GameStates::MenuState:
             //handle arrow keys and enter, then go to screen specfic handlers
-
-
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
                 std::vector<Spell*>* spells = Game::player->spells;
@@ -1240,15 +1238,19 @@ generic_keypair_t Input::build_keypairs(int limit, int offset)
 
 
 template<class T>
-void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector)
+void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector, bool allow_activate)
 {
 
         generic_keypair_t::iterator it = generic_map.find(letter);
         if (it != generic_map.end())
         {
+            printf("not at end\n");
             if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
             {
-                Ui::generic_active = true;
+                if (allow_activate)
+                {
+                    Ui::generic_active = true;
+                };
                 Input::generic_index = letter;
             }
             else
@@ -1286,11 +1288,28 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
         }
         else if (request.vk == TCODK_UP && request.pressed == 1)
         {
-            Input::generic_index++;
+            Input::generic_index--;
+            if (Input::generic_index < 'a' ) 
+            {
+                Input::generic_index = 'a';
+            }
+            // printf("gen indx %c", Input::generic_index);
+            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
+        }
+        else if (request.vk == TCODK_ENTER && request.pressed == 1)
+        {
+            // printf("gen indx %c", Input::generic_index);
+            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, true);
         }
         else if (request.vk == TCODK_DOWN && request.pressed == 1)
         {
-            Input::generic_index--;
+            Input::generic_index++;
+            if (Input::generic_index > 'z' ) 
+            {
+                Input::generic_index = 'z';
+            }
+            // printf("gen indx %c", Input::generic_index);
+            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
         else if ( request.c == '-'&& request.pressed == 1) 
         {
@@ -1299,9 +1318,12 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                 Ui::page_num--;
                 Ui::offset = Ui::per_page*Ui::page_num;
             };
+        }
+        else 
+        {
+            //choose generic from letter to generic map
+            Input::match_key<T>(request.c, generic_map, generic_vector, true);
         };
-        //choose generic from letter to generic map
-        Input::match_key<T>(request.c, generic_map, generic_vector);
     }
     else // generic_active is true
     {
