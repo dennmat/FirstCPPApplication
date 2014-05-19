@@ -257,6 +257,7 @@ void Game::fill_dungeon(Map* world)
         {
             //spawn one dude to whom you can sell your shit
             Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, 10, 10, 't', world);
+
         }
         else
         {

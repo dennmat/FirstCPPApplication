@@ -47,6 +47,8 @@ Actor::Actor()
     this->timed_item_effects = new std::vector<TimedEffect*>;
     this->timed_spell_effects = new std::vector<TimedEffect*>;
 
+    this->my_tile = NULL;
+
     this->representation = new Representation;
     this->inventory = new Inventory;
     this->inventory->master = this;
