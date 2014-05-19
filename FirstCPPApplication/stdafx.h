@@ -19,6 +19,7 @@
 // TODO: reference additional headers your program requires here
 #include <libtcod.hpp>
 
+//[assembly:AssemblyKeyFileAttribute("keyPair.snk")];
 //debugging the heap that didn't work
 // #include "crtdbg.h"
 // #ifdef _DEBUG

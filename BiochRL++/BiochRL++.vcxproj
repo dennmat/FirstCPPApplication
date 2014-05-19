@@ -40,8 +40,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LinkKeyFile>keyPair.snk</LinkKeyFile>
-    <LinkDelaySign>true</LinkDelaySign>
+    <LinkKeyFile>
+    </LinkKeyFile>
+    <LinkDelaySign>
+    </LinkDelaySign>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -67,8 +70,7 @@
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>sn -R "$(TargetPath)" keyPair.snk</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
