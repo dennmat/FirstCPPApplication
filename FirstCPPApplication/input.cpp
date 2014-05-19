@@ -821,7 +821,7 @@ void move_camera(int dir_x, int dir_y)
         plr_y = Ui::targetted_tile->tile_y;
     };
 
- int border_threshold = 10;
+    int border_threshold = 10;
     //std::cout << "cam w" << Game::camera_w << std::endl;
 
     int change = 1;
@@ -1237,40 +1237,39 @@ generic_keypair_t Input::build_keypairs(int limit, int offset)
 };
 
 
-template<class T>
+    template<class T>
 void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector, bool allow_activate)
 {
 
-        generic_keypair_t::iterator it = generic_map.find(letter);
-        if (it != generic_map.end())
+    generic_keypair_t::iterator it = generic_map.find(letter);
+    if (it != generic_map.end())
+    {
+        printf("not at end\n");
+        if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
         {
-            printf("not at end\n");
-            if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
+            if (allow_activate)
             {
-                if (allow_activate)
-                {
-                    Ui::generic_active = true;
-                };
-                Input::generic_index = letter;
-            }
-            else
-            {
-                Ui::generic_active = false;
+                Ui::generic_active = true;
             };
-            Ui::chosen_generic = generic_vector->at(it->second);
+            Input::generic_index = letter;
+        }
+        else
+        {
+            Ui::generic_active = false;
         };
+        Ui::chosen_generic = generic_vector->at(it->second);
+    };
 };
 
     template<class T>
 void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
 {
     int size = generic_vector->size();
-    // int per_page = 10;
-    // int page_num = 1;
-    // int offset = Ui::per_page*Ui::page_num;
+    bool successful_action = true;
+
     generic_keypair_t generic_map = Input::build_keypairs(size, Ui::offset);
     generic_keypair_t::iterator it = generic_map.find(request.c);
-    bool successful_action = true;
+
     if (Ui::generic_active == false)
     {
         if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
@@ -1293,12 +1292,10 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             {
                 Input::generic_index = 'a';
             }
-            // printf("gen indx %c", Input::generic_index);
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
         else if (request.vk == TCODK_ENTER && request.pressed == 1)
         {
-            // printf("gen indx %c", Input::generic_index);
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, true);
         }
         else if (request.vk == TCODK_DOWN && request.pressed == 1)
@@ -1308,7 +1305,6 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             {
                 Input::generic_index = 'z';
             }
-            // printf("gen indx %c", Input::generic_index);
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
         else if ( request.c == '-'&& request.pressed == 1) 

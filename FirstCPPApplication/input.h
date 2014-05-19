@@ -91,7 +91,6 @@ class Input
         static generic_keypair_t build_keypairs(int limit, int offset);
         static char generic_index;
         template<class T>
-            // static void match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector);
             static void match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector, bool allow_activate);
 
         template<class T>
