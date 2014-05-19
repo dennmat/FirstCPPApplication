@@ -108,6 +108,8 @@ class Ui
         static bool Ui::spell_is_chosen();
         static bool Ui::class_is_chosen();
         static bool toggle_targetting();
+
+        static void Ui::draw_main_menu();
 };
 
 #endif

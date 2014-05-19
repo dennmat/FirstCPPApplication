@@ -123,6 +123,7 @@ class Game
 
         static void start_game();
         static void mainloop();
+        static void init_engine();
 
 
         static int __version_major;

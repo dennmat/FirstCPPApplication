@@ -1151,3 +1151,8 @@ bool Ui::spell_is_chosen()
 {
     return Ui::chosen_generic != NULL;
 };
+
+void Ui::draw_main_menu()
+{
+    printf("hello!\r");
+};

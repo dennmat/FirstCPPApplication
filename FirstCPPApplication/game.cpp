@@ -679,9 +679,12 @@ bool gameplay_loop(bool incr_turn)
     return incr_turn;
 };
 
+
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
+
+    Game::init_engine();
 
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
@@ -694,9 +697,8 @@ void Game::start_game()
 
     std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world(1);
-    // Map* new_map = NULL;
-    std::cout << "ending world gen" << std::endl;
     // Map* last_map = Game::build_town();
+    std::cout << "ending world gen" << std::endl;
     Game::current_map = new_map;
 
     Game::initialize_player(); //created the Person player
@@ -704,12 +706,19 @@ void Game::start_game()
 
 };
 
+void Game::init_engine()
+{
+    TCODConsole::setCustomFont("data/terminal.png");
+    TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
+
+    Game::fps_limit = 60;
+    TCODSystem::setFps(fps_limit);
+    TCODConsole::setKeyboardRepeat(1000, 1);
+};
+
 void Game::mainloop()
 {
 
-    TCODConsole::setCustomFont("data/terminal.png");
-    TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
-    TCODConsole::setKeyboardRepeat(1000, 1);
 
     WelcomeMessage();
     //move main window over a bit so that the console isn't blocked
@@ -718,10 +727,8 @@ void Game::mainloop()
     bool incr_turn  = false;
     Game::turn_count = 1;
 
-    Game::fps_limit = 60;
 
     current_map->draw();
-    TCODSystem::setFps(fps_limit);
     //TCODConsole::setFullscreen(true);
     // auto renderer = TCODSystem::getRenderer();
     // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky
@@ -793,7 +800,8 @@ void Game::mainloop()
 
         //when the game is moved, the screen goes black for some reason. This
         //redraws the whole screen to make up for it. f8 does it manually.
-        if (Game::tick_count % 50 == 0)         TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        if (Game::tick_count % 50 == 0)
+            TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 
     std::cout << "Hit enter to exit" << std::endl;
