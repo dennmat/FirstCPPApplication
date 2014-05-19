@@ -728,7 +728,7 @@ void Game::mainloop()
     Game::turn_count = 1;
 
 
-    current_map->draw();
+    // current_map->draw();
     //TCODConsole::setFullscreen(true);
     // auto renderer = TCODSystem::getRenderer();
     // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky
