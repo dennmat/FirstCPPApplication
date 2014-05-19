@@ -87,7 +87,6 @@ TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_hei
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
-// GameStates Game::current_state = GameStates::InventoryState;
 Screens Game::current_screen = Screens::InventoryScreen;
 
 Person* Game::player = NULL;     //the PC
@@ -743,6 +742,7 @@ void Game::mainloop()
     current_map->draw();
     //draw the UI
     Game::draw_ui();
+    // Game::current_state = MagicState;
 
     //draw libtcon to screen
     TCODConsole::flush();
@@ -759,25 +759,6 @@ void Game::mainloop()
                 break;
 
             case GameStates::MenuState:
-                // if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                //     incr_turn = Input::process_key_event(key_evt);
-                // };
-
-                // Game::draw_ui();
-                // Input::process_mouse_inv_event();
-
-                // break;
-
-            case GameStates::InventoryState:
-                // if (key_evt.c != NULL && key_evt.pressed == 1 ){
-                //     incr_turn = Input::process_key_event(key_evt);
-                // };
-
-                // Game::draw_ui();
-                // Input::process_mouse_inv_event();
-                // break;
-
-            case GameStates::MagicState:
                 if (key_evt.c != NULL && key_evt.pressed == 1 ){
                     incr_turn = Input::process_key_event(key_evt);
                 };
