@@ -743,7 +743,7 @@ void Game::mainloop()
     //draw the UI
     Game::draw_ui();
     Game::current_state = MenuState;
-    Game::current_screen = MainMenuScreen;
+    Game::current_screen = ClassSelectScreen;
 
     //draw libtcon to screen
     TCODConsole::flush();
