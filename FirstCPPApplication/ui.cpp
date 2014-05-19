@@ -737,17 +737,27 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
     TCODColor foreground, background;
     foreground = TCODColor::white;
 
-    bool is_chosen, is_active;
+    bool is_chosen, is_active, has_duration;
     std::vector<Spell*>* v  = Ui::game->player->spells;
     for (std::vector<Spell*>::iterator it = v->begin(); it != v->end(); ++it) 
     {
-        std::string msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c, %c%drng%c";
         is_chosen = (*it) == Ui::chosen_generic;
         is_active = Ui::generic_active;
+        has_duration = (*it)->spell_effect->duration != -1;
 
         TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_spell_color(), con->getDefaultBackground());
-
         background = con->getDefaultBackground();
+
+        std::string msg_str;
+        if (!has_duration)
+        {
+            msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c, %c%drng%c";
+        }
+        else
+        {
+            msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c, %c%drng%c, %ddur";
+        };
+
         if (is_chosen)
         {
             msg_str.append(" <-");
@@ -786,12 +796,24 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
         TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
         const char *msg_char = msg_str.c_str();
+        if (!has_duration)
+        {
         con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
                 TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's',
                 TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
                 TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->mana_cost, TCOD_COLCTRL_STOP,
                 TCOD_COLCTRL_4, (*it)->max_range, TCOD_COLCTRL_STOP
                 );
+        }
+        else 
+        {
+        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's',
+                TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
+                TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->mana_cost, TCOD_COLCTRL_STOP,
+                TCOD_COLCTRL_4, (*it)->max_range, TCOD_COLCTRL_STOP, (*it)->spell_effect->duration
+                );
+        };
 
         i++;
 
