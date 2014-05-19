@@ -101,7 +101,7 @@ const char* Actor::GetNameC()
     return name.c_str();
 };
 
-bool Actor::IsActorInSight(Actor * actor)
+bool Actor::IsActorInSight(Actor* actor)
 {
 
     std::vector<Actor*>::iterator it;

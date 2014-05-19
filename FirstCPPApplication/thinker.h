@@ -21,7 +21,7 @@ class Thinker
 
     public:
         static int visibility_threshold;
-        unsigned long turn_last_seen_by_player;
+        long turn_last_seen_by_player;
         double tracking_memory;
 
         Actor* master;
