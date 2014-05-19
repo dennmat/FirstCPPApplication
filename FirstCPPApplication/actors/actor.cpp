@@ -756,20 +756,19 @@ Item* Actor::item_drop_handler(Actor* actor)
 
 void Actor::ScorePrintout()
 {
-    printf("%s", get_data_path());
-    std::stringstream ss;
-    time_t timer;
-    struct tm y2k;
-    int seconds;
-    time(&timer);
- y2k.tm_hour = 0;   y2k.tm_min = 0; y2k.tm_sec = 0;
-  y2k.tm_year = 114; y2k.tm_mon = 0; y2k.tm_mday = 1;
-    // seconds = difftime(timer, mktime(&y2k));
-  struct tm* now = localtime(&timer);
-    ss << now->tm_year << "_" << now->tm_mon << "_" << now->tm_mday << "_" << now->tm_hour << "_" << now->tm_min << "_" << now->tm_sec;
+    time_t rawtime;
+    struct tm * timeinfo;
+    char buffer[80];
 
-    // ss << seconds;
-    std::ofstream necro((get_data_path()+"necropolis_"+ss.str()+".log" ).c_str(), std::ofstream::out);
+    time (&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(buffer,80,"%d-%m-%Y_%Ih%Mm%Ss",timeinfo);
+    std::string str(buffer);
+
+    std::string filepath = (get_data_path()+"necropolis_"+str+".log" );
+    std::ofstream necro(filepath.c_str(), std::ofstream::out);
+
     //game version
     necro << Game::get_version() << std::endl;
     necro  << std::endl;
@@ -792,9 +791,9 @@ void Actor::ScorePrintout()
     necro << "----- INVENTORY -----"  << std::endl;
     for (auto it = Game::player->inventory->items->begin(); it!=Game::player->inventory->items->end(); it++)
     {
-	necro << (*it)->name << std::endl;
-	necro << (*it)->description << std::endl;
-	necro << (*it)->item_effect->full_str().c_str() << std::endl;
+        necro << (*it)->name << std::endl;
+        necro << (*it)->description << std::endl;
+        necro << (*it)->item_effect->full_str().c_str() << std::endl;
     }
     necro  << std::endl;
 
