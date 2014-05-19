@@ -23,7 +23,7 @@
 #include "enums\hunger_threshold.h"
 #include <attribute_container.h>
 #include <attribute.h>
-#include <screen.h>
+#include "screen.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -967,7 +967,7 @@ void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*,
 
 void Ui::draw_inventory_ui()
 {
-    Screen inv_screen;
+    InventoryScreen inv_screen;
     inv_screen.draw();
     //Ui::draw_screen("Inventory Screen", &Ui::inventory_ui_loop);
 };

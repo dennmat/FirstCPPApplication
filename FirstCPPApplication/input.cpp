@@ -28,6 +28,7 @@
 #include "spells.h"
 #include "item_effect.h"
 #include "class.h"
+#include <messages.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<int, directions_t> Input::spec_movemap = Input::build_spec_movemap();  //Keypad, punctuation
@@ -340,7 +341,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::OpenInventory )
     {
         Game::current_state = GameStates::MenuState;
-        Game::current_screen = Screens::InventoryScreen;
+        Game::current_screen = Screens::InventoryScreenType;
     }
 
     else if ( basic_cmd == basic_cmds_t::CancelCast )
@@ -356,25 +357,25 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::OpenMagic )
     {
         Game::current_state = GameStates::MenuState;
-        Game::current_screen = Screens::SpellSelectScreen;
+        Game::current_screen = Screens::SpellSelectScreenType;
     }
 
     else if ( basic_cmd == basic_cmds_t::OpenClassSelect )
     {
         Game::current_state = GameStates::MenuState;
-        Game::current_screen = Screens::ClassSelectScreen;
+        Game::current_screen = Screens::ClassSelectScreenType;
     }
 
     else if ( basic_cmd == basic_cmds_t::OpenCharacterSheet )
     {
         Game::current_state = GameStates::MenuState;
-        Game::current_screen = Screens::CharacterSheetScreen;
+        Game::current_screen = Screens::CharacterSheetScreenType;
     }
 
     else if ( basic_cmd == basic_cmds_t::OpenHelp )
     {
         Game::current_state = GameStates::MenuState;
-        Game::current_screen = Screens::HelpScreen;
+        Game::current_screen = Screens::HelpScreenType;
     }
 
     else if ( basic_cmd == basic_cmds_t::ActivateDoor )
@@ -1187,20 +1188,20 @@ bool Input::process_key_event(TCOD_key_t request)
 
         case GameStates::MenuState:
             //handle arrow keys and enter, then go to screen specfic handlers
-            if (Game::current_screen == Screens::SpellSelectScreen)
+            if (Game::current_screen == Screens::SpellSelectScreenType)
             {
                 std::vector<Spell*>* spells = Game::player->spells;
                 Input::select_generic(request, spells, is_key_spell_command, Input::process_spells_keys);
 
             }
-            else if (Game::current_screen == Screens::ClassSelectScreen)
+            else if (Game::current_screen == Screens::ClassSelectScreenType)
             {
                 Ui::is_targetting = false;
                 std::vector<IClass*>* classes = Actor::actor_class_choices;
                 Input::select_generic(request, classes, is_key_class_command, Input::process_classes_keys);
             }
 
-            else if (Game::current_screen == Screens::InventoryScreen)
+            else if (Game::current_screen == Screens::InventoryScreenType)
             {
                 Ui::is_targetting = false;
                 std::vector<Item*>* items = Game::player->inventory->items;

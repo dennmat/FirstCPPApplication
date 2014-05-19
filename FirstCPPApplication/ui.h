@@ -4,7 +4,7 @@
 #define UI_H
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
-#include "messages.h"
+//#include "messages.h"
 
 class Item;
 class Game;
@@ -14,6 +14,10 @@ class Attribute;
 class TCODConsole;
 class Spell;
 class IClass;
+class Screen;
+class InventoryScreen;
+class MessageHandler;
+class Message;
 
 void one_line_helper(TCODConsole* ui_inv_con,int& offset, int& i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
 

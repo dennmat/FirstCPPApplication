@@ -87,7 +87,7 @@ TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_hei
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
-Screens Game::current_screen = Screens::InventoryScreen;
+Screens Game::current_screen = Screens::InventoryScreenType;
 
 Person* Game::player = NULL;     //the PC
 
@@ -592,22 +592,22 @@ void Game::draw_ui()
     {
         switch(Game::current_screen)
         {
-            case Screens::InventoryScreen:
+            case Screens::InventoryScreenType:
                 Ui::draw_inventory_main();
                 break;
-            case Screens::MainMenuScreen:
+            case Screens::MainMenuScreenType:
                 Ui::draw_main_menu_ui();
                 break;
-            case Screens::CharacterSheetScreen:
+            case Screens::CharacterSheetScreenType:
                 Ui::draw_char_sheet_ui();
                 break;
-            case Screens::HelpScreen:
+            case Screens::HelpScreenType:
                 Ui::draw_help_ui();
                 break;
-            case Screens::SpellSelectScreen:
+            case Screens::SpellSelectScreenType:
                 Ui::draw_spell_select_main();
                 break;
-            case Screens::ClassSelectScreen:
+            case Screens::ClassSelectScreenType:
                 Ui::draw_class_select_main();
                 break;
             default:
@@ -743,7 +743,7 @@ void Game::mainloop()
     //draw the UI
     Game::draw_ui();
     Game::current_state = MenuState;
-    Game::current_screen = ClassSelectScreen;
+    Game::current_screen = ClassSelectScreenType;
 
     //draw libtcon to screen
     TCODConsole::flush();

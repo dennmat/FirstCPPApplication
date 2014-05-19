@@ -26,11 +26,20 @@
 
 Screen::Screen() 
 {
-        this->title = "Untitled Screen";
+    this->title = "Untitled Screen";
 
-        this->offset = 5;
-        this->key = 'a';
-        this->hline = 2;
+    this->offset = 5;
+    this->key = 'a';
+    this->hline = 2;
+};
+
+InventoryScreen::InventoryScreen() : Screen()
+{
+    this->title = "Untitled Screen";
+
+    this->offset = 5;
+    this->key = 'a';
+    this->hline = 2;
 };
 
 void Screen::drawn_screen_title(TCODConsole* con)
@@ -48,9 +57,12 @@ void Screen::draw_mouse_horiz_line(TCODConsole* con)
     con->putChar(this->hline, Game::mouse_evt.cy, '>');
 
 };
- 
 
 void Screen::loop(TCODConsole* con, int i)
+{
+};
+
+void InventoryScreen::loop(TCODConsole* con, int i)
 {
     TCODColor foreground, background;
     foreground = TCODColor::white;
@@ -107,7 +119,7 @@ void Screen::loop(TCODConsole* con, int i)
             {
                 if ( (*it)!= Ui::chosen_generic)
                 {
-                    Ui::chosen_generic= (*it);
+                    Ui::chosen_generic = (*it);
                     Ui::generic_active = false;
                 }
                 else if ( (*it) == Ui::chosen_generic)
@@ -145,7 +157,7 @@ void Screen::loop(TCODConsole* con, int i)
     }
 };
 
-void Screen::draw()
+void InventoryScreen::draw()
 {
 
     TCODConsole::root->clear();
@@ -164,11 +176,11 @@ void Screen::draw()
     con->putChar(hline, Game::mouse_evt.cy, '>');
 
     this->loop(con, i);
-// 
-//     if (loop_through_lines != NULL)
-//     {
-//         loop_through_lines(con, offset, i, key);
-//     };
+    // 
+    //     if (loop_through_lines != NULL)
+    //     {
+    //         loop_through_lines(con, offset, i, key);
+    //     };
 
     TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
     delete con;

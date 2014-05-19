@@ -16,8 +16,16 @@ class Screen
 
         void drawn_screen_title(TCODConsole* con);
         void draw_mouse_horiz_line(TCODConsole* con);
+        virtual void loop(TCODConsole* con, int i) = 0;
+        virtual void draw() = 0;
+};
+
+class InventoryScreen : private Screen
+{
+    public:
         void loop(TCODConsole* con, int i);
 
+        InventoryScreen();
         void draw();
 };
 

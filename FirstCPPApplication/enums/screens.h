@@ -3,11 +3,11 @@
 #define SCREENS_H
 
 enum Screens {
-    InventoryScreen,
-    CharacterSheetScreen,
-    MainMenuScreen,
-    HelpScreen,
-    SpellSelectScreen,
-    ClassSelectScreen
+    InventoryScreenType,
+    CharacterSheetScreenType,
+    MainMenuScreenType,
+    HelpScreenType,
+    SpellSelectScreenType,
+    ClassSelectScreenType
 };
 #endif
