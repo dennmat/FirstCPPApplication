@@ -110,7 +110,7 @@ bool Actor::IsActorInSight(Actor* actor)
     it = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
     if (it != this->actors_in_sight->end()) 
     {
-        std::cout << "hes in sight" << std::endl;
+        //std::cout << "hes in sight" << std::endl;
         return true; 
     }
     else 
@@ -834,11 +834,13 @@ void Actor::Die()
                 printf("YOU'RE DEAD GIVE UP");
             };
         }
-        this->ScorePrintout();
-        exit(1);
-        TCODSystem::setFps(Game::fps_limit);
 
         std::cout << "Death log is being prepared..." << std::endl;
+        this->ScorePrintout();
+
+        TCODSystem::setFps(Game::fps_limit);
+        exit(1);
+
     };
 
 };
