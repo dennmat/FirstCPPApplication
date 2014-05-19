@@ -1185,6 +1185,9 @@ bool Input::process_key_event(TCOD_key_t request)
             break;
 
         case GameStates::MenuState:
+            //handle arrow keys and enter, then go to screen specfic handlers
+
+
             if (Game::current_screen == Screens::SpellSelectScreen)
             {
                 std::vector<Spell*>* spells = Game::player->spells;
@@ -1241,8 +1244,8 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
     // int per_page = 10;
     // int page_num = 1;
     // int offset = Ui::per_page*Ui::page_num;
-    generic_keypair_t class_map = Input::build_keypairs(size, Ui::offset);
-    generic_keypair_t::iterator it = class_map.find(request.c);
+    generic_keypair_t generic_map = Input::build_keypairs(size, Ui::offset);
+    generic_keypair_t::iterator it = generic_map.find(request.c);
     bool successful_action = true;
     if (Ui::generic_active == false)
     {
@@ -1267,8 +1270,8 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             };
         };
         //choose class
-        generic_keypair_t::iterator it = class_map.find(request.c);
-        if (it != class_map.end())
+        generic_keypair_t::iterator it = generic_map.find(request.c);
+        if (it != generic_map.end())
         {
             if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
             {
