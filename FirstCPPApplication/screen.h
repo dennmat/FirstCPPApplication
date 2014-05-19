@@ -14,7 +14,9 @@ class Screen
 
         Screen();
 
-        void drawn_screen_title(TCODConsole* con);
+        TCODConsole* create_screen();
+
+        void draw_screen_title(TCODConsole* con);
         void draw_mouse_horiz_line(TCODConsole* con);
         virtual void loop(TCODConsole* con, int i) = 0;
         virtual void draw() = 0;

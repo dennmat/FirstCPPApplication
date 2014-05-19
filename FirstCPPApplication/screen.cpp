@@ -37,7 +37,7 @@ Screen::Screen()
 // {
 // };
 
-void Screen::drawn_screen_title(TCODConsole* con)
+void Screen::draw_screen_title(TCODConsole* con)
 {
     int inv_title_x = Ui::game->screen_w/2;
     TCOD_bkgnd_flag_t bkgnd_flag = con->getBackgroundFlag();
@@ -51,6 +51,14 @@ void Screen::draw_mouse_horiz_line(TCODConsole* con)
     con->hline(0, Game::mouse_evt.cy, this->hline);
     con->putChar(this->hline, Game::mouse_evt.cy, '>');
 
+};
+
+TCODConsole* Screen::create_screen()
+{
+    int con_w = Game::screen_w;
+    int con_h = Game::screen_h - 10;
+    TCODConsole *con = new TCODConsole(con_w, con_h);
+    return con;
 };
 
 void Screen::loop(TCODConsole* con, int i)
@@ -157,24 +165,17 @@ void InventoryScreen::draw()
 
     TCODConsole::root->clear();
 
-    TCODConsole *con = Ui::create_screen();
-    Ui::draw_screen_title(title, con);
-
-    // draw the list of items on the player
-    int offset = 5;
-    int i = offset;
-    char key = 'a';
+    TCODConsole *con = this->create_screen();
+    this->draw_screen_title(con);
 
     //draw mouse line
-    int hline = 2;
-    con->hline(0, Game::mouse_evt.cy, hline);
-    con->putChar(hline, Game::mouse_evt.cy, '>');
+    this->draw_mouse_horiz_line(con);
 
-    this->loop(con, i);
-    // 
     //     if (loop_through_lines != NULL)
     //     {
     //         loop_through_lines(con, offset, i, key);
+    int i = 5;
+    this->loop(con, i);
     //     };
 
     TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
