@@ -48,6 +48,7 @@ std::vector<std::string> make_basic_cmds_char()
     std::vector<std::string> vec;
     vec.push_back("Pickup an item"); vec.push_back("Drop an item");
     vec.push_back("Open your inventory");
+    vec.push_back("Cancel targetting mode");
     vec.push_back("Look around the map"); vec.push_back("Open or close a door");
     vec.push_back("Go down stairs"); vec.push_back("Go upstairs");
     vec.push_back("Open magic menu"); vec.push_back("Cast the currently selected spell");
@@ -127,6 +128,7 @@ std::map<char, basic_cmds_t> Input::build_char_active_map()
 {
     std::map<char, basic_cmds_t> char_movemap; //regular letters
 
+    char_movemap['q'] = basic_cmds_t::CancelCast;
     char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap['c'] = basic_cmds_t::OpenCharacterSheet;
     char_movemap['?'] = basic_cmds_t::OpenHelp;
@@ -338,6 +340,11 @@ bool Input::process_basic_keys(TCOD_key_t request)
     {
         Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::InventoryScreen;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::CancelCast )
+    {
+        Ui::is_targetting = false;
     }
 
     else if ( basic_cmd == basic_cmds_t::CenterScreenToMouse )
