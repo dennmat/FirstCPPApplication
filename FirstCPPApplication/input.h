@@ -89,6 +89,9 @@ class Input
         static std::map<char, classes_active_t> build_char_classactivemap(); //regular letters
 
         static generic_keypair_t build_keypairs(int limit, int offset);
+        static char generic_index;
+        template<class T>
+            static void match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector);
 
         template<class T>
             static void select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t));

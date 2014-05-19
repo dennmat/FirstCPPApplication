@@ -42,6 +42,7 @@ std::map<int, spells_active_t> Input::spec_spellactivemap = Input::build_spec_sp
 std::map<char, spells_active_t>Input::char_spellactivemap = Input::build_char_spellactivemap(); //regular letters
 std::map<int, classes_active_t> Input::spec_classactivemap = Input::build_spec_classactivemap(); //Keypad, punctuation
 std::map<char, classes_active_t> Input::char_classactivemap = Input::build_char_classactivemap(); //regular letters
+char Input::generic_index = 'a';
 
 std::vector<std::string> make_basic_cmds_char()
 {
@@ -1237,6 +1238,27 @@ generic_keypair_t Input::build_keypairs(int limit, int offset)
     return keymap;
 };
 
+
+template<class T>
+void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector)
+{
+
+        generic_keypair_t::iterator it = generic_map.find(letter);
+        if (it != generic_map.end())
+        {
+            if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
+            {
+                Ui::generic_active = true;
+                Input::generic_index = letter;
+            }
+            else
+            {
+                Ui::generic_active = false;
+            };
+            Ui::chosen_generic = generic_vector->at(it->second);
+        };
+};
+
     template<class T>
 void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
 {
@@ -1254,12 +1276,21 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             std::cout << "Back to the game." << std::endl;
             Ui::chosen_generic = NULL;
             Ui::generic_active = false;
+            Input::generic_index = 'a';
             Game::current_state = GameStates::GameplayState;
         }
         else if ( request.c == '+'&& request.pressed == 1) 
         {
             Ui::page_num++;
             Ui::offset = Ui::per_page*Ui::page_num;
+        }
+        else if (request.vk == TCODK_UP && request.pressed == 1)
+        {
+            Input::generic_index++;
+        }
+        else if (request.vk == TCODK_DOWN && request.pressed == 1)
+        {
+            Input::generic_index--;
         }
         else if ( request.c == '-'&& request.pressed == 1) 
         {
@@ -1269,20 +1300,8 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                 Ui::offset = Ui::per_page*Ui::page_num;
             };
         };
-        //choose class
-        generic_keypair_t::iterator it = generic_map.find(request.c);
-        if (it != generic_map.end())
-        {
-            if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
-            {
-                Ui::generic_active = true;
-            }
-            else
-            {
-                Ui::generic_active = false;
-            };
-            Ui::chosen_generic = generic_vector->at(it->second);
-        };
+        //choose generic from letter to generic map
+        Input::match_key<T>(request.c, generic_map, generic_vector);
     }
     else // generic_active is true
     {
