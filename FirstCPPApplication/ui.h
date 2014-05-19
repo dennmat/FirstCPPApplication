@@ -14,8 +14,6 @@ class Attribute;
 class TCODConsole;
 class Spell;
 class IClass;
-class Screen;
-class InventoryScreen;
 class MessageHandler;
 class Message;
 

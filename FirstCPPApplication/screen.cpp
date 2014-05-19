@@ -24,20 +24,25 @@
 #include <attribute.h>
 
 
-Screen::Screen() 
+template<typename T>
+Screen<T>::Screen() 
 {
     this->title = "Untitled Screen";
 
     this->offset = 5;
     this->key = 'a';
     this->hline = 2;
+
+    this->elements = new std::vector<T*>;
 };
+template Screen<Item>::Screen();
 
 // InventoryScreen::InventoryScreen() : Screen()
 // {
 // };
 
-void Screen::draw_screen_title(TCODConsole* con)
+template<typename T>
+void Screen<T>::draw_screen_title(TCODConsole* con)
 {
     int inv_title_x = Ui::game->screen_w/2;
     TCOD_bkgnd_flag_t bkgnd_flag = con->getBackgroundFlag();
@@ -45,27 +50,56 @@ void Screen::draw_screen_title(TCODConsole* con)
 };
 
 
-void Screen::draw_mouse_horiz_line(TCODConsole* con)
+template<typename T>
+void Screen<T>::draw_mouse_horiz_line(TCODConsole* con)
 {
     //draw mouse line
     con->hline(0, Game::mouse_evt.cy, this->hline);
     con->putChar(this->hline, Game::mouse_evt.cy, '>');
 
 };
+template void Screen<Item>::draw_mouse_horiz_line(TCODConsole* con);
 
-TCODConsole* Screen::create_screen()
+template<typename T>
+TCODConsole* Screen<T>::create_screen()
 {
     int con_w = Game::screen_w;
     int con_h = Game::screen_h - 10;
     TCODConsole *con = new TCODConsole(con_w, con_h);
     return con;
 };
+template TCODConsole* Screen<Item>::create_screen();
 
-void Screen::loop(TCODConsole* con, int i)
+template<typename T>
+void Screen<T>::draw()
 {
-};
 
-void InventoryScreen::loop(TCODConsole* con, int i)
+    TCODConsole::root->clear();
+
+    TCODConsole *con = this->create_screen();
+    this->draw_screen_title(con);
+
+    //draw mouse line
+    this->draw_mouse_horiz_line(con);
+
+    //     if (loop_through_lines != NULL)
+    //     {
+    //         loop_through_lines(con, offset, i, key);
+    int i = 5;
+    this->loop(con, i);
+    //     };
+
+    TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
+    delete con;
+
+};
+template void Screen<Item>::draw();
+// void Screen::loop(TCODConsole* con, int i)
+// {
+// };
+
+template<typename T>
+void InventoryScreen<T>::loop(TCODConsole* con, int i)
 {
     TCODColor foreground, background;
     foreground = TCODColor::white;
@@ -80,8 +114,17 @@ void InventoryScreen::loop(TCODConsole* con, int i)
         Ui::offset = Ui::page_num*Ui::per_page;
     };
 
-    std::vector<Item*>::iterator it = v->begin() + Ui::offset;
-    for (it; it != v->end() && it - v->begin() != (Ui::offset + Ui::per_page); ++it) 
+    this->build_screen_items(con, i);
+};
+template void InventoryScreen<Item>::loop(TCODConsole* con, int i);
+
+template<typename T>
+void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
+{
+    bool is_chosen, is_active;
+    TCODColor foreground, background;
+    std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
+    for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
     {
         std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
         is_chosen = (*it) == Ui::chosen_generic;
@@ -158,27 +201,6 @@ void InventoryScreen::loop(TCODConsole* con, int i)
         key++;
 
     }
-};
-
-void InventoryScreen::draw()
-{
-
-    TCODConsole::root->clear();
-
-    TCODConsole *con = this->create_screen();
-    this->draw_screen_title(con);
-
-    //draw mouse line
-    this->draw_mouse_horiz_line(con);
-
-    //     if (loop_through_lines != NULL)
-    //     {
-    //         loop_through_lines(con, offset, i, key);
-    int i = 5;
-    this->loop(con, i);
-    //     };
-
-    TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
-    delete con;
 
 };
+template void InventoryScreen<Item>::build_screen_items(TCODConsole* con, int i);
