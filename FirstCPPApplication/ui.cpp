@@ -624,6 +624,16 @@ void print_keys_for(TCODConsole* con, int offset, int& i, std::map<char, T1> cha
 
 
 };
+
+void Ui::main_menu_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
+{
+    print_keys_for(con, offset, i, Input::char_active_map, Input::spec_active_map, Input::basic_cmds_char, "Gameplay Keys");
+    i++;
+    print_keys_for(con, offset, i, Input::char_invitemactivemap, Input::spec_invitemactivemap, Input::inventory_items_active_char, "Inventory Keys");
+    i++;
+    print_keys_for(con, offset, i, Input::char_spellactivemap, Input::spec_spellactivemap, Input::spells_active_char, "Spell Selection Keys");
+};
+
 void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
     print_keys_for(con, offset, i, Input::char_active_map, Input::spec_active_map, Input::basic_cmds_char, "Gameplay Keys");
@@ -970,7 +980,7 @@ void Ui::draw_class_select_ui()
 
 void Ui::draw_main_menu_ui()
 {
-    Ui::draw_screen("Main menu", NULL);
+    Ui::draw_screen("Main menu", &Ui::main_menu_screen_ui_loop);
 };
 
 void Ui::draw_char_sheet_ui()

@@ -742,7 +742,8 @@ void Game::mainloop()
     current_map->draw();
     //draw the UI
     Game::draw_ui();
-    // Game::current_state = MagicState;
+    Game::current_state = MenuState;
+    Game::current_screen = MainMenuScreen;
 
     //draw libtcon to screen
     TCODConsole::flush();
