@@ -239,6 +239,7 @@
     <ClInclude Include="randsys.h" />
     <ClInclude Include="Representation.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="screen.h" />
     <ClInclude Include="spells.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="randsys.cpp" />
     <ClCompile Include="Representation.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="screen.cpp" />
     <ClCompile Include="spells.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
