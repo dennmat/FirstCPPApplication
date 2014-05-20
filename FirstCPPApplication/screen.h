@@ -45,8 +45,8 @@ class InventoryScreen : public Screen<T>
         void build_screen_items(TCODConsole* con, int i);
         void loop(TCODConsole* con, int i);
 
-        InventoryScreenItem build_screen_item(TCODConsole* con, int i, T* element);
-        void draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem& si);
+        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
             // void draw();
 };
@@ -66,18 +66,6 @@ class ScreenItem
         bool mouse_is_hovering();
 
         ScreenItem();
-
-};
-
-class InventoryScreenItem : public ScreenItem
-{
-    public:
-        InventoryScreenItem();
-
-        Representation* repr;
-        int weight;
-        ItemEffect* item_effect;
-        std::string name;
 
 };
 

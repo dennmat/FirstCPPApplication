@@ -95,9 +95,6 @@ void Screen<T>::draw()
 
 };
 template void Screen<Item>::draw();
-// void Screen::loop(TCODConsole* con, int i)
-// {
-// };
 
     template<typename T>
 void InventoryScreen<T>::loop(TCODConsole* con, int i)
@@ -120,9 +117,9 @@ void InventoryScreen<T>::loop(TCODConsole* con, int i)
 template void InventoryScreen<Item>::loop(TCODConsole* con, int i);
 
     template<typename T>
-InventoryScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
-    InventoryScreenItem result;
+    ScreenItem result;
     bool is_chosen, is_active;
     TCODColor foreground, background;
     std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
@@ -159,17 +156,17 @@ InventoryScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int 
     result.foreground = foreground;
     result.background = background;
     result.msg_str = msg_str;
-    result.repr = element->repr;
-    result.item_effect = element->item_effect;
-    result.name = element->name;
+    //result.repr = element->repr;
+    //result.item_effect = element->item_effect;
+    //result.name = element->name;
     result.element = element;
 
     return result;
 };
-template InventoryScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
+template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
 
     template<typename T>
-void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem& si)
+void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
@@ -178,20 +175,20 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, InventoryScr
     si.min_y = i;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
             TCOD_alignment_t::TCOD_LEFT, msg_char, this->key, TCOD_COLCTRL_2,
-            si.repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-            si.name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, si.weight, TCOD_COLCTRL_STOP);
+            ((T*)si.element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
+            ((T*)si.element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, ((T*)si.element)->weight, TCOD_COLCTRL_STOP);
     i++;
 
     //print the item effects
-    std::string msg = si.item_effect->oneline_str();
-    std::vector<TCOD_colctrl_t> colctrl_vec = si.item_effect->oneline_str_colours();
+    std::string msg = ((T*)si.element)->item_effect->oneline_str();
+    std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->item_effect->oneline_str_colours();
     one_line_helper(con, this->offset, i, msg, colctrl_vec);
     si.max_y = i;
     // printf("setting min %d max %d\n", si.min_y, si.max_y);
     i++;
     i++;
 };
-template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem& si);
+template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
     template<typename T>
 void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
@@ -199,7 +196,7 @@ void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
     std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
     for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
     {
-        InventoryScreenItem si = this->build_screen_item(con, i, *it);
+        ScreenItem si = this->build_screen_item(con, i, *it);
         this->draw_screen_item(con, i, si);
         si.handle_mouse(i);
 
@@ -218,7 +215,7 @@ ScreenItem::ScreenItem()
     this->foreground = TCODColor::white;
     this->background = TCODColor::black;
 
-    this->msg_str = "Un set ScreenItem string";
+    this->msg_str = "Unset ScreenItem string";
 };
 
 bool ScreenItem::mouse_is_hovering()
@@ -233,7 +230,7 @@ void ScreenItem::handle_mouse(int& i)
     {
         if (this->mouse_is_hovering())
         {
-            printf("this name %s", this->msg_str.c_str());
+            // printf("this name %s", this->msg_str.c_str());
             if ( (this->element)!= Ui::chosen_generic)
             {
                 Ui::chosen_generic = (this->element);
@@ -260,12 +257,4 @@ void ScreenItem::handle_mouse(int& i)
     };
 
 
-};
-
-InventoryScreenItem::InventoryScreenItem() : ScreenItem()
-{
-    this->repr = NULL;
-    this->weight = NULL;
-    this->item_effect = NULL;
-    this->name = "Unset InventoryScreenItem string";
 };
