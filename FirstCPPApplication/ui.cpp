@@ -288,8 +288,13 @@ void Ui::draw_ui_sidebar()
 
     if (Ui::should_draw_mouse_helpbox())
     {
+        TCODMouse::showCursor(true);
         draw_mouse_helpbox();
     }
+    else 
+    {
+        TCODMouse::showCursor(false);
+    };
 
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
