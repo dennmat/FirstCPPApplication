@@ -63,6 +63,7 @@ class ScreenItem
         void* element;
 
         void handle_mouse(int& i);
+        bool mouse_is_hovering();
 
         ScreenItem();
 

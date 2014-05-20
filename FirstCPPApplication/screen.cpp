@@ -201,9 +201,7 @@ void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
     {
         InventoryScreenItem si = this->build_screen_item(con, i, *it);
         this->draw_screen_item(con, i, si);
-
         si.handle_mouse(i);
-
 
         this->key++;
 
@@ -223,13 +221,17 @@ ScreenItem::ScreenItem()
     this->msg_str = "Un set ScreenItem string";
 };
 
+bool ScreenItem::mouse_is_hovering()
+{
+    return Game::mouse_evt.cy >= this->min_y && Game::mouse_evt.cy <= this->max_y;
+};
+
 void ScreenItem::handle_mouse(int& i)
 {
     // printf("min %d max %d\n", min_y, max_y);
     if (Game::mouse_evt.lbutton_pressed)
     {
-        if (Game::mouse_evt.cy >= this->min_y &&
-                Game::mouse_evt.cy <= this->max_y)
+        if (this->mouse_is_hovering())
         {
             printf("this name %s", this->msg_str.c_str());
             if ( (this->element)!= Ui::chosen_generic)
@@ -240,7 +242,7 @@ void ScreenItem::handle_mouse(int& i)
             else if ( (this->element) == Ui::chosen_generic)
             {
                 Ui::generic_active = true;
-                this->background = TCODColor::green;
+                // this->background = TCODColor::green;
             };
         }
     }
@@ -248,6 +250,13 @@ void ScreenItem::handle_mouse(int& i)
     {
         Ui::chosen_generic = NULL;
         Ui::generic_active = false;
+    }
+    else 
+    {
+        if (this->mouse_is_hovering())
+        {
+            this->background = TCODColor::white; //draw happens before mouse
+        };
     };
 
 
