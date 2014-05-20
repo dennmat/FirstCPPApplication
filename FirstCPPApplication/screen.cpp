@@ -24,7 +24,7 @@
 #include <attribute.h>
 
 
-template<typename T>
+    template<typename T>
 Screen<T>::Screen() 
 {
     this->title = "Untitled Screen";
@@ -42,7 +42,7 @@ template Screen<Item>::Screen();
 // {
 // };
 
-template<typename T>
+    template<typename T>
 void Screen<T>::draw_screen_title(TCODConsole* con)
 {
     int inv_title_x = Ui::game->screen_w/2;
@@ -51,7 +51,7 @@ void Screen<T>::draw_screen_title(TCODConsole* con)
 };
 
 
-template<typename T>
+    template<typename T>
 void Screen<T>::draw_mouse_horiz_line(TCODConsole* con)
 {
     //draw mouse line
@@ -61,7 +61,7 @@ void Screen<T>::draw_mouse_horiz_line(TCODConsole* con)
 };
 template void Screen<Item>::draw_mouse_horiz_line(TCODConsole* con);
 
-template<typename T>
+    template<typename T>
 TCODConsole* Screen<T>::create_screen()
 {
     int con_w = Game::screen_w;
@@ -71,7 +71,7 @@ TCODConsole* Screen<T>::create_screen()
 };
 template TCODConsole* Screen<Item>::create_screen();
 
-template<typename T>
+    template<typename T>
 void Screen<T>::draw()
 {
 
@@ -99,7 +99,7 @@ template void Screen<Item>::draw();
 // {
 // };
 
-template<typename T>
+    template<typename T>
 void InventoryScreen<T>::loop(TCODConsole* con, int i)
 {
     TCODColor foreground, background;
@@ -119,7 +119,7 @@ void InventoryScreen<T>::loop(TCODConsole* con, int i)
 };
 template void InventoryScreen<Item>::loop(TCODConsole* con, int i);
 
-template<typename T>
+    template<typename T>
 InventoryScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     InventoryScreenItem result;
@@ -162,34 +162,38 @@ InventoryScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int 
     result.repr = element->repr;
     result.item_effect = element->item_effect;
     result.name = element->name;
+    result.element = element;
 
     return result;
 };
 template InventoryScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
 
-template<typename T>
-void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem si)
+    template<typename T>
+void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem& si)
 {
-        //print the item name and selection
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, si.background);
-        const char *msg_char = si.msg_str.c_str();
-        con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2,
-                si.repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-                si.name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, si.weight, TCOD_COLCTRL_STOP);
-        i++;
+    //print the item name and selection
+    TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, si.background);
+    const char *msg_char = si.msg_str.c_str();
+    si.min_y = i;
+    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+            TCOD_alignment_t::TCOD_LEFT, msg_char, this->key, TCOD_COLCTRL_2,
+            si.repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
+            si.name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, si.weight, TCOD_COLCTRL_STOP);
+    i++;
 
-        //print the item effects
-        std::string msg = si.item_effect->oneline_str();
-        std::vector<TCOD_colctrl_t> colctrl_vec = si.item_effect->oneline_str_colours();
-        one_line_helper(con, this->offset, i, msg, colctrl_vec);
-        i++;
-        i++;
+    //print the item effects
+    std::string msg = si.item_effect->oneline_str();
+    std::vector<TCOD_colctrl_t> colctrl_vec = si.item_effect->oneline_str_colours();
+    one_line_helper(con, this->offset, i, msg, colctrl_vec);
+    si.max_y = i;
+    // printf("setting min %d max %d\n", si.min_y, si.max_y);
+    i++;
+    i++;
 };
-template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem si);
+template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem& si);
 
-template<typename T>
+    template<typename T>
 void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
 {
     std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
@@ -210,42 +214,49 @@ template void InventoryScreen<Item>::build_screen_items(TCODConsole* con, int i)
 
 ScreenItem::ScreenItem()
 {
+    this->min_y = NULL;
+    this->max_y = NULL;
+
     this->foreground = TCODColor::white;
     this->background = TCODColor::black;
+
     this->msg_str = "Un set ScreenItem string";
 };
 
 void ScreenItem::handle_mouse(int& i)
 {
-        if (Game::mouse_evt.lbutton_pressed)
+    // printf("min %d max %d\n", min_y, max_y);
+    if (Game::mouse_evt.lbutton_pressed)
+    {
+        if (Game::mouse_evt.cy >= this->min_y &&
+                Game::mouse_evt.cy <= this->max_y)
         {
-           if (Game::mouse_evt.cy == i)
-           {
-               if ( (this->element)!= Ui::chosen_generic)
-               {
-                   Ui::chosen_generic = (this->element);
-                   Ui::generic_active = false;
-               }
-               else if ( (this->element) == Ui::chosen_generic)
-               {
-                   Ui::generic_active = true;
-                   this->background = TCODColor::green;
-               };
-           }
+            printf("this name %s", this->msg_str.c_str());
+            if ( (this->element)!= Ui::chosen_generic)
+            {
+                Ui::chosen_generic = (this->element);
+                Ui::generic_active = false;
+            }
+            else if ( (this->element) == Ui::chosen_generic)
+            {
+                Ui::generic_active = true;
+                this->background = TCODColor::green;
+            };
         }
-        else if (Game::mouse_evt.rbutton_pressed)
-        {
-           Ui::chosen_generic = NULL;
-           Ui::generic_active = false;
-        };
+    }
+    else if (Game::mouse_evt.rbutton_pressed)
+    {
+        Ui::chosen_generic = NULL;
+        Ui::generic_active = false;
+    };
 
 
 };
 
 InventoryScreenItem::InventoryScreenItem() : ScreenItem()
 {
-        this->repr = NULL;
-        this->weight = NULL;
-        this->item_effect = NULL;
-        this->name = "Unset InventoryScreenItem string";
+    this->repr = NULL;
+    this->weight = NULL;
+    this->item_effect = NULL;
+    this->name = "Unset InventoryScreenItem string";
 };

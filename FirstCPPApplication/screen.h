@@ -46,7 +46,7 @@ class InventoryScreen : public Screen<T>
         void loop(TCODConsole* con, int i);
 
         InventoryScreenItem build_screen_item(TCODConsole* con, int i, T* element);
-        void draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem si);
+        void draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem& si);
 
             // void draw();
 };
@@ -54,6 +54,8 @@ class InventoryScreen : public Screen<T>
 class ScreenItem
 {
     public:
+        int min_y, max_y; //mouse boundaries
+
         TCODColor foreground;
         TCODColor background;
         std::string msg_str;
