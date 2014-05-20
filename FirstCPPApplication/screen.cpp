@@ -97,6 +97,25 @@ void Screen<T>::draw()
 template void Screen<Item>::draw();
 
     template<typename T>
+void Screen<T>::build_screen_items(TCODConsole* con, int i)
+{
+    std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
+    for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
+    {
+        ScreenItem si = this->build_screen_item(con, i, *it);
+        this->draw_screen_item(con, i, si);
+        si.handle_mouse(i);
+
+        this->key++;
+
+    }
+
+};
+template void Screen<Item>::build_screen_items(TCODConsole* con, int i);
+
+
+/* Inventory Specific Stuff */
+    template<typename T>
 void InventoryScreen<T>::loop(TCODConsole* con, int i)
 {
     TCODColor foreground, background;
@@ -156,9 +175,6 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     result.foreground = foreground;
     result.background = background;
     result.msg_str = msg_str;
-    //result.repr = element->repr;
-    //result.item_effect = element->item_effect;
-    //result.name = element->name;
     result.element = element;
 
     return result;
@@ -190,22 +206,6 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
 };
 template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
-    template<typename T>
-void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
-{
-    std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
-    for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
-    {
-        ScreenItem si = this->build_screen_item(con, i, *it);
-        this->draw_screen_item(con, i, si);
-        si.handle_mouse(i);
-
-        this->key++;
-
-    }
-
-};
-template void InventoryScreen<Item>::build_screen_items(TCODConsole* con, int i);
 
 ScreenItem::ScreenItem()
 {

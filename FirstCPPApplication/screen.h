@@ -29,7 +29,10 @@ class Screen
         void draw_screen_title(TCODConsole* con);
         void draw_mouse_horiz_line(TCODConsole* con);
         virtual void loop(TCODConsole* con, int i) = 0;
-        virtual void build_screen_items(TCODConsole* con, int i) = 0;
+        // virtual void build_screen_items(TCODConsole* con, int i) = 0;
+        void build_screen_items(TCODConsole* con, int i);
+        virtual ScreenItem build_screen_item(TCODConsole* con, int i, T* element) = 0;
+        virtual void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si) = 0;
 
         virtual void draw();
 
@@ -42,7 +45,6 @@ class InventoryScreen : public Screen<T>
 
         InventoryScreen<T>() : Screen() { this->title="Inventory Screen"; };
         InventoryScreen::~InventoryScreen(){};
-        void build_screen_items(TCODConsole* con, int i);
         void loop(TCODConsole* con, int i);
 
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
