@@ -58,6 +58,10 @@ class ScreenItem
         TCODColor background;
         std::string msg_str;
 
+        void* element;
+
+        void handle_mouse(int& i);
+
         ScreenItem();
 
 };

@@ -196,33 +196,12 @@ void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
     for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
     {
         InventoryScreenItem si = this->build_screen_item(con, i, *it);
-        ////mouse selection
-        //if (Game::mouse_evt.lbutton_pressed)
-        //{
-        //    if (Game::mouse_evt.cy == i)
-        //    {
-        //        if ( (*it)!= Ui::chosen_generic)
-        //        {
-        //            Ui::chosen_generic = (*it);
-        //            Ui::generic_active = false;
-        //        }
-        //        else if ( (*it) == Ui::chosen_generic)
-        //        {
-        //            Ui::generic_active = true;
-        //            background = TCODColor::green;
-        //        };
-        //    }
-        //}
-        //else if (Game::mouse_evt.rbutton_pressed)
-        //{
-        //    Ui::chosen_generic = NULL;
-        //    Ui::generic_active = false;
-        //};
-
         this->draw_screen_item(con, i, si);
 
+        si.handle_mouse(i);
 
-        key++;
+
+        this->key++;
 
     }
 
@@ -234,6 +213,33 @@ ScreenItem::ScreenItem()
     this->foreground = TCODColor::white;
     this->background = TCODColor::black;
     this->msg_str = "Un set ScreenItem string";
+};
+
+void ScreenItem::handle_mouse(int& i)
+{
+        if (Game::mouse_evt.lbutton_pressed)
+        {
+           if (Game::mouse_evt.cy == i)
+           {
+               if ( (this->element)!= Ui::chosen_generic)
+               {
+                   Ui::chosen_generic = (this->element);
+                   Ui::generic_active = false;
+               }
+               else if ( (this->element) == Ui::chosen_generic)
+               {
+                   Ui::generic_active = true;
+                   this->background = TCODColor::green;
+               };
+           }
+        }
+        else if (Game::mouse_evt.rbutton_pressed)
+        {
+           Ui::chosen_generic = NULL;
+           Ui::generic_active = false;
+        };
+
+
 };
 
 InventoryScreenItem::InventoryScreenItem() : ScreenItem()
