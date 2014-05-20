@@ -34,6 +34,7 @@ Screen<T>::Screen()
     this->hline = 2;
 
     this->elements = new std::vector<T*>;
+    this->screen_items = new std::vector<ScreenItem*>;
 };
 template Screen<Item>::Screen();
 
@@ -119,84 +120,107 @@ void InventoryScreen<T>::loop(TCODConsole* con, int i)
 template void InventoryScreen<Item>::loop(TCODConsole* con, int i);
 
 template<typename T>
-void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
+InventoryScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
+    InventoryScreenItem result;
     bool is_chosen, is_active;
     TCODColor foreground, background;
-    std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
-    for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
-    {
-        std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
-        is_chosen = (*it) == Ui::chosen_generic;
-        is_active = Ui::generic_active;
+    std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
+    is_chosen = (element) == Ui::chosen_generic;
+    is_active = Ui::generic_active;
 
-        TCODConsole::setColorControl(TCOD_COLCTRL_2, *(*it)->repr->fg_color, con->getDefaultBackground());
-        if (Ui::game->player->equipment->is_item_equipped(*it))
+    TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
+    if (Ui::game->player->equipment->is_item_equipped(element))
+    {
+        background = TCODColor::darkestRed;
+        if (is_chosen)
         {
-            background = TCODColor::darkestRed;
-            if (is_chosen)
-            {
-                msg_str.append(" <-");
-                // background = TCODColor::white;
-                if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
-                else { foreground = TCODColor::red+TCODColor::green; }
-            }
-            else { foreground = TCODColor::red;
-            };
+            msg_str.append(" <-");
+            if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
+            else { foreground = TCODColor::red+TCODColor::green; }
+        }
+        else { foreground = TCODColor::red;
+        };
+    }
+    else
+    {
+        background = con->getDefaultBackground();
+        if (is_chosen)
+        {
+            msg_str.append(" <-");
+            if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
         }
         else
         {
-            background = con->getDefaultBackground();
-            if (is_chosen)
-            {
-                msg_str.append(" <-");
-                if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
-            }
-            else
-            {
-                foreground = TCODColor::white;
-            };
+            foreground = TCODColor::white;
         };
+    };
 
-        //mouse selection
-        if (Game::mouse_evt.lbutton_pressed)
-        {
-            if (Game::mouse_evt.cy == i)
-            {
-                if ( (*it)!= Ui::chosen_generic)
-                {
-                    Ui::chosen_generic = (*it);
-                    Ui::generic_active = false;
-                }
-                else if ( (*it) == Ui::chosen_generic)
-                {
-                    Ui::generic_active = true;
-                    background = TCODColor::green;
-                };
-            }
-        }
-        else if (Game::mouse_evt.rbutton_pressed)
-        {
-            Ui::chosen_generic = NULL;
-            Ui::generic_active = false;
-        };
+    result.foreground = foreground;
+    result.background = background;
+    result.msg_str = msg_str;
+    result.repr = element->repr;
+    result.item_effect = element->item_effect;
+    result.name = element->name;
 
+    return result;
+};
+template InventoryScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
+
+template<typename T>
+void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem si)
+{
         //print the item name and selection
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
-        const char *msg_char = msg_str.c_str();
-        con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
+        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, si.background);
+        const char *msg_char = si.msg_str.c_str();
+        con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
                 TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2,
-                (*it)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-                (*it)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->weight, TCOD_COLCTRL_STOP);
+                si.repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
+                si.name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, si.weight, TCOD_COLCTRL_STOP);
         i++;
 
         //print the item effects
-        std::string msg = (*it)->item_effect->oneline_str();
-        std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->item_effect->oneline_str_colours();
-        one_line_helper(con, offset, i, msg, colctrl_vec);
+        std::string msg = si.item_effect->oneline_str();
+        std::vector<TCOD_colctrl_t> colctrl_vec = si.item_effect->oneline_str_colours();
+        one_line_helper(con, this->offset, i, msg, colctrl_vec);
         i++;
         i++;
+};
+template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem si);
+
+template<typename T>
+void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
+{
+    std::vector<Item*>::iterator it = this->elements->begin() + Ui::offset;
+    for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
+    {
+        InventoryScreenItem si = this->build_screen_item(con, i, *it);
+        ////mouse selection
+        //if (Game::mouse_evt.lbutton_pressed)
+        //{
+        //    if (Game::mouse_evt.cy == i)
+        //    {
+        //        if ( (*it)!= Ui::chosen_generic)
+        //        {
+        //            Ui::chosen_generic = (*it);
+        //            Ui::generic_active = false;
+        //        }
+        //        else if ( (*it) == Ui::chosen_generic)
+        //        {
+        //            Ui::generic_active = true;
+        //            background = TCODColor::green;
+        //        };
+        //    }
+        //}
+        //else if (Game::mouse_evt.rbutton_pressed)
+        //{
+        //    Ui::chosen_generic = NULL;
+        //    Ui::generic_active = false;
+        //};
+
+        this->draw_screen_item(con, i, si);
+
 
         key++;
 
@@ -204,3 +228,18 @@ void InventoryScreen<T>::build_screen_items(TCODConsole* con, int i)
 
 };
 template void InventoryScreen<Item>::build_screen_items(TCODConsole* con, int i);
+
+ScreenItem::ScreenItem()
+{
+    this->foreground = TCODColor::white;
+    this->background = TCODColor::black;
+    this->msg_str = "Un set ScreenItem string";
+};
+
+InventoryScreenItem::InventoryScreenItem() : ScreenItem()
+{
+        this->repr = NULL;
+        this->weight = NULL;
+        this->item_effect = NULL;
+        this->name = "Unset InventoryScreenItem string";
+};

@@ -3,6 +3,11 @@
 #define SCREEN_H
 
 
+class ScreenItem;
+class InventoryScreenItem;
+class Representation;
+class ItemEffect;
+
 template< typename T>
 class Screen 
 {
@@ -14,6 +19,7 @@ class Screen
         int hline;
 
         std::vector<T*>* elements;
+        std::vector<ScreenItem*>* screen_items;
 
 
         Screen();
@@ -35,15 +41,36 @@ class InventoryScreen : public Screen<T>
     public:
 
         InventoryScreen<T>() : Screen() { this->title="Inventory Screen"; };
-	InventoryScreen::~InventoryScreen(){};
+        InventoryScreen::~InventoryScreen(){};
         void build_screen_items(TCODConsole* con, int i);
         void loop(TCODConsole* con, int i);
 
-        // void draw();
+        InventoryScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        void draw_screen_item(TCODConsole* con, int& i, InventoryScreenItem si);
+
+            // void draw();
 };
 
 class ScreenItem
 {
+    public:
+        TCODColor foreground;
+        TCODColor background;
+        std::string msg_str;
+
+        ScreenItem();
+
+};
+
+class InventoryScreenItem : public ScreenItem
+{
+    public:
+        InventoryScreenItem();
+
+        Representation* repr;
+        int weight;
+        ItemEffect* item_effect;
+        std::string name;
 
 };
 
