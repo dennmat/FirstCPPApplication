@@ -273,9 +273,10 @@ void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con, int& y)
     else if (ml) { sl= "-"; }
     else if (mr) { sr= "-"; };
 
-    ui_sidebar_con->print(1,  y++, "%s%s%s", stl.c_str(), st.c_str(), str.c_str());
-    ui_sidebar_con->print(1,  y++, "%so%s", sl.c_str(), sr.c_str());
-    ui_sidebar_con->print(1, y++, "%s%s%s", sbl.c_str(), sb.c_str(), sbr.c_str());
+    int x_offset = 7;
+    ui_sidebar_con->print(x_offset,  y++, "%s%s%s", stl.c_str(), st.c_str(), str.c_str());
+    ui_sidebar_con->print(x_offset,  y++, "%so%s", sl.c_str(), sr.c_str());
+    ui_sidebar_con->print(x_offset, y++, "%s%s%s", sbl.c_str(), sb.c_str(), sbr.c_str());
 
 };
 
@@ -299,10 +300,13 @@ void Ui::draw_ui_sidebar()
     int first_y = 0;
 
     //draw floor
-    ui_sidebar_con->print(0, first_y++, "Floor %d", Game::current_map->depth);
+    ui_sidebar_con->print(0, first_y, "Floor %d", Game::current_map->depth);
 
     //draw the turn
-    ui_sidebar_con->print(0, first_y, "TURN %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
+    ui_sidebar_con->print(9, first_y, "TURN %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
+    first_y++;
+
+    ui_sidebar_con->print(0, first_y, "CLS %s", Game::player->actor_class->name.c_str());
     first_y++;
 
     //draw attributes
@@ -315,10 +319,7 @@ void Ui::draw_ui_sidebar()
     first_y++;
     ui_sidebar_con->print(0, first_y, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
     first_y++;
-    first_y++;
 
-    //facing direction
-    Ui::draw_facing_angle(ui_sidebar_con, first_y);
 
     //draw player inventory info
     ui_sidebar_con->print(0, first_y++, "Items in inventory:");
@@ -333,6 +334,11 @@ void Ui::draw_ui_sidebar()
 
     int initial_y = first_y++;
     Ui::draw_xp(++first_y, ui_sidebar_con, ui_sidebar_fore);
+    first_y++;
+    first_y++;
+
+    //facing direction
+    Ui::draw_facing_angle(ui_sidebar_con, first_y);
     first_y++;
 
     //draw ui console to root
