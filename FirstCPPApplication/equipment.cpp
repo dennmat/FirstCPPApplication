@@ -163,12 +163,15 @@ void Equipment::equip_item(Item* item)
     {
         if ( (*it)->type == slot_type )
         {
-            if ( (*it)->HasRoomFor(item) )
+            if ( !(*it)->HasRoomFor(item) )
             {
+		//(*it)->RemoveFromSlot();
+		this->unequip_item((*it)->equipped_item);
+                //this->unequip_item(item);
+            }
                 //put in slot 
                 (*it)->AddToSlot(item);
                 break;
-            }
         }
     }
 
