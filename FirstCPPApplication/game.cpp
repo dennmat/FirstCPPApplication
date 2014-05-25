@@ -183,11 +183,11 @@ void Game::fill_town(Map* world)
     world->enemies.push_back(the_townsmen);
 };
 
-void Game::fill_generic_room(Room* room)
+void Game::fill_generic_room(Room* room, Map* world)
 {
-    int floor;
-    if (Game::current_map == NULL) { floor = 1; }
-    else { floor = Game::current_map->depth; };
+    int floor = world->depth;
+    // if (Game::current_map == NULL) { floor = 1; }
+    // else { floor = Game::current_map->depth; };
     MonsterSpawnTypes spawn_type = get_spawn_type(floor);
     if (spawn_type == MonsterSpawnTypes::TrollSpawn)
     {
@@ -260,7 +260,7 @@ void Game::fill_dungeon(Map* world)
         }
         else
         {
-            fill_generic_room(*it);
+            fill_generic_room(*it, world);
         }
     }
 

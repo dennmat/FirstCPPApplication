@@ -106,7 +106,7 @@ class Game
         // static void  initialize_enemies();
         static void  initialize_items();
         static void fill_dungeon(Map* world);
-        static void fill_generic_room(Room* room);
+        static void fill_generic_room(Room* room, Map* world);
         static void fill_town(Map* world);
 
         static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map);
