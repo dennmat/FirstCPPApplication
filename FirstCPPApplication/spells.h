@@ -4,12 +4,21 @@
 
 #include <string>
 #include <unordered_map>
+#include "game.h"
+#include "actors\actor.h"
+#include "enums\elements_t.h"
 
 class AttributeContainer;
 class Attribute;
 class ItemEffect;
+class Actor;
 
-#include "enums\elements_t.h"
+
+
+enum TargetTypes {
+    TargettedTargetType = 0,
+    GroundTargetType = 1
+};
 
 class Spell 
 {
@@ -28,11 +37,16 @@ class Spell
         int min_char_level;
         int cast_count;
 
+        int aoe;
+        TargetTypes target_type;
+
         AttributeContainer* attrs;
         ItemEffect* spell_effect;
 
         Spell();
         TCODColor get_spell_color();
+
+        void cast_spell(Actor* target);
 };
 
 

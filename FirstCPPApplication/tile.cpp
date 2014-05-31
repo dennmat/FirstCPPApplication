@@ -42,6 +42,7 @@ Tile::Tile()
     this->custom_tile = NULL;
 
     this->occupants = new std::vector<Actor*>;
+    this->occupant = NULL;
     // items = new std::vector<Item*>;
     this->inventory = new Inventory;
 

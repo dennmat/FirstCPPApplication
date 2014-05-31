@@ -504,11 +504,15 @@ Person*  Game::initialize_player()
     delete player->thinker;
     player->thinker = NULL;
 
-    player->spells->push_back(new Spell);
-    player->spells->back()->name = "Fireball";
-    player->spells->back()->spell_effect->health_current_val = -10;
-    player->spells->back()->mana_cost = 10;
-    player->spells->back()->max_range = 10;
+    Spell* fireball = new Spell;
+    fireball->name = "Fireball";
+    fireball->spell_effect->health_current_val = -10;
+    fireball->mana_cost = 10;
+    fireball->max_range = 10;
+    fireball->aoe = 1;
+    fireball->target_type = GroundTargetType;
+    player->spells->push_back(fireball);
+
 
     //Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     Room* room = Game::current_map->roomVector->front();
@@ -708,7 +712,7 @@ void Game::start_game()
 void Game::init_engine()
 {
     TCODConsole::setCustomFont("data/terminal.png");
-    TCODConsole::initRoot(screen_w, screen_h, "BiochRL++", false);
+    TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
 
     Game::fps_limit = 60;
     TCODSystem::setFps(fps_limit);

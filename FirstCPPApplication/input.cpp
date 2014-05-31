@@ -516,31 +516,38 @@ bool Input::process_basic_keys(TCOD_key_t request)
             std::cout << "no spell chosen" << std::endl;
             return false;
         }
-        Tile* mouse_tile = Ui::targetted_tile;
-        // Tile* mouse_tile = Game::get_mouse_tile();
+        Tile* targetted_tile = Ui::targetted_tile;
+        // Tile* targetted_tile = Game::get_mouse_tile();
         // Spell* spell = Game::player->spells->back();
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
         int spell_damage = spell->spell_effect->health_current_val;
         // int spell_damage = (-spell->attrs->health->current_val);
 
-        int distance = get_euclidean_distance(Game::player->x, Game::player->y, mouse_tile->tile_x, mouse_tile->tile_y);
-        if (Ui::is_targetting && mouse_tile->is_occupied())
+        int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);
+        if (Ui::is_targetting && targetted_tile->is_occupied() || spell->target_type == GroundTargetType)
         {
             if (distance <= spell_range)
             {
                 if (Game::player->attrs->mana->current_val > mana_cost)
                 {
-                    // mouse_tile->occupant->combat->TakeDamage(Game::player->combat, spell_damage);
-                    spell->spell_effect->ApplyAllEffects(mouse_tile->occupant);
-                    if (mouse_tile->occupant != NULL) // assuming NULL if they died
+                    if (spell->aoe > 0)
                     {
-                        if (spell->spell_effect->duration > 0)
+                        std::vector<Tile*>* adjacent_tiles = targetted_tile->getAdjacentTiles(1);
+                        typedef std::vector<Tile*> tile_vector;
+                        for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
                         {
-                            TimedEffect* timed_effect = new TimedEffect;
-                            timed_effect->effect = spell->spell_effect;
-                            timed_effect->turn_applied = Game::turn_count;
-                            mouse_tile->occupant->timed_spell_effects->push_back(timed_effect);
+                            if ((*it)->is_occupied())
+                            {
+                                spell->cast_spell((*it)->occupant);
+                            };
+                        };
+                    }
+                    else
+                    {
+                        if (targetted_tile->occupant != NULL) // assuming NULL if they died
+                        {
+                            spell->cast_spell(targetted_tile->occupant);
                         };
                     };
                     Game::player->attrs->mana->current_val -= mana_cost;
