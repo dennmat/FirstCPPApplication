@@ -56,6 +56,8 @@ class Equipment
 
         std::vector<Slot*>* slots;
 
+	Slot* get_slots_for_type(slots_t slot_type);
+
         Slot* head;
         Slot* earrings;
         Slot* necklace;

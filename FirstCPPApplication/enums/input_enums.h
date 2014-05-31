@@ -10,7 +10,8 @@ enum directions_t {
 };
 
 enum basic_cmds_t {
-    Pickup = 0, Drop,
+    Pickup = 0, EquipFromFloor,
+    Drop,
     OpenInventory,
     CancelCast,
     Look, ActivateDoor,

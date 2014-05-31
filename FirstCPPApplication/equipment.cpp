@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <assert.h>
 
 
 #include "equipment.h"
@@ -101,7 +102,10 @@ void Slot::apply_item_effect()
 
 Item* Slot::GetEquippedItem()
 {
+    if (this->equipped_item != NULL)
+    {
     return this->equipped_item;
+    }
 };
 
 
@@ -149,6 +153,19 @@ Equipment::Equipment()
     
 
 };
+	Slot* Equipment::get_slots_for_type(slots_t slot_type)
+	{
+
+	assert(slot_type != NoSlot && "noslots have, by definition, no slot, what are you trying to do?");
+for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); it++)
+{
+if ( (*it)->type == slot_type)
+{
+    return (*it);
+}
+}
+
+	}
 
 void Equipment::equip_item(Item* item)
 {
@@ -161,17 +178,17 @@ void Equipment::equip_item(Item* item)
     //check if slot is empty
     for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); ++it)
     {
-        if ( (*it)->type == slot_type )
+        if ( (*it)->type == slot_type && item->equippable )
         {
             if ( !(*it)->HasRoomFor(item) )
             {
-		//(*it)->RemoveFromSlot();
-		this->unequip_item((*it)->equipped_item);
+                //(*it)->RemoveFromSlot();
+                this->unequip_item((*it)->equipped_item);
                 //this->unequip_item(item);
             }
-                //put in slot 
-                (*it)->AddToSlot(item);
-                break;
+            //put in slot 
+            (*it)->AddToSlot(item);
+            break;
         }
     }
 
@@ -184,6 +201,7 @@ void Equipment::unequip_item(Item* item)
         if ((*it)->GetEquippedItem() == item)
         {
             (*it)->RemoveFromSlot();
+	    (*it)->equipped_item = NULL;
             std::cout << "removed from slot" << std::endl;
         }
 

@@ -48,7 +48,8 @@ char Input::generic_index = 'a';
 std::vector<std::string> make_basic_cmds_char()
 {
     std::vector<std::string> vec;
-    vec.push_back("Pickup an item"); vec.push_back("Drop an item");
+    vec.push_back("Pickup an item"); vec.push_back("Equip an item off the floor");
+    vec.push_back("Drop an item");
     vec.push_back("Open your inventory");
     vec.push_back("Cancel targetting mode");
     vec.push_back("Look around the map"); vec.push_back("Open or close a door");
@@ -135,6 +136,7 @@ std::map<char, basic_cmds_t> Input::build_char_active_map()
     char_movemap['c'] = basic_cmds_t::OpenCharacterSheet;
     char_movemap['?'] = basic_cmds_t::OpenHelp;
     char_movemap[','] = basic_cmds_t::Pickup;
+    char_movemap['.'] = basic_cmds_t::EquipFromFloor;
     char_movemap['o'] = basic_cmds_t::ActivateDoor;
     char_movemap['>'] = basic_cmds_t::DownStairs;
     char_movemap['<'] = basic_cmds_t::UpStairs;
@@ -332,8 +334,39 @@ bool Input::process_basic_keys(TCOD_key_t request)
             Item* item = Game::player->my_tile->inventory->items->back();
             Game::player->pickUpItem(item);
             // player->equipment->chest->AddToSlot(item);
+            new Message(Ui::msg_handler_main, ITEM_MSG, "Picked up the item.");
 
             return true;
+
+        };
+    }
+
+    else if ( basic_cmd == basic_cmds_t::EquipFromFloor )
+    {
+        if (Game::player->my_tile->check_for_items())
+        {
+            Item* item = Game::player->my_tile->inventory->items->back();
+            //drop item in the same slot
+	    if (item->equippable)
+        {
+	    Slot* equipped_slot = Game::player->equipment->get_slots_for_type(item->slot_type);
+	Item* equipped_item = equipped_slot->GetEquippedItem();
+    Game::player->equipment->unequip_item(equipped_item);
+    Game::player->inventory->drop_item(equipped_item);
+
+            Game::player->pickUpItem(item);
+            Game::player->equipment->equip_item(item);
+            item->equip(Game::player);
+            new Message(Ui::msg_handler_main, ITEM_MSG, "Equipping item straight off the floor.");
+            // player->equipment->chest->AddToSlot(item);
+
+            return true;
+        }
+        else
+        {
+            
+            new Message(Ui::msg_handler_main, ITEM_MSG, "Try equipping an item that would make sense, how about?");
+        }
 
         };
     }
