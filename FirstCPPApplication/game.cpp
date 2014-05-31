@@ -303,28 +303,28 @@ Map* Game::build_world(int floor)
 
     // std::cout << get_exe_path() << std::endl;
 
-    std::string line;
-    std::ifstream myfile (get_data_path()+"world.txt");
-    int num_of_worlds;
+    // std::string line;
+    // std::ifstream myfile (get_data_path()+"world.txt");
+    // int num_of_worlds;
 
-    if (myfile.is_open())
-    {
-        // get width
-        getline (myfile,line);
-        num_of_worlds = atoi(line.c_str());
+    // if (myfile.is_open())
+    // {
+    //     // get width
+    //     getline (myfile,line);
+    //     num_of_worlds = atoi(line.c_str());
 
         world = new Map;
         //world->the_game = this;
         world->build_dungeon_from_random(0, floor);
-    }
-    else
-    {
-        TCHAR exepath[MAX_PATH+1];
-        GetModuleFileName(0, exepath, MAX_PATH+1);
-        MessageBox(0, exepath, _T("ERROR"), MB_OK);
-        MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
-        exit(EXIT_FAILURE);
-    };
+    // }
+    // else
+    // {
+    //     TCHAR exepath[MAX_PATH+1];
+    //     GetModuleFileName(0, exepath, MAX_PATH+1);
+    //     MessageBox(0, exepath, _T("ERROR"), MB_OK);
+    //     MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
+    //     exit(EXIT_FAILURE);
+    // };
 
     //set the colors
     if (floor == 1)

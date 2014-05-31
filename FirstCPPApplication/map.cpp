@@ -341,27 +341,27 @@ int Map::build_town_from_random(int seed)
 
 int Map::build_dungeon_from_random(int seed, int floor)
 {
-    std::string path = get_data_path()+"testing_jansson.json";
-    std::ifstream myfile(path);
-    if (!myfile.is_open())
-    {
-        throw std::bad_exception();
-    }
-    std::stringstream ss;
-    ss << myfile.rdbuf(); 
+    //std::string path = get_data_path()+"testing_jansson.json";
+    //std::ifstream myfile(path);
+    //if (!myfile.is_open())
+    //{
+    //    throw std::bad_exception();
+    //}
+    //std::stringstream ss;
+    //ss << myfile.rdbuf(); 
 
-    //JANNSON TESTING
-    json_t* root;
-    json_error_t error;
-    std::string s = ss.str();
-    const char* j_text = s.c_str();
-    root = json_loads(j_text, 0, &error);
-    json_t* text = json_object_get(root, "testing");
-    if (!text)
-    {
-        std::cout << error.text << std::endl;
-        throw std::exception("help");
-    }
+    ////JANNSON TESTING
+    //json_t* root;
+    //json_error_t error;
+    //std::string s = ss.str();
+    //const char* j_text = s.c_str();
+    //root = json_loads(j_text, 0, &error);
+    //json_t* text = json_object_get(root, "testing");
+    //if (!text)
+    //{
+    //    std::cout << error.text << std::endl;
+    //    throw std::exception("help");
+    //}
     //std::cout << json_string_value(text) << std::endl;
 
     width = Game::map_width;
