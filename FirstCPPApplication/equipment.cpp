@@ -106,6 +106,7 @@ Item* Slot::GetEquippedItem()
     {
     return this->equipped_item;
     }
+    return NULL;
 };
 
 

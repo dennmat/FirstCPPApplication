@@ -352,8 +352,11 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 //drop currently equipped item
                 Slot* equipped_slot = Game::player->equipment->get_slots_for_type(item->slot_type);
                 Item* equipped_item = equipped_slot->GetEquippedItem();
-                Game::player->equipment->unequip_item(equipped_item);
-                Game::player->inventory->drop_item(equipped_item);
+                if (equipped_item != NULL)
+                {
+                    Game::player->equipment->unequip_item(equipped_item);
+                    Game::player->inventory->drop_item(equipped_item);
+                }
 
                 //pickup and equip new one
                 Game::player->pickUpItem(item);
