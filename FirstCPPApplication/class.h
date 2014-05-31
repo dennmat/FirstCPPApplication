@@ -9,6 +9,7 @@ class IClass
     public:
         Actor* master;
         std::string name;
+        std::string description;
         virtual ~IClass() {};
         virtual void LevelUpStats(int levels) = 0;
         virtual void LevelUpSkills(int levels) = 0;

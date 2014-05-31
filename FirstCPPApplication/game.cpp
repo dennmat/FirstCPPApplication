@@ -301,30 +301,9 @@ Map* Game:: build_town()
 Map* Game::build_world(int floor)
 {
 
-    // std::cout << get_exe_path() << std::endl;
-
-    // std::string line;
-    // std::ifstream myfile (get_data_path()+"world.txt");
-    // int num_of_worlds;
-
-    // if (myfile.is_open())
-    // {
-    //     // get width
-    //     getline (myfile,line);
-    //     num_of_worlds = atoi(line.c_str());
-
-        world = new Map;
-        //world->the_game = this;
-        world->build_dungeon_from_random(0, floor);
-    // }
-    // else
-    // {
-    //     TCHAR exepath[MAX_PATH+1];
-    //     GetModuleFileName(0, exepath, MAX_PATH+1);
-    //     MessageBox(0, exepath, _T("ERROR"), MB_OK);
-    //     MessageBox(0, _T("File used to buildworld not found"), _T("ERROR"), MB_OK);
-    //     exit(EXIT_FAILURE);
-    // };
+    world = new Map;
+    //world->the_game = this;
+    world->build_dungeon_from_random(0, floor);
 
     //set the colors
     if (floor == 1)
@@ -681,7 +660,7 @@ bool gameplay_loop(bool incr_turn)
     //draw the game_console to root, taking from where the camera is looking at
     TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
-     // Game::game_console->clear();
+     Game::game_console->clear();
 
     return incr_turn;
 };

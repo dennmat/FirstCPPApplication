@@ -711,8 +711,9 @@ bool Input::process_classes_keys(TCOD_key_t request)
 
     if( action == classes_active_t::ExamineClass )
     {
+	IClass* iclass = (IClass*)Ui::chosen_generic;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE CLASS.");
-        std::cout << "EXAMINE CLASS." << std::endl;
+        std::cout << iclass->name << " : " << iclass->description << std::endl;
         return true;
     }
     else if( action == classes_active_t::DropClass )
@@ -1173,6 +1174,11 @@ bool Input::process_debug_event(TCOD_key_t request)
         TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 
+    if (request.vk == TCODK_F11)
+    {
+        //toggle fullscreen
+        TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
+    }
     if (request.vk == TCODK_F12)
     {
         //this'll redraw the entire screen incase shit goes black

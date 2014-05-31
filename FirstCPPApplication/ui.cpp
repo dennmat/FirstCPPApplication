@@ -202,9 +202,9 @@ void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
         }
 
 
-        std::stringstream ss;
-        ss << mouse_tile->occupant->attrs->health->current_val << " / " << mouse_tile->occupant->attrs->health->max_val;
-        health_text = ss.str();
+        // std::stringstream ss;
+        // ss << mouse_tile->occupant->attrs->health->current_val << " / " << mouse_tile->occupant->attrs->health->max_val;
+        // health_text = ss.str();
 
         // if (mouse_tile->occupant->cls_name == "Jackal")
         // {
@@ -1094,8 +1094,8 @@ void Ui::draw_class_select_msg()
     //draw the message text
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
-    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and once more to confirm");
-    ui_inv_msg_con->print(0, y++, "You can then press X to examine it.");
+    ui_inv_msg_con->print(0, y++, "Press the desired class's letter once to select it, and once more to confirm");
+    ui_inv_msg_con->print(0, y++, "You can then press X to examine it or E to equip it.");
     y++;
     // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
     // ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
