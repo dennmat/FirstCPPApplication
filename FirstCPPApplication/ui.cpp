@@ -202,6 +202,10 @@ void Ui::draw_mouse_helpbox()
         }
 
 
+        std::stringstream ss;
+        ss << mouse_tile->occupant->attrs->health->current_val << " / " << mouse_tile->occupant->attrs->health->max_val;
+        health_text = ss.str();
+
         // if (mouse_tile->occupant->cls_name == "Jackal")
         // {
         //     if (Game::turn_count % 2 == 0)

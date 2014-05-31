@@ -542,13 +542,11 @@ bool Input::process_basic_keys(TCOD_key_t request)
                                 spell->cast_spell((*it)->occupant);
                             };
                         };
-                    }
-                    else
+                    };
+
+                    if (targetted_tile->occupant != NULL) // assuming NULL if they died
                     {
-                        if (targetted_tile->occupant != NULL) // assuming NULL if they died
-                        {
-                            spell->cast_spell(targetted_tile->occupant);
-                        };
+                        spell->cast_spell(targetted_tile->occupant);
                     };
                     Game::player->attrs->mana->current_val -= mana_cost;
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
