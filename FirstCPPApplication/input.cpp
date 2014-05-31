@@ -347,26 +347,27 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
             Item* item = Game::player->my_tile->inventory->items->back();
             //drop item in the same slot
-	    if (item->equippable)
-        {
-	    Slot* equipped_slot = Game::player->equipment->get_slots_for_type(item->slot_type);
-	Item* equipped_item = equipped_slot->GetEquippedItem();
-    Game::player->equipment->unequip_item(equipped_item);
-    Game::player->inventory->drop_item(equipped_item);
+            if (item->equippable)
+            {
+                //drop currently equipped item
+                Slot* equipped_slot = Game::player->equipment->get_slots_for_type(item->slot_type);
+                Item* equipped_item = equipped_slot->GetEquippedItem();
+                Game::player->equipment->unequip_item(equipped_item);
+                Game::player->inventory->drop_item(equipped_item);
 
-            Game::player->pickUpItem(item);
-            Game::player->equipment->equip_item(item);
-            item->equip(Game::player);
-            new Message(Ui::msg_handler_main, ITEM_MSG, "Equipping item straight off the floor.");
-            // player->equipment->chest->AddToSlot(item);
+                //pickup and equip new one
+                Game::player->pickUpItem(item);
+                Game::player->equipment->equip_item(item);
+                item->equip(Game::player);
+                new Message(Ui::msg_handler_main, ITEM_MSG, "Equipping item straight off the floor.");
 
-            return true;
-        }
-        else
-        {
-            
-            new Message(Ui::msg_handler_main, ITEM_MSG, "Try equipping an item that would make sense, how about?");
-        }
+                return true;
+            }
+            else
+            {
+
+                new Message(Ui::msg_handler_main, ITEM_MSG, "Try equipping an item that would make sense, how about?");
+            }
 
         };
     }
@@ -575,6 +576,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                                 spell->cast_spell((*it)->occupant);
                             };
                         };
+                        delete adjacent_tiles;
                     };
 
                     if (targetted_tile->occupant != NULL) // assuming NULL if they died

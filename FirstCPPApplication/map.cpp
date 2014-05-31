@@ -732,7 +732,8 @@ int Map::draw()
                     if (the_tile->check_for_items())
                     {
                         // Game::game_console->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
-                        the_char = the_tile->inventory->items->back()->repr->repr;
+			Item* last_item = the_tile->inventory->items->back();
+                        the_char = last_item->repr->repr;
                     };
                     Game::player->ActorInSight(x, y, the_tile->occupant);
 

@@ -231,7 +231,6 @@ int* Actor::get_direction_heading()
 Item* spawnItemBase(std::string name, std::string description, char repr, slots_t slot, int weight)
 {
         Item* dropped_item = new Item;
-        dropped_item->equippable = true;
         dropped_item->repr->repr = repr;
         dropped_item->name = name;
         dropped_item->description = description;
