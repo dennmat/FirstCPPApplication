@@ -40,6 +40,8 @@ ItemEffect::ItemEffect()
     this->hunger_regen_rate = 0;
     this->hunger_regen_interval = 0; 
 
+    this->aoe = 0;
+
     this->duration = -1;
 
     this->actors_applied_to = new std::vector<applied_to_s*>;

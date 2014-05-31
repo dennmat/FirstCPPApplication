@@ -83,6 +83,8 @@ class ItemEffect
         int hunger_regen_rate;
         int hunger_regen_interval; 
 
+        int aoe;
+
         applied_to_s  applied_to;
         std::vector<applied_to_s*>* actors_applied_to;
 
