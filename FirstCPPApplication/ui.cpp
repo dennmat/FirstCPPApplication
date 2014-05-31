@@ -164,7 +164,7 @@ bool Ui::should_draw_mouse_helpbox()
     return Ui::tick_mouse_moved > Ui::tick_key_pressed;
 };
 
-void Ui::draw_mouse_helpbox()
+void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
 {
     //get help text
     std::string help_text = "";
@@ -255,7 +255,8 @@ void Ui::draw_mouse_helpbox()
     help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
     help_con.print(1+left_pad, 3+top_pad, health_text.c_str());
 
-    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, TCODConsole::root, Game::mouse_evt.cx+1, Game::mouse_evt.cy+1);
+    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, 0, 25);
+    // TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, Game::mouse_evt.cx+Game::camera_x+1, Game::mouse_evt.cy+Game::camera_y+1);
 };
 
 void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con, int& y)
@@ -293,7 +294,7 @@ void Ui::draw_ui_sidebar()
     if (Ui::should_draw_mouse_helpbox())
     {
         TCODMouse::showCursor(true);
-        draw_mouse_helpbox();
+        draw_mouse_helpbox(ui_sidebar_con);
     }
     else 
     {
@@ -304,7 +305,7 @@ void Ui::draw_ui_sidebar()
     TCODColor ui_sidebar_color(10, 5, 5);
     TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();
     ui_sidebar_con->setDefaultBackground(ui_sidebar_color);
-    ui_sidebar_con->clear();
+    // ui_sidebar_con->clear();
 
     int first_y = 0;
 
@@ -418,14 +419,17 @@ bool Ui::toggle_targetting()
 void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int lx, int ly)
 { 
     TCODColor line_color;
+    line_color = TCODColor::grey;
     if (target_tile->is_occupied() && target_tile->is_known())
     {
-        Game::game_console->setChar(dx, dy, 'X');
+        Game::game_console->setChar(lx, ly, 'X');
+        // TCODConsole::root->setChar(lx, ly, '&');
+        // Game::game_console->setChar(target_tile->tile_x+Game::camera_x, target_tile->tile_y+Game::camera_y, 'X');
         line_color = TCODColor::darkGreen;
     }
     else
     {
-        line_color = TCODColor::grey;
+        // line_color = TCODColor::grey;
     }
 
     // draw line from player to mouse

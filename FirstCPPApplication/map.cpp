@@ -844,20 +844,16 @@ int Map::draw()
     // std::cout << std::endl << std::endl;
     // std::cout << "Tile Description:" << std::endl;
 
-    Person  * thePerson = Game::player;
+    // Person  * thePerson = Game::player;
     //BaseTileType * person_tile = tileArray[thePerson->x+(thePerson->y*width)].tile;
     // BaseTileType * person_tile = getTileAt(thePerson->x, thePerson->y)->tile;
 
 
-    std::string pers_desc = getTileAt(thePerson->x, thePerson->y)->get_description();
-    std::string tile_description = (pers_desc != "none" ?  pers_desc : description);
+    // std::string pers_desc = getTileAt(thePerson->x, thePerson->y)->get_description();
+    // std::string tile_description = (pers_desc != "none" ?  pers_desc : description);
     // std::cout << tile_description;
     // std::cout << std::endl << std::endl;
 
-    //draw the game_console to root, taking from where the camera is looking at
-    TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
-            Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
-    Game::game_console->clear();
     return 1;
 }
 
