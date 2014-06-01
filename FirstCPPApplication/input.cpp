@@ -570,16 +570,12 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 {
                     if (spell->aoe > 0)
                     {
-                        std::vector<Tile*>* adjacent_tiles = targetted_tile->getAdjacentTiles(1);
-                        typedef std::vector<Tile*> tile_vector;
-                        for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+                        std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
+                        typedef std::vector<Actor*> actor_vector;
+                        for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
                         {
-                            if ((*it)->is_occupied())
-                            {
-                                spell->cast_spell((*it)->occupant);
-                            };
+                                spell->cast_spell((*it));
                         };
-                        delete adjacent_tiles;
                     };
 
                     if (targetted_tile->occupant != NULL) // assuming NULL if they died

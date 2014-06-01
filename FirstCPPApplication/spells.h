@@ -47,6 +47,8 @@ class Spell
         TCODColor get_spell_color();
 
         void cast_spell(Actor* target);
+        std::vector<Actor*> targets_for_tile(Tile* target_tile);
+
 };
 
 

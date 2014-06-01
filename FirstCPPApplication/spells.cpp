@@ -4,6 +4,7 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "item_effect.h"
+#include "tile.h"
 
 
 
@@ -55,5 +56,24 @@ void Spell::cast_spell(Actor* target)
         timed_effect->turn_applied = Game::turn_count;
         target->timed_spell_effects->push_back(timed_effect);
     };
+
+};
+
+
+std::vector<Actor*> Spell::targets_for_tile(Tile* target_tile)
+{
+    std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(1);
+    typedef std::vector<Tile*> tile_vector;
+    std::vector<Actor*> targets;
+    for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+    {
+        if ((*it)->is_occupied())
+        {
+            targets.push_back((*it)->occupant);
+        }
+    };
+    delete adjacent_tiles;
+
+    return targets;
 
 };
