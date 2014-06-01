@@ -789,6 +789,13 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
             msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c, %c%drng%c, %ddur";
         };
 
+        if ((*it)->aoe > 0)
+        {
+            std::stringstream ss;
+            ss << msg_str << ", " << (*it)->aoe << "aoe";
+            msg_str = ss.str();
+        };
+
         if (is_chosen)
         {
             msg_str.append(" <-");
