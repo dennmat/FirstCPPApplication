@@ -186,7 +186,7 @@ std::string get_exe_path()
 void move_window(int x, int y)
 {
     RECT rcWind;
-    HWND hwnd = FindWindow(NULL, _T("FirstCPPApplication"));
+    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
     GetWindowRect(hwnd, &rcWind);
     MoveWindow(hwnd, x, y, rcWind.right - rcWind.left, rcWind.bottom - rcWind.top, true);
 };

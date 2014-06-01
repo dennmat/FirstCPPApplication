@@ -695,7 +695,7 @@ void Game::start_game()
 void Game::init_engine()
 {
     TCODConsole::setCustomFont("data/terminal.png");
-    TCODConsole::initRoot(screen_w, screen_h, "FirstCPPApplication", false);
+    TCODConsole::initRoot(screen_w, screen_h, "BiochRL", false);
 
     Game::fps_limit = 60;
     TCODSystem::setFps(fps_limit);
