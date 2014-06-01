@@ -768,6 +768,8 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
     TCODColor foreground, background;
     foreground = TCODColor::white;
 
+    char buffer[512];
+
     bool is_chosen, is_active, has_duration;
     std::vector<Spell*>* v  = Ui::game->player->spells;
     for (std::vector<Spell*>::iterator it = v->begin(); it != v->end(); ++it) 
@@ -776,17 +778,30 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         is_active = Ui::generic_active;
         has_duration = (*it)->spell_effect->duration != -1;
 
+        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
         TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_spell_color(), con->getDefaultBackground());
+        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
+        TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
         background = con->getDefaultBackground();
 
-        std::string msg_str;
-        if (!has_duration)
+        std::string base_msg_str = "%c-%c%c%c %c%s%c : ";
+        sprintf(buffer, base_msg_str.c_str(), key, TCOD_COLCTRL_2, 's',
+                TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
+                TCOD_COLCTRL_STOP);
+
+
+        std::string msg_str = buffer;
+        msg_str.append("%c%d mana%c, %c%drng%c");
+        sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_3,
+                (*it)->mana_cost, TCOD_COLCTRL_STOP, TCOD_COLCTRL_4,
+                (*it)->max_range, TCOD_COLCTRL_STOP);
+
+        msg_str = buffer;
+        if (has_duration)
         {
-            msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c, %c%drng%c";
-        }
-        else
-        {
-            msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c, %c%drng%c, %ddur";
+            msg_str.append(", %ddur");
+            sprintf(buffer, msg_str.c_str(), (*it)->spell_effect->duration);
+            msg_str = buffer;
         };
 
         if ((*it)->aoe > 0)
@@ -830,28 +845,10 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         };
 
         //print the spell name and selection
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
         const char *msg_char = msg_str.c_str();
-        if (!has_duration)
-        {
         con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's',
-                TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
-                TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->mana_cost, TCOD_COLCTRL_STOP,
-                TCOD_COLCTRL_4, (*it)->max_range, TCOD_COLCTRL_STOP
+                TCOD_alignment_t::TCOD_LEFT, msg_char 
                 );
-        }
-        else 
-        {
-        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_2, 's',
-                TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
-                TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (*it)->mana_cost, TCOD_COLCTRL_STOP,
-                TCOD_COLCTRL_4, (*it)->max_range, TCOD_COLCTRL_STOP, (*it)->spell_effect->duration
-                );
-        };
 
         i++;
 

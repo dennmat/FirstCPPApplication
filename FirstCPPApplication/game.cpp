@@ -761,6 +761,7 @@ void Game::mainloop()
         }
 
         //draw the root console to screen to screen
+
         TCODConsole::flush();
         TCODConsole::root->clear();
 
