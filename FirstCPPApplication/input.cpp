@@ -568,19 +568,11 @@ bool Input::process_basic_keys(TCOD_key_t request)
             {
                 if (Game::player->attrs->mana->current_val > mana_cost)
                 {
-                    if (spell->aoe > 0)
+                    std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
+                    typedef std::vector<Actor*> actor_vector;
+                    for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
                     {
-                        std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
-                        typedef std::vector<Actor*> actor_vector;
-                        for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
-                        {
-                                spell->cast_spell((*it));
-                        };
-                    };
-
-                    if (targetted_tile->occupant != NULL) // assuming NULL if they died
-                    {
-                        spell->cast_spell(targetted_tile->occupant);
+                        spell->cast_spell((*it));
                     };
                     Game::player->attrs->mana->current_val -= mana_cost;
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");

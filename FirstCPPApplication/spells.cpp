@@ -62,17 +62,25 @@ void Spell::cast_spell(Actor* target)
 
 std::vector<Actor*> Spell::targets_for_tile(Tile* target_tile)
 {
-    std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(1);
     typedef std::vector<Tile*> tile_vector;
     std::vector<Actor*> targets;
-    for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+    if (this->aoe > 0)
     {
-        if ((*it)->is_occupied())
+        if (this->aoe != 1) printf("aoe is only directly adjacent tiles, anything higher than 1 is ignored\n");
+        std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(1);
+        for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
         {
-            targets.push_back((*it)->occupant);
-        }
+            if ((*it)->is_occupied())
+            {
+                targets.push_back((*it)->occupant);
+            }
+        };
+        delete adjacent_tiles;
     };
-    delete adjacent_tiles;
+    if (target_tile->occupant != NULL) // assuming NULL if they died
+    {
+        targets.push_back(target_tile->occupant);
+    }
 
     return targets;
 
