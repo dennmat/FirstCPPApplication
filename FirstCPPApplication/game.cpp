@@ -403,6 +403,7 @@ void  Game::initialize_items()
 
     Item* dagger = new Item();
     dagger->name = "Prisoner's Shank";
+    dagger->repr->repr = '/';
     dagger->description = "You hid this in your clothes";
     dagger->item_effect->set_all_vals_to(0);
     dagger->item_effect->damage_current_val = 1;
@@ -414,6 +415,7 @@ void  Game::initialize_items()
 
     Item* amulet = new Item();
     amulet->name = "Bent Amulet";
+    amulet->repr->repr = '&';
     amulet->description = "You swore to never take this off.";
     amulet->item_effect->set_all_vals_to(0);
     amulet->item_effect->health_current_val = 3;
@@ -425,6 +427,7 @@ void  Game::initialize_items()
 
     Item* chest_armor = new Item();
     chest_armor->name = "Prisoner's Robes";
+    chest_armor->repr->repr = '&';
     chest_armor->description = "You were only able to wear these before they found you.";
     chest_armor->item_effect->set_all_vals_to(0);
     chest_armor->item_effect->armor_current_val = 1;
