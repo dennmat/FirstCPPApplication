@@ -38,6 +38,22 @@ Screen<T>::Screen()
 template Screen<Item>::Screen();
 template Screen<Spell>::Screen();
 
+    template<typename T>
+bool Screen<T>::is_chosen(T* element)
+{
+    return element == Ui::chosen_generic;
+};
+template bool Screen<Item>::is_chosen(Item* element);
+template bool Screen<Spell>::is_chosen(Spell* element);
+
+    template<typename T>
+bool Screen<T>::is_active(T* element)
+{
+    return Ui::generic_active;
+};
+template bool Screen<Item>::is_active(Item* element);
+template bool Screen<Spell>::is_active(Spell* element);
+
 // InventoryScreen::InventoryScreen() : Screen()
 // {
 // };
@@ -137,19 +153,26 @@ void Screen<T>::loop(TCODConsole* con, int i)
 template void Screen<Item>::loop(TCODConsole* con, int i);
 template void Screen<Spell>::loop(TCODConsole* con, int i);
 
+    template<typename T>
+bool InventoryScreen<T>::is_enabled(T* element)
+{
+    return Ui::game->player->equipment->is_item_equipped(element);
+};
+template bool InventoryScreen<Item>::is_enabled(Item* element);
+
 
     template<typename T>
 ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     ScreenItem result;
-    bool is_chosen, is_active;
     TCODColor foreground, background;
     std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
-    is_chosen = (element) == Ui::chosen_generic;
-    is_active = Ui::generic_active;
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
+    bool is_enabled = this->is_enabled(element);
 
     TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
-    if (Ui::game->player->equipment->is_item_equipped(element))
+    if (is_enabled)
     {
         background = TCODColor::darkestRed;
         if (is_chosen)

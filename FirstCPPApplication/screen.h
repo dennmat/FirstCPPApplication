@@ -21,6 +21,10 @@ class Screen
         std::vector<T*>* elements;
         std::vector<ScreenItem*>* screen_items;
 
+        virtual bool is_chosen(T* element);
+        virtual bool is_active(T* element);
+        virtual bool is_enabled(T* element) { return false; };
+
         Screen();
 
         TCODConsole* create_screen();
@@ -44,6 +48,7 @@ class InventoryScreen : public Screen<T>
 
         InventoryScreen<T>() : Screen() { this->title="Inventory Screen"; };
         InventoryScreen::~InventoryScreen(){};
+        virtual bool is_enabled(T* element);
 
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
