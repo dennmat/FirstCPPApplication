@@ -32,6 +32,7 @@ void IClass::LevelUpDamage(double change)
 
 FighterClass::FighterClass()
 {
+    this->type = 1;
     this->name = "Fighter";
     this->description = "Basic Class, all around decent guy.";
 };
@@ -101,6 +102,7 @@ void FighterClass::LevelUpSkills(int levels)
 
 MageClass::MageClass()
 {
+    this->type = 2;
     this->name = "Mage";
     this->description = "Magic Class, feels more spiritual.";
 };
@@ -165,6 +167,7 @@ void MageClass::LevelUpSkills(int levels)
 
 BrawlerClass::BrawlerClass()
 {
+    this->type = 3;
     this->name = "Brawler";
     this->description = "Beefy Class, a bit of a meathead.";
 };

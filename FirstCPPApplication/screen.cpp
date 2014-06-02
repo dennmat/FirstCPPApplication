@@ -455,7 +455,7 @@ template void ClassScreen<IClass>::draw_screen_item(TCODConsole* con, int& i, Sc
     template<typename T>
 bool ClassScreen<T>::is_enabled(T* element)
 {
-    return Ui::game->player->actor_class == element;
+    return Ui::game->player->actor_class->type == element->type;
 };
 template bool ClassScreen<IClass>::is_enabled(IClass* element);
 
