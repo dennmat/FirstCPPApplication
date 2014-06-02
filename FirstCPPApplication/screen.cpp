@@ -198,31 +198,16 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     bool is_active = this->is_active(element);
     bool is_enabled = this->is_enabled(element);
 
-    if (is_enabled)
-    {
-        background = TCODColor::darkestRed;
         if (is_chosen)
         {
             msg_str.append(" <-");
             if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
             else { foreground = TCODColor::red+TCODColor::green; }
         }
-        else { foreground = TCODColor::red;
-        };
-    }
-    else
-    {
-        background = con->getDefaultBackground();
-        if (is_chosen)
-        {
-            msg_str.append(" <-");
-            if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
-        }
-        else
-        {
-            foreground = TCODColor::white;
-        };
-    };
+
+        std::vector<TCODColor> colors = this->get_colors(con,  element);
+        foreground = colors.at(0);
+        background = colors.at(1);
 
     char buffer[512];
     TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
@@ -239,6 +224,47 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     return result;
 };
 template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
+
+template<typename T>
+std::vector<TCODColor> InventoryScreen<T>::get_colors(TCODConsole* con, T* element)
+{
+    TCODColor foreground, background;
+
+
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
+    bool is_enabled = this->is_enabled(element);
+
+    if (is_enabled)
+    {
+        background = TCODColor::darkestRed;
+        if (is_chosen)
+        {
+            if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
+            else { foreground = TCODColor::red+TCODColor::green; }
+        }
+        else { foreground = TCODColor::red;
+        };
+    }
+    else
+    {
+        background = con->getDefaultBackground();
+        if (is_chosen)
+        {
+            if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
+        }
+        else
+        {
+            foreground = TCODColor::white;
+        };
+    };
+
+    std::vector<TCODColor> result;
+    result.push_back(foreground);
+    result.push_back(background);
+    return result;
+};
+template std::vector<TCODColor> InventoryScreen<Item>::get_colors(TCODConsole* con, Item* element);
 
     template<typename T>
 void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
