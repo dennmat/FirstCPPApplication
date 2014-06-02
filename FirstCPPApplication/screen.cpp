@@ -263,9 +263,9 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
         ss << msg_str << ", " << element->aoe << "aoe";
         msg_str = ss.str();
     };
-        std::stringstream ss;
-        ss << msg_str << "key: %c";
-        msg_str = ss.str();
+    std::stringstream ss;
+    ss << msg_str << "key: %c";
+    msg_str = ss.str();
 
     if (is_chosen)
     {
@@ -298,11 +298,11 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 
     //print the item effects
-    //std::string msg = ((T*)si.element)->item_effect->oneline_str();
-    //std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->item_effect->oneline_str_colours();
-    //one_line_helper(con, this->offset, i, msg, colctrl_vec);
+    std::string msg = ((T*)si.element)->spell_effect->oneline_str();
+    std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->spell_effect->oneline_str_colours();
+    one_line_helper(con, offset, i, msg, colctrl_vec);
     si.max_y = i;
-    // printf("setting min %d max %d\n", si.min_y, si.max_y);
+
     i++;
     i++;
 };
