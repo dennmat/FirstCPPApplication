@@ -53,22 +53,5 @@ class InventoryScreen : public Screen<T>
             // void draw();
 };
 
-class ScreenItem
-{
-    public:
-        int min_y, max_y; //mouse boundaries
-
-        TCODColor foreground;
-        TCODColor background;
-        std::string msg_str;
-
-        void* element;
-
-        void handle_mouse(int& i);
-        bool mouse_is_hovering();
-
-        ScreenItem();
-
-};
 
 #endif

@@ -773,7 +773,7 @@ bool Input::process_spells_keys(TCOD_key_t request)
     if( action == spells_active_t::ExamineSpell )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE SPELL.");
-        std::cout << "EXAMINE SPELL." << std::endl;
+        std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;
         return true;
     }
     else if( action == spells_active_t::DropSpell )
