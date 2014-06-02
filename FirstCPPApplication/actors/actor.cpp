@@ -275,7 +275,6 @@ Item* spawnWeapon()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //sword damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(5, 15, 8);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
@@ -288,7 +287,6 @@ Item* spawnWeapon()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(1, 5, 3);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
@@ -301,7 +299,6 @@ Item* spawnWeapon()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(1, 5, 3);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
@@ -314,7 +311,6 @@ Item* spawnWeapon()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(4, 20, 5);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
@@ -327,7 +323,6 @@ Item* spawnWeapon()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(4, 9, 4);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
@@ -340,7 +335,6 @@ Item* spawnWeapon()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int damage = rng->getInt(10, 20, 11);
         dropped_item->item_effect->damage_current_val = damage;
         dropped_item->item_effect->damage_max_val = damage;
@@ -375,7 +369,6 @@ Item* spawnArmor()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //sword damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(3, 8, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
@@ -387,7 +380,6 @@ Item* spawnArmor()
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
         dropped_item->item_effect->set_all_vals_to(0);
 
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 2);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
@@ -400,7 +392,6 @@ Item* spawnArmor()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //shield armor
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
@@ -413,7 +404,6 @@ Item* spawnArmor()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //shield armor
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(3, 7, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
@@ -426,7 +416,6 @@ Item* spawnArmor()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //armor
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 3);
         dropped_item->item_effect->armor_current_val = armor;
         dropped_item->item_effect->armor_max_val = armor;
@@ -439,7 +428,6 @@ Item* spawnArmor()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //armor
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 3);
         int health = rng->getInt(1, 5, 3);
         int mana = rng->getInt(1, 5, 3);
@@ -480,7 +468,6 @@ Item* spawnPotion()
         dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int health = rng->getInt(10, 100, 25);
         dropped_item->item_effect->health_current_val = health;
     }
@@ -492,7 +479,6 @@ Item* spawnPotion()
         dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int health = rng->getInt(5, 50, 15);
         dropped_item->item_effect->health_current_val = health;
         dropped_item->item_effect->health_max_val = health;
@@ -506,7 +492,6 @@ Item* spawnPotion()
         dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int health = rng->getInt(1, 5, 1);
         dropped_item->item_effect->health_regen_rate = health;
         dropped_item->item_effect->health_regen_interval = -floor((double)health/2);
@@ -519,7 +504,6 @@ Item* spawnPotion()
         dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int mana = rng->getInt(1, 50, 10);
         dropped_item->item_effect->mana_current_val = mana;
     }
@@ -532,7 +516,6 @@ Item* spawnPotion()
 
 
         //mana regen
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int mana = rng->getInt(1, 5, 1);
         dropped_item->item_effect->mana_regen_rate = mana;
         dropped_item->item_effect->mana_regen_interval = -floor((double)mana/2);
@@ -568,7 +551,6 @@ Item* spawnSpecial()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 2);
         int damage = rng->getInt(1, 5, 2);
         int mana = rng->getInt(1, 5, 2);
@@ -589,7 +571,6 @@ Item* spawnSpecial()
         dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         int armor = rng->getInt(1, 5, 2);
         int health = rng->getInt(10, 50, 20);
         dropped_item->item_effect->armor_current_val = armor;
@@ -609,7 +590,6 @@ Item* spawnSpecial()
         dropped_item->equippable = false;
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         // int armor = rng->getInt(1, 5, 2);
         int damage = rng->getInt(10, 50, 20);
         dropped_item->item_effect->damage_current_val = damage;
@@ -629,7 +609,6 @@ Item* spawnSpecial()
         dropped_item->equippable = false;
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         // int armor = rng->getInt(1, 5, 2);
         int mana = rng->getInt(10, 50, 20);
         dropped_item->item_effect->mana_current_val = mana;
@@ -647,7 +626,6 @@ Item* spawnSpecial()
         dropped_item->equippable = false;
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         // int armor = rng->getInt(1, 5, 2);
         int health = rng->getInt(10, 50, 20);
         dropped_item->item_effect->health_current_val = health;
@@ -665,7 +643,6 @@ Item* spawnSpecial()
         dropped_item->equippable = false;
 
         //dagger damage
-        rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
         // int armor = rng->getInt(1, 5, 2);
         int armor = rng->getInt(5, 20, 10);
         dropped_item->item_effect->armor_current_val = armor;
@@ -684,7 +661,6 @@ Item* spawnItem()
 {
     Item* dropped_item;
     TCODRandom *rng = Game::item_spawn_rng;
-    rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
     rwm.add_item(ArmorSpawn, 50);
