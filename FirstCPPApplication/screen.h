@@ -62,8 +62,20 @@ class SpellScreen : public Screen<T>
 {
     public:
 
-        SpellScreen<T>() : Screen() { this->title="Inventory Screen"; };
+        SpellScreen<T>() : Screen() { this->title="Spell Screen"; };
         SpellScreen::~SpellScreen(){};
+
+        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+};
+
+template<typename T>
+class ClassScreen : public Screen<T>
+{
+    public:
+
+        ClassScreen<T>() : Screen() { this->title="Class Screen"; };
+        ClassScreen::~ClassScreen(){};
 
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);

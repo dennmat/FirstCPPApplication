@@ -919,7 +919,10 @@ void Ui::draw_spell_select_ui()
 
 void Ui::draw_class_select_ui()
 {
-    Ui::draw_screen("Select Class", &Ui::class_ui_loop);
+    // Ui::draw_screen("Select Class", &Ui::class_ui_loop);
+    ClassScreen<IClass> class_screen;
+    class_screen.elements = Game::player->actor_class_choices;
+    class_screen.draw();
 };
 
 void Ui::draw_main_menu_ui()

@@ -37,6 +37,7 @@ Screen<T>::Screen()
 };
 template Screen<Item>::Screen();
 template Screen<Spell>::Screen();
+template Screen<IClass>::Screen();
 
     template<typename T>
 bool Screen<T>::is_chosen(T* element)
@@ -45,6 +46,7 @@ bool Screen<T>::is_chosen(T* element)
 };
 template bool Screen<Item>::is_chosen(Item* element);
 template bool Screen<Spell>::is_chosen(Spell* element);
+template bool Screen<IClass>::is_chosen(IClass* element);
 
     template<typename T>
 bool Screen<T>::is_active(T* element)
@@ -53,6 +55,7 @@ bool Screen<T>::is_active(T* element)
 };
 template bool Screen<Item>::is_active(Item* element);
 template bool Screen<Spell>::is_active(Spell* element);
+template bool Screen<IClass>::is_active(IClass* element);
 
 // InventoryScreen::InventoryScreen() : Screen()
 // {
@@ -111,6 +114,7 @@ void Screen<T>::draw()
 
 };
 template void Screen<Item>::draw();
+template void Screen<IClass>::draw();
 template void Screen<Spell>::draw();
 
     template<typename T>
@@ -129,6 +133,7 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
 
 };
 template void Screen<Item>::build_screen_items(TCODConsole* con, int i);
+template void Screen<IClass>::build_screen_items(TCODConsole* con, int i);
 template void Screen<Spell>::build_screen_items(TCODConsole* con, int i);
 
 
@@ -144,13 +149,14 @@ void Screen<T>::loop(TCODConsole* con, int i)
 
     if (Ui::offset >= num_elems && num_elems > 0) //if the offset is passed the end of the list
     {
-        Ui::page_num = std::ceil(((float)num_elems/Ui::per_page))-1; //round up and then take off a page
+        Ui::page_num = std::ceil(((float)num_elems/(float)Ui::per_page))-1; //round up and then take off a page
         Ui::offset = Ui::page_num*Ui::per_page;
     };
 
     this->build_screen_items(con, i);
 };
 template void Screen<Item>::loop(TCODConsole* con, int i);
+template void Screen<IClass>::loop(TCODConsole* con, int i);
 template void Screen<Spell>::loop(TCODConsole* con, int i);
 
 template<typename T>
@@ -275,6 +281,7 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
     si.min_y = i;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
             TCOD_alignment_t::TCOD_LEFT, msg_char);
+
     i++;
 
     //print the item effects
@@ -377,5 +384,70 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 };
 template void SpellScreen<Spell>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+
+/* SPELL SCREEN */
+    template<typename T>
+ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+{
+    ScreenItem result;
+
+    char buffer[512];
+
+    bool has_duration;
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
+
+    TCODColor foreground, background;
+    std::vector<TCODColor> colors = this->get_colors(con, element);
+    foreground = colors.at(0);
+    background = colors.at(1);
+
+    TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_2, TCODColor::green, con->getDefaultBackground());
+    //TCODConsole::setColorControl(TCOD_COLCTRL_2, element->get_spell_color(), con->getDefaultBackground());
+    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
+
+    //key, element, name
+    std::string msg_str = "%c-%c%s%c";
+    // std::string msg_str = "%c-%c%c%c %c%s%c : ";
+    sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_1, 
+            element->name.c_str(), TCOD_COLCTRL_STOP);
+    msg_str = buffer;
+
+    if (is_chosen)
+    {
+        msg_str.append(" <-");
+    }
+
+    result.foreground = foreground;
+    result.background = background;
+    result.msg_str = msg_str;
+    result.element = element;
+
+    return result;
+};
+template ScreenItem ClassScreen<IClass>::build_screen_item(TCODConsole* con, int i, IClass* element);
+
+    template<typename T>
+void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+{
+    //print the item name and selection
+    const char *msg_char = si.msg_str.c_str();
+    si.min_y = i;
+    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+            TCOD_alignment_t::TCOD_LEFT, msg_char);
+    i++;
+
+    //print the item effects
+    //std::string msg = ((T*)si.element)->spell_effect->oneline_str();
+    //std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->spell_effect->oneline_str_colours();
+    //one_line_helper(con, offset, i, msg, colctrl_vec);
+    si.max_y = i;
+
+    i++;
+    i++;
+};
+template void ClassScreen<IClass>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 
