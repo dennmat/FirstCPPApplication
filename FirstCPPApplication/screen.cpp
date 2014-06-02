@@ -113,26 +113,26 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
 template void Screen<Item>::build_screen_items(TCODConsole* con, int i);
 
 
-/* Inventory Specific Stuff */
     template<typename T>
-void InventoryScreen<T>::loop(TCODConsole* con, int i)
+void Screen<T>::loop(TCODConsole* con, int i)
 {
     TCODColor foreground, background;
     foreground = TCODColor::white;
 
     bool is_chosen, is_active;
-    std::vector<Item*>* v  = Ui::game->player->inventory->items;
-    int num_items = v->size();
+    std::vector<T*>* v  = this->elements;
+    int num_elems = v->size();
 
-    if (Ui::offset >= num_items && num_items > 0) //if the offset is passed the end of the list
+    if (Ui::offset >= num_elems && num_elems > 0) //if the offset is passed the end of the list
     {
-        Ui::page_num = std::ceil(((float)num_items/Ui::per_page))-1; //round up and then take off a page
+        Ui::page_num = std::ceil(((float)num_elems/Ui::per_page))-1; //round up and then take off a page
         Ui::offset = Ui::page_num*Ui::per_page;
     };
 
     this->build_screen_items(con, i);
 };
-template void InventoryScreen<Item>::loop(TCODConsole* con, int i);
+template void Screen<Item>::loop(TCODConsole* con, int i);
+
 
     template<typename T>
 ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
