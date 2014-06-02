@@ -911,7 +911,10 @@ void Ui::draw_inventory_ui()
 
 void Ui::draw_spell_select_ui()
 {
-    Ui::draw_screen("Select Spell", &Ui::spell_ui_loop);
+    SpellScreen<Spell> spell_screen;
+    spell_screen.elements = Game::player->spells;
+    spell_screen.draw();
+    // Ui::draw_screen("Select Spell", &Ui::spell_ui_loop);
 };
 
 void Ui::draw_class_select_ui()
