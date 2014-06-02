@@ -153,6 +153,32 @@ void Screen<T>::loop(TCODConsole* con, int i)
 template void Screen<Item>::loop(TCODConsole* con, int i);
 template void Screen<Spell>::loop(TCODConsole* con, int i);
 
+template<typename T>
+std::vector<TCODColor> Screen<T>::get_colors(TCODConsole* con, T* element)
+{
+    TCODColor foreground, background;
+    if (this->is_chosen(element))
+    {
+        if (this->is_active(element))
+        { 
+            foreground = TCODColor::red+TCODColor::yellow; 
+        }
+    }
+    else
+    {
+        foreground = TCODColor::white;
+    };
+
+    background = con->getDefaultBackground();
+
+    std::vector<TCODColor> result;
+    result.push_back(foreground);
+    result.push_back(background);
+    return result;
+
+
+};
+
     template<typename T>
 bool InventoryScreen<T>::is_enabled(T* element)
 {
@@ -167,11 +193,11 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     ScreenItem result;
     TCODColor foreground, background;
     std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
+
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
     bool is_enabled = this->is_enabled(element);
 
-    TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
     if (is_enabled)
     {
         background = TCODColor::darkestRed;
@@ -198,6 +224,13 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
         };
     };
 
+    char buffer[512];
+    TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
+    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
+    sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_2,
+            (element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
+            (element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (element)->weight, TCOD_COLCTRL_STOP);
+    msg_str = buffer;
     result.foreground = foreground;
     result.background = background;
     result.msg_str = msg_str;
@@ -212,13 +245,10 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
 {
     //print the item name and selection
     TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
-    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, si.background);
     const char *msg_char = si.msg_str.c_str();
     si.min_y = i;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-            TCOD_alignment_t::TCOD_LEFT, msg_char, this->key, TCOD_COLCTRL_2,
-            ((T*)si.element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-            ((T*)si.element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, ((T*)si.element)->weight, TCOD_COLCTRL_STOP);
+            TCOD_alignment_t::TCOD_LEFT, msg_char);
     i++;
 
     //print the item effects
@@ -239,33 +269,31 @@ template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, 
 ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     ScreenItem result;
-    bool is_chosen, is_active;
-    TCODColor foreground, background;
-    // is_chosen = (element) == Ui::chosen_generic;
-    // is_active = Ui::generic_active;
-
-    foreground = TCODColor::white;
 
     char buffer[512];
-    char key = 'z';
 
     bool has_duration;
-    is_chosen = element == Ui::chosen_generic;
-    is_active = Ui::generic_active;
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
     has_duration = element->spell_effect->duration != -1;
+
+    TCODColor foreground, background;
+    std::vector<TCODColor> colors = this->get_colors(con, element);
+    foreground = colors.at(0);
+    background = colors.at(1);
 
     TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
     TCODConsole::setColorControl(TCOD_COLCTRL_2, element->get_spell_color(), con->getDefaultBackground());
     TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
     TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
-    background = con->getDefaultBackground();
 
+    //key, element, name
     std::string base_msg_str = "%c-%c%c%c %c%s%c : ";
-    sprintf(buffer, base_msg_str.c_str(), key, TCOD_COLCTRL_2, 's',
+    sprintf(buffer, base_msg_str.c_str(), this->key, TCOD_COLCTRL_2, 's',
             TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, element->name.c_str(),
             TCOD_COLCTRL_STOP);
 
-
+    //mana, range
     std::string msg_str = buffer;
     msg_str.append("%c%d mana%c, %c%drng%c");
     sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_3,
@@ -293,12 +321,8 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     if (is_chosen)
     {
         msg_str.append(" <-");
-        if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
     }
-    else
-    {
-        foreground = TCODColor::white;
-    };
+
     result.foreground = foreground;
     result.background = background;
     result.msg_str = msg_str;
@@ -312,8 +336,6 @@ template ScreenItem SpellScreen<Spell>::build_screen_item(TCODConsole* con, int 
 void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
-    TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
-    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, si.background);
     const char *msg_char = si.msg_str.c_str();
     si.min_y = i;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,

@@ -39,6 +39,8 @@ class Screen
 
         virtual void draw();
 
+        virtual std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
+
 };
 
 template<typename T>
