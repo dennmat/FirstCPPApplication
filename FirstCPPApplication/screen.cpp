@@ -325,8 +325,9 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_3,
             element->mana_cost, TCOD_COLCTRL_STOP, TCOD_COLCTRL_4,
             element->max_range, TCOD_COLCTRL_STOP);
-
     msg_str = buffer;
+
+    //duration
     if (has_duration)
     {
         msg_str.append(", %ddur");
@@ -334,15 +335,13 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
         msg_str = buffer;
     };
 
+    //aoe
     if (element->aoe > 0)
     {
         std::stringstream ss;
         ss << msg_str << ", " << element->aoe << "aoe";
         msg_str = ss.str();
     };
-    std::stringstream ss;
-    ss << msg_str << "key: %c";
-    msg_str = ss.str();
 
     if (is_chosen)
     {

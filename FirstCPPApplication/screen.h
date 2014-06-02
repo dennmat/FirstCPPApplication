@@ -34,12 +34,12 @@ class Screen
         virtual void loop(TCODConsole* con, int i);
 
         void build_screen_items(TCODConsole* con, int i);
+        virtual std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
         virtual ScreenItem build_screen_item(TCODConsole* con, int i, T* element) = 0;
-        virtual void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si) = 0;
 
         virtual void draw();
+        virtual void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si) = 0;
 
-        virtual std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
 
 };
 
