@@ -432,6 +432,13 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int 
         // line_color = TCODColor::grey;
     }
 
+    Spell* spell = (Spell*)Ui::chosen_generic;
+    std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
+    for (std::vector<Actor*>::iterator it = targets.begin(); it != targets.end(); it++)
+    {
+        Game::game_console->setChar('X', (*it)->x+Game::camera_x, (*it)->y+Game::camera_y);
+    };
+
     // draw line from player to mouse
     int count = 0;
     TCODLine::init(sx, sy, lx, ly);
