@@ -35,6 +35,7 @@ class Screen
 
         void build_screen_items(TCODConsole* con, int i);
         virtual std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
+        virtual std::vector<TCODColor> get_enabled_colors(TCODConsole* con, T* element);
         virtual ScreenItem build_screen_item(TCODConsole* con, int i, T* element) = 0;
 
         virtual void draw();
@@ -52,7 +53,6 @@ class InventoryScreen : public Screen<T>
         InventoryScreen::~InventoryScreen(){};
         virtual bool is_enabled(T* element);
 
-        std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
@@ -77,6 +77,7 @@ class ClassScreen : public Screen<T>
         ClassScreen<T>() : Screen() { this->title="Class Screen"; };
         ClassScreen::~ClassScreen(){};
 
+        virtual bool is_enabled(T* element);
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
