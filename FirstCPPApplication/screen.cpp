@@ -159,7 +159,7 @@ template void Screen<Item>::loop(TCODConsole* con, int i);
 template void Screen<IClass>::loop(TCODConsole* con, int i);
 template void Screen<Spell>::loop(TCODConsole* con, int i);
 
-template<typename T>
+    template<typename T>
 std::vector<TCODColor> Screen<T>::get_colors(TCODConsole* con, T* element)
 {
     TCODColor foreground, background;
@@ -169,7 +169,7 @@ std::vector<TCODColor> Screen<T>::get_colors(TCODConsole* con, T* element)
         { 
             foreground = TCODColor::red+TCODColor::yellow; 
         }
-            else { foreground = TCODColor::red+TCODColor::green; }
+        else { foreground = TCODColor::red+TCODColor::green; }
     }
     else
     {
@@ -205,16 +205,14 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     bool is_active = this->is_active(element);
     bool is_enabled = this->is_enabled(element);
 
-        if (is_chosen)
-        {
-            msg_str.append(" <-");
-            // if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
-            // else { foreground = TCODColor::red+TCODColor::green; }
-        }
+    if (is_chosen)
+    {
+        msg_str.append(" <-");
+    }
 
-        std::vector<TCODColor> colors = this->get_enabled_colors(con,  element);
-        foreground = colors.at(0);
-        background = colors.at(1);
+    std::vector<TCODColor> colors = this->get_enabled_colors(con,  element);
+    foreground = colors.at(0);
+    background = colors.at(1);
 
     char buffer[512];
     TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
@@ -232,7 +230,7 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
 };
 template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
 
-template<typename T>
+    template<typename T>
 std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* element)
 {
     TCODColor foreground, background;
