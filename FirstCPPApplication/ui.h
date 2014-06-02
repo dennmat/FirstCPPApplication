@@ -105,7 +105,7 @@ class Ui
         static void draw_inventory_main();
         static void draw_inventory_ui();
         static void draw_inventory_msg();
-        static void inventory_ui_loop(TCODConsole* con, int offset, int i, char key);
+        // static void inventory_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static bool item_is_chosen();
         static bool Ui::spell_is_chosen();
