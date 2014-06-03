@@ -598,3 +598,33 @@ std::string ItemEffect::oneline_str()
 
 };
 
+std::string ItemEffect::oneline_str_colorless()
+{
+
+    std::string result = "";
+    std::vector<std::string> string_vec;
+
+    string_vec.push_back(this->small_convert("HCV: ", (int)this->health_current_val));
+    string_vec.push_back(this->small_convert("HMV: ", (int)this->health_max_val));
+    string_vec.push_back(this->small_convert("HRR: ", (int)this->health_regen_rate));
+    string_vec.push_back(this->small_convert("HRI: ", (int)this->health_regen_interval));
+
+    string_vec.push_back(this->small_convert("MCV: ", (int)this->mana_current_val));
+    string_vec.push_back(this->small_convert("MMV: ", (int)this->mana_max_val));
+    string_vec.push_back(this->small_convert("MRR: ", (int)this->mana_regen_rate));
+    string_vec.push_back(this->small_convert("MRI: ", (int)this->mana_regen_interval));
+
+    string_vec.push_back(this->small_convert("ACV: ", (int)this->armor_current_val));
+    string_vec.push_back(this->small_convert("AMV: ", (int)this->armor_max_val));
+    string_vec.push_back(this->small_convert("ARR: ", (int)this->armor_regen_rate));
+    string_vec.push_back(this->small_convert("ARI: ", (int)this->armor_regen_interval));
+
+    string_vec.push_back(this->small_convert("DCV: ", (int)this->damage_current_val));
+    string_vec.push_back(this->small_convert("DMV: ", (int)this->damage_max_val));
+    string_vec.push_back(this->small_convert("DRR: ", (int)this->damage_regen_rate));
+    string_vec.push_back(this->small_convert("DRI: ", (int)this->damage_regen_interval));
+
+    return StringJoin(string_vec, ' ', true);
+
+};
+

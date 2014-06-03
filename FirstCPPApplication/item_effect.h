@@ -122,6 +122,7 @@ class ItemEffect
         std::string ItemEffect::small_convert(std::string prefix, int val);
         std::string full_str();
         std::string oneline_str();
+        std::string oneline_str_colorless();
         // std::vector<TCODColor> oneline_str_colours();
         std::vector<TCOD_colctrl_t> oneline_str_colours();
 

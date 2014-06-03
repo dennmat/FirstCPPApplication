@@ -242,7 +242,7 @@ void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
     int help_text_width = std::max((double)help_text.size(), (double)health_text.size())+1;
     int adjusted_w = help_text_width+left_pad+right_pad;
     int adjusted_h = help_text_height+top_pad+bot_pad;
-    TCODConsole help_con = TCODConsole(adjusted_w, adjusted_h);
+    TCODConsole help_con = TCODConsole(adjusted_w+100, adjusted_h+100);
     if (!mouse_tile->is_known())
         help_con.setDefaultForeground(TCODColor::darkestGrey);
     help_con.clear();
@@ -255,7 +255,17 @@ void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
     help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
     help_con.print(1+left_pad, 3+top_pad, health_text.c_str());
 
-    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, 0, 25);
+
+    if (mouse_tile->occupant != NULL)
+    {
+        TCODImage* img = mouse_tile->occupant->get_image();
+        // TCODImage img = TCODImage(mouse_tile->occupant->img_path.c_str());
+        img->blit(&help_con, 9, 12);
+        delete img;
+    };
+
+
+    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w+100, adjusted_h+100, ui_sidebar_con, 0, 23);
     // TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, Game::mouse_evt.cx+Game::camera_x+1, Game::mouse_evt.cy+Game::camera_y+1);
 };
 

@@ -55,7 +55,7 @@
 
 int Game::__version_major = 0;
 int Game::__version_minor = 5;
-int Game::__version_mini = 0;
+int Game::__version_mini = 1;
 
 
 // Game initialization
@@ -660,6 +660,12 @@ bool gameplay_loop(bool incr_turn)
 
     //draw the UI
     Game::draw_ui();
+
+
+
+
+
+
     //draw the game_console to root, taking from where the camera is looking at
     TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
@@ -764,6 +770,12 @@ void Game::mainloop()
         }
 
         //draw the root console to screen to screen
+	// std::string path = get_data_path()+"img/Troll_Icon_03.png";
+    // TCODImage img =  TCODImage(path.c_str());
+    // img.setKeyColor(TCODColor(255, 0, 255));
+    //TCODImage* img =  new TCODImage("troll.png");
+    // img.blitRect(TCODConsole::root, 10.0, 10.0);
+    //img->blit(Game::game_console, 10, 10);
 
         TCODConsole::flush();
         TCODConsole::root->clear();

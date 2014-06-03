@@ -53,6 +53,9 @@ class Actor : public Object
 
         int level;
         int xp_value;
+
+        std::string img_path;
+        TCODImage* get_image();
         
         bool is_champion;
         static int champ_chance;

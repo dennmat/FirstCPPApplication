@@ -23,6 +23,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr) : Person(name
     // this->name = name;
     // this->age = age;
     // this->x = x;
+    this->img_path = get_data_path()+"img/Troll_Icon_03.png";
     // this->y = y;
 
     //set its representation, aka color and char

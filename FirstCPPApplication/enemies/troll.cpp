@@ -27,6 +27,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr) : Person(name, 
     // this->age = age;
     // this->x = x;
     // this->y = y;
+    this->img_path = get_data_path()+"img/Troll_Icon_02.png";
 
     //set its representation, aka color and char
     // Representation * new_repr =   new Representation;

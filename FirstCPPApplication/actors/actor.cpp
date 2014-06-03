@@ -37,6 +37,8 @@ Actor::Actor()
     this->cls_name = "Actor";
     this->name = "Unset Actor name";
 
+    this->img_path = get_data_path()+"img/Troll_Icon_01.png";
+
     this->xp = 0;
     this->xp_this_level = 0;
     this->xp_required = 100;
@@ -70,6 +72,13 @@ Actor::Actor()
 
     this->l_path = NULL;
     this->has_attacked = false;
+};
+
+TCODImage* Actor::get_image()
+{
+    TCODImage* img = new TCODImage(this->img_path.c_str());
+    img->setKeyColor(TCODColor(255, 0, 255)); //XNA Pink
+    return img;
 };
 
 Actor::~Actor()
@@ -768,7 +777,7 @@ void Actor::ScorePrintout()
     {
         necro << (*it)->name << std::endl;
         necro << (*it)->description << std::endl;
-        necro << (*it)->item_effect->full_str().c_str() << std::endl;
+        necro << (*it)->item_effect->oneline_str_colorless().c_str() << std::endl << std::endl;
     }
     necro  << std::endl;
 

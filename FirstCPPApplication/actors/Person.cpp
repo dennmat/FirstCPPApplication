@@ -20,6 +20,7 @@
 #include "ui.h"
 #include "civilian.h"
 #include "enums\hunger_threshold.h"
+#include <utils.h>
 
 Person::Person(std::string name, int age, int x, int y, char repr)
 {
@@ -28,6 +29,8 @@ Person::Person(std::string name, int age, int x, int y, char repr)
     this->age = age;
     this->x = x;
     this->y = y;
+
+    this->img_path = get_data_path()+"img/Troll_Icon_01.png";
 
     //   if (name == "Josh")
     //{

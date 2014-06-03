@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include <utils.h>
+
 // TODO: reference additional headers your program requires here
 #include <libtcod.hpp>
 

@@ -918,7 +918,7 @@ void move_camera(int dir_x, int dir_y)
 
 bool Input::move_target(int x, int y)
 {
-    std::cout << "move_target" << std::endl;
+    //std::cout << "move_target" << std::endl;
     Ui::targetted_tile = Ui::targetted_tile->getTileAtRelative(x, y);
     move_camera(x, y);
     return false;
