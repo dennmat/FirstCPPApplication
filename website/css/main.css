@@ -62,8 +62,27 @@ textarea {
    ========================================================================== */
 
 
+body {
+    background-color: #B0304C;
+    font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
 
+.header {
+    background-color: #6d0017;
+    color: #B0304C;
+    font-size: 54px;
+    padding: 10px;
+}
 
+.build-wrap {
+    margin: 25px 25% 0 25%;
+    background-color: #8E152F;
+}
+.build {
+    border-style: outset;
+    border-color: #6d0017;
+    padding: 10px;
+}
 
 
 
