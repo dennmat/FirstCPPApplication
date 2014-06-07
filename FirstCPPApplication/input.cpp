@@ -1047,7 +1047,7 @@ bool Input::process_movement_keys(TCOD_key_t request)
 
     //if the player has moved or attacked this update, increment the turn
     //counter
-    if ((orig_plr_pos_x != Game::player->x || orig_plr_pos_y != Game::player->y || Game::player->has_attacked))
+    if ((orig_plr_pos_x != Game::player->x || orig_plr_pos_y != Game::player->y || (Game::player->has_attacked && !Ui::is_targetting)))
     {
         return true;
     }

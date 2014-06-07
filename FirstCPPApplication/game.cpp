@@ -372,6 +372,7 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 
     new_pers->is_fighter = false;
     delete new_pers->combat;
+    new_pers->combat = NULL;
 
     return new_pers;
 };
