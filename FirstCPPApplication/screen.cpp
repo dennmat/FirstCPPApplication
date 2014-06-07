@@ -100,7 +100,7 @@ void Screen<T>::draw()
 };
 
     template<typename T>
-void Screen<T>::draw_arrows(TCODConsole* con, bool left_to_draw)
+void Screen<T>::draw_scroll_arrows(TCODConsole* con, bool left_to_draw)
 {
     int x = 65;
     int line_height = 15;
@@ -139,7 +139,7 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
     if (item_count >= Ui::per_page || Ui::offset != 0)
     {
 	bool left_to_draw = it!= this->elements->end();
-        Screen::draw_arrows(con, left_to_draw);
+        Screen::draw_scroll_arrows(con, left_to_draw);
     }
 
 };
