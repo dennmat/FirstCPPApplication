@@ -35,27 +35,18 @@ Screen<T>::Screen()
     this->elements = new std::vector<T*>;
     this->screen_items = new std::vector<ScreenItem*>;
 };
-template Screen<Item>::Screen();
-template Screen<Spell>::Screen();
-template Screen<IClass>::Screen();
 
     template<typename T>
 bool Screen<T>::is_chosen(T* element)
 {
     return element == Ui::chosen_generic;
 };
-template bool Screen<Item>::is_chosen(Item* element);
-template bool Screen<Spell>::is_chosen(Spell* element);
-template bool Screen<IClass>::is_chosen(IClass* element);
 
     template<typename T>
 bool Screen<T>::is_active(T* element)
 {
     return Ui::generic_active;
 };
-template bool Screen<Item>::is_active(Item* element);
-template bool Screen<Spell>::is_active(Spell* element);
-template bool Screen<IClass>::is_active(IClass* element);
 
 // InventoryScreen::InventoryScreen() : Screen()
 // {
@@ -78,7 +69,6 @@ void Screen<T>::draw_mouse_horiz_line(TCODConsole* con)
     con->putChar(this->hline, Game::mouse_evt.cy, '>');
 
 };
-template void Screen<Item>::draw_mouse_horiz_line(TCODConsole* con);
 
     template<typename T>
 TCODConsole* Screen<T>::create_screen()
@@ -88,7 +78,6 @@ TCODConsole* Screen<T>::create_screen()
     TCODConsole *con = new TCODConsole(con_w, con_h);
     return con;
 };
-template TCODConsole* Screen<Item>::create_screen();
 
     template<typename T>
 void Screen<T>::draw()
@@ -102,20 +91,13 @@ void Screen<T>::draw()
     //draw mouse line
     this->draw_mouse_horiz_line(con);
 
-    //     if (loop_through_lines != NULL)
-    //     {
-    //         loop_through_lines(con, offset, i, key);
     int i = 5;
     this->loop(con, i);
-    //     };
 
     TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
     delete con;
 
 };
-template void Screen<Item>::draw();
-template void Screen<IClass>::draw();
-template void Screen<Spell>::draw();
 
     template<typename T>
 void Screen<T>::build_screen_items(TCODConsole* con, int i)
@@ -132,9 +114,6 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
     }
 
 };
-template void Screen<Item>::build_screen_items(TCODConsole* con, int i);
-template void Screen<IClass>::build_screen_items(TCODConsole* con, int i);
-template void Screen<Spell>::build_screen_items(TCODConsole* con, int i);
 
 
     template<typename T>
@@ -155,9 +134,6 @@ void Screen<T>::loop(TCODConsole* con, int i)
 
     this->build_screen_items(con, i);
 };
-template void Screen<Item>::loop(TCODConsole* con, int i);
-template void Screen<IClass>::loop(TCODConsole* con, int i);
-template void Screen<Spell>::loop(TCODConsole* con, int i);
 
     template<typename T>
 std::vector<TCODColor> Screen<T>::get_colors(TCODConsole* con, T* element)
@@ -191,7 +167,6 @@ bool InventoryScreen<T>::is_enabled(T* element)
 {
     return Ui::game->player->equipment->is_item_equipped(element);
 };
-template bool InventoryScreen<Item>::is_enabled(Item* element);
 
 
     template<typename T>
@@ -228,7 +203,6 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
 
     return result;
 };
-template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
 
     template<typename T>
 std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* element)
@@ -269,8 +243,6 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
     result.push_back(background);
     return result;
 };
-template std::vector<TCODColor> Screen<Item>::get_enabled_colors(TCODConsole* con, Item* element);
-template std::vector<TCODColor> Screen<IClass>::get_enabled_colors(TCODConsole* con, IClass* element);
 
     template<typename T>
 void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
@@ -293,7 +265,6 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
     i++;
     i++;
 };
-template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 
 
@@ -362,7 +333,6 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 
     return result;
 };
-template ScreenItem SpellScreen<Spell>::build_screen_item(TCODConsole* con, int i, Spell* element);
 
     template<typename T>
 void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
@@ -383,7 +353,6 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
     i++;
 };
-template void SpellScreen<Spell>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 /* SPELL SCREEN */
     template<typename T>
@@ -425,7 +394,6 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 
     return result;
 };
-template ScreenItem ClassScreen<IClass>::build_screen_item(TCODConsole* con, int i, IClass* element);
 
     template<typename T>
 void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
@@ -449,7 +417,6 @@ void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
     i++;
 };
-template void ClassScreen<IClass>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 
     template<typename T>
@@ -457,5 +424,37 @@ bool ClassScreen<T>::is_enabled(T* element)
 {
     return Ui::game->player->actor_class->type == element->type;
 };
+
+/* templates are sorta lame */
+template Screen<Item>::Screen();
+template bool Screen<Item>::is_chosen(Item* element);
+template bool Screen<Item>::is_active(Item* element);
+template void Screen<Item>::draw_mouse_horiz_line(TCODConsole* con);
+template TCODConsole* Screen<Item>::create_screen();
+template void Screen<Item>::draw();
+template void Screen<Item>::build_screen_items(TCODConsole* con, int i);
+template void Screen<Item>::loop(TCODConsole* con, int i);
+template bool InventoryScreen<Item>::is_enabled(Item* element);
+template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
+template std::vector<TCODColor> Screen<Item>::get_enabled_colors(TCODConsole* con, Item* element);
+template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+
+template Screen<IClass>::Screen();
+template bool Screen<IClass>::is_chosen(IClass* element);
+template bool Screen<IClass>::is_active(IClass* element);
+template void Screen<IClass>::draw();
+template void Screen<IClass>::build_screen_items(TCODConsole* con, int i);
+template void Screen<IClass>::loop(TCODConsole* con, int i);
+template std::vector<TCODColor> Screen<IClass>::get_enabled_colors(TCODConsole* con, IClass* element);
+template ScreenItem ClassScreen<IClass>::build_screen_item(TCODConsole* con, int i, IClass* element);
+template void ClassScreen<IClass>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 template bool ClassScreen<IClass>::is_enabled(IClass* element);
 
+template Screen<Spell>::Screen();
+template bool Screen<Spell>::is_chosen(Spell* element);
+template bool Screen<Spell>::is_active(Spell* element);
+template void Screen<Spell>::draw();
+template void Screen<Spell>::build_screen_items(TCODConsole* con, int i);
+template void Screen<Spell>::loop(TCODConsole* con, int i);
+template ScreenItem SpellScreen<Spell>::build_screen_item(TCODConsole* con, int i, Spell* element);
+template void SpellScreen<Spell>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);

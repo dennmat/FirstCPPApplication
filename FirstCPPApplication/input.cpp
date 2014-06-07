@@ -1250,7 +1250,6 @@ bool Input::process_key_event(TCOD_key_t request)
             else 
             {
                 Ui::is_targetting = false;
-                printf("defaulting to generic screen\n");
                 std::vector<void*>* _ = new std::vector<void*>;
                 Input::select_generic(request, _, is_key_generic_menu_command, Input::process_generic_menu_keys);
                 delete _;
@@ -1285,7 +1284,6 @@ void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*
     generic_keypair_t::iterator it = generic_map.find(letter);
     if (it != generic_map.end())
     {
-        printf("not at end\n");
         if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
         {
             if (allow_activate)
