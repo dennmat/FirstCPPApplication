@@ -438,21 +438,21 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    // for (int i = 0; i < 52; i++)
-    // {
-    //     Item* item2 = new Item();
-    //     item2->name = "Item of Holding";
-    //     item2->name.append(std::to_string((long double)i+1));
-    //     item2->item_effect->health_current_val = 1;
-    //     item2->item_effect->mana_current_val = 1;
-    //     item2->item_effect->armor_current_val = 1;
-    //     item2->item_effect->damage_current_val = 900;
-    //     item2->item_effect->damage_max_val = 900;
-    //     item2->item_effect->duration= 4;
-    //     item2->usable = true;
-    //     item2->description = "You can hold this item";
-    //     player->inventory->add_item(item2);
-    // };
+    for (int i = 0; i < 52; i++)
+    {
+        Item* item2 = new Item();
+        item2->name = "Item of Holding";
+        item2->name.append(std::to_string((long double)i+1));
+        item2->item_effect->health_current_val = 1;
+        item2->item_effect->mana_current_val = 1;
+        item2->item_effect->armor_current_val = 1;
+        item2->item_effect->damage_current_val = 900;
+        item2->item_effect->damage_max_val = 900;
+        item2->item_effect->duration= 4;
+        item2->usable = true;
+        item2->description = "You can hold this item";
+        player->inventory->add_item(item2);
+    };
 
 };
 

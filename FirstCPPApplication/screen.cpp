@@ -100,8 +100,31 @@ void Screen<T>::draw()
 };
 
     template<typename T>
+void Screen<T>::draw_arrows(TCODConsole* con, bool left_to_draw)
+{
+    int x = 65;
+    int line_height = 15;
+    int offset = 11;
+
+    char top_char = ' ';
+    if (Ui::offset != 0) { top_char = '^'; }
+    con->putChar(x, 10, top_char);
+
+    for (int i = 0; i < line_height; i++)
+    {
+        con->putChar(x, i+offset, '.');
+    };
+
+    char bot_char = ' ';
+    if (Ui::offset == 0 || left_to_draw ) { bot_char = 'v'; }
+    con->putChar(x, 25, bot_char);
+
+}
+
+    template<typename T>
 void Screen<T>::build_screen_items(TCODConsole* con, int i)
 {
+    int item_count = 0;
     std::vector<T*>::iterator it = this->elements->begin() + Ui::offset;
     for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
     {
@@ -110,7 +133,13 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
         si.handle_mouse(i);
 
         this->key++;
-
+        item_count++;
+        if (item_count >= Ui::per_page) { break; };
+    }
+    if (item_count >= Ui::per_page || Ui::offset != 0)
+    {
+	bool left_to_draw = it!= this->elements->end();
+        Screen::draw_arrows(con, left_to_draw);
     }
 
 };

@@ -32,6 +32,7 @@ class Screen
         void draw_screen_title(TCODConsole* con);
         void draw_mouse_horiz_line(TCODConsole* con);
         virtual void loop(TCODConsole* con, int i);
+        void Screen<T>::draw_arrows(TCODConsole* con, bool left_to_draw);
 
         void build_screen_items(TCODConsole* con, int i);
         virtual std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
