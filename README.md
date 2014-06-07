@@ -28,4 +28,4 @@ New goals:
 * enemies who can throw/cast
 
 
-![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/Screenshot_20Apr2014.png)
+![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/screenshots/Screenshot_20Apr2014.png)
