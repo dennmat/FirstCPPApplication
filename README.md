@@ -23,7 +23,7 @@ New goals:
 * selling inventory
 * going back up floors
 * some sort of over the top stat tracking
-* different environments. There's just dull brown now
+* ~~different environments. There's just dull brown now~~
 * throwing items
 * enemies who can throw/cast
 
