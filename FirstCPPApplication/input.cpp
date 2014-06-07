@@ -655,8 +655,7 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
         Item* item = ((Item*)Ui::chosen_generic);
-        Ui::chosen_generic = NULL;
-        Ui::generic_active = false;
+        Ui::reset_generic();
 
         Game::player->inventory->drop_item(item);
         return true;
@@ -665,7 +664,12 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     else if( action == inventory_items_active_t::UseItem )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using item.");
-        ((Item*)Ui::chosen_generic)->use(Game::player);
+        Item* item = ((Item*)Ui::chosen_generic);
+        item->use(Game::player);
+        if (item->uses == 0)
+        {
+            Ui::reset_generic();
+        };
         return true;
     }
 
@@ -1199,8 +1203,7 @@ bool Input::process_key_event(TCOD_key_t request)
                 {
                     //stop the targetting so that user has to retry
                     Ui::is_targetting = false;
-                    Ui::chosen_generic = NULL;
-                    Ui::generic_active = false;
+                    Ui::reset_generic();
                 }
             }
 
@@ -1313,8 +1316,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
         if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
         {
             std::cout << "Back to the game." << std::endl;
-            Ui::chosen_generic = NULL;
-            Ui::generic_active = false;
+            Ui::reset_generic();
             Input::generic_index = 'a';
             Game::current_state = GameStates::GameplayState;
         }

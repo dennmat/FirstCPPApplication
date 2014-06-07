@@ -752,8 +752,7 @@ void Ui::class_ui_loop(TCODConsole* con, int offset, int i, char key)
         }
         else if (Game::mouse_evt.rbutton_pressed)
         {
-            Ui::chosen_generic = NULL;
-            Ui::generic_active = false;
+            Ui::reset_generic();
         };
 
         //print the class name and selection
@@ -857,8 +856,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         }
         else if (Game::mouse_evt.rbutton_pressed)
         {
-            Ui::chosen_generic = NULL;
-            Ui::generic_active = false;
+            Ui::reset_generic();
         };
 
         //print the spell name and selection
@@ -1122,4 +1120,10 @@ bool Ui::spell_is_chosen()
 void Ui::draw_main_menu()
 {
     printf("hello!\r");
+};
+
+void Ui::reset_generic()
+{
+    Ui::chosen_generic = NULL;
+    Ui::generic_active = false;
 };
