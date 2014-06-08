@@ -20,6 +20,7 @@ class Combat
 
         bool is_dead;
         bool was_attacked;
+        Actor* last_victim;
         std::vector<Combat*> * attackers;
 
         Combat (std::string name, int max_hp, Person* master, char representation = 'p' );
@@ -33,10 +34,12 @@ class Combat
         Combat* GetLastAttacker();
         void update();
         void assign_to_master(Person* master);
+
         void GiveExp(int exp_to_gain);
+
         void LevelUp(int levels = 1);
-        void Combat::LevelUpStats(int levels);
-        void Combat::LevelUpSkills(int levels);
+        void LevelUpStats(int levels);
+        void LevelUpSkills(int levels);
 
         void printout();
 };

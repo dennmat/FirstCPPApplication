@@ -161,7 +161,7 @@ void Ui::draw_ui()
 bool Ui::should_draw_mouse_helpbox()
 {
     // return true;
-    return Ui::tick_mouse_moved > Ui::tick_key_pressed;
+    return Ui::tick_mouse_moved > Ui::tick_key_pressed || Game::player->combat->last_victim != NULL;
 };
 
 void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
@@ -301,16 +301,6 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_h = Ui::game->screen_h-ui_msg_h;
     TCODConsole *ui_sidebar_con = new TCODConsole(ui_sidebar_w, ui_sidebar_h);
 
-    if (Ui::should_draw_mouse_helpbox())
-    {
-        TCODMouse::showCursor(true);
-        draw_mouse_helpbox(ui_sidebar_con);
-    }
-    else 
-    {
-        TCODMouse::showCursor(false);
-    };
-
     //reset ui console to default
     TCODColor ui_sidebar_color(10, 5, 5);
     TCODColor ui_sidebar_fore = ui_sidebar_con->getDefaultForeground();
@@ -360,6 +350,16 @@ void Ui::draw_ui_sidebar()
     //facing direction
     Ui::draw_facing_angle(ui_sidebar_con, first_y);
     first_y++;
+
+    if (Ui::should_draw_mouse_helpbox())
+    {
+        TCODMouse::showCursor(true);
+        draw_mouse_helpbox(ui_sidebar_con);
+    }
+    else 
+    {
+        TCODMouse::showCursor(false);
+    };
 
     //draw ui console to root
     TCODConsole::blit(ui_sidebar_con, 0, 0, ui_sidebar_w, ui_sidebar_h, TCODConsole::root, Ui::game->screen_w-ui_sidebar_w, 0 );

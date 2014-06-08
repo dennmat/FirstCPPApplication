@@ -138,7 +138,7 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
     }
     if (item_count >= Ui::per_page || Ui::offset != 0)
     {
-	bool left_to_draw = it!= this->elements->end();
+        bool left_to_draw = it!= this->elements->end();
         Screen::draw_scroll_arrows(con, left_to_draw);
     }
 
