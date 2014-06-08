@@ -160,9 +160,77 @@ void Ui::draw_ui()
 
 bool Ui::should_draw_mouse_helpbox()
 {
-    // return true;
-    return Ui::tick_mouse_moved > Ui::tick_key_pressed || Game::player->combat->last_victim != NULL;
+    return Ui::tick_mouse_moved > Ui::tick_key_pressed;
 };
+
+bool Ui::should_draw_attacker_helpbox()
+{
+    return Game::player->combat->last_victim != NULL;
+};
+
+void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con)
+{
+    //get help text
+    std::string help_text = "";
+    std::string health_text = "";
+    Tile* victim_tile = Game::player->combat->last_victim->my_tile;
+    int help_text_height = 3;
+    if (! victim_tile->is_known())
+    {
+        help_text = "Unknown tile";
+    }
+    else if (victim_tile->is_occupied())
+    {
+        help_text_height = 5;
+        help_text = victim_tile->occupant->name;
+        float health_percent = victim_tile->occupant->attrs->health->GetValPercentage();
+        if (health_percent > 75.0f) { health_text = "It's healthy."; }
+        else if  (health_percent > 50.0f ) { health_text = "It's hurt."; }
+        else if  (health_percent > 25.0f ) { health_text = "It's very hurt."; }
+        else if  (health_percent > 10.0f ) { health_text = "It's in critical condition."; }
+        else { health_text = "It's near death."; }
+
+    }
+    else if (victim_tile->inventory->get_count() > 0)
+    {
+        help_text = victim_tile->inventory->items->back()->name;
+    }
+    else
+    {
+        help_text = victim_tile->get_description();
+    };
+
+    //draw the right sizes
+    int left_pad=1, right_pad=2, top_pad=1, bot_pad=1;
+    int help_text_width = std::max((double)help_text.size(), (double)health_text.size())+1;
+    int adjusted_w = help_text_width+left_pad+right_pad;
+    int adjusted_h = help_text_height+top_pad+bot_pad;
+    TCODConsole help_con = TCODConsole(adjusted_w+100, adjusted_h+100);
+    if (!victim_tile->is_known())
+        help_con.setDefaultForeground(TCODColor::darkestGrey);
+    help_con.clear();
+
+    if (!victim_tile->is_known())
+        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h, "?", "?", "?", "?", "?", "?", "?", "?");
+    else
+        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
+
+    help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
+    help_con.print(1+left_pad, 3+top_pad, health_text.c_str());
+
+
+    if (victim_tile->occupant != NULL)
+    {
+        TCODImage* img = victim_tile->occupant->get_image();
+        // TCODImage img = TCODImage(victim_tile->occupant->img_path.c_str());
+        img->blit(&help_con, 9, 12);
+        delete img;
+    };
+
+
+    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w+100, adjusted_h+100, ui_sidebar_con, 0, 23);
+    // TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, Game::mouse_evt.cx+Game::camera_x+1, Game::mouse_evt.cy+Game::camera_y+1);
+}
 
 void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
 {
@@ -180,26 +248,11 @@ void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
         help_text_height = 5;
         help_text = mouse_tile->occupant->name;
         float health_percent = mouse_tile->occupant->attrs->health->GetValPercentage();
-        if (health_percent > 75.0f)
-        {
-            health_text = "It's healthy.";
-        }
-        else if  (health_percent > 50.0f )
-        {
-            health_text = "It's hurt.";
-        }
-        else if  (health_percent > 25.0f )
-        {
-            health_text = "It's very hurt.";
-        }
-        else if  (health_percent > 10.0f )
-        {
-            health_text = "It's in critical condition.";
-        }
-        else
-        {
-            health_text = "It's near death.";
-        }
+        if (health_percent > 75.0f) { health_text = "It's healthy."; }
+        else if  (health_percent > 50.0f ) { health_text = "It's hurt."; }
+        else if  (health_percent > 25.0f ) { health_text = "It's very hurt."; }
+        else if  (health_percent > 10.0f ) { health_text = "It's in critical condition."; }
+        else { health_text = "It's near death."; }
 
 
         // std::stringstream ss;
@@ -354,7 +407,12 @@ void Ui::draw_ui_sidebar()
     if (Ui::should_draw_mouse_helpbox())
     {
         TCODMouse::showCursor(true);
-        draw_mouse_helpbox(ui_sidebar_con);
+        Ui::draw_mouse_helpbox(ui_sidebar_con);
+    }
+    else if (Ui::should_draw_attacker_helpbox())
+    {
+        std::cout << "drawing attacker" << std::endl;
+        Ui::draw_attacker_helpbox(ui_sidebar_con);
     }
     else 
     {

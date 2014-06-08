@@ -137,6 +137,7 @@ void Combat::Attack(Combat* combat_target, int dmg){
 
     new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "About to attack %s for %d damage.", combat_target->master->name.c_str(), dmg);
     combat_target->TakeDamage(this, dmg);
+    this->last_victim = combat_target->master;
 
     bool is_target_dead = combat_target->CheckDeath();
     if (is_target_dead){
