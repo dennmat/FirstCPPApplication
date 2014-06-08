@@ -22,6 +22,7 @@
 #include "debug_options.h"
 #include "messages.h"
 #include "ui.h"
+#include "combat.h"
 
 Map::Map()
 {
@@ -894,6 +895,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
             // in_types && !target_tile->is_occupied())
     {
         thePerson->has_attacked = false;
+        thePerson->combat->last_victim = NULL;
         thePerson->putPerson(target_tile, new_x, new_y);
         return true;
     }

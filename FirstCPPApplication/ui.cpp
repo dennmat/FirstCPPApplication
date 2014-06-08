@@ -165,7 +165,7 @@ bool Ui::should_draw_mouse_helpbox()
 
 bool Ui::should_draw_attacker_helpbox()
 {
-    return Game::player->combat->last_victim != NULL;
+    return Game::player->combat->last_victim != NULL && Game::player->combat->last_victim->is_active;
 };
 
 void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con)
