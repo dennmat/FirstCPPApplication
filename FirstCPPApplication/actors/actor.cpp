@@ -245,6 +245,7 @@ Item* spawnItemBase(std::string name, std::string description, char repr, slots_
         dropped_item->description = description;
         dropped_item->slot_type = slot;
         dropped_item->weight = weight;
+        dropped_item->item_effect->set_all_vals_to(0);
         return dropped_item;
 };
 
@@ -281,72 +282,54 @@ Item* spawnWeapon()
         std::string description = "It looks like it can swipe left to right and up and down. Wow.";
         dropped_item = spawnEquippable("A sword", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        //sword damage
-        int damage = rng->getInt(5, 15, 8);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
+        //damage
+        dropped_item->item_effect->set_rng_damage(rng, 5, 15, 8);
     }
     else if (result == MaceSpawn)
     {
         std::string description = "It looks like your mom.";
         dropped_item = spawnEquippable("A mace", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        //dagger damage
-        int damage = rng->getInt(1, 5, 3);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
+        //damage
+        dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
     }
     else if (result == DaggerSpawn)
     {
         std::string description = "It cuts quickly and deeply";
         dropped_item = spawnEquippable("A dagger", description, '/', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lighterSepia, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        //dagger damage
-        int damage = rng->getInt(1, 5, 3);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
+        //damage
+        dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
     }
     else if (result == TridentSpawn)
     {
         std::string description = "It looks like it could kill a man.";
         dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        //dagger damage
-        int damage = rng->getInt(4, 20, 5);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
+        //damage
+        dropped_item->item_effect->set_rng_damage(rng, 4, 20, 5);
     }
     else if (result == WhipSpawn)
     {
         std::string description = "It looks as if it had been used on something recently.";
         dropped_item = spawnEquippable("A whip", description, '&', slots_t::MainHand, 5);
         dropped_item->repr->setFGColor(TCODColor::darkerOrange, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        //dagger damage
-        int damage = rng->getInt(4, 9, 4);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
+        //damage
+        dropped_item->item_effect->set_rng_damage(rng, 4, 9, 4);
     }
     else if (result == KatanaSpawn)
     {
         std::string description = "It looks very sharp.";
         dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        //dagger damage
-        int damage = rng->getInt(10, 20, 11);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
+        //damage
+        dropped_item->item_effect->set_rng_damage(rng, 10, 20, 11);
     }
     else
     {
@@ -375,66 +358,55 @@ Item* spawnArmor()
         std::string description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item = spawnEquippable("Chainmail", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //sword damage
-        int armor = rng->getInt(3, 8, 3);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
+
+        dropped_item->item_effect->set_rng_armor(rng, 3, 8, 3);
     }
     else if (result == LeatherChestSpawn)
     {
         std::string description = "It looks like it's made up of leather hide.";
         dropped_item = spawnEquippable("Leather Chestpiece", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
-        int armor = rng->getInt(1, 5, 2);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
+
+        dropped_item->item_effect->set_rng_armor(rng, 1, 5, 2);
     }
     else if (result == ShieldSpawn)
     {
         std::string description = "It looks like it can take a few hits.";
         dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //shield armor
-        int armor = rng->getInt(1, 5, 3);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
+
+        dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
     }
     else if (result == TargetShieldSpawn)
     {
         std::string description = "It looks like it can block several hits.";
         dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lighterGrey, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //shield armor
-        int armor = rng->getInt(3, 7, 3);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
+
+        dropped_item->item_effect->set_rng_armor(rng, 3, 7, 3);
     }
     else if (result == HelmetSpawn)
     {
         std::string description = "It looks sturdy.";
         dropped_item = spawnEquippable("A helmet", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //armor
-        int armor = rng->getInt(1, 5, 3);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
+
+        dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
     }
     else if (result == CrownSpawn)
     {
         std::string description = "It looks shiny.";
         dropped_item = spawnEquippable("A crown", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::gold, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //armor
         int armor = rng->getInt(1, 5, 3);
@@ -474,7 +446,6 @@ Item* spawnPotion()
         std::string description = "It looks like it's safe to drink.";
         dropped_item = spawnUsable("A health potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         int health = rng->getInt(10, 100, 25);
@@ -485,7 +456,6 @@ Item* spawnPotion()
         std::string description = "It looks like it's probably safe to drink.";
         dropped_item = spawnUsable("A glowing health potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         int health = rng->getInt(5, 50, 15);
@@ -498,7 +468,6 @@ Item* spawnPotion()
         std::string description = "It looks like could be safe to drink.";
         dropped_item = spawnUsable("A pulsating health potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         int health = rng->getInt(1, 5, 1);
@@ -510,7 +479,6 @@ Item* spawnPotion()
         std::string description = "It looks like a small bit of essence is trapped inside. Better drink it.";
         dropped_item = spawnUsable("A blue potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightBlue, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0); 
 
         //health restore
         int mana = rng->getInt(1, 50, 10);
@@ -521,8 +489,6 @@ Item* spawnPotion()
         std::string description = "It looks like a good time.";
         dropped_item = spawnUsable("A glowing blue potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightestBlue, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0); 
-
 
         //mana regen
         int mana = rng->getInt(1, 5, 1);
@@ -557,7 +523,6 @@ Item* spawnSpecial()
         std::string description = "It glows.";
         dropped_item = spawnEquippable("A amulet", description, '|', slots_t::Neck, 2);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
         int armor = rng->getInt(1, 5, 2);
@@ -577,7 +542,6 @@ Item* spawnSpecial()
         std::string description = "It glows a golden hue.";
         dropped_item = spawnEquippable("A golden ring", description, '|', slots_t::Fingers, 2);
         dropped_item->repr->setFGColor(TCODColor::gold, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
 
         //dagger damage
         int armor = rng->getInt(1, 5, 2);
@@ -594,7 +558,6 @@ Item* spawnSpecial()
         std::string description = "Auburn Fireflies in a bottle";
         dropped_item = spawnEquippable("A bottle of red fireflies", description, '0', slots_t::Fingers, 1);
         dropped_item->repr->setFGColor(TCODColor::fuchsia, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->usable = true;
         dropped_item->equippable = false;
 
@@ -613,7 +576,6 @@ Item* spawnSpecial()
         std::string description = "Azure Fireflies in a bottle";
         dropped_item = spawnEquippable("A bottle of azure fireflies", description, '0', slots_t::Fingers, 1);
         dropped_item->repr->setFGColor(TCODColor::azure, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->usable = true;
         dropped_item->equippable = false;
 
@@ -630,7 +592,6 @@ Item* spawnSpecial()
         std::string description = "Celadon Fireflies in a bottle";
         dropped_item = spawnEquippable("A bottle of celadon fireflies", description, '0', slots_t::Fingers, 1);
         dropped_item->repr->setFGColor(TCODColor::celadon, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->usable = true;
         dropped_item->equippable = false;
 
@@ -647,7 +608,6 @@ Item* spawnSpecial()
         std::string description = "Sepia Fireflies in a bottle";
         dropped_item = spawnEquippable("A bottle of sepia fireflies", description, '0', slots_t::Fingers, 1);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        dropped_item->item_effect->set_all_vals_to(0);
         dropped_item->usable = true;
         dropped_item->equippable = false;
 
@@ -713,18 +673,12 @@ Item* Actor::item_drop_handler(Actor* actor)
     {
         rwm.add_item(CorpseSpawn, 50);
         rwm.add_item(GenericSpawn, 30);
-        rwm.add_item(NothingItemSpawn, 80);
+        rwm.add_item(NothingItemSpawn, 90);
     };
+
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
-    //make the master's tile no longer occupied by him
-    //drop corpse on floor or another item
     TCODRandom *rng = Game::item_spawn_rng;
     Item* dropped_item = NULL;
-    //int  result;
-    // for (int xx =0; xx < 100; xx++){
-    //result = rng->getInt(0, 100);
-    //     std::cout << result << std::endl;
-    // }
     if (result == CorpseSpawn)
     {
         dropped_item = actor->CreateCorpse();

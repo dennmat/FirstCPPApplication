@@ -60,6 +60,34 @@ void ItemEffect::set_all_vals_to(int new_val)
     this->set_hunger_vals_to(new_val);
 };
 
+void ItemEffect::set_rng_health(TCODRandom* rng, int min, int max, int med)
+{
+    int val = rng->getInt(min, max, med);
+    this->health_current_val = val;
+    this->health_max_val = val;
+};
+
+void ItemEffect::set_rng_mana(TCODRandom* rng, int min, int max, int med)
+{
+    int val = rng->getInt(min, max, med);
+    this->mana_current_val = val;
+    this->mana_max_val = val;
+};
+
+void ItemEffect::set_rng_armor(TCODRandom* rng, int min, int max, int med)
+{
+    int val = rng->getInt(min, max, med);
+    this->armor_current_val = val;
+    this->armor_max_val = val;
+};
+
+void ItemEffect::set_rng_damage(TCODRandom* rng, int min, int max, int med)
+{
+    int val = rng->getInt(min, max, med);
+    this->damage_current_val = val;
+    this->damage_max_val = val;
+};
+
 void ItemEffect::set_health_vals_to(int new_val)
 {
     this->health_current_val = new_val;

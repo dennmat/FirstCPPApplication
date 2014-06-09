@@ -117,6 +117,12 @@ class ItemEffect
         void mark_applied_damage(Actor* actor);
         void mark_applied_hunger(Actor* actor);
 
+        void set_rng_health(TCODRandom* rng, int min, int max, int med);
+        void set_rng_mana(TCODRandom* rng, int min, int max, int med);
+        void set_rng_armor(TCODRandom* rng, int min, int max, int med);
+        void set_rng_damage(TCODRandom* rng, int min, int max, int med);
+        void set_rng_hunger(TCODRandom* rng, int min, int max, int med);
+
         void unmark_applied_all(Actor* actor);
 
         std::string ItemEffect::small_convert(std::string prefix, int val);
