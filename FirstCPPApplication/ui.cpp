@@ -169,21 +169,21 @@ bool Ui::should_draw_attacker_helpbox()
     return Game::player->combat->last_victim != NULL && Game::player->combat->last_victim->is_active;
 };
 
-void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile)
+void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
 {
     //get help text
     std::string help_text = "";
     std::string health_text = "";
     int help_text_height = 3;
-    if (! victim_tile->is_known())
+    if (! target_tile->is_known())
     {
         help_text = "Unknown tile";
     }
-    else if (victim_tile->is_occupied())
+    else if (target_tile->is_occupied())
     {
         help_text_height = 5;
-        help_text = victim_tile->occupant->name;
-        float health_percent = victim_tile->occupant->attrs->health->GetValPercentage();
+        help_text = target_tile->occupant->name;
+        float health_percent = target_tile->occupant->attrs->health->GetValPercentage();
         if (health_percent > 75.0f) { health_text = "It's healthy."; }
         else if  (health_percent > 50.0f ) { health_text = "It's hurt."; }
         else if  (health_percent > 25.0f ) { health_text = "It's very hurt."; }
@@ -191,13 +191,13 @@ void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile)
         else { health_text = "It's near death."; }
 
     }
-    else if (victim_tile->inventory->get_count() > 0)
+    else if (target_tile->inventory->get_count() > 0)
     {
-        help_text = victim_tile->inventory->items->back()->name;
+        help_text = target_tile->inventory->items->back()->name;
     }
     else
     {
-        help_text = victim_tile->get_description();
+        help_text = target_tile->get_description();
     };
 
     
@@ -208,52 +208,10 @@ void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile)
         messages.push_back(health_text);
     };
 
-    HelpBox hb(messages, ui_sidebar_con, victim_tile);
+    HelpBox hb(messages, ui_sidebar_con, target_tile);
     hb.draw();
 }
 
-void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
-{
-    //get help text
-    std::string help_text = "";
-    std::string health_text = "";
-    Tile* mouse_tile = Game::get_mouse_tile();
-    int help_text_height = 3;
-    if (! mouse_tile->is_known())
-    {
-        help_text = "Unknown tile";
-    }
-    else if (mouse_tile->is_occupied())
-    {
-        help_text_height = 5;
-        help_text = mouse_tile->occupant->name;
-        float health_percent = mouse_tile->occupant->attrs->health->GetValPercentage();
-        if (health_percent > 75.0f) { health_text = "It's healthy."; }
-        else if  (health_percent > 50.0f ) { health_text = "It's hurt."; }
-        else if  (health_percent > 25.0f ) { health_text = "It's very hurt."; }
-        else if  (health_percent > 10.0f ) { health_text = "It's in critical condition."; }
-        else { health_text = "It's near death."; }
-
-    }
-    else if (mouse_tile->inventory->get_count() > 0)
-    {
-        help_text = mouse_tile->inventory->items->back()->name;
-    }
-    else
-    {
-        help_text = mouse_tile->get_description();
-    };
-
-    std::vector<std::string> messages;
-    messages.push_back(help_text);
-    if (health_text.size() != 0)
-    {
-        messages.push_back(health_text);
-    };
-
-    HelpBox hb(messages, ui_sidebar_con, mouse_tile);
-    hb.draw();
-};
 
 void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con, int& y)
 {
@@ -341,11 +299,11 @@ void Ui::draw_ui_sidebar()
     {
         TCODMouse::showCursor(true);
         //Ui::draw_mouse_helpbox(ui_sidebar_con);
-        Ui::draw_attacker_helpbox(ui_sidebar_con, Game::get_mouse_tile());
+        Ui::draw_status_helpbox(ui_sidebar_con, Game::get_mouse_tile());
     }
     else if (Ui::should_draw_attacker_helpbox())
     {
-        Ui::draw_attacker_helpbox(ui_sidebar_con, Game::player->combat->last_victim->my_tile);
+        Ui::draw_status_helpbox(ui_sidebar_con, Game::player->combat->last_victim->my_tile);
     }
     else 
     {

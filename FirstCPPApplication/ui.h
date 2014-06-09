@@ -68,14 +68,14 @@ class Ui
         static void draw_ui_sidebar();
         static void draw_misc();
         static void draw_facing_angle(TCODConsole* ui_sidebar_con, int& y);
-        static bool should_draw_mouse_helpbox();
-        static bool should_draw_attacker_helpbox();
-        static void draw_mouse_helpbox(TCODConsole* ui_sidebar_con);
-        static void draw_attacker_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile);
         static void draw_xp();
         static void draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore);
         static void draw_hunger(int y, TCODConsole* ui_sidebar_con);
         static void draw_attrs(int& y, TCODConsole* con);
+
+        static bool should_draw_mouse_helpbox();
+        static bool should_draw_attacker_helpbox();
+        static void draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile);
 
         static TCODConsole* create_screen();
         static void draw_screen_title(std::string title, TCODConsole* con);
