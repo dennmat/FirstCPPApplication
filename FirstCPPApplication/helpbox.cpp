@@ -34,7 +34,7 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     this->selected_tile = selected_tile;
     this->target_con = target_con;
     this->messages = messages;
-    int max_width = 19;
+    int max_width = 17;
     int line_width = 0;
     int line_height = messages.size()*2;
     // printf("%d\n", max_height);
@@ -42,9 +42,9 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     std::vector<std::string>::iterator it = messages.begin();
     for (it; it!= messages.end(); it++)
     {
-        line_width = (int)std::max((double)(*it).size(), (double)line_width);
-        // int height = TCODConsole::root->getHeightRect(0, 0, line_width, 1000, (*it).c_str());
-        // if (height>1) line_height++;
+        line_width = (int)std::min((double)(*it).size(), (double)max_width);
+        int height = TCODConsole::root->getHeightRect(0, 0, line_width, 1000, (*it).c_str());
+        if (height>1) line_height++;
 
     };
 
@@ -60,8 +60,10 @@ void HelpBox::draw()
     std::vector<std::string>::iterator it = messages.begin();
     for (it; it!= messages.end(); it++)
     {
-        this->con->print(1+this->left_pad, y+this->top_pad, (*it).c_str());
-        y++;
+        // this->con->print(1+this->left_pad, y+this->top_pad, (*it).c_str());
+        int diff = this->con->printRect(1+this->left_pad, y+this->top_pad, this->width-this->left_pad-this->right_pad, this->height, (*it).c_str());
+        y+= diff;
+        // y++;
         y++;
     };
 
