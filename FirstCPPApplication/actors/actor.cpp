@@ -800,6 +800,8 @@ void Actor::Die()
     new_repr->setFGColor((*repr->fg_color)*TCODColor::red, true, false, true);
     this->my_tile->set_representation(new_repr);
 
+    this->my_tile->set_description("There is some blood on the ground");
+
     //remove master from ai update list
     this->is_active = false;
     this->putPerson(NULL, NULL, NULL);
