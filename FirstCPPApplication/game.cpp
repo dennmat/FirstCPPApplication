@@ -381,13 +381,14 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 T* Game::create_creature(std::string name, int age, int x, int y, char repr)
 {
     //build the Person
-    T * new_pers = new T(name, age, x, y, repr);
+    T * creature = new T(name, age, x, y, repr);
+    creature->attrs->hunger->max_val = 9999999;
 
     //put it on the map somewhere
     Tile * next_tile = Game::world->getTileAt(x,y);
-    new_pers->putPerson(next_tile, x, y);
+    creature->putPerson(next_tile, x, y);
 
-    return new_pers;
+    return creature;
 };
 
 
