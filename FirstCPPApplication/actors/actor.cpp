@@ -705,9 +705,16 @@ Item* spawnItem()
 Item* Actor::item_drop_handler(Actor* actor)
 {
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
-    rwm.add_item(CorpseSpawn, 50);
-    rwm.add_item(GenericSpawn, 30);
-    rwm.add_item(NothingItemSpawn, 80);
+    if (actor->is_champion)
+    {
+        rwm.add_item(GenericSpawn, 30);
+    }
+    else
+    {
+        rwm.add_item(CorpseSpawn, 50);
+        rwm.add_item(GenericSpawn, 30);
+        rwm.add_item(NothingItemSpawn, 80);
+    };
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     //make the master's tile no longer occupied by him
     //drop corpse on floor or another item
