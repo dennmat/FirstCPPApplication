@@ -182,6 +182,7 @@
     <ClInclude Include="equipment.h" />
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="helpbox.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
@@ -279,6 +280,7 @@
     <ClCompile Include="FirstCPPApplication.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestate.cpp" />
+    <ClCompile Include="helpbox.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />

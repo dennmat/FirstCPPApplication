@@ -24,6 +24,7 @@
 #include <attribute_container.h>
 #include <attribute.h>
 #include "screen.h"
+#include "helpbox.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -200,36 +201,16 @@ void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con)
         help_text = victim_tile->get_description();
     };
 
-    //draw the right sizes
-    int left_pad=1, right_pad=2, top_pad=1, bot_pad=1;
-    int help_text_width = std::max((double)help_text.size(), (double)health_text.size())+1;
-    int adjusted_w = help_text_width+left_pad+right_pad;
-    int adjusted_h = help_text_height+top_pad+bot_pad;
-    TCODConsole help_con = TCODConsole(adjusted_w+100, adjusted_h+100);
-    if (!victim_tile->is_known())
-        help_con.setDefaultForeground(TCODColor::darkestGrey);
-    help_con.clear();
-
-    if (!victim_tile->is_known())
-        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h, "?", "?", "?", "?", "?", "?", "?", "?");
-    else
-        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
-
-    help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
-    help_con.print(1+left_pad, 3+top_pad, health_text.c_str());
-
-
-    if (victim_tile->occupant != NULL)
+    
+    std::vector<std::string> messages;
+    messages.push_back(help_text);
+    if (health_text.size() != 0)
     {
-        TCODImage* img = victim_tile->occupant->get_image();
-        // TCODImage img = TCODImage(victim_tile->occupant->img_path.c_str());
-        img->blit(&help_con, 9, 12);
-        delete img;
+        messages.push_back(health_text);
     };
 
-
-    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w+100, adjusted_h+100, ui_sidebar_con, 0, 23);
-    // TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, Game::mouse_evt.cx+Game::camera_x+1, Game::mouse_evt.cy+Game::camera_y+1);
+    HelpBox hb(messages, ui_sidebar_con, victim_tile);
+    hb.draw();
 }
 
 void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
@@ -254,32 +235,6 @@ void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
         else if  (health_percent > 10.0f ) { health_text = "It's in critical condition."; }
         else { health_text = "It's near death."; }
 
-
-        // std::stringstream ss;
-        // ss << mouse_tile->occupant->attrs->health->current_val << " / " << mouse_tile->occupant->attrs->health->max_val;
-        // health_text = ss.str();
-
-        // if (mouse_tile->occupant->cls_name == "Jackal")
-        // {
-        //     if (Game::turn_count % 2 == 0)
-        //     {
-        //         help_text = "Is it a Jackal?";
-        //     }
-        //     else if (Game::turn_count % 3 == 0)
-        //     {
-        //         help_text = "Jackal?";
-        //     }
-        //     else if (Game::turn_count % 5 == 0)
-        //     {
-        //         help_text = "Jackal!";
-        //     }
-        //     else 
-        //     {
-        //         help_text = "It's a Jackal!";
-        //     }
-        // }
-        // else{
-        // }
     }
     else if (mouse_tile->inventory->get_count() > 0)
     {
@@ -290,36 +245,15 @@ void Ui::draw_mouse_helpbox(TCODConsole* ui_sidebar_con)
         help_text = mouse_tile->get_description();
     };
 
-    //draw the right sizes
-    int left_pad=1, right_pad=2, top_pad=1, bot_pad=1;
-    int help_text_width = std::max((double)help_text.size(), (double)health_text.size())+1;
-    int adjusted_w = help_text_width+left_pad+right_pad;
-    int adjusted_h = help_text_height+top_pad+bot_pad;
-    TCODConsole help_con = TCODConsole(adjusted_w+100, adjusted_h+100);
-    if (!mouse_tile->is_known())
-        help_con.setDefaultForeground(TCODColor::darkestGrey);
-    help_con.clear();
-
-    if (!mouse_tile->is_known())
-        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h, "?", "?", "?", "?", "?", "?", "?", "?");
-    else
-        draw_rect(&help_con, 0, 0, adjusted_w, adjusted_h);
-
-    help_con.print(1+left_pad, 1+top_pad, help_text.c_str());
-    help_con.print(1+left_pad, 3+top_pad, health_text.c_str());
-
-
-    if (mouse_tile->occupant != NULL)
+    std::vector<std::string> messages;
+    messages.push_back(help_text);
+    if (health_text.size() != 0)
     {
-        TCODImage* img = mouse_tile->occupant->get_image();
-        // TCODImage img = TCODImage(mouse_tile->occupant->img_path.c_str());
-        img->blit(&help_con, 9, 12);
-        delete img;
+        messages.push_back(health_text);
     };
 
-
-    TCODConsole::root->blit(&help_con, 0, 0, adjusted_w+100, adjusted_h+100, ui_sidebar_con, 0, 23);
-    // TCODConsole::root->blit(&help_con, 0, 0, adjusted_w, adjusted_h, ui_sidebar_con, Game::mouse_evt.cx+Game::camera_x+1, Game::mouse_evt.cy+Game::camera_y+1);
+    HelpBox hb(messages, ui_sidebar_con, mouse_tile);
+    hb.draw();
 };
 
 void Ui::draw_facing_angle(TCODConsole* ui_sidebar_con, int& y)
@@ -411,7 +345,6 @@ void Ui::draw_ui_sidebar()
     }
     else if (Ui::should_draw_attacker_helpbox())
     {
-        std::cout << "drawing attacker" << std::endl;
         Ui::draw_attacker_helpbox(ui_sidebar_con);
     }
     else 
