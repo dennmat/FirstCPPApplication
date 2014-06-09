@@ -169,12 +169,11 @@ bool Ui::should_draw_attacker_helpbox()
     return Game::player->combat->last_victim != NULL && Game::player->combat->last_victim->is_active;
 };
 
-void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con)
+void Ui::draw_attacker_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile)
 {
     //get help text
     std::string help_text = "";
     std::string health_text = "";
-    Tile* victim_tile = Game::player->combat->last_victim->my_tile;
     int help_text_height = 3;
     if (! victim_tile->is_known())
     {
@@ -341,11 +340,12 @@ void Ui::draw_ui_sidebar()
     if (Ui::should_draw_mouse_helpbox())
     {
         TCODMouse::showCursor(true);
-        Ui::draw_mouse_helpbox(ui_sidebar_con);
+        //Ui::draw_mouse_helpbox(ui_sidebar_con);
+        Ui::draw_attacker_helpbox(ui_sidebar_con, Game::get_mouse_tile());
     }
     else if (Ui::should_draw_attacker_helpbox())
     {
-        Ui::draw_attacker_helpbox(ui_sidebar_con);
+        Ui::draw_attacker_helpbox(ui_sidebar_con, Game::player->combat->last_victim->my_tile);
     }
     else 
     {
