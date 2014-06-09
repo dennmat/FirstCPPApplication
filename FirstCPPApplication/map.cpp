@@ -161,7 +161,7 @@ class DungeonListener : public ITCODBspCallback
                 Tile* tile;
                 TCODRandom *rng = TCODRandom::getInstance();
                 int x, y;
-                for (int i = 0; i < 16; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
