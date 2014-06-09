@@ -23,6 +23,8 @@
 #include "messages.h"
 #include "ui.h"
 #include "combat.h"
+#include "attribute.h"
+#include "attribute_container.h"
 
 Map::Map()
 {
@@ -958,6 +960,13 @@ void Map::update()
     {
         Room* room = Game::current_map->roomVector->back();
         Person* pers = Game::create_person("Mighty Elric Tombs", 99, room->center_x, room->center_y, 'E', Game::current_map);
+        pers->attrs->damage->current_val = 20;
+        pers->attrs->damage->max_val = 20;
+        pers->attrs->health->current_val = 200;
+        pers->attrs->health->max_val = 200;
+        pers->attrs->armor->current_val = 10;
+        pers->attrs->armor->max_val = 10;
         Game::current_map->enemies.push_back(pers);
+        new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
     };
 };
