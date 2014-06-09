@@ -624,10 +624,10 @@ bool gameplay_loop(bool incr_turn)
             std::string msg_str = "%d items are on the ground.";
             new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
         }
-        else 
-        {
-            new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "Nothing on the ground.");
-        }
+        //else 
+        //{
+        //    new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "Nothing on the ground.");
+        //}
 
         //tile description
         new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());

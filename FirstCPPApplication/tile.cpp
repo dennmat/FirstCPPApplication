@@ -215,6 +215,8 @@ void Tile::updateCustomTileType(int type )
     this->tile->tile=this;
     this->is_deleted = false;
 
+    this->is_custom_tile = true;
+
 };
 
 void Tile::updateTileType(int type )

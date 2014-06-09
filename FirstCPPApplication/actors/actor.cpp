@@ -794,6 +794,12 @@ void Actor::Die()
         this->my_tile->place_item_down(dropped_item);
     }
 
+    Representation* repr = this->my_tile->get_representation();
+    Representation* new_repr = new FloorRepresentation;
+    new_repr->repr = repr->repr;
+    new_repr->setFGColor((*repr->fg_color)*TCODColor::red, true, false, true);
+    this->my_tile->set_representation(new_repr);
+
     //remove master from ai update list
     this->is_active = false;
     this->putPerson(NULL, NULL, NULL);

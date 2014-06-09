@@ -735,7 +735,7 @@ int Map::draw()
                     if (the_tile->check_for_items())
                     {
                         // Game::game_console->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
-			Item* last_item = the_tile->inventory->items->back();
+                        Item* last_item = the_tile->inventory->items->back();
                         the_char = last_item->repr->repr;
                     };
                     Game::player->ActorInSight(x, y, the_tile->occupant);
@@ -954,18 +954,17 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 
 void Map::update()
 {
-    std::cout << "map is thinking" << std::endl;
     int result = Game::event_rng->getInt(0, 1000);
     if (result == SpecialHeroSpawn)
     {
         Room* room = Game::current_map->roomVector->back();
         Person* pers = Game::create_person("Mighty Elric Tombs", 99, room->center_x, room->center_y, 'E', Game::current_map);
-        pers->attrs->damage->current_val = 20;
-        pers->attrs->damage->max_val = 20;
         pers->attrs->health->current_val = 200;
         pers->attrs->health->max_val = 200;
         pers->attrs->armor->current_val = 10;
         pers->attrs->armor->max_val = 10;
+        pers->attrs->damage->current_val = 20;
+        pers->attrs->damage->max_val = 20;
         Game::current_map->enemies.push_back(pers);
         new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
     };
