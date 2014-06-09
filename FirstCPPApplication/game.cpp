@@ -55,7 +55,7 @@
 
 int Game::__version_major = 0;
 int Game::__version_minor = 5;
-int Game::__version_mini = 1;
+int Game::__version_mini = 2;
 
 
 // Game initialization
@@ -108,6 +108,7 @@ Tile* Game::clipboard = NULL;
 TCODRandom* Game::spawning_rng = new TCODRandom();
 TCODRandom* Game::item_spawn_rng = new TCODRandom();
 TCODRandom* Game::linear_rng = new TCODRandom();
+TCODRandom* Game::event_rng = new TCODRandom();
 
 
 std::string Game::get_version()
@@ -160,7 +161,6 @@ MonsterSpawnTypes Game::get_spawn_type(int floor)
         rwm.add_item(BadMotherSpawn, 2);
 
     };
-
 
     return rwm.get_item(Game::spawning_rng);
 };
@@ -438,21 +438,21 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    for (int i = 0; i < 52; i++)
-    {
-        Item* item2 = new Item();
-        item2->name = "Item of Holding";
-        item2->name.append(std::to_string((long double)i+1));
-        item2->item_effect->health_current_val = 1;
-        item2->item_effect->mana_current_val = 1;
-        item2->item_effect->armor_current_val = 1;
-        item2->item_effect->damage_current_val = 900;
-        item2->item_effect->damage_max_val = 900;
-        item2->item_effect->duration= 4;
-        item2->usable = true;
-        item2->description = "You can hold this item";
-        player->inventory->add_item(item2);
-    };
+    // for (int i = 0; i < 52; i++)
+    // {
+    //     Item* item2 = new Item();
+    //     item2->name = "Item of Holding";
+    //     item2->name.append(std::to_string((long double)i+1));
+    //     item2->item_effect->health_current_val = 1;
+    //     item2->item_effect->mana_current_val = 1;
+    //     item2->item_effect->armor_current_val = 1;
+    //     item2->item_effect->damage_current_val = 900;
+    //     item2->item_effect->damage_max_val = 900;
+    //     item2->item_effect->duration= 4;
+    //     item2->usable = true;
+    //     item2->description = "You can hold this item";
+    //     player->inventory->add_item(item2);
+    // };
 
 };
 
@@ -550,6 +550,8 @@ void Game::update()
         };
         // printf("updating\n");
     }
+
+    Game::current_map->update();
     // cout << "\t" << "done updating" << endl;
 };
 
@@ -650,7 +652,6 @@ bool gameplay_loop(bool incr_turn)
     //AIs update
     if (incr_turn == true)
     {
-        // int x = 1;
         Game::update();
     }
 
@@ -771,13 +772,6 @@ void Game::mainloop()
         }
 
         //draw the root console to screen to screen
-	// std::string path = get_data_path()+"img/Troll_Icon_03.png";
-    // TCODImage img =  TCODImage(path.c_str());
-    // img.setKeyColor(TCODColor(255, 0, 255));
-    //TCODImage* img =  new TCODImage("troll.png");
-    // img.blitRect(TCODConsole::root, 10.0, 10.0);
-    //img->blit(Game::game_console, 10, 10);
-
         TCODConsole::flush();
         TCODConsole::root->clear();
 

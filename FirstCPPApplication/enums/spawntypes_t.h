@@ -75,4 +75,8 @@ enum SpecialSpawnTypes {
     GreyFireFlySpawn,
     NothingAmuletSpawn
 };
+
+enum EventSpawnTypes {
+    SpecialHeroSpawn = 0
+};
 #endif

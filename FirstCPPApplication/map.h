@@ -43,6 +43,7 @@ class Map : public Object
         Room* build_rect_room(int room_x, int room_y,
                 int room_width, int room_height, int door_index);
 
+        void update();
         int draw();
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 

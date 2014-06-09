@@ -43,6 +43,9 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     for (it; it!= messages.end(); it++)
     {
         line_width = (int)std::max((double)(*it).size(), (double)line_width);
+        // int height = TCODConsole::root->getHeightRect(0, 0, line_width, 1000, (*it).c_str());
+        // if (height>1) line_height++;
+
     };
 
     this->width = line_width+left_pad+right_pad;

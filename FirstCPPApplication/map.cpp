@@ -949,3 +949,14 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     }
     return false;
 }
+
+void Map::update()
+{
+    std::cout << "map is thinking" << std::endl;
+    int result = Game::event_rng->getInt(0, 1000);
+    if (result == SpecialHeroSpawn)
+    {
+        Person* pers = Game::create_person("Mighty Elric Tombs", 99, 23, 23, 'P', Game::current_map);
+        Game::current_map->enemies.push_back(pers);
+    };
+};
