@@ -12,11 +12,6 @@ class TCODColor;
 
 class Representation : public Object
 {
-    private:
-        int color_r;
-        int color_g;
-        int color_b;
-
     public:
         char repr;
 
@@ -31,6 +26,7 @@ class Representation : public Object
 
         Representation();
         ~Representation();
+        Representation(const Representation& source);
         TCODColor* createColorFromRGB(int r, int g, int b);
         void getRGBFromColor(int& r, int& g, int& b, TCODColor color);
         void setFGColor(TCODColor color, bool set_fg, bool set_temp, bool set_orig);

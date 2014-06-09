@@ -39,6 +39,21 @@ void Representation::getRGBFromColor(int& r, int& g, int& b, TCODColor color)
     b = color.b;
 };
 
+Representation::Representation(const Representation& source)
+{
+        this->repr = source.repr;
+
+        //temp fg_color for highlighting etc
+         this->fg_color = source.fg_color;
+         this->temp_fg_color = source.temp_fg_color;
+         this->orig_fg_color = source.orig_fg_color;
+                    
+         this->bg_color = source.bg_color;
+         this->temp_bg_color = source.temp_bg_color;
+         this->orig_bg_color = source.orig_bg_color;
+
+};
+
 TCODColor* Representation::createColorFromRGB(int r, int g, int b)
 {
     TCODColor* myColor = new TCODColor(r, g, b);
