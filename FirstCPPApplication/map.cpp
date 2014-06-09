@@ -956,7 +956,8 @@ void Map::update()
     int result = Game::event_rng->getInt(0, 1000);
     if (result == SpecialHeroSpawn)
     {
-        Person* pers = Game::create_person("Mighty Elric Tombs", 99, 23, 23, 'P', Game::current_map);
+        Room* room = Game::current_map->roomVector->back();
+        Person* pers = Game::create_person("Mighty Elric Tombs", 99, room->center_x, room->center_y, 'E', Game::current_map);
         Game::current_map->enemies.push_back(pers);
     };
 };

@@ -356,6 +356,9 @@
     <ClInclude Include="helpbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -494,6 +497,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="helpbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

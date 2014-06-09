@@ -17,8 +17,10 @@ class Event
         std::vector<Tile*>* tiles;
 
         Event();
+        Event(std::string message, std::vector<Actor*>* actors, std::vector<Item*>* items, std::vector<Tile*>* tiles);
 
         void activate();
+        void initialize();
 };
 
 #endif
