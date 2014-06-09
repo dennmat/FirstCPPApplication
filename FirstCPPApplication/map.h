@@ -18,6 +18,7 @@ class Person;
 class Object;
 class Tile;
 class Actor;
+class Event;
 
 class TCODMap;
 
@@ -27,7 +28,8 @@ class Map : public Object
         Map();
         ~Map();
 
-        std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
+        std::vector<Actor*> enemies;
+        std::vector<Event*>* events;
 
         int width, height;
         int depth;
