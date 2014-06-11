@@ -1214,8 +1214,15 @@ bool Input::process_key_event(TCOD_key_t request)
 
             else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
             {
-                std::cout << "Goodbye now" << std::endl;
-                exit(1);
+
+                std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
+                std::string resp;
+                std::cin >> resp;
+                if (resp.at(0) == 'y')
+                {
+                    std::cout << "Goodbye now" << std::endl;
+                    exit(1);
+                };
             }
             else
             {
