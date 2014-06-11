@@ -379,6 +379,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
     {
         Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::InventoryScreenType;
+        //FIXME this lets you save a turn if you want to cancel casting
+        Ui::reset_generic();
     }
 
     else if ( basic_cmd == basic_cmds_t::CancelCast )
@@ -653,7 +655,7 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     else if( action == inventory_items_active_t::DropItem )
     {
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
-        Item* item = ((Item*)Ui::chosen_generic);
+        Item* item = static_cast<Item*>(Ui::chosen_generic);
         Ui::reset_generic();
 
         Game::player->inventory->drop_item(item);
