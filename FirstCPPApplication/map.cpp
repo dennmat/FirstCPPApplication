@@ -146,12 +146,6 @@ class DungeonListener : public ITCODBspCallback
                 lasty=room_y+room_h/2;
                 roomNum++;
 
-                if (roomNum == 6) //stairs only on 6th room
-                {
-                    Tile* stair_tile = map.getTileAt(room_x+1, room_y+1);
-                    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
-                    map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
-                }
             }
             else
             {
@@ -437,32 +431,10 @@ int Map::build_dungeon_from_random(int seed, int floor)
     auto v = this->roomVector;
     auto it = v->begin();
     std::vector<Room*> unused_rooms = std::vector<Room*>(*v);
+    int room_num = 0;
+
     for (it; it != v->end(); it++)
     {
-        // auto unused_it = unused_rooms.begin();
-        // for (unused_it; unused_it != unused_rooms.end(); unused_it++)
-        // {
-        //     if ((*it)->center_x == (*unused_it)->center_x && (*it)->center_y == (*unused_it)->center_y){
-        //         continue;
-        //     }
-        //     new_distance = (*it)->distanceToRoomCenter(*unused_it);
-        //     if (new_distance < distance)
-        //     {
-        //         break;
-        //     }
-        //     // std::cout << &(unused_it) << std::endl;
-        // };
-        // distance = 999;
-        // if (unused_it == unused_rooms.end())
-        // {
-        //     current_room = v->back();
-        // }
-        // else
-        // {
-        //     current_room = *unused_it;
-        //     unused_rooms.erase(unused_it);
-        //     // std::cout << &(unused_it) << std::endl;
-        // };
 
         //draw line between *it and current room
         if (std::next(it, 1) == v->end())
@@ -485,6 +457,12 @@ int Map::build_dungeon_from_random(int seed, int floor)
     };
 
     //std::cout << "" << BspListener::output.str() << std::endl;
+    Room* room = v->at(6);
+    Tile* stair_tile = this->getTileAt(room->x+1, room->y+1);
+    this->stair_x = stair_tile->tile_x;
+    this->stair_y = stair_tile->tile_y;
+    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+    this->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
     return 1;
 

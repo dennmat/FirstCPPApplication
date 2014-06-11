@@ -223,6 +223,7 @@ void Tile::updateTileType(int type )
 {
 
     this->type_id = type;
+    this->is_custom_tile = false;
 
     if (type == 0) {
         tile = Tile::BaseType; 

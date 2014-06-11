@@ -32,6 +32,7 @@ class Map : public Object
         std::vector<Event*>* events;
 
         int width, height;
+        int stair_x, stair_y;
         int depth;
         bool pos_in_map(int x, int y);
         std::string description; // default description if tile does not have one
