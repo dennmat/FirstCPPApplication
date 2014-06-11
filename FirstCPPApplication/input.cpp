@@ -592,7 +592,6 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
             new Message(Ui::msg_handler_main, NOTYPE_MSG, "Pick an actual target how about.");
         };
-        //start targetting mode
 
     }
     else 
