@@ -566,7 +566,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
             if (distance <= spell_range)
             {
-                if (Game::player->attrs->mana->current_val > mana_cost)
+                if (Game::player->attrs->mana->current_val >= mana_cost)
                 {
                     std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
                     typedef std::vector<Actor*> actor_vector;
