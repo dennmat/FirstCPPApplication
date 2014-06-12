@@ -42,7 +42,7 @@ void Attribute::Tick()
         return;
     };
 
-    if (this->tick <= this->regen_interval)
+    if (this->tick < this->regen_interval)
     {
         this->tick += 1;
         this->is_ready = false;
