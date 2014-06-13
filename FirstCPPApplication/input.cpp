@@ -362,14 +362,15 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 Game::player->pickUpItem(item);
                 Game::player->equipment->equip_item(item);
                 item->equip(Game::player);
-                new Message(Ui::msg_handler_main, ITEM_MSG, "Equipping item straight off the floor.");
+                new Message(Ui::msg_handler_main, ITEM_MSG, "Equipped an item straight off the floor, impressive.");
 
                 return true;
             }
-            else
+            else if (item->usable)
             {
-
-                new Message(Ui::msg_handler_main, ITEM_MSG, "Try equipping an item that would make sense, how about?");
+                Game::player->pickUpItem(item);
+                item->use(Game::player);
+                new Message(Ui::msg_handler_main, ITEM_MSG, "Used an item straight off the floor, gross.");
             }
 
         };
