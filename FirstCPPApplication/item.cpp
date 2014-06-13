@@ -54,7 +54,6 @@ void Item::set_and_name_for_dmg(std::string pre_name, std::string post_name, TCO
 
     int val = this->item_effect->set_rng_damage(rng, min, max, med);
     float percent = (float(val))/ ((float)max) * 100;
-    printf("%f", percent);
     std::string mid_name = "";
     if (percent < 10.0f) { mid_name = "broken";}
     else if (percent < 15.0f) { mid_name = "crude";}
@@ -84,7 +83,6 @@ void Item::set_and_name_for_arm(std::string pre_name, std::string post_name, TCO
 
     int val = this->item_effect->set_rng_armor(rng, min, max, med);
     float percent = (float(val))/ ((float)max) * 100;
-    printf("%f", percent);
     std::string mid_name = "";
     if (percent < 10.0f) { mid_name = "broken";}
     else if (percent < 15.0f) { mid_name = "crude";}

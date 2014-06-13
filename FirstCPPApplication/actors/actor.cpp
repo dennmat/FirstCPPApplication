@@ -352,35 +352,42 @@ Item* spawnArmor()
         std::string description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item = spawnEquippable("Chainmail", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        dropped_item->item_effect->set_rng_armor(rng, 3, 8, 3);
+        // dropped_item->item_effect->set_rng_armor(rng, 3, 8, 3);
+        dropped_item->set_and_name_for_arm("", "Chainmail", rng, 3, 8, 3);
     }
     else if (result == LeatherChestSpawn)
     {
         std::string description = "It looks like it's made up of leather hide.";
         dropped_item = spawnEquippable("Leather Chestpiece", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
-        dropped_item->item_effect->set_rng_armor(rng, 1, 5, 2);
+        // dropped_item->item_effect->set_rng_armor(rng, 1, 5, 2);
+        dropped_item->set_and_name_for_arm("", "Leather Chestpiece", rng, 2, 6, 2);
     }
     else if (result == ShieldSpawn)
     {
         std::string description = "It looks like it can take a few hits.";
         dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
+        // dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("A", "shield", rng, 1, 5, 3);
     }
     else if (result == TargetShieldSpawn)
     {
         std::string description = "It looks like it can block several hits.";
-        dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
-        dropped_item->repr->setFGColor(TCODColor::lighterGrey, true, false, true);
-        dropped_item->item_effect->set_rng_armor(rng, 3, 7, 3);
+        dropped_item = spawnEquippable("A target shield", description, ']', slots_t::OffHand, 6);
+        dropped_item->repr->setFGColor(TCODColor::lightestGrey, true, false, true);
+        // dropped_item->item_effect->set_rng_armor(rng, 3, 7, 3);
+        dropped_item->set_and_name_for_arm("A", "target shield", rng, 3, 7, 3);
+        
     }
     else if (result == HelmetSpawn)
     {
         std::string description = "It looks sturdy.";
         dropped_item = spawnEquippable("A helmet", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
+        // dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("A", "helmet", rng, 1, 7, 3);
+
     }
     else if (result == CrownSpawn)
     {
