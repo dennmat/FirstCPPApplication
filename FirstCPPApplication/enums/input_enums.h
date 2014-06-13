@@ -30,8 +30,9 @@ enum inventory_items_active_t {
     EquipItem, UnequipItem,
     DropItem, EscapeMenuItem,
     UseItem,
-    SortByEquippedItem,
+    SortByEquippableItem,
     SortByUsableItem,
+    SortByEquippedItem,
     NO_MATCHING_ITEMS_ACTIVE
 };
 

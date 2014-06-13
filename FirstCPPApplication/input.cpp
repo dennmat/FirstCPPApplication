@@ -77,6 +77,7 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Use the active item \(if its a corpse, eat it for food\)");
     vec.push_back("Sort inventory by equippable");
     vec.push_back("Sort inventory by usable");
+    vec.push_back("Sort inventory by equipped");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
 
     assert(vec.size() == NO_MATCHING_ITEMS_ACTIVE+1 && "Missing a help command for inventory chars");
@@ -256,6 +257,7 @@ std::map<char, inventory_items_active_t> Input::build_char_invitemactivemap()
     char_invitemactivemap['u'] = inventory_items_active_t::UseItem;
     char_invitemactivemap['e'] = inventory_items_active_t::EquipItem;
     char_invitemactivemap['E'] = inventory_items_active_t::SortByEquippedItem;
+    char_invitemactivemap['Y'] = inventory_items_active_t::SortByEquippableItem;
     char_invitemactivemap['U'] = inventory_items_active_t::SortByUsableItem;
     char_invitemactivemap['y'] = inventory_items_active_t::UnequipItem;
     char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem;
@@ -649,6 +651,26 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
     return false;
 };
 
+bool sort_by_equipped(Item* lhs, Item* rhs) { 
+    Equipment* equipment = Game::player->equipment;
+    if (equipment->is_item_equipped(lhs) && equipment->is_item_equipped(rhs))
+    {
+        return false;
+    }
+    else if (equipment->is_item_equipped(lhs) && !equipment->is_item_equipped(rhs))
+    {
+        return true;
+    }
+    else if (!equipment->is_item_equipped(lhs) && equipment->is_item_equipped(rhs))
+    {
+        return false;
+    }
+    else
+    {
+        return false;
+    };
+};
+
 bool sort_by_equippable(Item* lhs, Item* rhs) { 
     if (lhs->equippable && rhs->equippable)
     {
@@ -719,6 +741,12 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     }
 
     else if( action == inventory_items_active_t::SortByEquippedItem )
+    {
+        std::sort(Game::player->inventory->items->begin(), Game::player->inventory->items->end(), sort_by_equipped);
+        return false;
+    }
+
+    else if( action == inventory_items_active_t::SortByEquippableItem )
     {
         std::sort(Game::player->inventory->items->begin(), Game::player->inventory->items->end(), sort_by_equippable);
         return false;
