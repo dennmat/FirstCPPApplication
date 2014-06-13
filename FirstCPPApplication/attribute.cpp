@@ -38,9 +38,9 @@ void Attribute::Tick()
     if (this->regen_rate == 0)
     {
         this->is_ready = false;
-        this->tick = 0;
+        this->tick = 1;
         return;
-    };
+    }
 
     if (this->tick < this->regen_interval)
     {
@@ -49,7 +49,7 @@ void Attribute::Tick()
     }
     else
     {
-        this->tick = 0;
+        this->tick = 1;
         this->is_ready = true;
     };
 
