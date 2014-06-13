@@ -74,11 +74,12 @@ void ItemEffect::set_rng_mana(TCODRandom* rng, int min, int max, int med)
     this->mana_max_val = val;
 };
 
-void ItemEffect::set_rng_armor(TCODRandom* rng, int min, int max, int med)
+int ItemEffect::set_rng_armor(TCODRandom* rng, int min, int max, int med)
 {
     int val = rng->getInt(min, max, med);
     this->armor_current_val = val;
     this->armor_max_val = val;
+    return val;
 };
 
 int ItemEffect::set_rng_damage(TCODRandom* rng, int min, int max, int med)

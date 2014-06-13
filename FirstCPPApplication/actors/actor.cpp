@@ -290,35 +290,40 @@ Item* spawnWeapon()
         std::string description = "It looks like your mom.";
         dropped_item = spawnEquippable("A mace", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
+        // dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_dmg("A", "mace", rng, 1, 5, 3);
     }
     else if (result == DaggerSpawn)
     {
         std::string description = "It cuts quickly and deeply";
         dropped_item = spawnEquippable("A dagger", description, '/', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lighterSepia, true, false, true);
-        dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
+        // dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_dmg("A", "dagger", rng, 1, 5, 3);
     }
     else if (result == TridentSpawn)
     {
         std::string description = "It looks like it could kill a man.";
         dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
-        dropped_item->item_effect->set_rng_damage(rng, 4, 20, 5);
+        // dropped_item->item_effect->set_rng_damage(rng, 4, 20, 5);
+        dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 5);
     }
     else if (result == WhipSpawn)
     {
         std::string description = "It looks as if it had been used on something recently.";
         dropped_item = spawnEquippable("A whip", description, '&', slots_t::MainHand, 5);
         dropped_item->repr->setFGColor(TCODColor::darkerOrange, true, false, true);
-        dropped_item->item_effect->set_rng_damage(rng, 4, 9, 4);
+        // dropped_item->item_effect->set_rng_damage(rng, 4, 9, 4);
+        dropped_item->set_and_name_for_dmg("A", "whip", rng, 5, 10, 6);
     }
     else if (result == KatanaSpawn)
     {
         std::string description = "It looks very sharp.";
         dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
-        dropped_item->item_effect->set_rng_damage(rng, 10, 20, 11);
+        // dropped_item->item_effect->set_rng_damage(rng, 10, 20, 11);
+        dropped_item->set_and_name_for_dmg("A", "katana", rng, 10, 30, 11);
     }
     else
     {

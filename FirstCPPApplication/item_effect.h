@@ -119,7 +119,7 @@ class ItemEffect
 
         void set_rng_health(TCODRandom* rng, int min, int max, int med);
         void set_rng_mana(TCODRandom* rng, int min, int max, int med);
-        void set_rng_armor(TCODRandom* rng, int min, int max, int med);
+        int set_rng_armor(TCODRandom* rng, int min, int max, int med);
         int set_rng_damage(TCODRandom* rng, int min, int max, int med);
         void set_rng_hunger(TCODRandom* rng, int min, int max, int med);
 
