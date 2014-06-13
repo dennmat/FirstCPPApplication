@@ -282,7 +282,8 @@ Item* spawnWeapon()
         std::string description = "It looks like it can swipe left to right and up and down. Wow.";
         dropped_item = spawnEquippable("A sword", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        dropped_item->item_effect->set_rng_damage(rng, 5, 15, 8);
+        dropped_item->set_and_name_for_dmg("A", "sword", rng, 5, 15, 7);
+        // dropped_item->item_effect->set_rng_damage(rng, 5, 15, 8);
     }
     else if (result == MaceSpawn)
     {

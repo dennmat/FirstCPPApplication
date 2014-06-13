@@ -33,6 +33,8 @@ class Item
         void equip(Actor* target);
         void unequip(Actor* target);
 
+        void set_and_name_for_dmg(std::string pre_name, std::string post_name, TCODRandom* rng, int min, int max, int med);
+
         slots_t slot_type;
 
 };

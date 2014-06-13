@@ -49,6 +49,36 @@ void Item::use(Actor* target)
     };
 };
 
+void Item::set_and_name_for_dmg(std::string pre_name, std::string post_name, TCODRandom* rng, int min, int max, int med)
+{
+
+    int val = this->item_effect->set_rng_damage(rng, min, max, med);
+    float percent = (float(val))/ ((float)max) * 100;
+    printf("%f", percent);
+    std::string mid_name = "";
+    if (percent < 10.0f) { mid_name = "broken";}
+    else if (percent < 15.0f) { mid_name = "crude";}
+    else if (percent < 20.0f) { mid_name = "rusted";}
+    else if (percent < 25.0f) { mid_name = "dented";}
+    else if (percent < 30.0f) { mid_name = "bent";}
+    else if (percent < 35.0f) { mid_name = "unrefined";}
+    else if (percent < 40.0f) { mid_name = "weakened";}
+    else if (percent < 45.0f) { mid_name = "poor";}
+    else if (percent < 50.0f) { mid_name = "ordinary";}
+    else if (percent < 60.0f) { mid_name = "average";}
+    else if (percent < 65.0f) { mid_name = "modest";}
+    else if (percent < 70.0f) { mid_name = "polished";}
+    else if (percent < 75.0f) { mid_name = "average";}
+    else if (percent < 80.0f) { mid_name = "rugged";}
+    else if (percent < 85.0f) { mid_name = "polished";}
+    else if (percent < 90.0f) { mid_name = "handcrafted";}
+    else if (percent < 95.0f) { mid_name = "engraved";}
+    else  { mid_name = "adorned";};
+    std::stringstream name;
+    name << pre_name << " " << mid_name << " " << post_name;
+    this->name = name.str();
+};
+
 void Item::unequip(Actor* target)
 {
     if ( this->equippable )
