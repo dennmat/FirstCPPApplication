@@ -450,7 +450,7 @@ int Map::build_dungeon_from_random(int seed, int floor)
         do {
             this->getTileAt(draw_x, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
             this->getTileAt(draw_x+1, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
-        // this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
+            // this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
         }
         while (!TCODLine::step(&draw_x, &draw_y));
 
@@ -871,8 +871,8 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     bool in_types = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id)!=vec_ints.end();
 
     if (this->pos_in_map(new_x, new_y) && in_types && !target_tile->is_occupied())
-    // if (new_x < width && new_x > -1 && new_y < height && new_y > -1 &&
-            // in_types && !target_tile->is_occupied())
+        // if (new_x < width && new_x > -1 && new_y < height && new_y > -1 &&
+        // in_types && !target_tile->is_occupied())
     {
         thePerson->has_attacked = false;
         thePerson->combat->last_victim = NULL;
@@ -937,16 +937,17 @@ void Map::update()
     {
         if (this->depth == 1)
         {
-        Room* room = Game::current_map->roomVector->back();
-        Person* pers = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
-        pers->attrs->health->current_val = 200;
-        pers->attrs->health->max_val = 200;
-        pers->attrs->armor->current_val = 10;
-        pers->attrs->armor->max_val = 10;
-        pers->attrs->damage->current_val = 20;
-        pers->attrs->damage->max_val = 20;
-        Game::current_map->enemies.push_back(pers);
-        new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
+            Room* room = Game::current_map->roomVector->back();
+            Person* pers = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
+            pers->attrs->health->current_val = 200;
+            pers->attrs->health->max_val = 200;
+            pers->attrs->armor->current_val = 10;
+            pers->attrs->armor->max_val = 10;
+            pers->attrs->damage->current_val = 20;
+            pers->attrs->damage->max_val = 20;
+            pers->xp_value = 200;
+            Game::current_map->enemies.push_back(pers);
+            new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
         }
         else if (this->depth == 2)
         {
@@ -958,6 +959,7 @@ void Map::update()
             pers->attrs->armor->max_val = 10;
             pers->attrs->damage->current_val = 15;
             pers->attrs->damage->max_val = 15;
+            pers->xp_value = 500;
             Game::current_map->enemies.push_back(pers);
             new Message(Ui::msg_handler_main, HELP_MSG, "JASON ARRIVES");
         }
@@ -972,6 +974,7 @@ void Map::update()
             pers->attrs->damage->current_val = 23;
             pers->attrs->damage->max_val = 23;
             Game::current_map->enemies.push_back(pers);
+            pers->xp_value = 800;
             new Message(Ui::msg_handler_main, HELP_MSG, "JOHN APPEARS");
         }
         else if (this->depth == 4)
@@ -985,6 +988,7 @@ void Map::update()
             pers->attrs->damage->current_val = 23;
             pers->attrs->damage->max_val = 23;
             Game::current_map->enemies.push_back(pers);
+            pers->xp_value = 1000;
             new Message(Ui::msg_handler_main, HELP_MSG, "SAM APPROACHES");
         }
         else if (this->depth == 5)
@@ -997,6 +1001,7 @@ void Map::update()
             pers->attrs->armor->max_val =  17;
             pers->attrs->damage->current_val = 43;
             pers->attrs->damage->max_val = 43;
+            pers->xp_value = 1500;
             Game::current_map->enemies.push_back(pers);
             new Message(Ui::msg_handler_main, HELP_MSG, "ROSSIGNOL THUNDERS IN");
         }
