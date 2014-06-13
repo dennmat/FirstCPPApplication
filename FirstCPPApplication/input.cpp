@@ -1416,6 +1416,11 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             Ui::page_num++;
             Ui::offset = Ui::per_page*Ui::page_num;
         }
+        else if ( (request.vk == TCODK_HOME) && request.pressed == 1) 
+        {
+            Ui::page_num = 0;
+            Ui::offset = Ui::per_page*Ui::page_num;
+        }
         else if (request.vk == TCODK_UP && request.pressed == 1)
         {
             Input::generic_index--;

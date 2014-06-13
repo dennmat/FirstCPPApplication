@@ -935,8 +935,10 @@ void Map::update()
     int result = Game::event_rng->getInt(0, 1000);
     if (result == SpecialHeroSpawn)
     {
+        if (this->depth == 1)
+        {
         Room* room = Game::current_map->roomVector->back();
-        Person* pers = Game::create_person("Mighty Elric Tombs", 99, room->center_x, room->center_y, 'E', Game::current_map);
+        Person* pers = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
         pers->attrs->health->current_val = 200;
         pers->attrs->health->max_val = 200;
         pers->attrs->armor->current_val = 10;
@@ -945,5 +947,58 @@ void Map::update()
         pers->attrs->damage->max_val = 20;
         Game::current_map->enemies.push_back(pers);
         new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
+        }
+        else if (this->depth == 2)
+        {
+            Room* room = Game::current_map->roomVector->back();
+            Person* pers = Game::create_person("Spindly Jason Rook", 99, room->center_x, room->center_y, 'J', Game::current_map);
+            pers->attrs->health->current_val = 300;
+            pers->attrs->health->max_val = 300;
+            pers->attrs->armor->current_val = 10;
+            pers->attrs->armor->max_val = 10;
+            pers->attrs->damage->current_val = 15;
+            pers->attrs->damage->max_val = 15;
+            Game::current_map->enemies.push_back(pers);
+            new Message(Ui::msg_handler_main, HELP_MSG, "JASON ARRIVES");
+        }
+        else if (this->depth == 3)
+        {
+            Room* room = Game::current_map->roomVector->back();
+            Person* pers = Game::create_person("Careful John Spiggot", 99, room->center_x, room->center_y, 'J', Game::current_map);
+            pers->attrs->health->current_val = 400;
+            pers->attrs->health->max_val = 400;
+            pers->attrs->armor->current_val = 15;
+            pers->attrs->armor->max_val =  15;
+            pers->attrs->damage->current_val = 23;
+            pers->attrs->damage->max_val = 23;
+            Game::current_map->enemies.push_back(pers);
+            new Message(Ui::msg_handler_main, HELP_MSG, "JOHN APPEARS");
+        }
+        else if (this->depth == 4)
+        {
+            Room* room = Game::current_map->roomVector->back();
+            Person* pers = Game::create_person("Sneaking Sam Giller", 99, room->center_x, room->center_y, 'S', Game::current_map);
+            pers->attrs->health->current_val = 400;
+            pers->attrs->health->max_val = 400;
+            pers->attrs->armor->current_val = 5;
+            pers->attrs->armor->max_val =  5;
+            pers->attrs->damage->current_val = 23;
+            pers->attrs->damage->max_val = 23;
+            Game::current_map->enemies.push_back(pers);
+            new Message(Ui::msg_handler_main, HELP_MSG, "SAM APPROACHES");
+        }
+        else if (this->depth == 5)
+        {
+            Room* room = Game::current_map->roomVector->back();
+            Person* pers = Game::create_person("Victorious Mr Rossignol", 99, room->center_x, room->center_y, 'R', Game::current_map);
+            pers->attrs->health->current_val = 600;
+            pers->attrs->health->max_val = 600;
+            pers->attrs->armor->current_val = 17;
+            pers->attrs->armor->max_val =  17;
+            pers->attrs->damage->current_val = 43;
+            pers->attrs->damage->max_val = 43;
+            Game::current_map->enemies.push_back(pers);
+            new Message(Ui::msg_handler_main, HELP_MSG, "ROSSIGNOL THUNDERS IN");
+        }
     };
 };
