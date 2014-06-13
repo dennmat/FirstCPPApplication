@@ -574,7 +574,9 @@ bool Input::process_basic_keys(TCOD_key_t request)
                     typedef std::vector<Actor*> actor_vector;
                     for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
                     {
+                        Actor* target = *it;
                         spell->cast_spell((*it));
+                        Game::player->combat->Attack(target->combat, 0); //hack to get exp and printout from casting
                     };
                     Game::player->attrs->mana->current_val -= mana_cost;
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");

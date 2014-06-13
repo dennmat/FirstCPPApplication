@@ -135,6 +135,11 @@ void Combat::GiveExp(int exp_to_gain)
 void Combat::Attack(Combat* combat_target, int dmg){
     //cout << "About to attack " << (*combat_target).name << endl;
 
+    if (combat_target == NULL)
+    {
+        printf("target had no combat\n");
+	return;
+    }
     new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "About to attack %s for %d damage.", combat_target->master->name.c_str(), dmg);
     combat_target->TakeDamage(this, dmg);
     this->last_victim = combat_target->master;
