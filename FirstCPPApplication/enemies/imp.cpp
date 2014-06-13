@@ -37,6 +37,7 @@ Imp::Imp(std::string name, int age, int x, int y, char repr) : Person(name, age,
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::crimson * (variant/10.0f), true, true, true);
+    this->img_path = get_data_path()+"img/imp8x8.png";
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;

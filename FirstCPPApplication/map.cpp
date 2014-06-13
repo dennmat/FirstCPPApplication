@@ -946,6 +946,7 @@ void Map::update()
             pers->attrs->damage->current_val = 20;
             pers->attrs->damage->max_val = 20;
             pers->xp_value = 200;
+            pers->img_path = get_data_path()+"img/hero8x8.png";
             Game::current_map->enemies.push_back(pers);
             new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
         }
@@ -960,6 +961,7 @@ void Map::update()
             pers->attrs->damage->current_val = 15;
             pers->attrs->damage->max_val = 15;
             pers->xp_value = 500;
+            pers->img_path = get_data_path()+"img/thief8x8.png";
             Game::current_map->enemies.push_back(pers);
             new Message(Ui::msg_handler_main, HELP_MSG, "JASON ARRIVES");
         }
@@ -974,6 +976,7 @@ void Map::update()
             pers->attrs->damage->current_val = 23;
             pers->attrs->damage->max_val = 23;
             Game::current_map->enemies.push_back(pers);
+            pers->img_path = get_data_path()+"img/hero8x8.png";
             pers->xp_value = 800;
             new Message(Ui::msg_handler_main, HELP_MSG, "JOHN APPEARS");
         }
@@ -988,6 +991,7 @@ void Map::update()
             pers->attrs->damage->current_val = 23;
             pers->attrs->damage->max_val = 23;
             Game::current_map->enemies.push_back(pers);
+            pers->img_path = get_data_path()+"img/thief8x8.png";
             pers->xp_value = 1000;
             new Message(Ui::msg_handler_main, HELP_MSG, "SAM APPROACHES");
         }
@@ -1003,6 +1007,7 @@ void Map::update()
             pers->attrs->damage->max_val = 43;
             pers->xp_value = 1500;
             Game::current_map->enemies.push_back(pers);
+            pers->img_path = get_data_path()+"img/hero8x8.png";
             new Message(Ui::msg_handler_main, HELP_MSG, "ROSSIGNOL THUNDERS IN");
         }
     };

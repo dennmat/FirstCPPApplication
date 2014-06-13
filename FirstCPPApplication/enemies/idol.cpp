@@ -38,6 +38,7 @@ Idol::Idol(std::string name, int age, int x, int y, char repr) : Person(name, ag
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::darkGreen * (variant/10.0f), true, true, true);
+    this->img_path = get_data_path()+"img/idol8x10.png";
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;

@@ -30,7 +30,7 @@ Person::Person(std::string name, int age, int x, int y, char repr)
     this->x = x;
     this->y = y;
 
-    this->img_path = get_data_path()+"img/Troll_Icon_01.png";
+    this->img_path = get_data_path()+"img/townsmen8x8.png";
 
     //   if (name == "Josh")
     //{

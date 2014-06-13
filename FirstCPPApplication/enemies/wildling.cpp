@@ -40,6 +40,7 @@ Wildling::Wildling(std::string name, int age, int x, int y, char repr) : Person(
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::darkFlame * (variant/10.0f), true, true, true);
+    this->img_path = get_data_path()+"img/wildling8x10.png";
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;

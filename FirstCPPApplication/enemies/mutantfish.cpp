@@ -38,6 +38,8 @@ MutantFish::MutantFish(std::string name, int age, int x, int y, char repr) : Per
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::lightGrey * (variant/10.0f), true, true, true);
+    this->img_path = get_data_path()+"img/mutantfish8x8.png";
+
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;

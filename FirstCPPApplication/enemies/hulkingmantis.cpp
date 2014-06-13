@@ -37,6 +37,7 @@ HulkingMantis::HulkingMantis(std::string name, int age, int x, int y, char repr)
     float variant = rnd->getFloat(5.0f, 10.0f);
     //std::cout << (variant/10.0f) << std::endl;
     this->representation->setFGColor(TCODColor::darkTurquoise * (variant/10.0f), true, true, true);
+    this->img_path = get_data_path()+"img/hulkingmantis8x10.png";
 
     // Inventory* inventory =   new Inventory;
     // this->inventory = inventory;
@@ -51,12 +52,15 @@ HulkingMantis::HulkingMantis(std::string name, int age, int x, int y, char repr)
 
     // my_tile = NULL;
     // this->pack_size = 10;
+    this->attrs->health->max_val = 110;
+    this->attrs->health->current_val = 110;
 
-    this->attrs->health->max_val = 30;
-    this->attrs->health->current_val = 30;
+    this->attrs->damage->max_val = 13;
+    this->attrs->damage->current_val = 13;
 
-    this->attrs->damage->max_val = 3;
-    this->attrs->damage->current_val = 3;
+    this->attrs->armor->max_val = 3;
+    this->attrs->armor->current_val = 3;
+
 
 };
 
