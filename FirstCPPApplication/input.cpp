@@ -1326,7 +1326,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             Input::generic_index = 'a';
             Game::current_state = GameStates::GameplayState;
         }
-        else if ( request.c == '+'&& request.pressed == 1) 
+        else if ( (request.vk == TCODK_PAGEDOWN || request.c == '+') && request.pressed == 1) 
         {
             Ui::page_num++;
             Ui::offset = Ui::per_page*Ui::page_num;
@@ -1353,7 +1353,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             }
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
-        else if ( request.c == '-'&& request.pressed == 1) 
+        else if ( (request.vk == TCODK_PAGEUP || request.c == '-' )&& request.pressed == 1) 
         {
             if (Ui::offset > 0)
             {
