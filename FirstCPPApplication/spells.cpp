@@ -20,9 +20,10 @@ Spell::Spell()
     this->cast_count = 0;
 
     this->attrs = new AttributeContainer;
-    this->attrs->health->current_val = 100;
+    // this->attrs->health->current_val = 100;
 
     this->spell_effect = new ItemEffect;
+    this->spell_effect->set_all_vals_to(0);
 
     this->element = elements_t::FireElement;
 

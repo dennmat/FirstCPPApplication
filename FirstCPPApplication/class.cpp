@@ -90,7 +90,7 @@ void FighterClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new Spell);
             this->master->spells->back()->name = "Inner Sanctuary";
             this->master->spells->back()->element = LifeElement;
-            this->master->spells->back()->spell_effect->health_max_val = 15;
+            this->master->spells->back()->spell_effect->health_max_val = 30;
             this->master->spells->back()->mana_cost = 20;
             this->master->spells->back()->max_range = 1;
             this->master->spells->back()->spell_effect->duration = 50;
@@ -223,7 +223,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             this->master->spells->back()->spell_effect->damage_current_val = 15;
             this->master->spells->back()->mana_cost = 20;
             this->master->spells->back()->max_range = 1;
-            this->master->spells->back()->spell_effect->duration = 50;
+            this->master->spells->back()->spell_effect->duration = 23;
             break;
 
     };
