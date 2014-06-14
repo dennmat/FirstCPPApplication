@@ -384,7 +384,7 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr)
 {
     //build the Person
     T * creature = new T(name, age, x, y, repr);
-    creature->attrs->hunger->max_val = 9999999;
+    //creature->attrs->hunger->max_val = 9999999;
 
     //put it on the map somewhere
     Tile * next_tile = Game::world->getTileAt(x,y);

@@ -31,6 +31,8 @@ Map::Map()
     this->enemies = std::vector<Actor*>();
     this->roomVector = new std::vector<Room*>;
 
+    this->has_hero_spawned = false;
+
     this->width = NULL;
     this->height = NULL;
     this->depth = 1;
@@ -933,8 +935,10 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 void Map::update()
 {
     int result = Game::event_rng->getInt(0, 1000);
-    if (result == SpecialHeroSpawn)
+    if (this->has_hero_spawned == false && result == SpecialHeroSpawn)
     {
+        this->has_hero_spawned = true;
+        
         if (this->depth == 1)
         {
             Room* room = Game::current_map->roomVector->back();
@@ -995,7 +999,7 @@ void Map::update()
             pers->xp_value = 1000;
             new Message(Ui::msg_handler_main, HELP_MSG, "SAM APPROACHES");
         }
-        else if (this->depth == 5)
+        else if (this->depth >= 5)
         {
             Room* room = Game::current_map->roomVector->back();
             Person* pers = Game::create_person("Victorious Mr Rossignol", 99, room->center_x, room->center_y, 'R', Game::current_map);
