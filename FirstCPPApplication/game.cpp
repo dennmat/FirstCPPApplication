@@ -480,6 +480,7 @@ Person*  Game::initialize_player()
     player->attrs->damage->max_val=5;
     player->attrs->armor->current_val=0;
     player->attrs->armor->max_val=0;
+    player->attrs->hunger->max_val=1000;
     player->attrs->hunger->current_val=210;
     player->attrs->hunger->regen_interval=5;
 
