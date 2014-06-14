@@ -20,6 +20,8 @@ Spell::Spell()
     this->min_char_level = 1;
     this->cast_count = 0;
 
+    this->required_level = 1;
+
     this->attrs = new AttributeContainer;
     // this->attrs->health->current_val = 100;
 

@@ -31,6 +31,8 @@ class Spell
 
         elements_t element;
 
+        int required_level;
+
         int turn_cooldown;
         int max_range;
         int min_range;

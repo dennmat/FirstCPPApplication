@@ -11,8 +11,10 @@ class IClass
         Actor* master;
         std::string name;
         std::string description;
-	IClass() { this->type = -1;};
+
+        IClass() { this->type = -1;};
         virtual ~IClass() {};
+
         virtual void LevelUpStats(int levels) = 0;
         virtual void LevelUpSkills(int levels) = 0;
 
