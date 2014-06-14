@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "actors\actor.h"
 #include "spells.h"
 #include "attribute_container.h"
 #include "attribute.h"
@@ -29,6 +30,8 @@ Spell::Spell()
 
     this->aoe = 0;
     this->target_type = TargetTypes::TargettedTargetType;
+
+    this->master = NULL;
 
 };
 

@@ -685,6 +685,7 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
+    Actor::actor_class_choices->push_back(new NecromancerClass);
 
     Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
     Game::item_spawn_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);

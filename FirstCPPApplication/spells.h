@@ -37,6 +37,8 @@ class Spell
         int min_char_level;
         int cast_count;
 
+        Actor* master;
+
         int aoe;
         TargetTypes target_type;
 

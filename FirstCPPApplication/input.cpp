@@ -883,26 +883,14 @@ bool Input::process_spells_keys(TCOD_key_t request)
         Ui::targetted_tile = Game::player->my_tile;
         Game::current_state = GameStates::GameplayState;
         std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;
-        // Game::current_screen = Screens::Game
-        //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
-        //Ui::chosen_spell->use(Game::player);
-        //return true;
     }
 
     else if( action == spells_active_t::EquipSpell )
     {
-        // Ui::chosen_spell->equip(Game::player);
-        // Game::player->equipment->equip_spell(Ui::chosen_item);
-        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping spell.");
-        // return true;
     }
 
     else if( action == spells_active_t::UnequipSpell )
     {
-        // Ui::chosen_spell->unequip(Game::player);
-        // Game::player->equipment->unequip_spell(Ui::chosen_item);
-        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Unequipping spell.");
-        // return true;
     }
 
     else if( action == spells_active_t::EscapeMenuSpell )

@@ -38,6 +38,14 @@ class MageClass : public IClass
         virtual void LevelUpSkills(int levels);
 };
 
+class NecromancerClass : public IClass
+{
+    public:
+        NecromancerClass();
+        virtual void LevelUpStats(int levels);
+        virtual void LevelUpSkills(int levels);
+};
+
 class BrawlerClass : public IClass
 {
     public:
