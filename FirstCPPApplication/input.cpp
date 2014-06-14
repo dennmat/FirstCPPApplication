@@ -577,7 +577,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
             {
                 if (Game::player->attrs->mana->current_val >= mana_cost)
                 {
-                    std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
+                    std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
                     typedef std::vector<Actor*> actor_vector;
                     for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
                     {

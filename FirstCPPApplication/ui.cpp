@@ -392,7 +392,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int 
     }
 
     Spell* spell = (Spell*)Ui::chosen_generic;
-    std::vector<Actor*> targets = spell->targets_for_tile(targetted_tile);
+    std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
     for (std::vector<Actor*>::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Game::game_console->setChar('X', (*it)->x+Game::camera_x, (*it)->y+Game::camera_y);

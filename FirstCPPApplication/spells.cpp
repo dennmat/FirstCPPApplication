@@ -61,7 +61,7 @@ void Spell::cast_spell(Actor* target)
 };
 
 
-std::vector<Actor*> Spell::targets_for_tile(Tile* target_tile)
+std::vector<Actor*> Spell::targets_around_tile(Tile* target_tile)
 {
     typedef std::vector<Tile*> tile_vector;
     std::vector<Actor*> targets;
