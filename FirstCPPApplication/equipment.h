@@ -34,8 +34,8 @@ class Slot
 
         bool HasRoomFor(Item* item);
         Item* GetEquippedItem();
-        void apply_item_effect();
-        void remove_item_effect();
+        void apply_attr_effect();
+        void remove_attr_effect();
 
 
 };

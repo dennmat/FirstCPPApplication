@@ -8,7 +8,7 @@
 
 class Representation;
 class Slot;
-class ItemEffect;
+class AttrEffect;
 class Actor;
 
 // enum slots_t : unsigned int;
@@ -25,7 +25,7 @@ class Item
         int uses;
         bool equippable;
 
-        ItemEffect* item_effect;
+        AttrEffect* attr_effect;
         Representation* repr;
 
         Item();

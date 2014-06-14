@@ -4,7 +4,7 @@
 
 
 #include "object.h"
-#include <item_effect.h>
+#include <attr_effect.h>
 
 class Representation;
 
@@ -62,7 +62,7 @@ class Actor : public Object
         static int pack_size;
         static int preferred_pack_size;
 
-        std::vector<TimedEffect*>* timed_item_effects;
+        std::vector<TimedEffect*>* timed_attr_effects;
         std::vector<TimedEffect*>* timed_spell_effects;
 
         IClass* actor_class;

@@ -6,7 +6,7 @@
 class ScreenItem;
 class InventoryScreenItem;
 class Representation;
-class ItemEffect;
+class AttrEffect;
 
 template< typename T>
 class Screen 

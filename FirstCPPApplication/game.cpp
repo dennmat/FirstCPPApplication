@@ -30,7 +30,7 @@
 #include "enemies\skeleton.h"
 #include "enemies\ogre.h"
 #include <enums\gamestate.h>
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "Room.h"
 #include "debug_options.h"
 #include "messages.h"
@@ -409,9 +409,9 @@ void  Game::initialize_items()
     dagger->name = "Prisoner's Shank";
     dagger->repr->repr = '/';
     dagger->description = "You hid this in your clothes";
-    dagger->item_effect->set_all_vals_to(0);
-    dagger->item_effect->damage_current_val = 1;
-    dagger->item_effect->damage_max_val = 1;
+    dagger->attr_effect->set_all_vals_to(0);
+    dagger->attr_effect->damage_current_val = 1;
+    dagger->attr_effect->damage_max_val = 1;
     dagger->slot_type= MainHand;
     dagger->equippable = true;
     player->inventory->add_item(dagger);
@@ -421,9 +421,9 @@ void  Game::initialize_items()
     amulet->name = "Bent Amulet";
     amulet->repr->repr = '&';
     amulet->description = "You swore to never take this off.";
-    amulet->item_effect->set_all_vals_to(0);
-    amulet->item_effect->health_current_val = 3;
-    amulet->item_effect->health_max_val = 3;
+    amulet->attr_effect->set_all_vals_to(0);
+    amulet->attr_effect->health_current_val = 3;
+    amulet->attr_effect->health_max_val = 3;
     amulet->slot_type = Neck;
     amulet->equippable = true;
     player->inventory->add_item(amulet);
@@ -433,9 +433,9 @@ void  Game::initialize_items()
     chest_armor->name = "Prisoner's Robes";
     chest_armor->repr->repr = '&';
     chest_armor->description = "You were only able to wear these before they found you.";
-    chest_armor->item_effect->set_all_vals_to(0);
-    chest_armor->item_effect->armor_current_val = 1;
-    chest_armor->item_effect->armor_max_val = 1;
+    chest_armor->attr_effect->set_all_vals_to(0);
+    chest_armor->attr_effect->armor_current_val = 1;
+    chest_armor->attr_effect->armor_max_val = 1;
     chest_armor->slot_type = Chest;
     chest_armor->equippable = true;
     player->inventory->add_item(chest_armor);
@@ -446,12 +446,12 @@ void  Game::initialize_items()
     //     Item* item2 = new Item();
     //     item2->name = "Item of Holding";
     //     item2->name.append(std::to_string((long double)i+1));
-    //     item2->item_effect->health_current_val = 1;
-    //     item2->item_effect->mana_current_val = 1;
-    //     item2->item_effect->armor_current_val = 1;
-    //     item2->item_effect->damage_current_val = 900;
-    //     item2->item_effect->damage_max_val = 900;
-    //     item2->item_effect->duration= 4;
+    //     item2->attr_effect->health_current_val = 1;
+    //     item2->attr_effect->mana_current_val = 1;
+    //     item2->attr_effect->armor_current_val = 1;
+    //     item2->attr_effect->damage_current_val = 900;
+    //     item2->attr_effect->damage_max_val = 900;
+    //     item2->attr_effect->duration= 4;
     //     item2->usable = true;
     //     item2->description = "You can hold this item";
     //     player->inventory->add_item(item2);
@@ -492,7 +492,7 @@ Person*  Game::initialize_player()
 
     Spell* fireball = new Spell;
     fireball->name = "Fireball";
-    fireball->spell_effect->health_current_val = -10;
+    fireball->attr_effect->health_current_val = -10;
     fireball->mana_cost = 10;
     fireball->max_range = 10;
     fireball->aoe = 1;

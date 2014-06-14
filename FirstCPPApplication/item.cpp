@@ -3,7 +3,7 @@
 #include "item.h"
 #include "game.h"
 #include "Representation.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "actors/actor.h"
 #include "tile.h"
 #include "inventory.h"
@@ -12,7 +12,7 @@ Item::Item()
 {
     this->repr = new BaseItemRepresentation();
     this->slot_type =  slots_t::Chest;
-    this->item_effect = new ItemEffect;
+    this->attr_effect = new AttrEffect;
     this->weight = 1;
 
     this->name = "A Nameless Item";
@@ -28,14 +28,14 @@ void Item::use(Actor* target)
 {
     if ( this->usable )
     {
-        this->item_effect->ApplyAllEffects(target);
+        this->attr_effect->ApplyAllEffects(target);
         this->uses--;
-        if (this->item_effect->is_timed())
+        if (this->attr_effect->is_timed())
         {
             TimedEffect* timed_effect = new TimedEffect;
-            timed_effect->effect = this->item_effect;
+            timed_effect->effect = this->attr_effect;
             timed_effect->turn_applied = Game::turn_count;
-            target->timed_item_effects->push_back(timed_effect);
+            target->timed_attr_effects->push_back(timed_effect);
         };
         if (this->uses <= 0)
         {
@@ -52,7 +52,7 @@ void Item::use(Actor* target)
 void Item::set_and_name_for_dmg(std::string pre_name, std::string post_name, TCODRandom* rng, int min, int max, int med)
 {
 
-    int val = this->item_effect->set_rng_damage(rng, min, max, med);
+    int val = this->attr_effect->set_rng_damage(rng, min, max, med);
     float percent = (float(val))/ ((float)max) * 100;
     std::string mid_name = "";
     if (percent < 10.0f) { mid_name = "broken";}
@@ -81,7 +81,7 @@ void Item::set_and_name_for_dmg(std::string pre_name, std::string post_name, TCO
 void Item::set_and_name_for_arm(std::string pre_name, std::string post_name, TCODRandom* rng, int min, int max, int med)
 {
 
-    int val = this->item_effect->set_rng_armor(rng, min, max, med);
+    int val = this->attr_effect->set_rng_armor(rng, min, max, med);
     float percent = (float(val))/ ((float)max) * 100;
     std::string mid_name = "";
     if (percent < 10.0f) { mid_name = "broken";}
@@ -111,7 +111,7 @@ void Item::unequip(Actor* target)
 {
     if ( this->equippable )
     {
-        //this->item_effect->RemoveAllEffects(target);
+        //this->attr_effect->RemoveAllEffects(target);
     }
     else
     {
@@ -124,7 +124,7 @@ void Item::equip(Actor* target)
     if ( this->equippable )
     {
         //this doesn't happen here any more
-        // this->item_effect->ApplyAllEffects(target);
+        // this->attr_effect->ApplyAllEffects(target);
     }
     else
     {

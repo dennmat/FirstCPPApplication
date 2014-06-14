@@ -16,7 +16,7 @@
 #include "attribute_container.h"
 #include "Representation.h"
 #include "item.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "ui.h"
 #include "messages.h"
 #include "game.h"
@@ -46,7 +46,7 @@ Actor::Actor()
     this->level = 1;
 
     this->is_champion = false;
-    this->timed_item_effects = new std::vector<TimedEffect*>;
+    this->timed_attr_effects = new std::vector<TimedEffect*>;
     this->timed_spell_effects = new std::vector<TimedEffect*>;
 
     this->my_tile = NULL;
@@ -83,7 +83,7 @@ TCODImage* Actor::get_image()
 
 Actor::~Actor()
 {
-    delete this->timed_item_effects;
+    delete this->timed_attr_effects;
     delete this->timed_spell_effects;
 
     delete this->actors_in_sight;
@@ -210,10 +210,10 @@ Item* Actor::CreateCorpse()
 
     corpse->name =  this->cls_name + " corpse";
     corpse->slot_type = slots_t::NoSlot;
-    corpse->item_effect->set_all_vals_to(0);
-    corpse->item_effect->health_regen_interval=1.25;
-    corpse->item_effect->health_regen_rate=1;
-    corpse->item_effect->hunger_current_val=-50;
+    corpse->attr_effect->set_all_vals_to(0);
+    corpse->attr_effect->health_regen_interval=1.25;
+    corpse->attr_effect->health_regen_rate=1;
+    corpse->attr_effect->hunger_current_val=-50;
     corpse->usable = true;
     corpse->equippable = false;
 
@@ -245,7 +245,7 @@ Item* spawnItemBase(std::string name, std::string description, char repr, slots_
         dropped_item->description = description;
         dropped_item->slot_type = slot;
         dropped_item->weight = weight;
-        dropped_item->item_effect->set_all_vals_to(0);
+        dropped_item->attr_effect->set_all_vals_to(0);
         return dropped_item;
 };
 
@@ -283,14 +283,14 @@ Item* spawnWeapon()
         dropped_item = spawnEquippable("A sword", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->set_and_name_for_dmg("A", "sword", rng, 5, 15, 7);
-        // dropped_item->item_effect->set_rng_damage(rng, 5, 15, 8);
+        // dropped_item->attr_effect->set_rng_damage(rng, 5, 15, 8);
     }
     else if (result == MaceSpawn)
     {
         std::string description = "It looks like your mom.";
         dropped_item = spawnEquippable("A mace", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        // dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
+        // dropped_item->attr_effect->set_rng_damage(rng, 1, 5, 3);
         dropped_item->set_and_name_for_dmg("A", "mace", rng, 1, 5, 3);
     }
     else if (result == DaggerSpawn)
@@ -298,7 +298,7 @@ Item* spawnWeapon()
         std::string description = "It cuts quickly and deeply";
         dropped_item = spawnEquippable("A dagger", description, '/', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lighterSepia, true, false, true);
-        // dropped_item->item_effect->set_rng_damage(rng, 1, 5, 3);
+        // dropped_item->attr_effect->set_rng_damage(rng, 1, 5, 3);
         dropped_item->set_and_name_for_dmg("A", "dagger", rng, 1, 5, 3);
     }
     else if (result == TridentSpawn)
@@ -306,7 +306,7 @@ Item* spawnWeapon()
         std::string description = "It looks like it could kill a man.";
         dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
-        // dropped_item->item_effect->set_rng_damage(rng, 4, 20, 5);
+        // dropped_item->attr_effect->set_rng_damage(rng, 4, 20, 5);
         dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 5);
     }
     else if (result == WhipSpawn)
@@ -314,7 +314,7 @@ Item* spawnWeapon()
         std::string description = "It looks as if it had been used on something recently.";
         dropped_item = spawnEquippable("A whip", description, '&', slots_t::MainHand, 5);
         dropped_item->repr->setFGColor(TCODColor::darkerOrange, true, false, true);
-        // dropped_item->item_effect->set_rng_damage(rng, 4, 9, 4);
+        // dropped_item->attr_effect->set_rng_damage(rng, 4, 9, 4);
         dropped_item->set_and_name_for_dmg("A", "whip", rng, 5, 10, 6);
     }
     else if (result == KatanaSpawn)
@@ -322,7 +322,7 @@ Item* spawnWeapon()
         std::string description = "It looks very sharp.";
         dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
-        // dropped_item->item_effect->set_rng_damage(rng, 10, 20, 11);
+        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "katana", rng, 10, 30, 11);
     }
     else
@@ -352,7 +352,7 @@ Item* spawnArmor()
         std::string description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item = spawnEquippable("Chainmail", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        // dropped_item->item_effect->set_rng_armor(rng, 3, 8, 3);
+        // dropped_item->attr_effect->set_rng_armor(rng, 3, 8, 3);
         dropped_item->set_and_name_for_arm("", "Chainmail", rng, 3, 8, 3);
     }
     else if (result == LeatherChestSpawn)
@@ -360,7 +360,7 @@ Item* spawnArmor()
         std::string description = "It looks like it's made up of leather hide.";
         dropped_item = spawnEquippable("Leather Chestpiece", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
-        // dropped_item->item_effect->set_rng_armor(rng, 1, 5, 2);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 2);
         dropped_item->set_and_name_for_arm("", "Leather Chestpiece", rng, 2, 6, 2);
     }
     else if (result == ShieldSpawn)
@@ -368,7 +368,7 @@ Item* spawnArmor()
         std::string description = "It looks like it can take a few hits.";
         dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        // dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "shield", rng, 1, 5, 3);
     }
     else if (result == TargetShieldSpawn)
@@ -376,7 +376,7 @@ Item* spawnArmor()
         std::string description = "It looks like it can block several hits.";
         dropped_item = spawnEquippable("A target shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightestGrey, true, false, true);
-        // dropped_item->item_effect->set_rng_armor(rng, 3, 7, 3);
+        // dropped_item->attr_effect->set_rng_armor(rng, 3, 7, 3);
         dropped_item->set_and_name_for_arm("A", "target shield", rng, 3, 7, 3);
         
     }
@@ -385,7 +385,7 @@ Item* spawnArmor()
         std::string description = "It looks sturdy.";
         dropped_item = spawnEquippable("A helmet", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        // dropped_item->item_effect->set_rng_armor(rng, 1, 5, 3);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "helmet", rng, 1, 7, 3);
 
     }
@@ -397,12 +397,12 @@ Item* spawnArmor()
         int armor = rng->getInt(1, 5, 3);
         int health = rng->getInt(1, 5, 3);
         int mana = rng->getInt(1, 5, 3);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
-        dropped_item->item_effect->health_current_val = health;
-        dropped_item->item_effect->health_max_val = health;
-        dropped_item->item_effect->mana_current_val = mana;
-        dropped_item->item_effect->mana_max_val = mana;
+        dropped_item->attr_effect->armor_current_val = armor;
+        dropped_item->attr_effect->armor_max_val = armor;
+        dropped_item->attr_effect->health_current_val = health;
+        dropped_item->attr_effect->health_max_val = health;
+        dropped_item->attr_effect->mana_current_val = mana;
+        dropped_item->attr_effect->mana_max_val = mana;
     }
     else 
     {
@@ -434,7 +434,7 @@ Item* spawnPotion()
 
         //health restore
         int health = rng->getInt(10, 100, 25);
-        dropped_item->item_effect->health_current_val = health;
+        dropped_item->attr_effect->health_current_val = health;
     }
     else if (result == GlowingHealthPotionSpawn)
     {
@@ -444,8 +444,8 @@ Item* spawnPotion()
 
         //health restore
         int health = rng->getInt(5, 50, 15);
-        dropped_item->item_effect->health_current_val = health;
-        dropped_item->item_effect->health_max_val = health;
+        dropped_item->attr_effect->health_current_val = health;
+        dropped_item->attr_effect->health_max_val = health;
     }
     else if (result == PulsatingHealthSpawn)
     {
@@ -456,8 +456,8 @@ Item* spawnPotion()
 
         //health restore
         int health = rng->getInt(1, 5, 1);
-        dropped_item->item_effect->health_regen_rate = health;
-        dropped_item->item_effect->health_regen_interval = -floor((double)health/2);
+        dropped_item->attr_effect->health_regen_rate = health;
+        dropped_item->attr_effect->health_regen_interval = -floor((double)health/2);
     }
     else if (result == ManaPotionSpawn)
     {
@@ -467,7 +467,7 @@ Item* spawnPotion()
 
         //health restore
         int mana = rng->getInt(1, 50, 10);
-        dropped_item->item_effect->mana_current_val = mana;
+        dropped_item->attr_effect->mana_current_val = mana;
     }
     else if (result == GlowingManaPotionSpawn)
     {
@@ -477,8 +477,8 @@ Item* spawnPotion()
 
         //mana regen
         int mana = rng->getInt(1, 5, 1);
-        dropped_item->item_effect->mana_regen_rate = mana;
-        dropped_item->item_effect->mana_regen_interval = -floor((double)mana/2);
+        dropped_item->attr_effect->mana_regen_rate = mana;
+        dropped_item->attr_effect->mana_regen_interval = -floor((double)mana/2);
     }
     else
     {
@@ -513,12 +513,12 @@ Item* spawnSpecial()
         int armor = rng->getInt(1, 5, 2);
         int damage = rng->getInt(1, 5, 2);
         int mana = rng->getInt(1, 5, 2);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
-        dropped_item->item_effect->mana_regen_rate = mana;
-        dropped_item->item_effect->mana_regen_interval = mana;
+        dropped_item->attr_effect->armor_current_val = armor;
+        dropped_item->attr_effect->armor_max_val = armor;
+        dropped_item->attr_effect->damage_current_val = damage;
+        dropped_item->attr_effect->damage_max_val = damage;
+        dropped_item->attr_effect->mana_regen_rate = mana;
+        dropped_item->attr_effect->mana_regen_interval = mana;
 
     }
     else if (result == GoldenRingSpawn)
@@ -531,10 +531,10 @@ Item* spawnSpecial()
         //dagger damage
         int armor = rng->getInt(1, 5, 2);
         int health = rng->getInt(10, 50, 20);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
-        dropped_item->item_effect->health_current_val = health;
-        dropped_item->item_effect->health_max_val = health;
+        dropped_item->attr_effect->armor_current_val = armor;
+        dropped_item->attr_effect->armor_max_val = armor;
+        dropped_item->attr_effect->health_current_val = health;
+        dropped_item->attr_effect->health_max_val = health;
 
     }
     else if (result == RedFireFlySpawn)
@@ -549,9 +549,9 @@ Item* spawnSpecial()
         //dagger damage
         // int armor = rng->getInt(1, 5, 2);
         int damage = rng->getInt(10, 50, 20);
-        dropped_item->item_effect->damage_current_val = damage;
-        dropped_item->item_effect->damage_max_val = damage;
-        dropped_item->item_effect->duration = 15;
+        dropped_item->attr_effect->damage_current_val = damage;
+        dropped_item->attr_effect->damage_max_val = damage;
+        dropped_item->attr_effect->duration = 15;
 
 
     }
@@ -567,9 +567,9 @@ Item* spawnSpecial()
         //dagger damage
         // int armor = rng->getInt(1, 5, 2);
         int mana = rng->getInt(10, 50, 20);
-        dropped_item->item_effect->mana_current_val = mana;
-        dropped_item->item_effect->mana_max_val = mana;
-        dropped_item->item_effect->duration = 15;
+        dropped_item->attr_effect->mana_current_val = mana;
+        dropped_item->attr_effect->mana_max_val = mana;
+        dropped_item->attr_effect->duration = 15;
     }
     else if (result == GreenFireFlySpawn)
     {
@@ -583,9 +583,9 @@ Item* spawnSpecial()
         //dagger damage
         // int armor = rng->getInt(1, 5, 2);
         int health = rng->getInt(10, 50, 20);
-        dropped_item->item_effect->health_current_val = health;
-        dropped_item->item_effect->health_max_val = health;
-        dropped_item->item_effect->duration = 15;
+        dropped_item->attr_effect->health_current_val = health;
+        dropped_item->attr_effect->health_max_val = health;
+        dropped_item->attr_effect->duration = 15;
     }
     else if (result == GreyFireFlySpawn)
     {
@@ -599,9 +599,9 @@ Item* spawnSpecial()
         //dagger damage
         // int armor = rng->getInt(1, 5, 2);
         int armor = rng->getInt(5, 20, 10);
-        dropped_item->item_effect->armor_current_val = armor;
-        dropped_item->item_effect->armor_max_val = armor;
-        dropped_item->item_effect->duration = 15;
+        dropped_item->attr_effect->armor_current_val = armor;
+        dropped_item->attr_effect->armor_max_val = armor;
+        dropped_item->attr_effect->duration = 15;
     }
     else
     {
@@ -723,7 +723,7 @@ void Actor::ScorePrintout()
     {
         necro << (*it)->name << std::endl;
         necro << (*it)->description << std::endl;
-        necro << (*it)->item_effect->oneline_str_colorless().c_str() << std::endl << std::endl;
+        necro << (*it)->attr_effect->oneline_str_colorless().c_str() << std::endl << std::endl;
     }
     necro  << std::endl;
 

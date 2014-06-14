@@ -10,7 +10,7 @@
 
 class AttributeContainer;
 class Attribute;
-class ItemEffect;
+class AttrEffect;
 class Actor;
 
 
@@ -45,7 +45,7 @@ class Spell
         TargetTypes target_type;
 
         AttributeContainer* attrs;
-        ItemEffect* spell_effect;
+        AttrEffect* attr_effect;
 
         Spell();
         TCODColor get_spell_color();

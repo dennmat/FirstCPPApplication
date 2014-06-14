@@ -12,7 +12,7 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "item.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "messages.h"
 #include "map.h"
 #include "tile.h"
@@ -741,7 +741,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
     {
         is_chosen = (*it) == Ui::chosen_generic;
         is_active = Ui::generic_active;
-        has_duration = (*it)->spell_effect->duration != -1;
+        has_duration = (*it)->attr_effect->duration != -1;
 
         TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
         TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_spell_color(), con->getDefaultBackground());
@@ -765,7 +765,7 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         if (has_duration)
         {
             msg_str.append(", %ddur");
-            sprintf(buffer, msg_str.c_str(), (*it)->spell_effect->duration);
+            sprintf(buffer, msg_str.c_str(), (*it)->attr_effect->duration);
             msg_str = buffer;
         };
 
@@ -817,8 +817,8 @@ void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
         i++;
 
         //print the spell effects
-        std::string msg = (*it)->spell_effect->oneline_str();
-        std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->spell_effect->oneline_str_colours();
+        std::string msg = (*it)->attr_effect->oneline_str();
+        std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->attr_effect->oneline_str_colours();
         one_line_helper(con, offset, i, msg, colctrl_vec);
         i++;
         i++;

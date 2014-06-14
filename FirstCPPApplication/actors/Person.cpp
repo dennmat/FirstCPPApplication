@@ -142,7 +142,7 @@ void Person::update()
     // }
 
     //item buffs
-    std::vector<TimedEffect*>* timed_items = this->timed_item_effects;
+    std::vector<TimedEffect*>* timed_items = this->timed_attr_effects;
     auto it = timed_items->begin();
     for (it; it != timed_items->end(); )
     {

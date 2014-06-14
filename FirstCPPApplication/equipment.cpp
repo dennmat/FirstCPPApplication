@@ -5,7 +5,7 @@
 #include "equipment.h"
 #include "item.h"
 #include <actors/actor.h>
-#include "item_effect.h"
+#include "attr_effect.h"
 
 Slot::Slot(slots_t type, Equipment* equipment)
 {
@@ -32,8 +32,8 @@ void Slot::AddToSlot(Item* item)
         //add item to slot
         //std::cout << "added item to slot" << std::endl;
         this->equipped_item = item;
-        // this->equipped_item->item_effect->ApplyAllEffects(this->equipment->master);
-        this->apply_item_effect();
+        // this->equipped_item->attr_effect->ApplyAllEffects(this->equipment->master);
+        this->apply_attr_effect();
     }
     else
     {
@@ -44,7 +44,7 @@ void Slot::AddToSlot(Item* item)
 
 void Slot::RemoveFromSlot()
 {
-    this->remove_item_effect();
+    this->remove_attr_effect();
     this->equipped_item = NULL;
 
 };
@@ -61,7 +61,7 @@ Actor* Slot::get_master()
     };
 };
 
-void Slot::remove_item_effect()
+void Slot::remove_attr_effect()
 {
     //find equipment master
     Actor* master = this->get_master();
@@ -70,17 +70,17 @@ void Slot::remove_item_effect()
     {
         //apply appropriate health mana damage armor changes
 
-        this->equipped_item->item_effect->RemoveHealthEffects(master);
-        this->equipped_item->item_effect->RemoveManaEffects(master);
-        this->equipped_item->item_effect->RemoveArmorEffects(master);
-        this->equipped_item->item_effect->RemoveDamageEffects(master);
-        this->equipped_item->item_effect->unmark_applied_all(master);
+        this->equipped_item->attr_effect->RemoveHealthEffects(master);
+        this->equipped_item->attr_effect->RemoveManaEffects(master);
+        this->equipped_item->attr_effect->RemoveArmorEffects(master);
+        this->equipped_item->attr_effect->RemoveDamageEffects(master);
+        this->equipped_item->attr_effect->unmark_applied_all(master);
 
     }
 
 };
 
-void Slot::apply_item_effect()
+void Slot::apply_attr_effect()
 {
 
     //find equipment master
@@ -89,10 +89,10 @@ void Slot::apply_item_effect()
     if (master != NULL && master->has_attributes(), this->equipped_item != NULL)
     {
         //apply appropriate health mana damage armor changes
-        this->equipped_item->item_effect->ApplyHealthEffects(master);
-        this->equipped_item->item_effect->ApplyManaEffects(master);
-        this->equipped_item->item_effect->ApplyArmorEffects(master);
-        this->equipped_item->item_effect->ApplyDamageEffects(master);
+        this->equipped_item->attr_effect->ApplyHealthEffects(master);
+        this->equipped_item->attr_effect->ApplyManaEffects(master);
+        this->equipped_item->attr_effect->ApplyArmorEffects(master);
+        this->equipped_item->attr_effect->ApplyDamageEffects(master);
     }
 
     //TODO TODO TODO
@@ -286,27 +286,27 @@ Equipment::~Equipment()
 void Equipment::Update()
 {
     // //apply buffs/debuffs and durability for all equipment
-    // this->head->apply_item_effect();
-    // this->earrings->apply_item_effect();
-    // this->necklace->apply_item_effect();
+    // this->head->apply_attr_effect();
+    // this->earrings->apply_attr_effect();
+    // this->necklace->apply_attr_effect();
 
-    // this->chest->apply_item_effect();
-    // this->left_shoulder->apply_item_effect();
-    // this->right_shoulder->apply_item_effect();
+    // this->chest->apply_attr_effect();
+    // this->left_shoulder->apply_attr_effect();
+    // this->right_shoulder->apply_attr_effect();
 
-    // this->left_bracer->apply_item_effect();
-    // this->right_bracer->apply_item_effect();
+    // this->left_bracer->apply_attr_effect();
+    // this->right_bracer->apply_attr_effect();
 
-    // this->left_glove->apply_item_effect();
-    // this->right_glove->apply_item_effect();
+    // this->left_glove->apply_attr_effect();
+    // this->right_glove->apply_attr_effect();
 
-    // this->left_ring_ring->apply_item_effect();
-    // this->right_ring_ring->apply_item_effect();
-    // this->left_ring_middle->apply_item_effect();
-    // this->right_ring_middle->apply_item_effect();
-    // this->left_ring_index->apply_item_effect();
-    // this->right_ring_index->apply_item_effect();
+    // this->left_ring_ring->apply_attr_effect();
+    // this->right_ring_ring->apply_attr_effect();
+    // this->left_ring_middle->apply_attr_effect();
+    // this->right_ring_middle->apply_attr_effect();
+    // this->left_ring_index->apply_attr_effect();
+    // this->right_ring_index->apply_attr_effect();
 
-    // this->main_weapon->apply_item_effect();
-    // this->off_weapon->apply_item_effect();
+    // this->main_weapon->apply_attr_effect();
+    // this->off_weapon->apply_attr_effect();
 };

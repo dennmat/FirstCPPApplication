@@ -4,7 +4,7 @@
 #include "spells.h"
 #include "attribute_container.h"
 #include "attribute.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "tile.h"
 
 
@@ -25,8 +25,8 @@ Spell::Spell()
     this->attrs = new AttributeContainer;
     // this->attrs->health->current_val = 100;
 
-    this->spell_effect = new ItemEffect;
-    this->spell_effect->set_all_vals_to(0);
+    this->attr_effect = new AttrEffect;
+    this->attr_effect->set_all_vals_to(0);
 
     this->element = elements_t::FireElement;
 
@@ -53,12 +53,12 @@ TCODColor Spell::get_spell_color()
 
 void Spell::cast_spell(Actor* target)
 {
-    this->spell_effect->ApplyAllEffects(target);
+    this->attr_effect->ApplyAllEffects(target);
 
-    if (this->spell_effect->duration > 0)
+    if (this->attr_effect->duration > 0)
     {
         TimedEffect* timed_effect = new TimedEffect;
-        timed_effect->effect = this->spell_effect;
+        timed_effect->effect = this->attr_effect;
         timed_effect->turn_applied = Game::turn_count;
         target->timed_spell_effects->push_back(timed_effect);
     };

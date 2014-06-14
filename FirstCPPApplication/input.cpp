@@ -26,7 +26,7 @@
 #include "attribute.h"
 #include "enums\screens.h"
 #include "spells.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "class.h"
 #include <messages.h>
 
@@ -567,7 +567,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         // Spell* spell = Game::player->spells->back();
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
-        int spell_damage = spell->spell_effect->health_current_val;
+        int spell_damage = spell->attr_effect->health_current_val;
         // int spell_damage = (-spell->attrs->health->current_val);
 
         int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);

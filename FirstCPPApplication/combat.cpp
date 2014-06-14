@@ -15,7 +15,7 @@
 #include "ui.h"
 #include "messages.h"
 #include "spells.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "class.h"
 
 

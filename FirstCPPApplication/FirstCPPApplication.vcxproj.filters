@@ -236,9 +236,6 @@
     <ClInclude Include="attribute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="item_effect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="attribute_container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -359,6 +356,9 @@
     <ClInclude Include="event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="attr_effect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -401,9 +401,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="attribute.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="item_effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="attribute_container.cpp">
@@ -500,6 +497,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="attr_effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

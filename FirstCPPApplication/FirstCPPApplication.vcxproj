@@ -151,6 +151,7 @@
     <ClInclude Include="actors\Person.h" />
     <ClInclude Include="attribute.h" />
     <ClInclude Include="attribute_container.h" />
+    <ClInclude Include="attr_effect.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="civilian.h" />
     <ClInclude Include="class.h" />
@@ -187,7 +188,6 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="item.h" />
-    <ClInclude Include="item_effect.h" />
     <ClInclude Include="jansson.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.h" />
     <ClInclude Include="libtcod_cpp_hpp\bresenham.hpp" />
@@ -258,6 +258,7 @@
     <ClCompile Include="actors\Person.cpp" />
     <ClCompile Include="attribute.cpp" />
     <ClCompile Include="attribute_container.cpp" />
+    <ClCompile Include="attr_effect.cpp" />
     <ClCompile Include="build.cpp" />
     <ClCompile Include="civilian.cpp" />
     <ClCompile Include="class.cpp" />
@@ -286,7 +287,6 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
-    <ClCompile Include="item_effect.cpp" />
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="randsys.cpp" />
     <ClCompile Include="Representation.cpp" />

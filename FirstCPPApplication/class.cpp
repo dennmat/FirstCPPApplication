@@ -6,7 +6,7 @@
 #include "ui.h"
 #include "messages.h"
 #include "spells.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "item.h"
 
 void IClass::LevelUpHealth(double change)
@@ -63,7 +63,7 @@ void FighterClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Water Bomb";
             new_spell->element = WaterElement;
-            new_spell->spell_effect->health_current_val = -7;
+            new_spell->attr_effect->health_current_val = -7;
             new_spell->mana_cost = 5;
             new_spell->max_range = 11;
             break;
@@ -75,7 +75,7 @@ void FighterClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "AutoChemistry: Health Potion";
             new_spell->element = LifeElement;
-            new_spell->spell_effect->health_current_val = 15;
+            new_spell->attr_effect->health_current_val = 15;
             new_spell->mana_cost = 5;
             new_spell->max_range = 1;
             break;
@@ -87,7 +87,7 @@ void FighterClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Poison Cough";
             new_spell->element = DeathElement;
-            new_spell->spell_effect->health_current_val = -25;
+            new_spell->attr_effect->health_current_val = -25;
             new_spell->mana_cost = 20;
             new_spell->max_range = 2;
             break;
@@ -99,10 +99,10 @@ void FighterClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Inner Sanctuary";
             new_spell->element = LifeElement;
-            new_spell->spell_effect->health_max_val = 30;
+            new_spell->attr_effect->health_max_val = 30;
             new_spell->mana_cost = 20;
             new_spell->max_range = 1;
-            new_spell->spell_effect->duration = 50;
+            new_spell->attr_effect->duration = 50;
             break;
 
     };
@@ -137,7 +137,7 @@ void MageClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Ice bolt";
             new_spell->element = WaterElement;
-            new_spell->spell_effect->health_current_val = -9;
+            new_spell->attr_effect->health_current_val = -9;
             new_spell->mana_cost = 7;
             new_spell->max_range = 11;
             break;
@@ -149,7 +149,7 @@ void MageClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Inner Healing Spirit";
             new_spell->element = LifeElement;
-            new_spell->spell_effect->health_current_val = 15;
+            new_spell->attr_effect->health_current_val = 15;
             new_spell->mana_cost = 5;
             new_spell->max_range = 1;
             break;
@@ -161,7 +161,7 @@ void MageClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Death's Touch";
             new_spell->element = DeathElement;
-            new_spell->spell_effect->health_current_val = -25;
+            new_spell->attr_effect->health_current_val = -25;
             new_spell->mana_cost = 20;
             new_spell->max_range = 2;
             break;
@@ -173,10 +173,10 @@ void MageClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Inner Fountain";
             new_spell->element = CrystalElement;
-            new_spell->spell_effect->mana_regen_rate = 5;
+            new_spell->attr_effect->mana_regen_rate = 5;
             new_spell->mana_cost = 20;
             new_spell->max_range = 1;
-            new_spell->spell_effect->duration = 50;
+            new_spell->attr_effect->duration = 50;
             break;
 
     };
@@ -211,7 +211,7 @@ void NecromancerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Ice bolt";
             new_spell->element = WaterElement;
-            new_spell->spell_effect->health_current_val = -9;
+            new_spell->attr_effect->health_current_val = -9;
             new_spell->mana_cost = 7;
             new_spell->max_range = 11;
             break;
@@ -223,7 +223,7 @@ void NecromancerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Inner Healing Spirit";
             new_spell->element = LifeElement;
-            new_spell->spell_effect->health_current_val = 15;
+            new_spell->attr_effect->health_current_val = 15;
             new_spell->mana_cost = 5;
             new_spell->max_range = 1;
             break;
@@ -235,7 +235,7 @@ void NecromancerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Death's Touch";
             new_spell->element = DeathElement;
-            new_spell->spell_effect->health_current_val = -25;
+            new_spell->attr_effect->health_current_val = -25;
             new_spell->mana_cost = 20;
             new_spell->max_range = 2;
             break;
@@ -247,10 +247,10 @@ void NecromancerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Inner Fountain";
             new_spell->element = CrystalElement;
-            new_spell->spell_effect->mana_regen_rate = 5;
+            new_spell->attr_effect->mana_regen_rate = 5;
             new_spell->mana_cost = 20;
             new_spell->max_range = 1;
-            new_spell->spell_effect->duration = 50;
+            new_spell->attr_effect->duration = 50;
             break;
 
     };
@@ -285,7 +285,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Ice fist";
             new_spell->element = WaterElement;
-            new_spell->spell_effect->health_current_val = -7;
+            new_spell->attr_effect->health_current_val = -7;
             new_spell->mana_cost = 5;
             new_spell->max_range = 2;
             break;
@@ -297,7 +297,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Sacred Kick";
             new_spell->element = LifeElement;
-            new_spell->spell_effect->health_current_val = -15;
+            new_spell->attr_effect->health_current_val = -15;
             new_spell->mana_cost = 5;
             new_spell->max_range = 3;
             break;
@@ -309,7 +309,7 @@ void BrawlerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Death's Touch";
             new_spell->element = DeathElement;
-            new_spell->spell_effect->health_current_val = -25;
+            new_spell->attr_effect->health_current_val = -25;
             new_spell->mana_cost = 20;
             new_spell->max_range = 2;
             break;
@@ -321,10 +321,10 @@ void BrawlerClass::LevelUpSkills(int levels)
             this->master->spells->push_back(new_spell);
             new_spell->name = "Inner Strength";
             new_spell->element = DeathElement;
-            new_spell->spell_effect->damage_current_val = 15;
+            new_spell->attr_effect->damage_current_val = 15;
             new_spell->mana_cost = 20;
             new_spell->max_range = 1;
-            new_spell->spell_effect->duration = 23;
+            new_spell->attr_effect->duration = 23;
             break;
 
     };

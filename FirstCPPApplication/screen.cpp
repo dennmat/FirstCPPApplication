@@ -11,7 +11,7 @@
 #include "attribute_container.h"
 #include "attribute.h"
 #include "item.h"
-#include "item_effect.h"
+#include "attr_effect.h"
 #include "messages.h"
 #include "map.h"
 #include "tile.h"
@@ -286,8 +286,8 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
     i++;
 
     //print the item effects
-    std::string msg = ((T*)si.element)->item_effect->oneline_str();
-    std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->item_effect->oneline_str_colours();
+    std::string msg = ((T*)si.element)->attr_effect->oneline_str();
+    std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->attr_effect->oneline_str_colours();
     one_line_helper(con, this->offset, i, msg, colctrl_vec);
     si.max_y = i;
     // printf("setting min %d max %d\n", si.min_y, si.max_y);
@@ -308,7 +308,7 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     bool has_duration;
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
-    has_duration = element->spell_effect->duration != -1;
+    has_duration = element->attr_effect->duration != -1;
 
     TCODColor foreground, background;
     std::vector<TCODColor> colors = this->get_colors(con, element);
@@ -338,7 +338,7 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     if (has_duration)
     {
         msg_str.append(", %ddur");
-        sprintf(buffer, msg_str.c_str(), element->spell_effect->duration);
+        sprintf(buffer, msg_str.c_str(), element->attr_effect->duration);
         msg_str = buffer;
     };
 
@@ -374,8 +374,8 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 
     //print the item effects
-    std::string msg = ((T*)si.element)->spell_effect->oneline_str();
-    std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->spell_effect->oneline_str_colours();
+    std::string msg = ((T*)si.element)->attr_effect->oneline_str();
+    std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->attr_effect->oneline_str_colours();
     one_line_helper(con, offset, i, msg, colctrl_vec);
     si.max_y = i;
 
