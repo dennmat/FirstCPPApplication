@@ -452,7 +452,8 @@ void  Game::initialize_items()
     amulet->slot_type = Neck;
     amulet->equippable = true;
 
-    amulet->spell_effect = new TeleportSelfSpell;
+    // amulet->spell_effect = new TeleportSelfSpell;
+    amulet->spell_effect = new LaunchOtherSpell;
     amulet->spell_effect->master = player;
 
     player->inventory->add_item(amulet);

@@ -110,4 +110,13 @@ class TeleportSelfSpell : public Spell
 
 };
 
+class LaunchOtherSpell : public Spell
+{
+    public:
+        int force;
+        LaunchOtherSpell();
+        void cast(Tile* targetted_tile);
+
+};
+
 #endif

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <math.h>
 
 #include "game.h"
 #include "actors\actor.h"
@@ -14,6 +15,7 @@
 #include "item.h"
 #include "inventory.h"
 #include "enemies\skeleton.h"
+#include "map.h"
 
 
 
@@ -435,6 +437,70 @@ void TeleportSelfSpell::cast(Tile* targetted_tile)
     }
     else
     {
-        printf("Is not walkable, thanks for the mana\n");
+        printf("Is not walkable\n");
+    }
+};
+
+LaunchOtherSpell::LaunchOtherSpell() : Spell()
+{
+
+    this->required_level = 8;
+    this->name = "Launch Other";
+    this->element = CrystalElement;
+    this->mana_cost = 10;
+    this->max_range = 4;
+    this->force = 2;
+    // this->target_type = GroundTargetType;
+};
+
+void LaunchOtherSpell::cast(Tile* targetted_tile)
+{
+    //make sure someone is there
+    if (!targetted_tile->is_occupied()) { return; };
+
+    //cast spell, apply attrs etc
+    
+    //if (targetted_tile->is_walkable())
+    if (true)
+    {
+        //get angle
+        int x1, y1, x2, y2;
+        x1 = this->master->my_tile->tile_x;
+        y1 = this->master->my_tile->tile_y;
+        x2 = targetted_tile->occupant->my_tile->tile_x;
+        y2 = targetted_tile->occupant->my_tile->tile_y;
+
+        double delta_x = x2-x1;
+        double delta_y = y2-y1;
+        //int angle = atan2((double)delta_y, (double)delta_x) * 180 / 3.141592653589793238462643383279502884L;
+
+        int new_x, new_y;
+        if (delta_x < 0) 
+        {
+            new_x = delta_x-this->force;
+        }
+        else
+        { 
+            new_x = delta_x+this->force;
+        };
+        if (delta_y < 0) 
+        {
+            new_y = delta_y-this->force;
+        }
+        else
+        { 
+            new_y = delta_y+this->force;
+        };
+
+
+        //push target along that angle
+        Tile* new_tile = targetted_tile->getTileAtRelative(new_x, new_y);
+        targetted_tile->occupant->putPerson(new_tile, new_tile->tile_x, new_tile->tile_y);
+        this->master->attrs->mana->current_val -= mana_cost;
+        // Spell::cast(targetted_tile);
+    }
+    else
+    {
+        printf("Is not walkable\n");
     }
 };
