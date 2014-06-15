@@ -102,6 +102,8 @@ class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
 
 
 //misc
+class FireBallSpell : public Spell {  public: FireBallSpell(); };
+
 class TeleportSelfSpell : public Spell
 {
     public:

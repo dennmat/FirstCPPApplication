@@ -452,9 +452,12 @@ void  Game::initialize_items()
     amulet->slot_type = Neck;
     amulet->equippable = true;
 
+    Spell* fireball = new FireBallSpell;
+    amulet->spell_effect = fireball;
+    fireball->master = player;
     // amulet->spell_effect = new TeleportSelfSpell;
-    amulet->spell_effect = new LaunchOtherSpell;
-    amulet->spell_effect->master = player;
+    // amulet->spell_effect = new LaunchOtherSpell;
+    // amulet->spell_effect->master = player;
 
     player->inventory->add_item(amulet);
     player->equipment->equip_item(amulet);
@@ -520,15 +523,6 @@ Person*  Game::initialize_player()
     delete player->thinker;
     player->thinker = NULL;
 
-    Spell* fireball = new Spell;
-    fireball->name = "Fireball";
-    fireball->attr_effect->health_current_val = -10;
-    fireball->mana_cost = 10;
-    fireball->max_range = 10;
-    fireball->aoe = 1;
-    fireball->target_type = GroundTargetType;
-    fireball->master = player;
-    player->spells->push_back(fireball);
 
 
     //Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);

@@ -441,6 +441,18 @@ void TeleportSelfSpell::cast(Tile* targetted_tile)
     }
 };
 
+FireBallSpell::FireBallSpell() : Spell()
+{
+    this->required_level = 1;
+    this->name = "Fireball";
+    this->element = FireElement;
+    this->attr_effect->health_current_val = -10;
+    this->mana_cost = 10;
+    this->max_range = 10;
+    this->aoe = 1;
+    this->target_type = GroundTargetType;
+};
+
 LaunchOtherSpell::LaunchOtherSpell() : Spell()
 {
 
