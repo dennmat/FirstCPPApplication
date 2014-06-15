@@ -17,6 +17,7 @@
 #include "spells.h"
 #include "attr_effect.h"
 #include "class.h"
+#include "thinker.h"
 
 
 void Combat::printout(){
@@ -155,7 +156,14 @@ void Combat::Attack(Combat* combat_target, int dmg){
 
 void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
 {
-    if (mark_the_attk == true) { was_attacked = true; };
+    if (mark_the_attk == true) 
+    {
+        was_attacked = true;
+         if (this->master != Game::player)
+         {
+             this->master->thinker->target = combat_attacker->master;
+         }
+    };
 
     if(std::find(attackers->begin(), attackers->end(), combat_attacker) != attackers->end()) 
     {
@@ -186,8 +194,9 @@ void Combat::Die()
 
 Combat* Combat::GetLastAttacker()
 {
-    std::cout << "*** Retaliation ***" << std::endl;
+    // std::cout << "*** Retaliation ***" << std::endl;
     Combat * assailant;
+    if (attackers->empty()) { return NULL; }
     assailant = attackers->back();
     // cout << "attacker: " << assailant->name << endl;
 

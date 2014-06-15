@@ -15,6 +15,8 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include "utils.h"
+#include <messages.h>
+#include "ui.h"
 
 int Thinker::visibility_threshold = 50;
 
@@ -234,6 +236,18 @@ void Thinker::walk_towards_target()
 
 void Thinker::try_attacking_player()
 {
+    if (this->is_ally && this->target == Game::player)
+    {
+        if (this->master->combat->GetLastAttacker() == Game::player->combat)
+        {
+            // printf("im sorry but you hit me\n");
+            new Message(Ui::msg_handler_main, HELP_MSG, "Your allie cries 'Forgive me for this, master.'");
+        }
+        else
+        {
+            return ;
+        }
+    }
     // cout << "IMNA ATTACK THE PLAYER" << endl;
     //attack the player if he's in range (aka adjacent tile)
     assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
