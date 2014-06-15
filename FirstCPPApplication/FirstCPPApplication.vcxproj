@@ -243,6 +243,7 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="screenitem.h" />
+    <ClInclude Include="skills.h" />
     <ClInclude Include="spells.h" />
     <ClInclude Include="statistics.h" />
     <ClInclude Include="stdafx.h" />
@@ -294,6 +295,7 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="screenitem.cpp" />
+    <ClCompile Include="skills.cpp" />
     <ClCompile Include="spells.cpp" />
     <ClCompile Include="statistics.cpp" />
     <ClCompile Include="stdafx.cpp">

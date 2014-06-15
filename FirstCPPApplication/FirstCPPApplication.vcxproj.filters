@@ -362,6 +362,9 @@
     <ClInclude Include="statistics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="skills.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -506,6 +509,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="statistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="skills.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
