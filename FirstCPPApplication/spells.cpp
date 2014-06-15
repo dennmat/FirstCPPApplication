@@ -109,7 +109,7 @@ void Spell::cast(Tile* targetted_tile)
         this->apply_attr_effects((*it));
         Game::player->combat->Attack(target->combat, 0); //hack to get exp and printout from casting
     };
-    Game::player->attrs->mana->current_val -= mana_cost;
+    this->master->attrs->mana->current_val -= mana_cost;
 };
 
 void Spell::apply_attr_effects(Actor* target)
@@ -342,6 +342,7 @@ void RaiseDeadSpell::cast(Tile* targetted_tile)
     if (found_corpse)
     {
         this->raise_dead(targetted_tile);
+        this->master->attrs->mana->current_val -= this->mana_cost;
         // Spell::cast(targetted_tile);
     };
 };
@@ -428,7 +429,8 @@ void TeleportSelfSpell::cast(Tile* targetted_tile)
     
     if (targetted_tile->is_walkable())
     {
-        Game::player->putPerson(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
+        this->master->putPerson(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
+        this->master->attrs->mana->current_val -= mana_cost;
         // Spell::cast(targetted_tile);
     }
     else
