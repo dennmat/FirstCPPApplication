@@ -46,8 +46,6 @@ class Spell
 
         AttributeContainer* attrs;
         AttrEffect* attr_effect;
-        Damage* damage;
-        Armor* armor;
 
         Spell();
         TCODColor get_spell_color();
