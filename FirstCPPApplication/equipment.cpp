@@ -203,7 +203,7 @@ void Equipment::unequip_item(Item* item)
         {
             (*it)->RemoveFromSlot();
 	    (*it)->equipped_item = NULL;
-            std::cout << "removed from slot" << std::endl;
+            //std::cout << "removed from slot" << std::endl;
         }
 
     };

@@ -223,7 +223,20 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
     sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_2,
             (element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-            (element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (element)->weight, TCOD_COLCTRL_STOP);
+            (element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (element)->weight,
+            TCOD_COLCTRL_STOP);
+
+
+
+    if (element->spell_effect != NULL)
+    {
+        msg_str = buffer;
+        msg_str.append(" @ %s, mana: %i, rng: %i");
+        sprintf(buffer, msg_str.c_str(), element->spell_effect->name.c_str(), element->spell_effect->mana_cost, element->spell_effect->max_range);
+        msg_str = buffer;
+
+    };
+
     msg_str = buffer;
     result.foreground = foreground;
     result.background = background;
