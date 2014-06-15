@@ -752,6 +752,10 @@ void Actor::Die()
     this->is_active = false;
     this->putPerson(NULL, NULL, NULL);
 
+    //FIXME this is because people can still 'see' the dead dude. removing only
+    //from players view, will need to remove from everyone elses at some point
+    Game::player->mark_as_unseen(this);
+
     //destroy ai
     if (this->thinker != NULL)
     {
