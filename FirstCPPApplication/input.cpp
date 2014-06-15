@@ -563,19 +563,15 @@ bool Input::process_basic_keys(TCOD_key_t request)
             return false;
         }
         Tile* targetted_tile = Ui::targetted_tile;
-        // Tile* targetted_tile = Game::get_mouse_tile();
-        // Spell* spell = Game::player->spells->back();
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;
-        int spell_damage = spell->attr_effect->health_current_val;
-        // int spell_damage = (-spell->attrs->health->current_val);
 
         int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);
         if (Ui::is_targetting && targetted_tile->is_occupied() || spell->target_type == GroundTargetType)
         {
-            if (distance <= spell_range)
+            if (spell->is_in_range(distance))
             {
-                if (Game::player->attrs->mana->current_val >= mana_cost)
+                if (spell->has_enough_mana())
                 {
                     std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
                     typedef std::vector<Actor*> actor_vector;

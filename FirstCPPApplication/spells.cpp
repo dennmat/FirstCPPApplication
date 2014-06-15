@@ -37,6 +37,10 @@ Spell::Spell()
 
 };
 
+bool Spell::has_enough_mana() { 
+    return this->master->attrs->mana->current_val >= this->mana_cost; 
+};
+
 TCODColor Spell::get_spell_color()
 {
     std::unordered_map<elements_t, TCODColor> spell_color = std::unordered_map<elements_t, TCODColor>();

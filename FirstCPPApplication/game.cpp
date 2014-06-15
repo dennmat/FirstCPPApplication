@@ -497,6 +497,7 @@ Person*  Game::initialize_player()
     fireball->max_range = 10;
     fireball->aoe = 1;
     fireball->target_type = GroundTargetType;
+    fireball->master = player;
     player->spells->push_back(fireball);
 
 

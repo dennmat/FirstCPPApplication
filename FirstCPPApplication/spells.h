@@ -13,8 +13,6 @@ class Attribute;
 class AttrEffect;
 class Actor;
 
-
-
 enum TargetTypes {
     TargettedTargetType = 0,
     GroundTargetType = 1
@@ -49,6 +47,9 @@ class Spell
 
         Spell();
         TCODColor get_spell_color();
+
+        bool is_in_range(int distance) { return distance < this->max_range; };
+        bool has_enough_mana();
 
         void cast_spell(Actor* target);
         std::vector<Actor*> targets_around_tile(Tile* target_tile);
