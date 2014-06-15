@@ -814,6 +814,14 @@ void Game::mainloop()
         }
 
         //draw the root console to screen to screen
+        // std::stringstream ss;
+        // std::string msg_str;
+        // msg_str = "%c%c%c%cred test%c%c%c%c%cgreen text now%c";
+        // char buffer[999];
+        // sprintf(buffer, msg_str.c_str(),  TCOD_COLCTRL_FORE_RGB, 255, 1, 1, TCOD_COLCTRL_STOP, TCOD_COLCTRL_FORE_RGB, 255, 255, 1, TCOD_COLCTRL_STOP);
+        // ss << buffer;
+        // TCODConsole::root->print(0, 0, ss.str().c_str());
+        // TCODConsole::root->print(0, 0, buffer);
         TCODConsole::flush();
         TCODConsole::root->clear();
 

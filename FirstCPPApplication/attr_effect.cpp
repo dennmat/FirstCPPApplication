@@ -544,6 +544,65 @@ std::string AttrEffect::small_convert(std::string prefix, int val)
 
 };
 
+// std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours_FIXED()
+// {
+// };
+
+
+std::string buffer_color(std::string input, int val, int fore_or_back, int r, int g, int b)
+{
+    char buffer[999];
+    if (val == 0)
+    {
+        return "";
+    };
+    sprintf(buffer, input.c_str(),  fore_or_back, r, g, b, TCOD_COLCTRL_STOP);
+
+    return std::string(buffer);
+};
+
+std::string AttrEffect::oneline_str_FIXED()
+{
+
+    std::string result = "";
+    std::vector<std::string> string_vec;
+
+    TCODColor health_color = TCODColor::desaturatedGreen;
+    TCODConsole::setColorControl(TCOD_COLCTRL_1, health_color, TCODColor::black);
+    TCODColor mana_color = TCODColor::desaturatedBlue;
+    TCODConsole::setColorControl(TCOD_COLCTRL_2, mana_color, TCODColor::black);
+    TCODColor armor_color = TCODColor::lightGrey;
+    TCODConsole::setColorControl(TCOD_COLCTRL_3, armor_color, TCODColor::black);
+    TCODColor damage_color = TCODColor::desaturatedRed;
+    TCODConsole::setColorControl(TCOD_COLCTRL_4, damage_color, TCODColor::black);
+
+    std::stringstream ss;
+
+    ss << buffer_color("%c%c%c%cHCV: ", (int)this->health_current_val, TCOD_COLCTRL_FORE_RGB, 1, 255, 1);
+    ss << buffer_color("%c%c%c%cHMV: ", (int)this->health_max_val, TCOD_COLCTRL_FORE_RGB, 1, 255, 1);
+    ss << buffer_color("%c%c%c%cHRR: ", (int)this->health_regen_rate, TCOD_COLCTRL_FORE_RGB, 1, 255, 1);
+    ss << buffer_color("%c%c%c%cHRI: ", (int)this->health_regen_interval, TCOD_COLCTRL_FORE_RGB, 1, 255, 1);
+
+    ss << buffer_color("%c%c%c%cMCV: ", (int)this->mana_current_val, TCOD_COLCTRL_FORE_RGB, 1, 1, 255);
+    ss << buffer_color("%c%c%c%cMMV: ", (int)this->mana_max_val, TCOD_COLCTRL_FORE_RGB, 1, 1, 255);
+    ss << buffer_color("%c%c%c%cMRR: ", (int)this->mana_regen_rate, TCOD_COLCTRL_FORE_RGB, 1, 1, 255);
+    ss << buffer_color("%c%c%c%cMRI: ", (int)this->mana_regen_interval, TCOD_COLCTRL_FORE_RGB, 1, 1, 255);
+
+    ss << buffer_color("%c%c%c%cACV: ", (int)this->armor_current_val, TCOD_COLCTRL_FORE_RGB, 50, 50, 50);
+    ss << buffer_color("%c%c%c%cAMV: ", (int)this->armor_max_val, TCOD_COLCTRL_FORE_RGB, 50, 50, 50);
+    ss << buffer_color("%c%c%c%cARR: ", (int)this->armor_regen_rate, TCOD_COLCTRL_FORE_RGB, 50, 50, 50);
+    ss << buffer_color("%c%c%c%cARI: ", (int)this->armor_regen_interval, TCOD_COLCTRL_FORE_RGB, 50, 50, 50);
+
+    ss << buffer_color("%c%c%c%cDCV: ", (int)this->damage_current_val, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cDMV: ", (int)this->damage_max_val, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cDRR: ", (int)this->damage_regen_rate, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cDRI: ", (int)this->damage_regen_interval, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+
+    return ss.str();
+    return StringJoin(string_vec, ' ', true);
+
+};
+
 std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours()
 {
     TCODColor health_color = TCODColor::desaturatedGreen;
