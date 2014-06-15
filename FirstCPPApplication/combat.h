@@ -9,6 +9,7 @@
 class Person; 
 class Actor; 
 class Game;
+class Damage;
 
 class Combat 
 {
@@ -25,8 +26,8 @@ class Combat
 
         Combat (std::string name, int max_hp, Person* master, char representation = 'p' );
 
-        void Attack(Combat* Combat_target, int dmg);
-        void TakeDamage(Combat* Combat_attacker, int dmg);
+        void Attack(Combat* Combat_target, Damage* dmg);
+        void TakeDamage(Combat* Combat_attacker, Damage* dmg);
         bool CheckDeath();
         void RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
         void TryToDie();
@@ -42,5 +43,35 @@ class Combat
         void LevelUpSkills(int levels);
 
         void printout();
+};
+
+class Damage 
+{
+    public:
+        int normal;
+        int fire;
+        int water;
+        int death;
+        int life;
+        int crystal;
+        int spectre;
+
+        Damage();
+
+};
+
+class Armor
+{
+    public:
+        int normal;
+        int fire;
+        int water;
+        int death;
+        int life;
+        int crystal;
+        int spectre;
+
+        Armor();
+
 };
 #endif

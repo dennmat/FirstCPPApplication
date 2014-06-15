@@ -259,7 +259,9 @@ void Thinker::try_attacking_player()
     if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(), assailant->master->my_tile) != adjacent_tiles->end())
     {
         // std::cout << "adjacent" << std::endl;
-        ((Person*)master)->combat->Attack(assailant, master->attrs->damage->current_val);
+	Damage* dmg = new Damage();
+    dmg->normal = master->attrs->damage->current_val;
+        ((Person*)master)->combat->Attack(assailant, dmg);
     };
 
     //calm the combat down

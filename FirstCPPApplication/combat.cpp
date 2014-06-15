@@ -133,7 +133,7 @@ void Combat::GiveExp(int exp_to_gain)
     };
 };
 
-void Combat::Attack(Combat* combat_target, int dmg){
+void Combat::Attack(Combat* combat_target, Damage* dmg){
     //cout << "About to attack " << (*combat_target).name << endl;
 
     if (combat_target == NULL)
@@ -211,13 +211,13 @@ void Combat::TryToDie()
     };
 }
 
-void Combat::TakeDamage(Combat* combat_attacker, int dmg)
+void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
 {
     if (dmg >= 0) 
     {
-        if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg; };
-        if (this->master == Game::player) { Game::stats->damage_taken += dmg; };
-        int adjusted_dmg = dmg-this->master->attrs->armor->current_val;
+        if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
+        if (this->master == Game::player) { Game::stats->damage_taken += dmg->normal; };
+        int adjusted_dmg = dmg->normal - this->master->attrs->armor->current_val;
         (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
 
         std::cout << this->master->name;
@@ -235,10 +235,10 @@ void Combat::TakeDamage(Combat* combat_attacker, int dmg)
     }
     else
     {
-        (this->master->attrs->health->current_val)-= dmg;
+        (this->master->attrs->health->current_val)-= dmg->normal;
 
         std::cout << this->master->name;
-        std::cout << " gained " << (-dmg) << " health! ";
+        std::cout << " gained " << (-dmg->normal) << " health! ";
         std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
         std::cout << std::endl;
     };
@@ -251,4 +251,26 @@ bool Combat::CheckDeath()
         is_dead = true;
     }
     return is_dead;
+};
+
+Damage::Damage()
+{
+    this->normal = 0;
+    this->fire = 0;
+    this->water = 0;
+    this->death = 0;
+    this->life = 0;
+    this->crystal = 0;
+    this->spectre = 0;
+};
+
+Armor::Armor()
+{
+    this->normal = 0;
+    this->fire = 0;
+    this->water = 0;
+    this->death = 0;
+    this->life = 0;
+    this->crystal = 0;
+    this->spectre = 0;
 };

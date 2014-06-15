@@ -109,7 +109,8 @@ void Spell::cast(Tile* targetted_tile)
     {
         Actor* target = *it;
         this->apply_attr_effects(target);
-	Game::player->combat->last_victim = target;
+        Game::player->combat->last_victim = target;
+        target->combat->RememberAttacker(Game::player->combat, true);
         //Game::player->combat->Attack(target->combat, 0); //HACK to get exp and printout from casting
     };
 

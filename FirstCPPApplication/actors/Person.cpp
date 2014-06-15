@@ -201,7 +201,9 @@ void Person::update()
 void Person::attack(Actor * target)
 {
     //only Persons and children have combats
-    combat->Attack(((Person*)target)->combat, this->attrs->damage->current_val); 
+    Damage* dmg = new Damage();
+    dmg->normal = this->attrs->damage->current_val;
+    combat->Attack(((Person*)target)->combat, dmg); 
 };
 
 void Person::championize()
