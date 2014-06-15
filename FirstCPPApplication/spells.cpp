@@ -406,3 +406,33 @@ InnerStrengthSpell::InnerStrengthSpell() : Spell()
     this->attr_effect->duration = 23;
 };
 
+/* misc */
+
+TeleportSelfSpell::TeleportSelfSpell() : Spell()
+{
+
+    this->required_level = 8;
+    this->name = "Translocation";
+    this->element = SpectreElement;
+    this->mana_cost = 25;
+    this->max_range = 6;
+    this->target_type = GroundTargetType;
+};
+
+void TeleportSelfSpell::cast(Tile* targetted_tile)
+{
+    //check for corpse
+    if (targetted_tile->is_occupied()) { return; };
+
+    //cast spell, apply attrs etc
+    
+    if (targetted_tile->is_walkable())
+    {
+        Game::player->putPerson(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
+        // Spell::cast(targetted_tile);
+    }
+    else
+    {
+        printf("Is not walkable, thanks for the mana\n");
+    }
+};

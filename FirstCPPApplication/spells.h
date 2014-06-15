@@ -101,4 +101,13 @@ class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
 class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
 
 
+//misc
+class TeleportSelfSpell : public Spell
+{
+    public:
+        TeleportSelfSpell();
+        void cast(Tile* targetted_tile);
+
+};
+
 #endif
