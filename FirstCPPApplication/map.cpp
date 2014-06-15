@@ -950,6 +950,7 @@ void Map::update()
             pers->attrs->damage->current_val = 20;
             pers->attrs->damage->max_val = 20;
             pers->xp_value = 200;
+            pers->is_hero = true;
             pers->img_path = get_data_path()+"img/hero8x8.png";
             Game::current_map->enemies.push_back(pers);
             new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
@@ -957,7 +958,7 @@ void Map::update()
         else if (this->depth == 2)
         {
             Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Spindly Jason Rook", 99, room->center_x, room->center_y, 'J', Game::current_map);
+            Person* pers = Game::create_person("Spindly Jackson Rook", 99, room->center_x, room->center_y, 'J', Game::current_map);
             pers->attrs->health->current_val = 300;
             pers->attrs->health->max_val = 300;
             pers->attrs->armor->current_val = 10;
@@ -966,8 +967,9 @@ void Map::update()
             pers->attrs->damage->max_val = 15;
             pers->xp_value = 500;
             pers->img_path = get_data_path()+"img/thief8x8.png";
+            pers->is_hero = true;
             Game::current_map->enemies.push_back(pers);
-            new Message(Ui::msg_handler_main, HELP_MSG, "JASON ARRIVES");
+            new Message(Ui::msg_handler_main, HELP_MSG, "JACKSON ARRIVES");
         }
         else if (this->depth == 3)
         {
@@ -981,13 +983,14 @@ void Map::update()
             pers->attrs->damage->max_val = 23;
             Game::current_map->enemies.push_back(pers);
             pers->img_path = get_data_path()+"img/hero8x8.png";
+            pers->is_hero = true;
             pers->xp_value = 800;
             new Message(Ui::msg_handler_main, HELP_MSG, "JOHN APPEARS");
         }
         else if (this->depth == 4)
         {
             Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Sneaking Sam Giller", 99, room->center_x, room->center_y, 'S', Game::current_map);
+            Person* pers = Game::create_person("Sneaking Samuel Giller", 99, room->center_x, room->center_y, 'S', Game::current_map);
             pers->attrs->health->current_val = 400;
             pers->attrs->health->max_val = 400;
             pers->attrs->armor->current_val = 5;
@@ -996,8 +999,9 @@ void Map::update()
             pers->attrs->damage->max_val = 23;
             Game::current_map->enemies.push_back(pers);
             pers->img_path = get_data_path()+"img/thief8x8.png";
+            pers->is_hero = true;
             pers->xp_value = 1000;
-            new Message(Ui::msg_handler_main, HELP_MSG, "SAM APPROACHES");
+            new Message(Ui::msg_handler_main, HELP_MSG, "SAMUEL APPROACHES");
         }
         else if (this->depth >= 5)
         {
@@ -1012,6 +1016,7 @@ void Map::update()
             pers->xp_value = 1500;
             Game::current_map->enemies.push_back(pers);
             pers->img_path = get_data_path()+"img/hero8x8.png";
+            pers->is_hero = true;
             new Message(Ui::msg_handler_main, HELP_MSG, "ROSSIGNOL THUNDERS IN");
         }
     };

@@ -49,6 +49,7 @@ Actor::Actor()
     this->level = 1;
 
     this->is_champion = false;
+    this->is_hero = false;
     this->timed_attr_effects = new std::vector<TimedEffect*>;
     this->timed_spell_effects = new std::vector<TimedEffect*>;
 
@@ -668,17 +669,25 @@ Item* spawnSpecial()
     return dropped_item;
 };
 
-Item* spawnItem()
+Item* spawnItem(Actor* actor)
 {
     Item* dropped_item;
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
-    rwm.add_item(ArmorSpawn, 500);
-    rwm.add_item(WeaponSpawn, 500);
-    rwm.add_item(PotionSpawn, 300);
-    rwm.add_item(WandSpawn, 10);
-    rwm.add_item(SpecialSpawn, 100);
+    if (!actor->is_hero)
+    {
+        rwm.add_item(ArmorSpawn, 500);
+        rwm.add_item(WeaponSpawn, 500);
+        rwm.add_item(PotionSpawn, 300);
+        rwm.add_item(WandSpawn, 10);
+        rwm.add_item(SpecialSpawn, 100);
+    }
+    else
+    {
+        rwm.add_item(WandSpawn, 10);
+        rwm.add_item(SpecialSpawn, 100);
+    };
 
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == WeaponSpawn)
@@ -716,6 +725,11 @@ Item* Actor::item_drop_handler(Actor* actor)
     {
         rwm.add_item(GenericSpawn, 30);
     }
+    else if (actor->is_hero)
+    {
+        rwm.add_item(GenericSpawn, 30);
+
+    }
     else
     {
         rwm.add_item(CorpseSpawn, 50);
@@ -732,7 +746,7 @@ Item* Actor::item_drop_handler(Actor* actor)
     }
     else if (result == GenericSpawn)
     {
-        dropped_item = spawnItem();
+        dropped_item = spawnItem(actor);
     }
     else  if (result == NothingItemSpawn)
     {

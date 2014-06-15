@@ -58,6 +58,7 @@ class Actor : public Object
         TCODImage* get_image();
         
         bool is_champion;
+        bool is_hero;
         static int champ_chance;
         static int pack_size;
         static int preferred_pack_size;
