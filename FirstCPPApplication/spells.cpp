@@ -91,3 +91,189 @@ std::vector<Actor*> Spell::targets_around_tile(Tile* target_tile)
     return targets;
 
 };
+
+/* fighter */
+
+WaterBombSpell::WaterBombSpell() : Spell()
+{
+    this->name = "Water Bomb";
+    this->element = WaterElement;
+    this->attr_effect->health_current_val = -7;
+    this->mana_cost = 5;
+    this->max_range = 11;
+};
+
+AutoChemHPSpell::AutoChemHPSpell() : Spell()
+{
+    this->name = "AutoChemistry: Health Potion";
+    this->element = LifeElement;
+    this->attr_effect->health_current_val = 15;
+    this->mana_cost = 5;
+    this->max_range = 1;
+
+    this->required_level = 4;
+};
+
+PoisonCoughSpell::PoisonCoughSpell() : Spell()
+{
+    this->name = "Poison Cough";
+    this->element = DeathElement;
+    this->attr_effect->health_current_val = -25;
+    this->mana_cost = 20;
+    this->max_range = 2;
+    this->required_level = 6;
+};
+
+InnerSanctuarySpell::InnerSanctuarySpell() : Spell()
+{
+    this->required_level = 8;
+    this->name = "Inner Sanctuary";
+    this->element = LifeElement;
+    this->attr_effect->health_max_val = 30;
+    this->mana_cost = 20;
+    this->max_range = 1;
+    this->attr_effect->duration = 50;
+};
+
+/* mage */
+
+IceBoltSpell::IceBoltSpell() : Spell()
+{
+
+    this->required_level = 2;
+    this->name = "Ice bolt";
+    this->element = WaterElement;
+    this->attr_effect->health_current_val = -9;
+    this->mana_cost = 7;
+    this->max_range = 11;
+};
+
+InnerHealingSpiritSpell::InnerHealingSpiritSpell() : Spell()
+{
+
+    this->required_level = 4;
+    this->name = "Inner Healing Spirit";
+    this->element = LifeElement;
+    this->attr_effect->health_current_val = 15;
+    this->mana_cost = 5;
+    this->max_range = 1;
+};
+
+DeathsTouchSpell::DeathsTouchSpell() : Spell()
+{
+
+    this->required_level = 6;
+    this->name = "Death's Touch";
+    this->element = DeathElement;
+    this->attr_effect->health_current_val = -25;
+    this->mana_cost = 20;
+    this->max_range = 2;
+};
+
+InnerFountainSpell::InnerFountainSpell() : Spell()
+{
+
+    this->required_level = 8;
+    this->name = "Inner Fountain";
+    this->element = CrystalElement;
+    this->attr_effect->mana_regen_rate = 5;
+    this->mana_cost = 20;
+    this->max_range = 1;
+    this->attr_effect->duration = 50;
+};
+
+/* necromancy */
+
+CorpseBlastSpell::CorpseBlastSpell() : Spell()
+{
+
+    this->required_level = 2;
+    this->name = "Corpse Blast";
+    this->element = DeathElement;
+    this->attr_effect->health_current_val = -9;
+    this->mana_cost = 7;
+    this->max_range = 11;
+};
+
+SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
+{
+
+    this->required_level = 4;
+    this->name = "Siphon Spirit";
+    this->element = DeathElement;
+    this->attr_effect->health_current_val = 15;
+    this->mana_cost = 5;
+    this->max_range = 1;
+};
+
+RaiseDeadSpell::RaiseDeadSpell() : Spell()
+{
+
+    this->required_level = 6;
+    this->name = "Raise the dead";
+    this->element = DeathElement;
+    this->attr_effect->health_current_val = -25;
+    this->mana_cost = 20;
+    this->max_range = 2;
+};
+
+InnerFireSpell::InnerFireSpell() : Spell()
+{
+
+    this->required_level = 8;
+    this->name = "Inner Fire";
+    this->element = FireElement;
+    this->attr_effect->mana_regen_rate = 5;
+    this->mana_cost = 20;
+    this->max_range = 1;
+    this->attr_effect->duration = 50;
+};
+
+
+/* brawler */
+
+IceFistSpell::IceFistSpell() : Spell()
+{
+
+    this->required_level = 2;
+    this->name = "Ice fist";
+    this->element = WaterElement;
+    this->attr_effect->health_current_val = -7;
+    this->mana_cost = 5;
+    this->max_range = 2;
+};
+
+SacredKickSpell::SacredKickSpell() : Spell()
+{
+
+    this->required_level = 4;
+    this->name = "Sacred Kick";
+    this->element = LifeElement;
+    this->attr_effect->health_current_val = -15;
+    this->mana_cost = 5;
+    this->max_range = 3;
+};
+
+DeathsHandSpell::DeathsHandSpell() : Spell()
+{
+
+    this->required_level = 6;
+    this->name = "Death's Hand";
+    this->element = DeathElement;
+    this->attr_effect->health_current_val = -25;
+    this->mana_cost = 20;
+    this->max_range = 2;
+};
+
+InnerStrengthSpell::InnerStrengthSpell() : Spell()
+{
+
+    this->required_level = 8;
+    this->name = "Inner Strength";
+    this->element = DeathElement;
+    this->attr_effect->damage_current_val = 15;
+    this->mana_cost = 20;
+    this->max_range = 1;
+    this->attr_effect->duration = 23;
+};
+

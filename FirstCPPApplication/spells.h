@@ -55,5 +55,25 @@ class Spell
 
 };
 
+class WaterBombSpell : public Spell {  public: WaterBombSpell();  };
+class AutoChemHPSpell : public Spell {  public: AutoChemHPSpell();  };
+class PoisonCoughSpell : public Spell {  public: PoisonCoughSpell();  };
+class InnerSanctuarySpell : public Spell {  public: InnerSanctuarySpell();  };
+
+class IceBoltSpell : public Spell {  public: IceBoltSpell(); };
+class InnerHealingSpiritSpell : public Spell {  public: InnerHealingSpiritSpell(); };
+class DeathsTouchSpell : public Spell {  public: DeathsTouchSpell(); };
+class InnerFountainSpell : public Spell {  public: InnerFountainSpell(); };
+
+class CorpseBlastSpell : public Spell {  public: CorpseBlastSpell(); };
+class SiphonSpiritSpell : public Spell {  public: SiphonSpiritSpell(); };
+class RaiseDeadSpell : public Spell {  public: RaiseDeadSpell(); };
+class InnerFireSpell : public Spell {  public: InnerFireSpell(); };
+
+class IceFistSpell : public Spell {  public: IceFistSpell(); };
+class SacredKickSpell : public Spell {  public: SacredKickSpell(); };
+class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
+class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
+
 
 #endif

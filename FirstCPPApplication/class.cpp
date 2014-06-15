@@ -58,51 +58,30 @@ void FighterClass::LevelUpSkills(int levels)
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
-            new_spell = new Spell;
+            new_spell = new WaterBombSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Water Bomb";
-            new_spell->element = WaterElement;
-            new_spell->attr_effect->health_current_val = -7;
-            new_spell->mana_cost = 5;
-            new_spell->max_range = 11;
             break;
 
         case 4:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
-            new_spell = new Spell;
+            new_spell = new AutoChemHPSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "AutoChemistry: Health Potion";
-            new_spell->element = LifeElement;
-            new_spell->attr_effect->health_current_val = 15;
-            new_spell->mana_cost = 5;
-            new_spell->max_range = 1;
             break;
 
         case 6:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
-            new_spell = new Spell;
+            new_spell = new PoisonCoughSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Poison Cough";
-            new_spell->element = DeathElement;
-            new_spell->attr_effect->health_current_val = -25;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 2;
             break;
 
         case 8:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
-            new_spell = new Spell;
+            new_spell = new InnerSanctuarySpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Inner Sanctuary";
-            new_spell->element = LifeElement;
-            new_spell->attr_effect->health_max_val = 30;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 1;
-            new_spell->attr_effect->duration = 50;
             break;
 
     };
@@ -131,39 +110,24 @@ void MageClass::LevelUpSkills(int levels)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new_spell = new Spell;
+            new_spell = new IceBoltSpell;
             new_spell->master = this->master;
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Ice bolt";
-            new_spell->element = WaterElement;
-            new_spell->attr_effect->health_current_val = -9;
-            new_spell->mana_cost = 7;
-            new_spell->max_range = 11;
             break;
 
         case 4:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new InnerHealingSpiritSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Inner Healing Spirit";
-            new_spell->element = LifeElement;
-            new_spell->attr_effect->health_current_val = 15;
-            new_spell->mana_cost = 5;
-            new_spell->max_range = 1;
             break;
 
         case 6:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new DeathsTouchSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Death's Touch";
-            new_spell->element = DeathElement;
-            new_spell->attr_effect->health_current_val = -25;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 2;
             break;
 
         case 8:
@@ -171,12 +135,6 @@ void MageClass::LevelUpSkills(int levels)
             new_spell = new Spell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Inner Fountain";
-            new_spell->element = CrystalElement;
-            new_spell->attr_effect->mana_regen_rate = 5;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 1;
-            new_spell->attr_effect->duration = 50;
             break;
 
     };
@@ -205,52 +163,31 @@ void NecromancerClass::LevelUpSkills(int levels)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new_spell = new Spell;
+            new_spell = new CorpseBlastSpell;
             new_spell->master = this->master;
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Ice bolt";
-            new_spell->element = WaterElement;
-            new_spell->attr_effect->health_current_val = -9;
-            new_spell->mana_cost = 7;
-            new_spell->max_range = 11;
             break;
 
         case 4:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new SiphonSpiritSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Inner Healing Spirit";
-            new_spell->element = LifeElement;
-            new_spell->attr_effect->health_current_val = 15;
-            new_spell->mana_cost = 5;
-            new_spell->max_range = 1;
             break;
 
         case 6:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new RaiseDeadSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Death's Touch";
-            new_spell->element = DeathElement;
-            new_spell->attr_effect->health_current_val = -25;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 2;
             break;
 
         case 8:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new InnerFireSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Inner Fountain";
-            new_spell->element = CrystalElement;
-            new_spell->attr_effect->mana_regen_rate = 5;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 1;
-            new_spell->attr_effect->duration = 50;
             break;
 
     };
@@ -279,52 +216,31 @@ void BrawlerClass::LevelUpSkills(int levels)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new_spell = new Spell;
+            new_spell = new IceFistSpell;
             new_spell->master = this->master;
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Ice fist";
-            new_spell->element = WaterElement;
-            new_spell->attr_effect->health_current_val = -7;
-            new_spell->mana_cost = 5;
-            new_spell->max_range = 2;
             break;
 
         case 4:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new SacredKickSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Sacred Kick";
-            new_spell->element = LifeElement;
-            new_spell->attr_effect->health_current_val = -15;
-            new_spell->mana_cost = 5;
-            new_spell->max_range = 3;
             break;
 
         case 6:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new DeathsHandSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Death's Touch";
-            new_spell->element = DeathElement;
-            new_spell->attr_effect->health_current_val = -25;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 2;
             break;
 
         case 8:
             new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
-            new_spell = new Spell;
+            new_spell = new InnerStrengthSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
-            new_spell->name = "Inner Strength";
-            new_spell->element = DeathElement;
-            new_spell->attr_effect->damage_current_val = 15;
-            new_spell->mana_cost = 20;
-            new_spell->max_range = 1;
-            new_spell->attr_effect->duration = 23;
             break;
 
     };
