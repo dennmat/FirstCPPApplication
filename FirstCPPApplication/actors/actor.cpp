@@ -25,6 +25,8 @@
 #include <randsys.h>
 #include <utils.h>
 #include <spells.h>
+#include "map.h"
+#include "combat.h"
 
 
 int Actor::pack_size = 10;
@@ -767,8 +769,17 @@ void Actor::ScorePrintout()
     necro << "LEVEL: " << Game::player->level << std::endl;
     necro << "CLASS: " << Game::player->actor_class->name << std::endl;
 
-    necro  << std::endl;
+    necro << std::endl;
+    necro << "FLOOR: " << Game::current_map->depth << std::endl;
+    necro << "TURNS: " << Game::turn_count << std::endl;
+    necro << std::endl;
     //stats 
+    necro << "KILLS: " << Game::stats->monsters_killed << std::endl;
+    necro << "SPELLS CAST: " << Game::stats->spells_cast << std::endl;
+    necro << "ITEMS USED:" << Game::stats->items_used << std::endl;
+    necro << "PHYS DMG DEALT:" << Game::stats->damage_dealt << std::endl;
+    necro << "PHYS DMG TAKEN:" << Game::stats->damage_taken << std::endl;
+    necro << std::endl;
 
     necro << "----- STATS -----"  << std::endl;
     necro << Game::player->attrs->PrettyPrint() << std::endl;
@@ -799,6 +810,14 @@ void Actor::Die()
     {
         this->my_tile->place_item_down(dropped_item);
     }
+
+    if (this->combat != NULL)
+    {
+        if (this->combat->GetLastAttacker()->master == Game::player)
+        {
+            Game::stats->monsters_killed++;
+        };
+    };
 
     Representation* repr = this->my_tile->get_representation();
     Representation* new_repr = new FloorRepresentation;

@@ -12,6 +12,7 @@
 #include <enums\gamestate.h>
 #include <enums\screens.h>
 #include <enums\spawntypes_t.h>
+#include <statistics.h>
 
 
 class Map;
@@ -91,6 +92,8 @@ class Game
         static TCODRandom* item_spawn_rng;
         static TCODRandom* linear_rng;
         static TCODRandom* event_rng;
+
+        static Statistics* stats;
 
         static std::string last_cmd;
 

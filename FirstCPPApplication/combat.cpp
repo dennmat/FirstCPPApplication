@@ -93,7 +93,7 @@ void Combat::LevelUp(int levels)
 
         this->master->level+=1;
         std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
-	//log(lvl * 10) * 100
+        //log(lvl * 10) * 100
         this->master->xp_required = std::floor(std::log(this->master->level *10.0f) * 100.0f);
         this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
 
@@ -139,7 +139,7 @@ void Combat::Attack(Combat* combat_target, int dmg){
     if (combat_target == NULL)
     {
         printf("target had no combat\n");
-	return;
+        return;
     }
     new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "About to attack %s for %d damage.", combat_target->master->name.c_str(), dmg);
     combat_target->TakeDamage(this, dmg);
@@ -159,10 +159,10 @@ void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
     if (mark_the_attk == true) 
     {
         was_attacked = true;
-         if (this->master != Game::player)
-         {
-             this->master->thinker->target = combat_attacker->master;
-         }
+        if (this->master != Game::player)
+        {
+            this->master->thinker->target = combat_attacker->master;
+        }
     };
 
     if(std::find(attackers->begin(), attackers->end(), combat_attacker) != attackers->end()) 
@@ -215,6 +215,8 @@ void Combat::TakeDamage(Combat* combat_attacker, int dmg)
 {
     if (dmg > 0) 
     {
+        if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg; };
+        if (this->master == Game::player) { Game::stats->damage_taken += dmg; };
         int adjusted_dmg = dmg-this->master->attrs->armor->current_val;
         (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
 

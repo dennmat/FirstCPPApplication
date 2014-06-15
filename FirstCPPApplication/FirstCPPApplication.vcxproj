@@ -244,6 +244,7 @@
     <ClInclude Include="screen.h" />
     <ClInclude Include="screenitem.h" />
     <ClInclude Include="spells.h" />
+    <ClInclude Include="statistics.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="thinker.h" />
@@ -294,6 +295,7 @@
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="screenitem.cpp" />
     <ClCompile Include="spells.cpp" />
+    <ClCompile Include="statistics.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

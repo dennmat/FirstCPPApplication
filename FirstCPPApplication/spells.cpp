@@ -111,6 +111,11 @@ void Spell::cast(Tile* targetted_tile)
         this->apply_attr_effects((*it));
         Game::player->combat->Attack(target->combat, 0); //hack to get exp and printout from casting
     };
+
+    if (this->master == Game::player)
+    {
+        Game::stats->spells_cast++;
+    };
     this->master->attrs->mana->current_val -= mana_cost;
 };
 
@@ -344,6 +349,10 @@ void RaiseDeadSpell::cast(Tile* targetted_tile)
     if (found_corpse)
     {
         this->raise_dead(targetted_tile);
+        if (this->master == Game::player)
+        {
+            Game::stats->spells_cast++;
+        };
         this->master->attrs->mana->current_val -= this->mana_cost;
         // Spell::cast(targetted_tile);
     };
@@ -428,10 +437,14 @@ void TeleportSelfSpell::cast(Tile* targetted_tile)
     if (targetted_tile->is_occupied()) { return; };
 
     //cast spell, apply attrs etc
-    
+
     if (targetted_tile->is_walkable())
     {
         this->master->putPerson(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
+        if (this->master == Game::player)
+        {
+            Game::stats->spells_cast++;
+        };
         this->master->attrs->mana->current_val -= mana_cost;
         // Spell::cast(targetted_tile);
     }
@@ -471,7 +484,7 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
     if (!targetted_tile->is_occupied()) { return; };
 
     //cast spell, apply attrs etc
-    
+
     //if (targetted_tile->is_walkable())
     if (true)
     {
@@ -504,6 +517,10 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
             targetted_tile->occupant->l_path = NULL;
         };
         targetted_tile->occupant->putPerson(new_tile, new_tile->tile_x, new_tile->tile_y);
+        if (this->master == Game::player)
+        {
+            Game::stats->spells_cast++;
+        };
         this->master->attrs->mana->current_val -= mana_cost;
         // Spell::cast(targetted_tile);
     }

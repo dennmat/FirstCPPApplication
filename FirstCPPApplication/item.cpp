@@ -30,6 +30,7 @@ void Item::use(Actor* target)
 {
     if ( this->usable )
     {
+        if (target == (Actor*)Game::player) { Game::stats->items_used++; };
         this->attr_effect->ApplyAllEffects(target);
         this->uses--;
         if (this->attr_effect->is_timed())

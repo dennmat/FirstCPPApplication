@@ -17,6 +17,7 @@
 #include <iostream>
 
 #include <utils.h>
+#include "statistics.h"
 
 // TODO: reference additional headers your program requires here
 #include <libtcod.hpp>

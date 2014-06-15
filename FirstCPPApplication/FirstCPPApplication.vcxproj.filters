@@ -359,6 +359,9 @@
     <ClInclude Include="attr_effect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="statistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -500,6 +503,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="attr_effect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="statistics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
