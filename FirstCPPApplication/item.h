@@ -10,6 +10,7 @@ class Representation;
 class Slot;
 class AttrEffect;
 class Actor;
+class Spell;
 
 // enum slots_t : unsigned int;
 
@@ -24,6 +25,8 @@ class Item
         bool usable;
         int uses;
         bool equippable;
+
+        Spell* spell_effect;
 
         AttrEffect* attr_effect;
         Representation* repr;

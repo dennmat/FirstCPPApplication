@@ -33,6 +33,7 @@ enum inventory_items_active_t {
     SortByEquippableItem,
     SortByUsableItem,
     SortByEquippedItem,
+    ZapItem,
     NO_MATCHING_ITEMS_ACTIVE
 };
 

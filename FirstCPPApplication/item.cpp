@@ -18,6 +18,8 @@ Item::Item()
     this->name = "A Nameless Item";
     this->description = "A Descriptionless Item.";
 
+    this->spell_effect = NULL;
+
     this->usable = false;
     this->uses = 1;
     this->equippable = false;

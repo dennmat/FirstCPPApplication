@@ -78,6 +78,7 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Sort inventory by equippable");
     vec.push_back("Sort inventory by usable");
     vec.push_back("Sort inventory by equipped");
+    vec.push_back("Zap the wand, casting its spell");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
 
     assert(vec.size() == NO_MATCHING_ITEMS_ACTIVE+1 && "Missing a help command for inventory chars");
@@ -256,10 +257,11 @@ std::map<char, inventory_items_active_t> Input::build_char_invitemactivemap()
     char_invitemactivemap['d'] = inventory_items_active_t::DropItem;
     char_invitemactivemap['u'] = inventory_items_active_t::UseItem;
     char_invitemactivemap['e'] = inventory_items_active_t::EquipItem;
+    char_invitemactivemap['y'] = inventory_items_active_t::UnequipItem;
     char_invitemactivemap['E'] = inventory_items_active_t::SortByEquippedItem;
     char_invitemactivemap['Y'] = inventory_items_active_t::SortByEquippableItem;
     char_invitemactivemap['U'] = inventory_items_active_t::SortByUsableItem;
-    char_invitemactivemap['y'] = inventory_items_active_t::UnequipItem;
+    char_invitemactivemap['z'] = inventory_items_active_t::ZapItem;
     char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem;
 
     return char_invitemactivemap;
@@ -733,6 +735,22 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     else if( action == inventory_items_active_t::SortByUsableItem )
     {
         std::sort(Game::player->inventory->items->begin(), Game::player->inventory->items->end(), sort_by_usable);
+        return false;
+    }
+
+    else if( action == inventory_items_active_t::ZapItem )
+    {
+        if (((Item*)Ui::chosen_generic)->spell_effect != NULL)
+        {
+            Ui::is_targetting = true;
+            Ui::targetted_tile = Game::player->my_tile;
+            Game::current_state = GameStates::GameplayState;
+            Ui::chosen_generic = ((Item*)Ui::chosen_generic)->spell_effect;
+        }
+        else
+        {
+            std::cout << "Item has no zappable effect." << std::endl;
+        };
         return false;
     }
 

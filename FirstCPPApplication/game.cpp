@@ -451,6 +451,10 @@ void  Game::initialize_items()
     amulet->attr_effect->health_max_val = 3;
     amulet->slot_type = Neck;
     amulet->equippable = true;
+
+    amulet->spell_effect = new WaterBombSpell;
+    amulet->spell_effect->master = player;
+
     player->inventory->add_item(amulet);
     player->equipment->equip_item(amulet);
 
