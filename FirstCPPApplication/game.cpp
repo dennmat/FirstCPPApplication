@@ -3,6 +3,7 @@
 #include <fstream>
 #include <Windows.h>
 #include <assert.h>
+#include <algorithm>
 
 #include "libtcod.hpp"
 
@@ -274,7 +275,8 @@ void Game::fill_dungeon(Map* world)
 T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
 {
     int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
-    for (int i = 0; i <= enemy_count; i++)
+    enemy_count = min((int)T::pack_size, (int)enemy_count);
+    for (int i = 0; i < enemy_count; i++)
     {
         int creature_x, creature_y;
         creature_x = Game::linear_rng->getInt(2, room->width-3) + room->x;

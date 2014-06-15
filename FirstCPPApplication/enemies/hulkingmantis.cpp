@@ -22,7 +22,7 @@
 
 HulkingMantis::HulkingMantis(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
-    this->xp_value = 10;
+    this->xp_value = 100;
     this->cls_name = "HulkingMantis";
     // this->name = name;
     // this->age = age;

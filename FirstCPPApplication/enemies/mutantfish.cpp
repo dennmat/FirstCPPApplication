@@ -23,7 +23,7 @@
 
 MutantFish::MutantFish(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
-    this->xp_value = 10;
+    this->xp_value = 50;
     this->cls_name = "MutantFish";
     // this->name = name;
     // this->age = age;

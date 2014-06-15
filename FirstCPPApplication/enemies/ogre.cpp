@@ -20,7 +20,7 @@
 Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
     this->cls_name = "Ogre";
-    this->xp_value = 55;
+    this->xp_value = 155;
     // this->name = name;
     // this->age = age;
     // this->x = x;
@@ -51,11 +51,14 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, ag
     // my_tile = NULL;
     // this->pack_size = 4;
 
-    this->attrs->health->max_val = 100;
-    this->attrs->health->current_val = 100;
+    this->attrs->health->max_val = 140;
+    this->attrs->health->current_val = 140;
 
     this->attrs->damage->max_val = 6;
     this->attrs->damage->current_val = 6;
+
+    this->attrs->armor->max_val = 6;
+    this->attrs->armor->current_val = 6;
 };
 
 void Ogre::championize()

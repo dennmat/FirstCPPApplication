@@ -23,7 +23,7 @@
 
 CrazedCook::CrazedCook(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
-    this->xp_value = 10;
+    this->xp_value = 40;
     this->cls_name = "CrazedCook";
     // this->name = name;
     // this->age = age;

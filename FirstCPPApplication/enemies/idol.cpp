@@ -23,7 +23,7 @@
 
 Idol::Idol(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
-    this->xp_value = 10;
+    this->xp_value = 70;
     this->cls_name = "Idol";
     // this->name = name;
     // this->age = age;

@@ -25,7 +25,7 @@
 
 Wildling::Wildling(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
-    this->xp_value = 10;
+    this->xp_value = 110;
     this->cls_name = "Wildling";
     // this->name = name;
     // this->age = age;
