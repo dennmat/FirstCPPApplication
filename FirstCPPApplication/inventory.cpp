@@ -6,6 +6,7 @@
 #include "object.h"
 #include "tile.h"
 #include "equipment.h"
+#include "spells.h"
 
 Inventory::Inventory()
 {
@@ -15,6 +16,11 @@ Inventory::Inventory()
 
 void Inventory::add_item(Item* item)
 {
+
+    if (item->spell_effect != NULL)
+    {
+        item->spell_effect->master = this->master;
+    };
 
     //check for item in list, if its not, add it in
     auto it = std::find(this->items->begin(), this->items->end(), item);
@@ -41,6 +47,10 @@ void Inventory::remove_item(Item* item)
 
 void Inventory::drop_item(Item* item)
 {
+    if (item->spell_effect != NULL)
+    {
+        item->spell_effect->master = NULL;
+    };
     this->remove_item(item);
     if (master != NULL)
     {

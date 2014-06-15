@@ -486,7 +486,8 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
         else
         {
             new_x = delta_x;
-        }
+        };
+
         if (delta_y < 0) 
         {
             new_y = delta_y-this->force;

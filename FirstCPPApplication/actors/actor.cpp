@@ -24,6 +24,7 @@
 #include <enums\spawntypes_t.h>
 #include <randsys.h>
 #include <utils.h>
+#include <spells.h>
 
 
 int Actor::pack_size = 10;
@@ -488,6 +489,60 @@ Item* spawnPotion()
     return dropped_item;
 };
 
+Item* spawnWand()
+{
+    Item* dropped_item;
+    TCODRandom *rng = Game::item_spawn_rng;
+
+    RandomWeightMap<WandSpawnTypes> rwm = RandomWeightMap<WandSpawnTypes>();
+    rwm.add_item(TeleportWandSpawn, 14);
+    rwm.add_item(ForcePushWandSpawn, 50);
+    WandSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
+
+    if (result == TeleportWandSpawn)
+    {
+
+        std::string description = "It flickers in and out of existence.";
+        dropped_item = spawnUsable("A shimmering wand", description, '`', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
+
+        dropped_item->spell_effect = new TeleportSelfSpell;
+        //health restore
+        // int health = rng->getInt(10, 100, 25);
+        dropped_item->attr_effect->health_current_val = 1;
+    }
+    else if (result == ForcePushWandSpawn)
+    {
+        std::string description = "It flutters quite a bit for a piece of bark.";
+        dropped_item = spawnUsable("A moving wand", description, '`', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
+
+        dropped_item->spell_effect = new LaunchOtherSpell;
+        //health restore
+        // int health = rng->getInt(5, 50, 15);
+        // dropped_item->attr_effect->health_current_val = health;
+        dropped_item->attr_effect->health_max_val = 1;
+    }
+    else if (result == PulsatingHealthSpawn)
+    {
+
+        std::string description = "It looks like could be safe to drink.";
+        dropped_item = spawnUsable("A pulsating green wand", description, '!', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
+
+        //health restore
+        int health = rng->getInt(1, 5, 1);
+        dropped_item->attr_effect->health_regen_rate = health;
+        dropped_item->attr_effect->health_regen_interval = -floor((double)health/2);
+    }
+    else
+    {
+        assert(false && "RandomWeightMap returned invalid wand variable");
+    };
+
+    return dropped_item;
+};
+
 Item* spawnSpecial()
 {
     Item* dropped_item;
@@ -617,10 +672,11 @@ Item* spawnItem()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
-    rwm.add_item(ArmorSpawn, 50);
-    rwm.add_item(WeaponSpawn, 50);
-    rwm.add_item(PotionSpawn, 30);
-    rwm.add_item(SpecialSpawn, 10);
+    rwm.add_item(ArmorSpawn, 500);
+    rwm.add_item(WeaponSpawn, 500);
+    rwm.add_item(PotionSpawn, 300);
+    rwm.add_item(WandSpawn, 10);
+    rwm.add_item(SpecialSpawn, 100);
 
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == WeaponSpawn)
@@ -634,6 +690,10 @@ Item* spawnItem()
     else if (result == PotionSpawn)
     {
         dropped_item = spawnPotion();
+    }
+    else if (result == WandSpawn)
+    {
+        dropped_item = spawnWand();
     }
     else if (result == SpecialSpawn)
     {

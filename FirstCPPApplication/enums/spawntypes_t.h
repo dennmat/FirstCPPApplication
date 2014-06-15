@@ -37,6 +37,11 @@ enum ItemSpawnTypes {
     NothingItemSpawn
 };
 
+enum WandSpawnTypes {
+    TeleportWandSpawn,
+    ForcePushWandSpawn
+};
+
 enum WeaponSpawnTypes {
     SwordSpawn,
     MaceSpawn,
