@@ -16,6 +16,8 @@ class Inventory;
 class Tile;
 class Item;
 class Attribute;
+class Damage;
+class Armor;
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
@@ -83,6 +85,9 @@ class AttrEffect
         int hunger_max_val;
         int hunger_regen_rate;
         int hunger_regen_interval; 
+
+        Damage* damage;
+        Armor* armor;
 
 
         applied_to_s  applied_to;

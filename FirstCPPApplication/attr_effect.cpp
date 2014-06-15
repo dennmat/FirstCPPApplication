@@ -29,11 +29,13 @@ AttrEffect::AttrEffect()
     this->armor_max_val = 0;
     this->armor_regen_rate = 0;
     this->armor_regen_interval = 0; 
+    this->armor = new Armor();
 
     this->damage_current_val = 0;
     this->damage_max_val = 0;
     this->damage_regen_rate = 0;
     this->damage_regen_interval = 0; 
+    this->damage = new Damage();
 
     this->hunger_current_val = 0;
     this->hunger_max_val = 0;
@@ -597,6 +599,13 @@ std::string AttrEffect::oneline_str_FIXED()
     ss << buffer_color("%c%c%c%cDMV: %i%c ", (int)this->damage_max_val, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
     ss << buffer_color("%c%c%c%cDRR: %i%c ", (int)this->damage_regen_rate, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
     ss << buffer_color("%c%c%c%cDRI: %i%c ", (int)this->damage_regen_interval, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+
+    ss << buffer_color("%c%c%c%cNRM: %i%c ", (int)this->damage->normal, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cFIR: %i%c ", (int)this->damage->fire, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cWTR: %i%c ", (int)this->damage->water, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cLIF: %i%c ", (int)this->damage->life, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cCTL: %i%c ", (int)this->damage->crystal, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cSPR: %i%c ", (int)this->damage->spectre, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
 
     return ss.str();
     return StringJoin(string_vec, ' ', true);
