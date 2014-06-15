@@ -251,9 +251,9 @@ void Thinker::try_attacking_player()
             return ;
         }
     }
+    assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
     // cout << "IMNA ATTACK THE PLAYER" << endl;
     //attack the player if he's in range (aka adjacent tile)
-    assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
     Combat* assailant = this->target->combat;
     std::vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
     if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(), assailant->master->my_tile) != adjacent_tiles->end())
