@@ -48,7 +48,8 @@ class Spell
         Spell();
         TCODColor get_spell_color();
 
-        bool is_in_range(int distance) { return distance < this->max_range; };
+        bool is_valid_target(Tile* targetted_tile);
+        bool is_in_range(int distance);
         bool has_enough_mana();
 
         void cast_spell(Actor* target);

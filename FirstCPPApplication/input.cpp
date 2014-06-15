@@ -585,15 +585,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
                     return true;
                 }
-                else 
-                {
-                    new Message(Ui::msg_handler_main, NOTYPE_MSG, "No mana for this cast!");
-                };
             }
-            else
-            {
-                new Message(Ui::msg_handler_main, NOTYPE_MSG, "Out of range. Max is %i, you're at %i.", spell_range, distance);
-            };
         }
         else
         {

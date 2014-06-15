@@ -6,6 +6,8 @@
 #include "attribute.h"
 #include "attr_effect.h"
 #include "tile.h"
+#include "ui.h"
+#include "messages.h"
 
 
 
@@ -37,8 +39,43 @@ Spell::Spell()
 
 };
 
-bool Spell::has_enough_mana() { 
-    return this->master->attrs->mana->current_val >= this->mana_cost; 
+bool Spell::is_valid_target(Tile* targetted_tile)
+{
+    if (Ui::is_targetting && targetted_tile->is_occupied() || this->target_type == GroundTargetType)
+    {
+        return true;
+    }
+    else
+    {
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Pick an actual target how about.");
+        return false;
+    };
+};
+
+bool Spell::is_in_range(int distance) 
+{
+    if (distance < this->max_range)
+    {
+        return true;
+    }
+    else
+    {
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Out of range. Max is %i, you're at %i.", this->max_range, distance);
+        return false;
+    };
+};
+
+bool Spell::has_enough_mana() 
+{ 
+    if ( this->master->attrs->mana->current_val >= this->mana_cost)
+    {
+        return true;
+    }
+    else
+    {
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "No mana for this cast!");
+        return false;
+    };
 };
 
 TCODColor Spell::get_spell_color()
