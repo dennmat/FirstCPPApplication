@@ -29,6 +29,8 @@ class Thinker
         Actor* master;
         Civilian* civilian;
 
+        Actor* target;
+
         int is_dumb;
         int is_civ;
         int is_shopkeep;
@@ -38,7 +40,7 @@ class Thinker
         void dumb_update();
         Thinker();
         ~Thinker();
-        void walk_towards_player();
+        void walk_towards_target();
         void walk_dumbly();
         void try_attacking_player();
 

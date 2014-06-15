@@ -2,6 +2,7 @@
 #include "thinker.h"
 
 #include <random>
+#include "assert.h"
 
 #include "libtcod.hpp"
 #include "map.h"
@@ -36,6 +37,7 @@ Thinker::Thinker()
     this->tracking_memory = 10;
 
     this->is_ally = false;
+    this->target = NULL;
 };
 
 Thinker::~Thinker()
@@ -59,12 +61,13 @@ void Thinker::smart_update()
         int dest_tile_x, dest_tile_y;
         master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
 
-        Tile* player_tile = Game::player->my_tile;
+        assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
+        Tile* target_tile = target->my_tile;
 
         //if the target tile is adjacent to the player keep moving towards
         //it, otherwise change spots
         std::vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
-        std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), player_tile);
+        std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), target_tile);
         //if the path destination isn't adj to the player make a new path 
         if (adjItr == adj_tiles->end())
         {
@@ -112,11 +115,13 @@ void Thinker::smart_update()
             if (this->is_ally) 
             {
                 //TODO select monster near tile
-                adjacent_tiles  = Game::player->my_tile->getVacantAdjacentTiles();  
+                this->target = Game::player;
+                adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
             }
             else 
             {
-              adjacent_tiles  = Game::player->my_tile->getVacantAdjacentTiles();  
+                this->target = Game::player;
+              adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
             };
 
             std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
@@ -158,7 +163,7 @@ void Thinker::smart_update()
     // std::cout << yy << " y" << std::endl;
     if (this->path_possible && this->master->l_path != NULL)
     {
-        this->walk_towards_player();
+        this->walk_towards_target();
 
         bool path_empty = master->l_path->isEmpty();
         // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
@@ -197,10 +202,11 @@ void Thinker::walk_dumbly()
     delete adj_tiles;
 };
 
-void Thinker::walk_towards_player()
+void Thinker::walk_towards_target()
 {
+    assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
     master->l_path->walk(&master->x, &master->y, true);
-    Tile * next_tile = Game::player->my_tile->map->getTileAt(master->x,master->y);
+    Tile * next_tile = this->target->my_tile->map->getTileAt(master->x, master->y);
     master->putPerson(next_tile, master->x, master->y); 
 }
 
