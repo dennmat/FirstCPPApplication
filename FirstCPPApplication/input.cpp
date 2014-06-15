@@ -567,12 +567,13 @@ bool Input::process_basic_keys(TCOD_key_t request)
         int spell_range = spell->max_range;
 
         int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);
-        if (Ui::is_targetting && targetted_tile->is_occupied() || spell->target_type == GroundTargetType)
+        if (spell->is_valid_target(targetted_tile))
         {
             if (spell->is_in_range(distance))
             {
                 if (spell->has_enough_mana())
                 {
+                    spell->cast_count += 1;
                     std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
                     typedef std::vector<Actor*> actor_vector;
                     for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
@@ -587,10 +588,6 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
             }
         }
-        else
-        {
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Pick an actual target how about.");
-        };
 
     }
     else 
