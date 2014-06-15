@@ -128,7 +128,7 @@ bool Actor::IsActorInSight(Actor* actor)
     }
 };
 
-void Actor::ActorIsNotInSight(Actor * actor)
+void Actor::mark_as_unseen(Actor * actor)
 {
     // std::cout << "removing from sight" << std::endl;
     std::vector<Actor*>* ais = this->actors_in_sight;
@@ -140,7 +140,7 @@ void Actor::ActorIsNotInSight(Actor * actor)
     ais->erase(std::remove(ais->begin(), ais->end(), actor), ais->end());
 
 }
-void Actor::ActorInSight(int x, int y, Actor * actor)
+void Actor::mark_as_seen(int x, int y, Actor * actor)
 {
     std::vector<Actor*>* ais = this->actors_in_sight;
     //if the actor is in sight and isnt this actor:

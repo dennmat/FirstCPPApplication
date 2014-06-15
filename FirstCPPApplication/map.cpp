@@ -718,7 +718,7 @@ int Map::draw()
                         Item* last_item = the_tile->inventory->items->back();
                         the_char = last_item->repr->repr;
                     };
-                    Game::player->ActorInSight(x, y, the_tile->occupant);
+                    Game::player->mark_as_seen(x, y, the_tile->occupant);
 
                     the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
@@ -772,7 +772,7 @@ int Map::draw()
                 if(the_tile->is_occupied())
                 {
                     //check for item first, so it'll get drawn over by actors
-                    Game::player->ActorIsNotInSight(the_tile->occupant);
+                    Game::player->mark_as_unseen(the_tile->occupant);
 
                     the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
