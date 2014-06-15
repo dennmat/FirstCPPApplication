@@ -10,6 +10,8 @@
 #include "tile.h"
 #include "ui.h"
 #include "messages.h"
+#include "item.h"
+#include "inventory.h"
 
 
 
@@ -245,11 +247,38 @@ CorpseBlastSpell::CorpseBlastSpell() : Spell()
 {
 
     this->required_level = 2;
+    this->aoe = 1;
+    this->target_type = GroundTargetType;
     this->name = "Corpse Blast";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -9;
+    this->attr_effect->health_current_val = -15;
     this->mana_cost = 7;
     this->max_range = 11;
+};
+
+void CorpseBlastSpell::cast(Tile* targetted_tile)
+{
+    //check for corpse
+    std::vector<Item*>* items = targetted_tile->inventory->items;
+    if (items->empty()) { return; };
+    auto it = items->begin();
+    bool found_corpse = false;
+    std::string corpse = "corpse";
+    for (it; it != items->end(); it++)
+    {
+        std::size_t found = (*it)->name.find(corpse);
+        if (found != std::string::npos)
+        {
+            found_corpse = true;
+            break;
+        }
+    }
+
+    //cast aoe fireball in area
+    if (found_corpse)
+    {
+        Spell::cast(targetted_tile);
+    };
 };
 
 SiphonSpiritSpell::SiphonSpiritSpell() : Spell()

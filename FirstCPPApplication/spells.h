@@ -68,7 +68,12 @@ class InnerHealingSpiritSpell : public Spell {  public: InnerHealingSpiritSpell(
 class DeathsTouchSpell : public Spell {  public: DeathsTouchSpell(); };
 class InnerFountainSpell : public Spell {  public: InnerFountainSpell(); };
 
-class CorpseBlastSpell : public Spell {  public: CorpseBlastSpell(); };
+class CorpseBlastSpell : public Spell 
+{
+    public:
+        CorpseBlastSpell(); 
+        void cast(Tile* targetted_tile);
+};
 class SiphonSpiritSpell : public Spell {  public: SiphonSpiritSpell(); };
 class RaiseDeadSpell : public Spell {  public: RaiseDeadSpell(); };
 class InnerFireSpell : public Spell {  public: InnerFireSpell(); };
