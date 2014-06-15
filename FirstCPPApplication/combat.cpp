@@ -141,7 +141,7 @@ void Combat::Attack(Combat* combat_target, Damage* dmg){
         printf("target had no combat\n");
         return;
     }
-    new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "About to attack %s for %d damage.", combat_target->master->name.c_str(), dmg);
+    new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "About to attack %s for %d damage.", combat_target->master->name.c_str(), dmg->normal);
     combat_target->TakeDamage(this, dmg);
     this->last_victim = combat_target->master;
 

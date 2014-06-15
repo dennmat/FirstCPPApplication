@@ -456,7 +456,7 @@ void  Game::initialize_items()
     amulet->slot_type = Neck;
     amulet->equippable = true;
 
-    Spell* fireball = new FireBallSpell;
+    Spell* fireball = new FireBallSpell();
     amulet->spell_effect = fireball;
     fireball->master = player;
     // amulet->spell_effect = new TeleportSelfSpell;

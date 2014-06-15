@@ -73,24 +73,27 @@ std::string StringJoin(std::vector<std::string> string_vector, char delim, bool 
     std::string out_string;
     std::vector<std::string>::iterator it = string_vector.begin();
     //if its a blank string
-    if (it == string_vector.end())
-    {
-        return "";
-    }
+    if (string_vector.empty()) { return ""; };
 
     //remove empty strings
     if (remove_empty == true)
     {
         string_vector.erase(std::remove(string_vector.begin(),
                     string_vector.end(), ""), string_vector.end());
+        std::vector<std::string>::iterator it;
+        it = std::unique(string_vector.begin(), string_vector.end());
+        string_vector.resize(std::distance(string_vector.begin(), it));
     }
 
     //add the first part of the vector, so that there's no leading delimiter
-    out_string+=*it;
-    ++it;
-    for(it; it != string_vector.end(); ++it){
-        out_string+=(delim+*it);
-    }  
+    if (!string_vector.empty())
+    {
+        out_string+=*it;
+        ++it;
+        for(it; it != string_vector.end(); ++it){
+            out_string+=(delim+*it);
+        }  
+    }
 
     return out_string;
 

@@ -24,6 +24,8 @@ Spell::Spell()
     this->name = "Unamed spell";
     this->mana_cost = 10;
 
+    this->damage = new Damage();
+
     this->turn_cooldown = 1;
     this->max_range = 7;
     this->min_range = 1;
@@ -124,6 +126,10 @@ void Spell::cast(Tile* targetted_tile)
 void Spell::apply_attr_effects(Actor* target)
 {
     this->attr_effect->ApplyAllEffects(target);
+    if (target->combat != NULL)
+    {
+        this->master->combat->Attack(target->combat, this->damage);
+    };
 
     if (this->attr_effect->duration > 0)
     {
@@ -168,7 +174,7 @@ WaterBombSpell::WaterBombSpell() : Spell()
 {
     this->name = "Water Bomb";
     this->element = WaterElement;
-    this->attr_effect->health_current_val = -7;
+    this->damage->normal = 7;
     this->mana_cost = 5;
     this->max_range = 11;
 };
@@ -188,7 +194,7 @@ PoisonCoughSpell::PoisonCoughSpell() : Spell()
 {
     this->name = "Poison Cough";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -25;
+    this->damage->normal = 25;
     this->mana_cost = 20;
     this->max_range = 2;
     this->required_level = 6;
@@ -213,7 +219,7 @@ IceBoltSpell::IceBoltSpell() : Spell()
     this->required_level = 2;
     this->name = "Ice bolt";
     this->element = WaterElement;
-    this->attr_effect->health_current_val = -9;
+    this->damage->normal = 9;
     this->mana_cost = 7;
     this->max_range = 11;
 };
@@ -235,7 +241,7 @@ DeathsTouchSpell::DeathsTouchSpell() : Spell()
     this->required_level = 6;
     this->name = "Death's Touch";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -25;
+    this->damage->normal = 25;
     this->mana_cost = 20;
     this->max_range = 2;
 };
@@ -262,7 +268,7 @@ CorpseBlastSpell::CorpseBlastSpell() : Spell()
     this->target_type = GroundTargetType;
     this->name = "Corpse Blast";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -15;
+    this->damage->normal = 15;
     this->mana_cost = 7;
     this->max_range = 11;
 };
@@ -298,7 +304,7 @@ SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
     this->required_level = 4;
     this->name = "Siphon Spirit";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -7;
+    this->damage->normal = 7;
     this->mana_cost = 15;
     this->max_range = 2;
 };
@@ -318,7 +324,7 @@ RaiseDeadSpell::RaiseDeadSpell() : Spell()
     this->required_level = 6;
     this->name = "Raise the dead";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -25;
+    this->damage->normal = 25;
     this->mana_cost = 20;
     this->max_range = 5;
     this->target_type = GroundTargetType;
@@ -381,7 +387,7 @@ IceFistSpell::IceFistSpell() : Spell()
     this->required_level = 2;
     this->name = "Ice fist";
     this->element = WaterElement;
-    this->attr_effect->health_current_val = -7;
+    this->damage->normal = 7;
     this->mana_cost = 5;
     this->max_range = 2;
 };
@@ -392,7 +398,7 @@ SacredKickSpell::SacredKickSpell() : Spell()
     this->required_level = 4;
     this->name = "Sacred Kick";
     this->element = LifeElement;
-    this->attr_effect->health_current_val = -15;
+    this->damage->normal = 15;
     this->mana_cost = 5;
     this->max_range = 3;
 };
@@ -403,7 +409,7 @@ DeathsHandSpell::DeathsHandSpell() : Spell()
     this->required_level = 6;
     this->name = "Death's Hand";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = -25;
+    this->damage->normal = 25;
     this->mana_cost = 20;
     this->max_range = 2;
 };
@@ -461,7 +467,7 @@ FireBallSpell::FireBallSpell() : Spell()
     this->required_level = 1;
     this->name = "Fireball";
     this->element = FireElement;
-    this->attr_effect->health_current_val = -10;
+    this->damage->normal = 10;
     this->mana_cost = 10;
     this->max_range = 10;
     this->aoe = 1;

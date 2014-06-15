@@ -12,6 +12,8 @@ class AttributeContainer;
 class Attribute;
 class AttrEffect;
 class Actor;
+class Damage;
+class Armor;
 
 enum TargetTypes {
     TargettedTargetType = 0,
@@ -44,6 +46,8 @@ class Spell
 
         AttributeContainer* attrs;
         AttrEffect* attr_effect;
+        Damage* damage;
+        Armor* armor;
 
         Spell();
         TCODColor get_spell_color();
