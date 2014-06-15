@@ -803,7 +803,7 @@ void Actor::Die()
     Representation* repr = this->my_tile->get_representation();
     Representation* new_repr = new FloorRepresentation;
     new_repr->repr = repr->repr;
-    new_repr->setFGColor((*repr->fg_color)*TCODColor::red, true, false, true);
+    new_repr->setFGColor((*repr->fg_color)+(TCODColor::darkerRed*0.3), true, true, true);
     this->my_tile->set_representation(new_repr);
 
     this->my_tile->set_description("There is some blood on the ground");
