@@ -28,12 +28,14 @@ class Combat
 
         void Attack(Combat* Combat_target, Damage* dmg);
         void TakeDamage(Combat* Combat_attacker, Damage* dmg);
-        int adjust_damage_to_armor(Damage* dmg);
-        bool CheckDeath();
-        void RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
-        void TryToDie();
-        void Die();
         Combat* GetLastAttacker();
+        int adjust_damage_to_armor(Damage* dmg);
+        void RememberAttacker(Combat* Combat_attacker, bool mark_the_attk);
+
+        void TryToDie();
+        bool CheckDeath();
+        void Die();
+
         void update();
         void assign_to_master(Person* master);
 

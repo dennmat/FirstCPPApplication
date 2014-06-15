@@ -173,7 +173,7 @@ WaterBombSpell::WaterBombSpell() : Spell()
 {
     this->name = "Water Bomb";
     this->element = WaterElement;
-    this->attr_effect->damage->normal = 7;
+    this->attr_effect->damage->water = 7;
     this->mana_cost = 5;
     this->max_range = 11;
 };
@@ -193,7 +193,7 @@ PoisonCoughSpell::PoisonCoughSpell() : Spell()
 {
     this->name = "Poison Cough";
     this->element = DeathElement;
-    this->attr_effect->damage->normal = 25;
+    this->attr_effect->damage->death = 25;
     this->mana_cost = 20;
     this->max_range = 2;
     this->required_level = 6;
@@ -218,7 +218,7 @@ IceBoltSpell::IceBoltSpell() : Spell()
     this->required_level = 2;
     this->name = "Ice bolt";
     this->element = WaterElement;
-    this->attr_effect->damage->normal = 9;
+    this->attr_effect->damage->water = 9;
     this->mana_cost = 7;
     this->max_range = 11;
 };
@@ -240,7 +240,7 @@ DeathsTouchSpell::DeathsTouchSpell() : Spell()
     this->required_level = 6;
     this->name = "Death's Touch";
     this->element = DeathElement;
-    this->attr_effect->damage->normal = 25;
+    this->attr_effect->damage->death = 25;
     this->mana_cost = 20;
     this->max_range = 2;
 };
@@ -267,7 +267,7 @@ CorpseBlastSpell::CorpseBlastSpell() : Spell()
     this->target_type = GroundTargetType;
     this->name = "Corpse Blast";
     this->element = DeathElement;
-    this->attr_effect->damage->normal = 15;
+    this->attr_effect->damage->death = 15;
     this->mana_cost = 7;
     this->max_range = 11;
 };
@@ -303,7 +303,7 @@ SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
     this->required_level = 4;
     this->name = "Siphon Spirit";
     this->element = DeathElement;
-    this->attr_effect->damage->normal = 7;
+    this->attr_effect->damage->death = 7;
     this->mana_cost = 15;
     this->max_range = 2;
 };
@@ -311,7 +311,7 @@ SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
 void SiphonSpiritSpell::apply_attr_effects(Actor* target)
 {
     Spell::apply_attr_effects(target);
-    int val  = std::abs(this->attr_effect->health_current_val);
+    int val  = std::abs(this->attr_effect->damage->death);
     this->master->attrs->health->current_val += val;
 
     //take from target and give to caster
@@ -323,7 +323,7 @@ RaiseDeadSpell::RaiseDeadSpell() : Spell()
     this->required_level = 6;
     this->name = "Raise the dead";
     this->element = DeathElement;
-    this->attr_effect->damage->normal = 25;
+    // this->attr_effect->damage->normal = 25;
     this->mana_cost = 20;
     this->max_range = 5;
     this->target_type = GroundTargetType;
@@ -386,7 +386,7 @@ IceFistSpell::IceFistSpell() : Spell()
     this->required_level = 2;
     this->name = "Ice fist";
     this->element = WaterElement;
-    this->attr_effect->damage->normal = 7;
+    this->attr_effect->damage->water = 7;
     this->mana_cost = 5;
     this->max_range = 2;
 };
@@ -397,7 +397,7 @@ SacredKickSpell::SacredKickSpell() : Spell()
     this->required_level = 4;
     this->name = "Sacred Kick";
     this->element = LifeElement;
-    this->attr_effect->damage->normal = 15;
+    this->attr_effect->damage->life = 15;
     this->mana_cost = 5;
     this->max_range = 3;
 };
@@ -408,7 +408,7 @@ DeathsHandSpell::DeathsHandSpell() : Spell()
     this->required_level = 6;
     this->name = "Death's Hand";
     this->element = DeathElement;
-    this->attr_effect->damage->normal = 25;
+    this->attr_effect->damage->death = 25;
     this->mana_cost = 20;
     this->max_range = 2;
 };
@@ -466,7 +466,7 @@ FireBallSpell::FireBallSpell() : Spell()
     this->required_level = 1;
     this->name = "Fireball";
     this->element = FireElement;
-    this->attr_effect->damage->normal = 10;
+    this->attr_effect->damage->fire = 10;
     this->mana_cost = 10;
     this->max_range = 10;
     this->aoe = 1;

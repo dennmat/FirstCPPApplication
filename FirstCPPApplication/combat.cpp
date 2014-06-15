@@ -236,7 +236,7 @@ void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
         (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
 
         std::cout << this->master->name;
-        std::cout << " took " << dmg << " damage! ";
+        std::cout << " took " << adjusted_dmg << " damage! ";
         std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
         std::cout << std::endl;
 
