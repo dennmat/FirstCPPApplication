@@ -52,7 +52,8 @@ class Spell
         bool is_in_range(int distance);
         bool has_enough_mana();
 
-        void cast_spell(Actor* target);
+        virtual void cast(Tile* targetted_tile);
+        void apply_attr_effects(Actor* target);
         std::vector<Actor*> targets_around_tile(Tile* target_tile);
 
 };

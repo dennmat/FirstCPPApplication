@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "actors\actor.h"
+#include "actors\Person.h"
+#include "combat.h"
 #include "spells.h"
 #include "attribute_container.h"
 #include "attribute.h"
@@ -92,7 +94,21 @@ TCODColor Spell::get_spell_color()
     return spell_color.at(this->element);
 };
 
-void Spell::cast_spell(Actor* target)
+void Spell::cast(Tile* targetted_tile)
+{
+    this->cast_count += 1;
+    std::vector<Actor*> targets = this->targets_around_tile(targetted_tile);
+    typedef std::vector<Actor*> actor_vector;
+    for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
+    {
+        Actor* target = *it;
+        this->apply_attr_effects((*it));
+        Game::player->combat->Attack(target->combat, 0); //hack to get exp and printout from casting
+    };
+    Game::player->attrs->mana->current_val -= mana_cost;
+};
+
+void Spell::apply_attr_effects(Actor* target)
 {
     this->attr_effect->ApplyAllEffects(target);
 

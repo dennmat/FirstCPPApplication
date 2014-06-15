@@ -573,16 +573,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
             {
                 if (spell->has_enough_mana())
                 {
-                    spell->cast_count += 1;
-                    std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
-                    typedef std::vector<Actor*> actor_vector;
-                    for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
-                    {
-                        Actor* target = *it;
-                        spell->cast_spell((*it));
-                        Game::player->combat->Attack(target->combat, 0); //hack to get exp and printout from casting
-                    };
-                    Game::player->attrs->mana->current_val -= mana_cost;
+                    spell->cast(targetted_tile);
                     new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
                     return true;
                 }
