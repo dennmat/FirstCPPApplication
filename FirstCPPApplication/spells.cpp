@@ -479,22 +479,36 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
         {
             new_x = delta_x-this->force;
         }
-        else
+        else if (delta_x > 0)
         { 
             new_x = delta_x+this->force;
-        };
+        }
+        else
+        {
+            new_x = delta_x;
+        }
         if (delta_y < 0) 
         {
             new_y = delta_y-this->force;
         }
-        else
+        else if (delta_y > 0)
         { 
             new_y = delta_y+this->force;
-        };
+        }
+        else
+        {
+            new_y = delta_y;
+        }
 
 
         //push target along that angle
         Tile* new_tile = targetted_tile->getTileAtRelative(new_x, new_y);
+        //FIXME ai pathing puts them back on their path, otherwise
+        if (targetted_tile->occupant->l_path != NULL)
+        {
+            delete targetted_tile->occupant->l_path;
+            targetted_tile->occupant->l_path = NULL;
+        };
         targetted_tile->occupant->putPerson(new_tile, new_tile->tile_x, new_tile->tile_y);
         this->master->attrs->mana->current_val -= mana_cost;
         // Spell::cast(targetted_tile);
@@ -503,4 +517,5 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
     {
         printf("Is not walkable\n");
     }
+
 };
