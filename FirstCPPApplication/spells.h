@@ -53,7 +53,7 @@ class Spell
         bool has_enough_mana();
 
         virtual void cast(Tile* targetted_tile);
-        void apply_attr_effects(Actor* target);
+        virtual void apply_attr_effects(Actor* target);
         std::vector<Actor*> targets_around_tile(Tile* target_tile);
 
 };
@@ -74,7 +74,14 @@ class CorpseBlastSpell : public Spell
         CorpseBlastSpell(); 
         void cast(Tile* targetted_tile);
 };
-class SiphonSpiritSpell : public Spell {  public: SiphonSpiritSpell(); };
+
+class SiphonSpiritSpell : public Spell 
+{
+    public: 
+        SiphonSpiritSpell(); 
+        void apply_attr_effects(Actor* target);
+
+};
 class RaiseDeadSpell : public Spell {  public: RaiseDeadSpell(); };
 class InnerFireSpell : public Spell {  public: InnerFireSpell(); };
 

@@ -287,9 +287,18 @@ SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
     this->required_level = 4;
     this->name = "Siphon Spirit";
     this->element = DeathElement;
-    this->attr_effect->health_current_val = 15;
-    this->mana_cost = 5;
-    this->max_range = 1;
+    this->attr_effect->health_current_val = -7;
+    this->mana_cost = 15;
+    this->max_range = 2;
+};
+
+void SiphonSpiritSpell::apply_attr_effects(Actor* target)
+{
+    Spell::apply_attr_effects(target);
+    int val  = std::abs(this->attr_effect->health_current_val);
+    this->master->attrs->health->current_val += val;
+
+    //take from target and give to caster
 };
 
 RaiseDeadSpell::RaiseDeadSpell() : Spell()
