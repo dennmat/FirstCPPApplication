@@ -48,8 +48,8 @@ class Game
         static TCOD_mouse_t mouse_evt;
 
         static int fov_radius;
-        static std::vector<Actor*> enemies;  //later, this will be an array of all the enemies 
-        static std::vector<Item*> items;  //later, this will be an array of all the enemies 
+        static std::vector<Actor*> enemies;  
+        static std::vector<Item*> items;  
 
         static int screen_w;
         static int screen_h;
@@ -121,6 +121,8 @@ class Game
         static MonsterSpawnTypes get_spawn_type(int floor);
         template<class T>
             static T* spawn_creature(Room* room, std::string name, int age, char repr);
+        template<class T>
+            static T* spawn_creature_ally(Tile* tile, std::string name, int age, char repr);
 
         static void start_game();
         static void mainloop();

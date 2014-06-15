@@ -34,6 +34,8 @@ Thinker::Thinker()
 
     this->turn_last_seen_by_player = -999;
     this->tracking_memory = 10;
+
+    this->is_ally = false;
 };
 
 Thinker::~Thinker()
@@ -106,7 +108,17 @@ void Thinker::smart_update()
             master->l_path = new TCODPath(map->l_map);
 
             //set the master's destination to above the player
-            std::vector<Tile*>* adjacent_tiles = Game::player->my_tile->getVacantAdjacentTiles();
+            std::vector<Tile*>* adjacent_tiles;
+            if (this->is_ally) 
+            {
+                //TODO select monster near tile
+                adjacent_tiles  = Game::player->my_tile->getVacantAdjacentTiles();  
+            }
+            else 
+            {
+              adjacent_tiles  = Game::player->my_tile->getVacantAdjacentTiles();  
+            };
+
             std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
             if (adjacent_tiles->size() >0)
             {
@@ -152,7 +164,14 @@ void Thinker::smart_update()
         // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
         if (path_empty)
         {
-            this->try_attacking_player();
+            if (! this->is_ally)
+            {
+                this->try_attacking_player();
+            }
+            else
+            {
+                //TODO attack their target
+            };
         }
     }
 

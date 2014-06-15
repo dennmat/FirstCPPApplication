@@ -85,7 +85,13 @@ class SiphonSpiritSpell : public Spell
         void apply_attr_effects(Actor* target);
 
 };
-class RaiseDeadSpell : public Spell {  public: RaiseDeadSpell(); };
+class RaiseDeadSpell : public Spell 
+{
+    public: 
+        RaiseDeadSpell();
+        void cast(Tile* targetted_tile);
+        void raise_dead(Tile* targetted_tile);
+};
 class InnerFireSpell : public Spell {  public: InnerFireSpell(); };
 
 //brawler

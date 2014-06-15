@@ -291,6 +291,31 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
     return NULL;
 };
 
+    template<class T>
+T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr)
+{
+    // int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
+    // for (int i = 0; i <= enemy_count; i++)
+    // {
+        int creature_x, creature_y;
+        creature_x = tile->tile_x;
+        creature_y = tile->tile_y;
+
+        if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {return NULL;};
+
+        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr);
+        if (linear_rng->getInt(1, 100) < 10) 
+        {
+            the_creature->championize();
+        };
+
+        world->allies.push_back(the_creature);
+        the_creature->thinker->is_ally = true;
+    // }
+    return NULL;
+};
+template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr);
+
 Map* Game:: build_town()
 {
     world = new Map;
@@ -550,6 +575,19 @@ void Game::update()
         if (enemy->is_active && enemy->thinker != NULL)
         {
             enemy->update();
+            // printf("updating ai\n");
+        };
+        // printf("updating\n");
+    }
+    //update actors in this floor
+    int allies_size = Game::current_map->allies.size();
+    for (std::vector<Actor*>::size_type i = 0; i != allies_size; i++) 
+    {
+        Actor* ally = Game::current_map->allies.at(i);
+        // cout << "\t" << ally->name << "is updating" << endl;
+        if (ally->is_active && ally->thinker != NULL)
+        {
+            ally->update();
             // printf("updating ai\n");
         };
         // printf("updating\n");

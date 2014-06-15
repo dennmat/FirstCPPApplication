@@ -29,6 +29,7 @@ class Map : public Object
         ~Map();
 
         std::vector<Actor*> enemies;
+        std::vector<Actor*> allies;  
         std::vector<Event*>* events;
 
         int width, height;

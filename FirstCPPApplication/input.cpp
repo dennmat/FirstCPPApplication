@@ -562,6 +562,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
             std::cout << "no spell chosen" << std::endl;
             return false;
         }
+
+        assert(spell->master != NULL && "Spell's master is null, it should be done on spell creation");
         Tile* targetted_tile = Ui::targetted_tile;
         int mana_cost = spell->mana_cost;
         int spell_range = spell->max_range;

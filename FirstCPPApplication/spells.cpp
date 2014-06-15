@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "game.h"
 #include "actors\actor.h"
 #include "actors\Person.h"
 #include "combat.h"
@@ -12,6 +13,7 @@
 #include "messages.h"
 #include "item.h"
 #include "inventory.h"
+#include "enemies\skeleton.h"
 
 
 
@@ -274,7 +276,7 @@ void CorpseBlastSpell::cast(Tile* targetted_tile)
         }
     }
 
-    //cast aoe fireball in area
+    //cast spell, apply attrs etc
     if (found_corpse)
     {
         Spell::cast(targetted_tile);
@@ -309,7 +311,39 @@ RaiseDeadSpell::RaiseDeadSpell() : Spell()
     this->element = DeathElement;
     this->attr_effect->health_current_val = -25;
     this->mana_cost = 20;
-    this->max_range = 2;
+    this->max_range = 5;
+    this->target_type = GroundTargetType;
+};
+
+void RaiseDeadSpell::raise_dead(Tile* targetted_tile)
+{
+    Game::spawn_creature_ally<Skeleton>(targetted_tile, "Skellie", 1000, 'S');
+};
+
+void RaiseDeadSpell::cast(Tile* targetted_tile)
+{
+    //check for corpse
+    std::vector<Item*>* items = targetted_tile->inventory->items;
+    if (items->empty() || targetted_tile->is_occupied()) { return; };
+    auto it = items->begin();
+    bool found_corpse = false;
+    std::string corpse = "corpse";
+    for (it; it != items->end(); it++)
+    {
+        std::size_t found = (*it)->name.find(corpse);
+        if (found != std::string::npos)
+        {
+            found_corpse = true;
+            break;
+        }
+    }
+
+    //cast spell, apply attrs etc
+    if (found_corpse)
+    {
+        this->raise_dead(targetted_tile);
+        // Spell::cast(targetted_tile);
+    };
 };
 
 InnerFireSpell::InnerFireSpell() : Spell()
