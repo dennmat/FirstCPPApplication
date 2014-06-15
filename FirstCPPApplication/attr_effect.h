@@ -17,7 +17,7 @@ class Tile;
 class Item;
 class Attribute;
 
-#include "libtcod.hpp"
+#include "libtcod_cpp_hpp\libtcod.hpp"
 
 
 // class TCODColor;
