@@ -211,13 +211,28 @@ void Combat::TryToDie()
     };
 }
 
+int Combat::adjust_damage_to_armor(Damage* dmg)
+{
+    int total_damage = 0;
+    total_damage += dmg->normal - this->master->attrs->armor->current_val;
+    //TODO handle other armor types, need to find a place to store them on the
+    //combat or actor
+    total_damage += dmg->fire;
+    total_damage += dmg->water;
+    total_damage += dmg->death;
+    total_damage += dmg->life;
+    total_damage += dmg->crystal;
+    total_damage += dmg->spectre;
+    return total_damage;
+};
+
 void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
 {
     if (dmg >= 0) 
     {
         if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
         if (this->master == Game::player) { Game::stats->damage_taken += dmg->normal; };
-        int adjusted_dmg = dmg->normal - this->master->attrs->armor->current_val;
+        int adjusted_dmg = this->adjust_damage_to_armor(dmg);
         (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
 
         std::cout << this->master->name;
