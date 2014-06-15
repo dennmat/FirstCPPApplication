@@ -484,34 +484,15 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
 
         double delta_x = x2-x1;
         double delta_y = y2-y1;
-        //int angle = atan2((double)delta_y, (double)delta_x) * 180 / 3.141592653589793238462643383279502884L;
 
         int new_x, new_y;
-        if (delta_x < 0) 
-        {
-            new_x = delta_x-this->force;
-        }
-        else if (delta_x > 0)
-        { 
-            new_x = delta_x+this->force;
-        }
-        else
-        {
-            new_x = delta_x;
-        };
+        if (delta_x < 0) { new_x = delta_x-this->force; }
+        else if (delta_x > 0) { new_x = delta_x+this->force; }
+        else { new_x = delta_x; };
 
-        if (delta_y < 0) 
-        {
-            new_y = delta_y-this->force;
-        }
-        else if (delta_y > 0)
-        { 
-            new_y = delta_y+this->force;
-        }
-        else
-        {
-            new_y = delta_y;
-        }
+        if (delta_y < 0) { new_y = delta_y-this->force; }
+        else if (delta_y > 0) { new_y = delta_y+this->force; }
+        else { new_y = delta_y; }
 
 
         //push target along that angle
