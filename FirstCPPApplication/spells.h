@@ -58,16 +58,19 @@ class Spell
 
 };
 
+//fighter
 class WaterBombSpell : public Spell {  public: WaterBombSpell();  };
 class AutoChemHPSpell : public Spell {  public: AutoChemHPSpell();  };
 class PoisonCoughSpell : public Spell {  public: PoisonCoughSpell();  };
 class InnerSanctuarySpell : public Spell {  public: InnerSanctuarySpell();  };
 
+//mage
 class IceBoltSpell : public Spell {  public: IceBoltSpell(); };
 class InnerHealingSpiritSpell : public Spell {  public: InnerHealingSpiritSpell(); };
 class DeathsTouchSpell : public Spell {  public: DeathsTouchSpell(); };
 class InnerFountainSpell : public Spell {  public: InnerFountainSpell(); };
 
+//necro
 class CorpseBlastSpell : public Spell 
 {
     public:
@@ -85,6 +88,7 @@ class SiphonSpiritSpell : public Spell
 class RaiseDeadSpell : public Spell {  public: RaiseDeadSpell(); };
 class InnerFireSpell : public Spell {  public: InnerFireSpell(); };
 
+//brawler
 class IceFistSpell : public Spell {  public: IceFistSpell(); };
 class SacredKickSpell : public Spell {  public: SacredKickSpell(); };
 class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
