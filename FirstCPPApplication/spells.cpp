@@ -108,7 +108,7 @@ void Spell::cast(Tile* targetted_tile)
     for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* target = *it;
-        this->apply_attr_effects((*it));
+        this->apply_attr_effects(target);
         Game::player->combat->Attack(target->combat, 0); //hack to get exp and printout from casting
     };
 

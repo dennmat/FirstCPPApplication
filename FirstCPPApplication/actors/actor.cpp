@@ -813,7 +813,9 @@ void Actor::Die()
 
     if (this->combat != NULL)
     {
-        if (this->combat->GetLastAttacker()->master == Game::player)
+	Combat* last_attacker = this->combat->GetLastAttacker();
+        //if (last_attacker != NULL && last_attacker->master == Game::player)
+        if (last_attacker->master == Game::player)
         {
             Game::stats->monsters_killed++;
         };

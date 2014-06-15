@@ -213,7 +213,7 @@ void Combat::TryToDie()
 
 void Combat::TakeDamage(Combat* combat_attacker, int dmg)
 {
-    if (dmg > 0) 
+    if (dmg >= 0) 
     {
         if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg; };
         if (this->master == Game::player) { Game::stats->damage_taken += dmg; };
@@ -228,7 +228,10 @@ void Combat::TakeDamage(Combat* combat_attacker, int dmg)
         //save attacker in history
         this->RememberAttacker(combat_attacker);
 
+	if (dmg != 0)
+    {
         this->TryToDie();
+    }
     }
     else
     {

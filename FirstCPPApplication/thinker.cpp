@@ -45,7 +45,10 @@ Thinker::Thinker()
 
 Thinker::~Thinker()
 {
+    if (this->master != NULL && this->master->l_path != NULL)
+    {
     delete this->master->l_path;
+    };
 
 };
 
